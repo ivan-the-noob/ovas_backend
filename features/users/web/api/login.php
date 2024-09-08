@@ -1,42 +1,46 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cavite State University - Login</title>
+    <title>Pawfect | Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/signup.css">
+    <link rel="stylesheet" href="../../css/login.css">
 </head>
 
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-2 col-lg-6">
+            <div class="col-md-8 col-lg-6">
                 <div class="row login-container">
                     <div class="col-md-5 login-left text-center">
-                        <img src="../../../../assets/img/logo.png   ">
+                        <img src="../../../../assets/img/logo.png">
                     </div>
                     <div class="col-md-7 login-right">
-                            <h5 class="mb-3">Sign Up</h5>
-                        <form>
+                        <h5 class="mb-3">Login</h5>
+                        <?php
+                            session_start();
+                            require '../../../../db.php';
+                            include '../../function/php/process_login.php'
+                            
+                        ?>
+                        <form method="POST" action="login.php">
                             <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Enter name" required>
+                                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
                             </div>
                             <div class="mb-3">
-                                <input type="email" class="form-control" placeholder="Enter your email" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="password" class="form-control" placeholder="Enter password" required>
+                                <input type="password" class="form-control" name="password" placeholder="Enter password" required>
                             </div>
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="showPassword">
                                 <label class="form-check-label" for="showPassword">Show Password</label>
                             </div>
-                            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
                             <div class="text-center mt-3">
-                                <a href="login.html">Have an account? <span class="sign-up">Login</span></a> <br>
-                               
+                                <a href="signup.php">Don't have an account? <span class="sign-up">Sign Up</span></a>
                             </div>
                         </form>
                     </div>

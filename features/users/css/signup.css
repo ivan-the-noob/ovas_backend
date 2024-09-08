@@ -74,7 +74,7 @@ input{
     color:#7A3015;
     border: 2px solid #7A3015 !important;
 }
-
+.login-right input[type="text"],
 .login-right input[type="email"],
 .login-right input[type="password"] {
     border-radius: 20px;
