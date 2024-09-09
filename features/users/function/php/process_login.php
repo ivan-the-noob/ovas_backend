@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<p class='alert alert-success'>Login successful! Redirecting...</p>";
                 echo "<script>
                         setTimeout(function() {
-                            window.location.href = '../../../../../index.php';  // Redirect to user's dashboard
-                        }, 2000); // 2 seconds delay
+                            window.location.href = '../../../../index.php';
+                        }, 2000); 
                       </script>";
             } else {
                 echo "<p class='alert alert-danger'>Incorrect password. Please try again.</p>";

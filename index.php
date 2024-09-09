@@ -1,3 +1,7 @@
+<?php
+session_start(); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,56 +12,14 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
- 
-  <!--Connection Vercel and Local Host-->
-  <script>
-    const isVercel = window.location.hostname.includes('vercel.app');    
-    const cssPath = isVercel ? '/features/users/css/index.css' : '../ovas_first/features/users/css/index.css'; 
-    const linkElement = document.createElement('link');
-    linkElement.rel = 'stylesheet';
-    linkElement.href = cssPath;
-    document.head.appendChild(linkElement);
-</script>
+  <link rel="stylesheet" href="features/users/css/index.css">
+  
 
-<script>
-  const isLocal = !window.location.hostname.includes('vercel.app');
 
-  document.addEventListener('DOMContentLoaded', function() {
-      if (isLocal) {
-          const images = document.querySelectorAll('img');
-          images.forEach(img => {
-              if (!img.src.startsWith('http')) {
-                  img.src = `../ovas_first${img.getAttribute('src')}`;
-              }
-          });
 
-          const links = document.querySelectorAll('a');
-          links.forEach(link => {
-              const href = link.getAttribute('href');
-              if (!href.startsWith('http') && !href.startsWith('#')) {
-                  link.setAttribute('href', `../ovas_first/${href}`);
-              }
-          });
-      }
-  });
 
-  const basePath = isLocal ? '../ovas_first/' : '';
-  const scripts = [
-      'features/users/function/script/services-check.js',
-      'features/users/function/script/chatbot-toggle.js',
-      'features/users/function/script/scroll-choose_us.js',
-      'features/users/function/script/scroll-service.js',
-      'features/users/function/script/services-carousel.js'
-  ];
 
-  scripts.forEach(script => {
-      const scriptElement = document.createElement('script');
-      scriptElement.src = basePath + script;
-      document.head.appendChild(scriptElement);
-  });
-</script>
 
-  <!--Connection Vercel and Local Host End-->
 </head>
 
 <body>
@@ -89,29 +51,69 @@
           </li>
         </ul>
 
-        <div class="d-flex ml-auto">
-          <a href="/features/users/web/api/login.html" class="btn-theme" type="button">Login</a>
+        <div class="d-flex ml-auto align-items-center">
+    <?php if (isset($_SESSION['email'])): ?>
+        <div class="dropdown first-dropdown">
+            <button type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <h5 class="notification-title">Notification</h5>
+                <div class="notification-content alert alert-success">
+                    <strong>Appointment Confirmed!</strong>
+                    <p class="notification-text">Your appointment has been confirmed!</p>
+                    <p class="code">Code: OVAS-01234</p>
+                    <a href="/features/users/web/api/appointment.html" onclick="localStorage.setItem('showBookedHistory', 'true');">View Details</a>
+                </div>
+                <div class="notification-content alert-primary">
+                    <strong>Successfully Booked!</strong>
+                    <p class="notification-text">You successfully booked!</p>
+                </div>
+                <div class="notification-content alert-danger">
+                    <strong>Rejected</strong>
+                    <p class="notification-text">Your appointment has been rejected.</p>
+                </div>
+            </div>
         </div>
+
+
+        <div class="dropdown second-dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="assets/img/customer.jfif" alt="Profile" class="profile">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <a class="dropdown-item" href="features/users/web/api/dashboard.php">Profile</a>
+                <a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a>
+            </div>
+        </div>
+    <?php else: ?>
+
+        <div class="d-flex ml-auto">
+            <a href="features/users/web/api/login.php" class="btn-theme" type="button">Login</a>
+        </div>
+    <?php endif; ?>
+</div>
       </div>
     </div>
   </nav>
 
   <section class="front py-5 relative-container">
     <div class="paws">
-      <img src="/assets/img/foot2.png" class="foot2" alt="Paw Print 2">
-      <img src="/assets/img/foot3.png" class="foot3" alt="Paw Print 3">
+      <img src="assets/img/foot2.png" class="foot2" alt="Paw Print 2">
+      <img src="assets/img/foot3.png" class="foot3" alt="Paw Print 3">
     </div>
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-6 order-1 order-md-2 text-center">
-          <img src="/assets/img/about-us.png" alt="Vet Logo" class="img-fluid">
+          <img src="assets/img/about-us.png" alt="Vet Logo" class="img-fluid">
         </div>
         <div class="col-md-6 order-2 order-md-1 text-md-left mb-4 mb-md-0 front-text">
           <h4>Book Your Pet's Next Appointment with Ease!</h4>
           <p>Welcome to <span class="vets-name">Bark Yard Pet Wellness Center</span>, your one-stop destination for pet
             grooming and care.</p>
-          <a href="/features/users/web/api/login.html"><button class="btn btn-primary">Book an
-              appointment</button></a>
+            <a href="<?php echo isset($_SESSION['email']) ? 'features/users/web/api/appointment.php' : 'features/users/web/api/login.php'; ?>">
+                <button class="btn btn-primary">Book an appointment</button>
+            </a>
         </div>
       </div>
     </div>
@@ -128,7 +130,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <img src="/assets/img/vet logo.jpg" class="img-fluid" alt="Vet Logo">
+          <img src="assets/img/vet logo.jpg" class="img-fluid" alt="Vet Logo">
         </div>
         <div class="col-md-8">
           <h3 class="mt-3">About Us</h3>
@@ -139,7 +141,7 @@
             animals and committed to their well-being. We offer a range of services tailored to meet the unique needs of
             each pet, ensuring they leave happy and healthy.
           </p>
-          <a href="/features/users/web/api/about-us.html"><button class="btn btn-primary mt-3">Read More</button></a>
+          <a href="features/users/web/api/about-us.html"><button class="btn btn-primary mt-3">Read More</button></a>
         </div>
       </div>
     </div>
@@ -296,7 +298,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="testimonial-card-custom p-3 review-box" id="translate-1">
             <div class="d-flex align-items-center">
-              <img src="/assets/img/customer.jfif" alt="Ivan Ablanida" width="50" height="50">
+              <img src="assets/img/customer.jfif" alt="Ivan Ablanida" width="50" height="50">
               <div class="ml-3">
                 <p class="testimonial-title">Ivan Ablanida</p>
               </div>
@@ -309,7 +311,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="testimonial-card-custom p-3 review-box" id="translate-2">
             <div class="d-flex align-items-center">
-              <img src="/assets/img/customer.jfif" alt="Jannray Mostajo" width="50" height="50">
+              <img src="assets/img/customer.jfif" alt="Jannray Mostajo" width="50" height="50">
               <div class="ml-3">
                 <p class="testimonial-title">Jannray Mostajo</p>
               </div>
@@ -322,7 +324,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="testimonial-card-custom p-3 review-box" id="translate-3">
             <div class="d-flex align-items-center">
-              <img src="/assets/img/customer.jfif" alt="Prince Jherico" width="50" height="50">
+              <img src="assets/img/customer.jfif" alt="Prince Jherico" width="50" height="50">
               <div class="ml-3">
                 <p class="testimonial-title">Prince Jherico</p>
               </div>
@@ -335,7 +337,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="testimonial-card-custom p-3 review-box" id="translate-4">
             <div class="d-flex align-items-center">
-              <img src="/assets/img/customer.jfif" alt="Johnloyd Belen" width="50" height="50">
+              <img src="assets/img/customer.jfif" alt="Johnloyd Belen" width="50" height="50">
               <div class="ml-3">
                 <p class="testimonial-title">Johnloyd Belen</p>
               </div>
@@ -439,11 +441,11 @@
 
 
 </body>
-<script src="/features/users/function/script/services-check.js"></script>
-<script src="/features/users/function/script/chatbot-toggle.js"></script>
-<script src="/features/users/function/script/scroll-choose_us.js"></script>
-<script src="/features/users/function/script/scroll-service.js"></script>
-<script src="/features/users/function/script/services-carousel.js"></script>
+<script src="features/users/function/script/services-check.js"></script>
+<script src="features/users/function/script/chatbot-toggle.js"></script>
+<script src="features/users/function/script/scroll-choose_us.js"></script>
+<script src="features/users/function/script/scroll-service.js"></script>
+<script src="features/users/function/script/services-carousel.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 

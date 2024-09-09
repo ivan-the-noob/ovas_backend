@@ -8,6 +8,30 @@
 
     session_start();
 
+    function sendVerificationEmail($email, $verification_code) {
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'ejivancablanida@gmail.com'; 
+            $mail->Password   = 'acjf ngko qlfb cuju'; 
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+
+            $mail->setFrom('Bardyards@gmail.com', 'Bards Yards');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Your Email Verification Code';
+            $mail->Body    = "Your verification code is: $verification_code";
+
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+    }
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
 
         $email = $_POST['email'];
@@ -32,28 +56,12 @@
                 $_SESSION['verification_code'] = $verification_code;
                 $_SESSION['hashed_password'] = $hashed_password; 
 
-                $mail = new PHPMailer(true);
-                try {
-                    $mail->isSMTP();
-                    $mail->Host       = 'smtp.gmail.com';
-                    $mail->SMTPAuth   = true;
-                    $mail->Username   = 'ejivancablanida@gmail.com'; 
-                    $mail->Password   = 'acjf ngko qlfb cuju'; 
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                    $mail->Port       = 587;
+                $emailSent = sendVerificationEmail($email, $verification_code);
 
-                    $mail->setFrom('your-email@gmail.com', 'Your Name');
-                    $mail->addAddress($email);
-                    $mail->isHTML(true);
-                    $mail->Subject = 'Your Email Verification Code';
-                    $mail->Body    = "Your verification code is: $verification_code";
-
-                    $mail->send();
+                if ($emailSent === true) {
                     echo "<p class='alert alert-success'>Verification code has been sent to your email.</p>";
-
-                    echo "<script>toggleSignupFields();</script>";
-                } catch (Exception $e) {
-                    echo "<p class='alert alert-danger'>Message could not be sent. Mailer Error: {$mail->ErrorInfo}</p>";
+                } else {
+                    echo "<p class='alert alert-danger'>$emailSent</p>";
                 }
             }
         }
@@ -73,14 +81,38 @@
             $stmt->bindParam(':password', $hashed_password);
             $stmt->execute();
 
+            session_destroy();
+
             echo "<p class='alert alert-success'>Signup successful! Redirecting to login...</p>";
             echo "<script>
                     setTimeout(function() {
                         window.location.href = 'login.php';
                     }, 2000); // 2 seconds delay
                 </script>";
+
+
         } else {
             echo "<p class='alert alert-danger'>Invalid verification code.</p>";
         }
     }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
+        $verification_code = rand(1000, 9999);
+        $_SESSION['verification_code'] = $verification_code;
+
+        $emailSent = sendVerificationEmail($_SESSION['email'], $verification_code);
+
+        if ($emailSent === true) {
+        } else {
+            echo "<p class='alert alert-danger'>$emailSent</p>";
+        }
+    }
+
+    if (isset($_POST['wrong_email'])) {
+        session_start();
+        session_destroy(); 
+        header('Location: signup.php'); 
+        exit();
+    }
+
 ?>

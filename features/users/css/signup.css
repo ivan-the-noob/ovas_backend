@@ -52,6 +52,8 @@ body::before {
 
 }
 
+
+
 .login-left img {
     max-width: 200px;
     justify-content: center;
@@ -61,6 +63,7 @@ body::before {
 
 h5{
     color: #FFFFFF;
+   
 }
 
 .login-right {
@@ -88,6 +91,22 @@ input{
     background-color: #FFFFFF;
     color: #7A3015;
     border: none;
+}
+
+.resent{
+    background-color: transparent !important;
+    color: #fff !important;
+    padding: 0 !important;
+    font-size: 14px;
+}
+.btn-link:hover{
+    color: #fff;
+}
+
+.back-button{
+    padding: 10px !important;
+
+
 }
 
 .login-right button:hover{

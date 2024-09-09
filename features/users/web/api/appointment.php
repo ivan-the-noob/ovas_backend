@@ -79,166 +79,224 @@
       </div>
     </div>
   </nav>
-    <!--Header End-->
-
-  <!--Appointment Section-->
+  <form method="POST" action="../../function/php/appointment.php">
   <section class="appointment">
     <div class="content py-5 date">
-      <div class="col-md-8 col-11 app">
-        <div class="appoints">
-          <button>Appointment Availability</button>
-          <button class="appoint" id="toggleViewBtn">My Appointment</button>
-        </div>
-        <div class="card card-outline card-primary rounded-0 shadow" id="appointmentSection">
-          <div class="card-body">
-            <div class="calendar-container">
-              <div id="appointmentCalendar"></div>
+    <input type="hidden" id="appointmentDate" name="appointmentDate">
+        <div class="col-md-8 col-11 app">
+            <div class="appoints">
+                <button>Appointment Availability</button>
+                <button class="appoint" id="toggleViewBtn">My Appointment</button>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="dayModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" id="info" role="document">
-        <div class="modal-content">
-          <div class="modal-header d-flex justify-content-between">
-            <h5 class="modal-title" id="modalLabel">Book Your Desired Schedule</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="sched row">
-              <div class="col-md-6">
-                  <p>Appointment Schedule</p>
-                  <div id="modalContent" class="col-6"></div>
-              </div>
-              <div class="col-md-6 d-flex flex-column">
-                  <label for="appointmentTime">Select Time:</label>
-                  <input type="time" id="appointmentTime" name="appointmentTime" style="width: 150px;" min="09:00" max="17:00" onchange="validateTime()">
+            <div class="card card-outline card-primary rounded-0 shadow" id="appointmentSection">
+                <div class="card-body">
+                    <div class="calendar-container">
+                        <div id="appointmentCalendar"></div>
+                    </div>
                 </div>
-              </div>
-              <div class="line w-100"></div>
-          </div>
-          <script>
-              function validateTime() {
-              var timeInput = document.getElementById('appointmentTime');
-              var timeValue = timeInput.value;
-              var minTime = "09:00";
-              var maxTime = "17:00";
+            </div>
+        </div>
+    </div>
 
-              if (timeValue < minTime || timeValue > maxTime) {
-                  alert("Please select a time between 9:00 AM and 5:00 PM.");
-                  timeInput.value = ""; 
-              }
-          }
-          </script>   
-            <div class="container">
-              <div class="row" style="padding: 20px;">
-                <!-- Client Information -->
-                <div class="col-md-4">
-                  <h6>Owner Information</h6>
-                  <div class="mb-3">
-                    <label for="ownerName" class="form-label"> Name</label>
-                    <input type="text" class="form-control" id="ownerName" placeholder="Racel Mae Loquellano">
-                  </div>  
-                  <div class="mb-3">
-                    <label for="ContactNum" class="form-label">Contact #</label>
-                    <input type="text" class="form-control" id="contactNUm" placeholder="09123456789">
-                  </div>           
-                  <div class="mb-3">
-                    <label for="ownerEmail" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="ownerEmail" placeholder="bardyardpets@gmail.com">
-                  </div>
-                  <div class="mb-3">
-                    <label for="ownerAddress" class="form-label">Address</label>
-                    <textarea class="form-control" id="ownerAddress" rows="3"
-                      placeholder="2nd Floor A & A Building Magdiwang Highway"></textarea>
-                  </div>
-                </div>         
-                <!-- Pet Information -->
-                <div class="col-md-4">
-                  <h6>Pet Information</h6>
-                  
-                  <div class="mb-3">
-                    <label for="petType" class="form-label">Pet Type</label>
-                    <select class="form-control" id="petType">
-                      <option>Cat</option>
-                      <option>Dog</option>
-                      <option>Rabit</option>
-                      <option>Reptile</option>
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="breed" class="form-label">Breed</label>
-                    <input type="text" class="form-control" placeholder="husky" id="breed">
-                  </div>
-  
-                  <div class="mb-3">
-                    <label for="age" class="form-label">Age</label>
-                    <input type="number" class="form-control" placeholder="Months" id="age">
-                  </div>  
-                </div> 
-                <div class="col-md-4">
-                  <h6>Services</h6>
-                  <div class="mb-3">
-                    <label for="serviceCategory" class="form-label">Service Category</label>
-                    <div class="dropdowns">
-                      <button class="dropdown-toggle" type="button" id="serviceCategoryDropdown"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Select Category
-              </button>
-                      <div class="dropdown-menu" aria-labelledby="serviceCategoryDropdown">
-                        <a class="dropdown-item" href="#" data-value="medical">Medical</a>
-                        <a class="dropdown-item" href="#" data-value="nonMedical">Non-Medical</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="service" class="form-label">Service</label>
-                    <div class="dropdowns">
-                      <button class=" dropdown-toggle" type="button" id="serviceDropdown"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Select Service
-                      </button>
-                      <div class="dropdown-menu" aria-labelledby="serviceDropdown">
-                        <!-- Medical Services -->
-                        <div class="medical-services">
-                          <a class="dropdown-item" href="#" data-value="1200.00">Diagnostic and Therapeutic -
-                            ₱1200.00</a>
-                          <a class="dropdown-item" href="#" data-value="850.00">Preventive Health Care - ₱850.00</a>
-                          <a class="dropdown-item" href="#" data-value="1500.00">Internal Medicine Consults -
-                            ₱1500.00</a>
-                          <a class="dropdown-item" href="#" data-value="2500.00">Surgical Services - ₱2500.00</a>
-                          <a class="dropdown-item" href="#" data-value="300.00">Pharmacy - ₱300.00</a>
-                          <a class="dropdown-item" href="#" data-value="500.00">House Visit - ₱500.00</a>
-                        </div>
-                        <!-- Non-Medical Services -->
-                        <div class="nonMedical-services">
-                          <a class="dropdown-item" href="#" data-value="999.00">Grooming - ₱999.00</a>
-                          <a class="dropdown-item" href="#" data-value="700.00">Boarding - ₱700.00</a>
-                          <a class="dropdown-item" href="#" data-value="300.00">Pet Supplies - ₱300.00</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-3">
-                    <label for="totalPayment" class="form-label">Total Payment</label>
-                    <p id="totalPayment">₱0.00</p>
-                  </div>
-                  <div class="mt-3">
-                    <button class="book-save">Book Appointment</button>
-                  </div>
+    <div class="modal fade" id="dayModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" id="info" role="document">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between">
+                    <h5 class="modal-title" id="modalLabel">Book Your Desired Schedule</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <div class="modal-body">
+                    <div class="sched row">
+                        <div class="col-md-6">
+                            <p>Appointment Schedule</p>
+                            <div id="modalContent" class="col-6"></div>
+                        </div>
+
+                        <div class="line w-100"></div>
+                    </div>
+
+                    <!-- Start of form -->
+
+                        <div class="container">
+                            <div class="row" style="padding: 20px;">
+                                <!-- Client Information -->
+                                <div class="col-md-4">
+                                    <h6>Owner Information</h6>
+                                    <div class="mb-3">
+                                        <label for="ownerName" class="form-label"> Name</label>
+                                        <input type="text" class="form-control" id="ownerName" name="ownerName" placeholder="Racel Mae Loquellano" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ContactNum" class="form-label">Contact #</label>
+                                        <input type="text" class="form-control" id="contactNum" name="contactNum" placeholder="09123456789" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ownerEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="bardyardpets@gmail.com" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="ownerAddress" class="form-label">Address</label>
+                                        <textarea class="form-control" id="ownerAddress" name="ownerAddress" rows="3" placeholder="2nd Floor A & A Building Magdiwang Highway" required></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Pet Information -->
+                                <div class="col-md-4">
+                                    <h6>Pet Information</h6>
+                                    <div class="mb-3">
+                                        <label for="petType" class="form-label">Pet Type</label>
+                                        <select class="form-control" id="petType" name="petType" required>
+                                            <option>Cat</option>
+                                            <option>Dog</option>
+                                            <option>Rabbit</option>
+                                            <option>Reptile</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="breed" class="form-label">Breed</label>
+                                        <input type="text" class="form-control" id="breed" name="breed" placeholder="Husky" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="age" class="form-label">Age</label>
+                                        <input type="number" class="form-control" id="age" name="age" placeholder="Months" required>
+                                    </div>
+                                </div>
+
+                                <!-- Services -->
+                                <div class="col-md-4">
+                                    <h6>Services</h6>
+                                    <div class="mb-3">
+                                        <label for="serviceCategory" class="form-label">Service Category</label>
+                                        <div class="dropdowns">
+                                            <button class="dropdown-toggle" type="button" id="serviceCategoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Select Category
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="serviceCategoryDropdown">
+                                                <a class="dropdown-item" href="#" data-value="medical">Medical</a>
+                                                <a class="dropdown-item" href="#" data-value="nonMedical">Non-Medical</a>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="serviceCategory" id="selectedServiceCategory">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="service" class="form-label">Service</label>
+                                        <div class="dropdowns">
+                                            <button class="dropdown-toggle" type="button" id="serviceDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Select Service
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="serviceDropdown">
+                                                <!-- Medical Services -->
+                                                <div class="medical-services">
+                                                    <a class="dropdown-item" href="#" data-value="1200.00" data-service="Diagnostic and Therapeutic">Diagnostic and Therapeutic - ₱1200.00</a>
+                                                    <a class="dropdown-item" href="#" data-value="850.00" data-service="Preventive Health Care">Preventive Health Care - ₱850.00</a>
+                                                </div>
+                                                <!-- Non-Medical Services -->
+                                                <div class="nonMedical-services">
+                                                    <a class="dropdown-item" href="#" data-value="999.00" data-service="Grooming">Grooming - ₱999.00</a>
+                                                    <a class="dropdown-item" href="#" data-value="700.00" data-service="Boarding">Boarding - ₱700.00</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="selectedService" id="selectedService">
+                                        <input type="hidden" name="servicePrice" id="servicePrice">
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <label for="totalPayment" class="form-label">Total Payment</label>
+                                        <p id="totalPayment">₱0.00</p>
+                                    </div>
+
+                                    <!-- Time Selection -->
+                                    <div class="mt-3">
+                                        <label for="Time" class="form-label">Choose Time</label>
+                                        <div class="choose-time-div">
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '09:00')">9 AM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '10:00')">10 AM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '11:00')">11 AM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '12:00')">12 PM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '13:00')">1 PM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '14:00')">2 PM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '15:00')">3 PM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '16:00')">4 PM</button>
+                                            <button type="button" class="choose-time" onclick="selectTime(this, '17:00')">5 PM</button>
+                                        </div>
+
+                                        <input type="hidden" id="selectedTime" name="appointmentTime">
+                                    </div>
+
+                                    <div class="mt-3">
+                                        <button type="submit" class="book-save">Book Appointment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- End of form -->
+
+                     <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Handle service category selection
+                            const serviceCategoryDropdown = document.getElementById('serviceCategoryDropdown');
+                            const serviceDropdown = document.getElementById('serviceDropdown');
+                            const medicalServices = document.querySelector('.medical-services');
+                            const nonMedicalServices = document.querySelector('.nonMedical-services');
+                            const totalPayment = document.getElementById('totalPayment');
+                            const selectedServiceCategoryInput = document.getElementById('selectedServiceCategory');
+                            const selectedServiceInput = document.getElementById('selectedService');
+                            const servicePriceInput = document.getElementById('servicePrice');
+
+                            document.querySelectorAll('#serviceCategoryDropdown + .dropdown-menu .dropdown-item').forEach(item => {
+                                item.addEventListener('click', function () {
+                                    const selectedCategory = this.getAttribute('data-value');
+                                    serviceCategoryDropdown.textContent = this.textContent;
+                                    selectedServiceCategoryInput.value = selectedCategory;
+
+                                    if (selectedCategory === 'medical') {
+                                        medicalServices.style.display = 'block';
+                                        nonMedicalServices.style.display = 'none';
+                                    } else if (selectedCategory === 'nonMedical') {
+                                        medicalServices.style.display = 'none';
+                                        nonMedicalServices.style.display = 'block';
+                                    }
+
+                                    serviceDropdown.textContent = 'Select Service';
+                                    totalPayment.textContent = '₱0.00';
+                                    selectedServiceInput.value = ''; // Reset selected service
+                                    servicePriceInput.value = ''; // Reset service price
+                                });
+                            });
+
+                            // Handle service selection and total payment calculation
+                            document.querySelectorAll('#serviceDropdown + .dropdown-menu .dropdown-item').forEach(item => {
+                                item.addEventListener('click', function () {
+                                    const selectedService = this.getAttribute('data-service');
+                                    const selectedValue = this.getAttribute('data-value');
+                                    serviceDropdown.textContent = selectedService;
+                                    totalPayment.textContent = `₱${selectedValue}`;
+
+                                    selectedServiceInput.value = selectedService;
+                                    servicePriceInput.value = selectedValue;
+                                });
+                            });
+                        });
+
+                        // Time selection handling
+                        function selectTime(button, time) {
+                            const buttons = document.querySelectorAll('.choose-time');
+                            buttons.forEach(btn => btn.classList.remove('active'));
+                            button.classList.add('active');
+                            document.getElementById('selectedTime').value = time;
+                        }
+                    </script>
                 </div>
-              </div>
             </div>
-          </div>
-          </div>
         </div>
-      </div>
     </div>
-  </section>
+</section>
+</form>
+
   <!--Appointment Section End-->
 
     <!--Book-History Section-->
