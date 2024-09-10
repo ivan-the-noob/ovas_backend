@@ -1,3 +1,7 @@
+<?php 
+  include '../../../../index_connection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,13 +35,12 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="../../../../../user.html">Home</a>
+            <a class="nav-link" href="../../../../index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About Us</a>
           </li>
         </ul>
-          <!--Notification-->
         <div class="d-flex ml-auto align-items-center">
           <div class="dropdown first-dropdown">
             <button class="" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,13 +85,7 @@
         <div class="col-md-8">
           <img src="../../../../assets/img/map.PNG" alt="Map Image" class="img-fluid">
           <h3 class="mt-4">About Us</h3>
-          <p class="about-text">
-            <span class="font-weight-bold">The Bark Yard Pet Salon and Wellness Clinic</span> is an animal care facility
-            dedicated to providing high customer satisfaction by rendering quality pet care while furnishing a fun,
-            clean, thematic, enjoyable atmosphere at an acceptable price. Our experienced team is passionate about
-            animals and committed to their well-being. We offer a range of services tailored to meet the unique needs of
-            each pet, ensuring they leave happy and healthy.
-          </p>
+          <p class="about-text"><?php echo $about_us; ?></p>
         </div>
       </div>
     </div>
@@ -101,7 +98,7 @@
                 <img src="../../../../assets/svg/call-icon.svg" alt="Call Icon">
               </div>
               <div class="contact-title">Call</div>
-              <div class="contact-info">09338182822</div>
+              <div class="contact-info"><?php echo $contact_num; ?></div>
             </div>
           </div>
 
@@ -111,7 +108,7 @@
                 <img src="../../../../assets/svg/email-icon.svg" alt="Email Icon">
               </div>
               <div class="contact-title">Email</div>
-              <div class="contact-info">bardyardpets@gmail.com</div>
+              <div class="contact-info"><?php echo $email; ?></div>
             </div>
           </div>
           <div class="col-lg-2 col-md-12 mb-4 d-flex flex-column align-items-center">
@@ -121,7 +118,7 @@
               </div>
               <div class="contact-title">Location</div>
               <div class="contact-info">
-                <p>2nd Floor A & A Building Magdiwang Highway, Noveleta, Philippines, 4105</p>
+                <p><?php echo $location; ?></p>
               </div>
             </div>
           </div>

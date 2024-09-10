@@ -1,3 +1,12 @@
+<?php 
+    session_start(); 
+
+    if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+        header("Location: ../../../users/web/api/login.php");
+        exit(); 
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +66,7 @@
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="settings.html">
+                <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
                 </a>
@@ -122,7 +131,7 @@
                         <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../../../users/web/api/login.html">Logout</a></li>
+                        <li><a class="dropdown-item" href="../../../users/web/api/logout.php">Logout</a></li>
                     </ul>
                 </div>
             </div>

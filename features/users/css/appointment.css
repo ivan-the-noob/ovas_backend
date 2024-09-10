@@ -253,7 +253,13 @@
     cursor: pointer;
     
 }
-
+.badge {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 10px;
+}
 
 
 .card{

@@ -1,3 +1,24 @@
+<?php
+session_start();
+require '../../../../db.php'; 
+
+// Assuming you have the user's email stored in the session
+$user_email = $_SESSION['email'] ?? '';
+
+// Fetch count of unread notifications for the badge
+$stmt = $conn->prepare("SELECT COUNT(*) AS unread_count FROM notifications WHERE email = :email AND is_read = 0");
+$stmt->bindParam(':email', $user_email);
+$stmt->execute();
+$unread_notification = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Fetch all notifications for the user, ordered by newest first (descending)
+$stmt2 = $conn->prepare("SELECT * FROM notifications WHERE email = :email ORDER BY created_at DESC"); 
+$stmt2->bindParam(':email', $user_email);
+$stmt2->execute();
+$notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,28 +63,55 @@
         </ul>
         <!--Header-->
         <div class="d-flex ml-auto align-items-center">
-          <div class="dropdown first-dropdown">
-            <button class="" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell"></i>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <h5 class="notification-title">Notification</h5>
-                <div class="notification-content alert alert-success">
-                  <strong>Appointment Confirmed!</strong>
-                  <p class="notification-text">Your appointment has been confirmed!</p>
-                  <p class="code">Code:   OVAS-01234</p>
-                  <a href="/features/users/web/api/appointment.html" onclick="localStorage.setItem('showBookedHistory', 'true');">View Details</a>
-              </div>
-                <div class="notification-content alert-primary">
-                    <strong>Successfully Booked!</strong>
-                    <p class="notification-text">You successfully booked!</p>
-                </div>
-                <div class="notification-content alert-danger">
-                  <strong>Rejected</strong>
-                  <p class="notification-text">Your appointment has been rejected.</p>
-              </div>
+            <div class="dropdown first-dropdown">
+                <button class="" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell"></i>
+                    <?php if ($unread_notification['unread_count'] > 0): ?>
+                        <span class="badge badge-danger" style="position: relative; top: -10px; left: -10px;">
+                            +<?= $unread_notification['unread_count']; ?>
+                        </span>
+                    <?php endif; ?>
+                </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <h5 class="notification-title">Notification</h5>
+                      <?php if (!empty($notifications)): ?>
+            <?php foreach ($notifications as $notification): ?>
+                
+                <!-- Show notifications where type is 'confirm' -->
+                <?php if ($notification['type'] === 'Success'): ?>
+                    <div class="notification-content alert-primary">
+                        <strong>Appointment Confirmed!</strong>
+                        <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
+                    </div>
+                <?php endif; ?>
+
+                <!-- Show notifications where type is 'success' -->
+                <?php if ($notification['type'] === 'confirm'): ?>
+                    <div class="notification-content alert-success">
+                        <strong>Successfully Booked!</strong>
+                        <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
+                        <?php if (!empty($notification['code'])): ?>
+                                <p class="code">Code: <?= htmlspecialchars($notification['code']); ?></p>
+                            <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if ($notification['type'] === 'decline'): ?>
+            <div class="notification-content alert-danger">
+                <strong>Rejected</strong>
+                <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
+            </div>
+        <?php endif; ?>
+
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="notification-text">No new notifications</p>
+        <?php endif; ?>
+
+
           </div>
-        </div>
+      </div>
+  </div>
+
         
           <div class="dropdown">
               <button class="dropdown-toggle profiles" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -233,63 +281,8 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- End of form -->
 
-                     <script>
-                        document.addEventListener('DOMContentLoaded', function () {
-                            // Handle service category selection
-                            const serviceCategoryDropdown = document.getElementById('serviceCategoryDropdown');
-                            const serviceDropdown = document.getElementById('serviceDropdown');
-                            const medicalServices = document.querySelector('.medical-services');
-                            const nonMedicalServices = document.querySelector('.nonMedical-services');
-                            const totalPayment = document.getElementById('totalPayment');
-                            const selectedServiceCategoryInput = document.getElementById('selectedServiceCategory');
-                            const selectedServiceInput = document.getElementById('selectedService');
-                            const servicePriceInput = document.getElementById('servicePrice');
-
-                            document.querySelectorAll('#serviceCategoryDropdown + .dropdown-menu .dropdown-item').forEach(item => {
-                                item.addEventListener('click', function () {
-                                    const selectedCategory = this.getAttribute('data-value');
-                                    serviceCategoryDropdown.textContent = this.textContent;
-                                    selectedServiceCategoryInput.value = selectedCategory;
-
-                                    if (selectedCategory === 'medical') {
-                                        medicalServices.style.display = 'block';
-                                        nonMedicalServices.style.display = 'none';
-                                    } else if (selectedCategory === 'nonMedical') {
-                                        medicalServices.style.display = 'none';
-                                        nonMedicalServices.style.display = 'block';
-                                    }
-
-                                    serviceDropdown.textContent = 'Select Service';
-                                    totalPayment.textContent = '₱0.00';
-                                    selectedServiceInput.value = ''; // Reset selected service
-                                    servicePriceInput.value = ''; // Reset service price
-                                });
-                            });
-
-                            // Handle service selection and total payment calculation
-                            document.querySelectorAll('#serviceDropdown + .dropdown-menu .dropdown-item').forEach(item => {
-                                item.addEventListener('click', function () {
-                                    const selectedService = this.getAttribute('data-service');
-                                    const selectedValue = this.getAttribute('data-value');
-                                    serviceDropdown.textContent = selectedService;
-                                    totalPayment.textContent = `₱${selectedValue}`;
-
-                                    selectedServiceInput.value = selectedService;
-                                    servicePriceInput.value = selectedValue;
-                                });
-                            });
-                        });
-
-                        // Time selection handling
-                        function selectTime(button, time) {
-                            const buttons = document.querySelectorAll('.choose-time');
-                            buttons.forEach(btn => btn.classList.remove('active'));
-                            button.classList.add('active');
-                            document.getElementById('selectedTime').value = time;
-                        }
-                    </script>
+                
                 </div>
             </div>
         </div>
@@ -552,11 +545,13 @@
     </div>
   </div>
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="../../function/script/pagination-history.js"></script>
 <script src="../../function/script/calendar.js"></script>
 <script src="../../function/script/toggle-appointment.js"></script>
 <script src="../../function/script/tab-bar.js"></script>
+<script src="../../function/script/service-dropdown1.js"></script>
 <script src="../../function/script/service-dropdown.js"></script>
 <script src="../../function/script/chatbot-toggle.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

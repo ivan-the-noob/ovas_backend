@@ -1,3 +1,9 @@
+
+<?php
+    require '../../../../db.php'; 
+    include '../../function/php/app-req.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -139,131 +145,64 @@
             </div>
             <!--Appointment Request Table-->
             <div class="table-wrapper px-lg-5">
-                <table class="table table-hover table-remove-borders">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Date Created</th>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Contact</th>
-                            <th>Email</th>
-                            <th>Pet Type</th>
-                            <th>Breed</th>
-                            <th>Age</th>
-                            <th>Service Category</th>
-                            <th>Service</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
+            <table class="table table-hover table-remove-borders">
+                <thead class="thead-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Date Created</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Pet Type</th>
+                        <th>Breed</th>
+                        <th>Age</th>
+                        <th>Service Category</th>
+                        <th>Service</th>
+                        <th>Appointment Date</th>
+                        <th>Appointment Time</th>
+                        <th>Total Payment</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                        <?php foreach ($appointments as $index => $appointment): ?>
                         <tr class="test-hover">
-                            <td>1</td>
-                            <td>2024-06-26 13:40</td>
-                            <td>OVAS-2024060010</td>
-                            <td>Frances Louise Medrano</td>
-                            <td>09123456890</td>
-                            <td>frances@gmail.com</td>
-                            <td>Dog</td>
-                            <td>Golden Retriever</td>
-                            <td>1 Yr Old.</td>
-                            <td>Non-Medical</td>
-                            <td>Grooming</td>
-                            <td><span class="badge bg-primary">Pending</span></td>
+                            <td><?= $index + 1 ?></td>
+                            <td><?= $appointment['created_at'] ?></td>
+                            <td id="code-<?= $appointment['id'] ?>"><?= $appointment['code'] ?? 'Pending' ?></td> <!-- Add id to the code column -->
+                            <td><?= $appointment['owner_name'] ?></td>
+                            <td><?= $appointment['contact_number'] ?></td>
+                            <td><?= $appointment['email'] ?></td>
+                            <td><?= $appointment['pet_type'] ?></td>
+                            <td><?= $appointment['breed'] ?></td>
+                            <td><?= $appointment['age'] ?> Yr Old</td>
+                            <td><?= $appointment['service_category'] ?></td>
+                            <td><?= $appointment['service_type'] ?></td>
+                            <td><?= $appointment['appointment_date'] ?></td>
+                            <td><?= $appointment['appointment_time'] ?></td>
+                            <td><?= number_format($appointment['total_payment'], 2) ?> PHP</td>
                             <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Confirm</a></li>
-                                        <li><a class="dropdown-item" href="#">Complete</a></li>
-                                        <li><a class="dropdown-item" href="#">Decline</a></li>
-                                    </ul>
-                                </div>
+                                <span id="status-badge-<?= $appointment['id'] ?>" class="badge bg-<?= $appointment['status'] == 'confirm' ? 'success' : ($appointment['status'] == 'complete' ? 'info' : ($appointment['status'] == 'decline' ? 'danger' : 'primary')) ?>">
+                                    <?= ucfirst($appointment['status']) ?>
+                                </span>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2024-06-26 09:16</td>
-                            <td>OVAS-2024060009</td>
-                            <td>Mark Alia</td>
-                            <td>09123456890</td>
-                            <td>mark@gmail.com</td>
-                            <td>Cat</td>
-                            <td>Siamese</td>
-                            <td>1 Yr Old.</td>
-                            <td>Medical</td>
-                            <td>Diagnostic and Therapeutic</td>
-                            <td><span class="badge bg-success">Confirmed</span></td>
                             <td>
                                 <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                        
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<?= $index ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li><a class="dropdown-item" href="#">Confirm</a></li>
-                                        <li><a class="dropdown-item" href="#">Complete</a></li>
-                                        <li><a class="dropdown-item" href="#">Decline</a></li>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= $index ?>">
+                                        <li><a class="dropdown-item" href="#" onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">Confirm</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="updateStatus(<?= $appointment['id'] ?>, 'complete')">Complete</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="updateStatus(<?= $appointment['id'] ?>, 'decline')">Decline</a></li>
                                     </ul>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2024-06-26 09:16</td>
-                            <td>OVAS-2024060009</td>
-                            <td>Mark Alia</td>
-                            <td>09123456890</td>
-                            <td>mark@gmail.com</td>
-                            <td>Cat</td>
-                            <td>Siamese</td>
-                            <td>1 Yr Old.</td>
-                            <td>Medical</td>
-                            <td>Diagnostic and Therapeutic</td>
-                            <td><span class="badge bg-success">Confirmed</span></td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                        
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li><a class="dropdown-item" href="#">Confirm</a></li>
-                                        <li><a class="dropdown-item" href="#">Complete</a></li>
-                                        <li><a class="dropdown-item" href="#">Decline</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2024-06-26 09:16</td>
-                            <td>OVAS-2024060009</td>
-                            <td>Mark Alia</td>
-                            <td>09123456890</td>
-                            <td>mark@gmail.com</td>
-                            <td>Cat</td>
-                            <td>Siamese</td>
-                            <td>1 Yr Old.</td>
-                            <td>Medical</td>
-                            <td>Diagnostic and Therapeutic</td>
-                            <td><span class="badge bg-success">Confirmed</span></td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                        
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                        <li><a class="dropdown-item" href="#">Confirm</a></li>
-                                        <li><a class="dropdown-item" href="#">Complete</a></li>
-                                        <li><a class="dropdown-item" href="#">Decline</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        
+                        <?php endforeach; ?>
                     </tbody>
-                </table>
-            <!--Appointment Request Table End-->
+            </table>
                 
             </div>
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
@@ -279,6 +218,44 @@
              </div>
 </body>
 
+<script type="text/javascript">
+        function updateStatus(appointmentId, newStatus) {
+    $.ajax({
+        url: '../../function/php/update_status.php', 
+        type: 'POST',
+        data: {
+            id: appointmentId,
+            status: newStatus
+        },
+        success: function(response) {
+            const result = JSON.parse(response);
+            if (result.success) {
+                const badge = $('#status-badge-' + appointmentId);
+                badge.removeClass('bg-primary bg-success bg-info bg-danger');
+                if (newStatus === 'confirm') {
+                    badge.addClass('bg-success');
+                    badge.text('Confirmed');
+
+                    if (result.code) {
+                        $('#code-' + appointmentId).text(result.code);
+                    }
+
+                } else if (newStatus === 'complete') {
+                    badge.addClass('bg-info');
+                    badge.text('Completed');
+                } else if (newStatus === 'decline') {
+                    badge.addClass('bg-danger');
+                    badge.text('Declined');
+                }
+            } else {
+                alert(result.message || 'Failed to update status');
+            }
+        }
+    });
+}
+
+
+</script>
        
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
@@ -286,5 +263,6 @@
 <script src="../../function/script/pagination.js"></script>
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

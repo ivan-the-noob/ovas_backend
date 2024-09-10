@@ -203,6 +203,17 @@ input, textarea{
     align-items: center;
 }
 
+.app-req img{
+    width: 300px;
+    height: 20vh;
+    display: flex;
+    margin: auto;
+    border: 2px solid #7A3015;
+    margin-top: 5px;
+    border-radius: 10px;
+    padding: 5px;
+}
+
 /*Notif Section*/
 
 .dropdown-menu-end{

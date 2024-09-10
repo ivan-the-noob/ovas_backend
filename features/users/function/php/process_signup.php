@@ -69,32 +69,33 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['verify'])) {
         $entered_code = $_POST['verification_code'];
-
+    
         if ($entered_code == $_SESSION['verification_code']) {
             $name = $_SESSION['name']; 
             $email = $_SESSION['email'];
             $hashed_password = $_SESSION['hashed_password']; 
-
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
+            $role = 'user'; 
+    
+            $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $hashed_password);
+            $stmt->bindParam(':role', $role);
             $stmt->execute();
-
+    
             session_destroy();
-
+    
             echo "<p class='alert alert-success'>Signup successful! Redirecting to login...</p>";
             echo "<script>
                     setTimeout(function() {
                         window.location.href = 'login.php';
                     }, 2000); // 2 seconds delay
-                </script>";
-
-
+                  </script>";
         } else {
             echo "<p class='alert alert-danger'>Invalid verification code.</p>";
         }
     }
+    
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         $verification_code = rand(1000, 9999);

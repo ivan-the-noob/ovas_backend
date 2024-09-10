@@ -1,5 +1,4 @@
 <?php
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -16,13 +15,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if (password_verify($password, $user['password'])) {
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['role'] = $user['role']; 
 
                 echo "<p class='alert alert-success'>Login successful! Redirecting...</p>";
-                echo "<script>
-                        setTimeout(function() {
-                            window.location.href = '../../../../index.php';
-                        }, 2000); 
-                      </script>";
+                if ($user['role'] === 'admin') {
+                    echo "<script>
+                            setTimeout(function() {
+                                window.location.href = '../../../admin/web/api/admin.php';
+                            }, 2000); 
+                          </script>";
+                } else {
+                    echo "<script>
+                            setTimeout(function() {
+                                window.location.href = '../../../../index.php';
+                            }, 2000); 
+                          </script>";
+                }
             } else {
                 echo "<p class='alert alert-danger'>Incorrect password. Please try again.</p>";
             }

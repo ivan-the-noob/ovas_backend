@@ -1,6 +1,7 @@
 <?php
-session_start(); 
+include 'index_connection.php';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,16 +9,11 @@ session_start();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Pawfect</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="features/users/css/index.css">
-  
-
-
-
-
 
 
 </head>
@@ -26,7 +22,7 @@ session_start();
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand d-none d-md-block" href="#">
-        <img src="/assets/img/logo.png" alt="Logo" width="30" height="30">
+      <img src="assets/img/<?php echo $logo_path; ?>" alt="Logo" width="30" height="30"> 
       </a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -109,7 +105,7 @@ session_start();
         </div>
         <div class="col-md-6 order-2 order-md-1 text-md-left mb-4 mb-md-0 front-text">
           <h4>Book Your Pet's Next Appointment with Ease!</h4>
-          <p>Welcome to <span class="vets-name">Bark Yard Pet Wellness Center</span>, your one-stop destination for pet
+          <p>Welcome to Bark Yard Pet Wellness Center, your one-stop destination for pet
             grooming and care.</p>
             <a href="<?php echo isset($_SESSION['email']) ? 'features/users/web/api/appointment.php' : 'features/users/web/api/login.php'; ?>">
                 <button class="btn btn-primary">Book an appointment</button>
@@ -134,14 +130,8 @@ session_start();
         </div>
         <div class="col-md-8">
           <h3 class="mt-3">About Us</h3>
-          <p class="about-text">
-            <span class="font-weight-bold">The Bark Yard Pet Salon and Wellness Clinic</span> is an animal care facility
-            dedicated to providing high customer satisfaction by rendering quality pet care while furnishing a fun,
-            clean, thematic, enjoyable atmosphere at an acceptable price. Our experienced team is passionate about
-            animals and committed to their well-being. We offer a range of services tailored to meet the unique needs of
-            each pet, ensuring they leave happy and healthy.
-          </p>
-          <a href="features/users/web/api/about-us.html"><button class="btn btn-primary mt-3">Read More</button></a>
+          <p class="about-text"><?php echo $about_us; ?></p>
+          <a href="features/users/web/api/about-us.php"><button class="btn btn-primary mt-3">Read More</button></a>
         </div>
       </div>
     </div>
