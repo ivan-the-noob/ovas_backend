@@ -149,33 +149,42 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="categoryType">Type</label>
-                                    <select class="form-control mt-2" id="categoryType">
-                                        <option value="">Select Type</option>
-                                        <option value="medical">Medical</option>
-                                        <option value="non-medical">Non-Medical</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="categoryName">Service</label>
-                                    <input type="text" class="form-control mt-2" id="categoryName" placeholder="Enter Name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="categoryName">Cost</label>
-                                    <input type="number" class="form-control mt-2" id="categoryName" placeholder="Enter Cost">
-                                </div>
-                                <div class="form-group">
-                                    <label for="discountName">Discount</label>
-                                    <input type="number" class="form-control mt-2" id="categoryName" placeholder="Enter Discount">
-                                </div>
-                            </form>
+                        <form action="../../function/php/save_service.php" method="POST">
+                            <div class="form-group">
+                                <label for="categoryType">Type</label>
+                                <select class="form-control mt-2" id="categoryType" name="service_type">
+                                    <option value="">Select Type</option>
+                                    <option value="medical">Medical</option>
+                                    <option value="non-medical">Non-Medical</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="categoryName">Service</label>
+                                <input type="text" class="form-control mt-2" id="categoryName" name="service_name" placeholder="Enter Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="serviceCost">Cost</label>
+                                <input type="number" class="form-control mt-2" id="serviceCost" name="cost" placeholder="Enter Cost">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="serviceDiscount">Discount</label>
+                                <input type="number" class="form-control mt-2" id="serviceDiscount" name="discount" placeholder="Enter Discount">
+                            </div>
+                            <div class="form-group">
+                                <label for="serviceInfo">Info</label>
+                                <input type="text" class="form-control mt-2" id="serviceInfo" name="info" placeholder="Enter additional information">
+                            </div>
+
+
+
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn-new">Save changes</button>
+                            <button type="submit" class="btn-new">Save changes</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -183,65 +192,29 @@
 
              <!--Service List Table-->
             <div class="table-wrapper px-lg-5">
-                <table class="table table-hover table-remove-borders">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Type</th>
-                            <th>Service</th>
-                            <th>Cost</th>
-                            <th>Discount</th>
-                            <th>Action</th>
-                        
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <tr class="test-hover">
-                            <td>1</td>
-                            <td>Medical</td>
-                            <td>Preventive Health Care</td>
-                            <td>₱850.00</td>
-                            <td>10%</td>
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                          
-                        </tr>                       
-                        <tr>
-                            <td>2</td>
-                            <td>Non-Medical</td>
-                            <td>Grooming</td>
-                            <td>₱999.00</td>
-                            <td>0%</td>
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                                              
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Medical</td>
-                            <td>Internal Medicine Consults</td>
-                            <td>₱1500.00</td>
-                            <td>0%</td>
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                                              
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Non-Medical</td>
-                            <td>Boarding</td>
-                            <td>₱700.00</td>
-                            <td>0%</td>
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                                              
-                        </tr>
-                    </tbody>
-                </table>
+            <table class="table table-hover table-remove-borders">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Type</th>
+            <th>Service</th>
+            <th>Cost</th>
+            <th>Discount</th>
+            <th>Info</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <?php
+            require '../../../../db.php';
+            include '../../function/php/table_service_list.php';
+            include '../../function/php/edit_service.php';
+            include '../../function/php/delete_service.php';
+       
+        ?>
+    </tbody>
+</table>
+
                 <!--Service List Table End-->
                 
             </div>
@@ -256,6 +229,73 @@
             </ul>
             
              </div>
+
+             <?php foreach ($services as $service): ?>
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal<?php echo $service['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?php echo $service['id']; ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel<?php echo $service['id']; ?>">Edit Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="../../function/php/edit_service.php" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" name="id" value="<?php echo $service['id']; ?>">
+                        <div class="form-group">
+                            <label for="serviceType<?php echo $service['id']; ?>">Type</label>
+                            <input type="text" class="form-control" id="serviceType<?php echo $service['id']; ?>" name="service_type" value="<?php echo htmlspecialchars($service['service_type']); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceName<?php echo $service['id']; ?>">Service</label>
+                            <input type="text" class="form-control" id="serviceName<?php echo $service['id']; ?>" name="service_name" value="<?php echo htmlspecialchars($service['service_name']); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceCost<?php echo $service['id']; ?>">Cost</label>
+                            <input type="number" class="form-control" id="serviceCost<?php echo $service['id']; ?>" name="cost" value="<?php echo htmlspecialchars($service['cost']); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceDiscount<?php echo $service['id']; ?>">Discount</label>
+                            <input type="number" class="form-control" id="serviceDiscount<?php echo $service['id']; ?>" name="discount" value="<?php echo htmlspecialchars($service['discount']); ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceInfo<?php echo $service['id']; ?>">Info</label>
+                            <input type="text" class="form-control" id="serviceInfo<?php echo $service['id']; ?>" name="info" value="<?php echo htmlspecialchars($service['info']); ?>">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal<?php echo $service['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?php echo $service['id']; ?>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel<?php echo $service['id']; ?>">Delete Service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the service "<?php echo htmlspecialchars($service['service_name']); ?>"?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="../../function/php/delete_service.php?id=<?php echo $service['id']; ?>" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
+
 </body>
 
        

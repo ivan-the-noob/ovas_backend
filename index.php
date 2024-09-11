@@ -158,122 +158,34 @@ include 'index_connection.php';
     <div class="container mt-4">
       <div class="slider-container">
         <div class="slider-wrapper">
-
-          <div class="service-card medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Diagnostic and Therapeutic</h5>
-                  <div class="discount-label text-center">
-                    <p>10% Off</p>
+          <?php 
+            require 'db.php';
+            include 'features/admin/function/php/view_service.php';
+            
+          ?>
+          <?php if (!empty($services)): ?> 
+          <?php foreach ($services as $service): ?>
+              <div class="service-card <?php echo $service['service_type'] == 'medical' ? 'medical-service' : 'non-medical-service'; ?>">
+                  <div class="card">
+                      <div class="card-body text-center">
+                          <div class="card-header">
+                              <h5 class="card-title mt-2"><?php echo htmlspecialchars($service['service_name']); ?></h5>
+                              <?php if ($service['discount'] > 0): ?>
+                                  <div class="discount-label text-center">
+                                      <p><?php echo round($service['discount']); ?>% OFF</p>
+                                  </div>
+                              <?php endif; ?>
+                          </div>
+                          <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> <?php echo number_format($service['cost'], 2); ?></p>
+                          <p class="card-text"><?php echo htmlspecialchars($service['info']); ?></p>
+                      </div>
                   </div>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 1200.00</p>
-                <p class="card-text">Comprehensive diagnostic and therapeutic services.</p>
               </div>
-            </div>
-          </div>
-          <div class="service-card medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Preventive Health Care</h5>
-                  <i class="fa-solid fa-shield-heart mr-2"></i>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 850.00</p>
-                <p class="card-text">Preventive services to maintain your pet's health.</p>
-              </div>
-            </div>
-          </div>
-          <div class="service-card medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Internal Medicine Consults</h5>
-                  <i class="fa-solid fa-notes-medical mr-2"></i>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 1500.00</p>
-                <p class="card-text">Expert consultations in internal medicine.</p>
-              </div>
-            </div>
-          </div>
-          <div class="service-card medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Surgical Services</h5>
-                  <i class="fa-solid fa-user-md mr-2"></i>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 2500.00</p>
-                <p class="card-text">Professional surgical services for your pets.</p>
-              </div>
-            </div>
-          </div>
-          <div class="service-card medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Pharmacy</h5>
-                  <i class="fa-solid fa-pills mr-2"></i>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 300.00</p>
-                <p class="card-text">Wide range of medications available at our pharmacy.</p>
-              </div>
-            </div>
-          </div>
-          <div class="service-card medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">House Visit</h5>
-                  <i class="fa-solid fa-house-medical mr-2"></i>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 500.00</p>
-                <p class="card-text">House visit services for pets needing at-home care.</p>
-              </div>
-            </div>
-          </div>
+          <?php endforeach; ?>
+      <?php endif; ?>
+          
 
-          <div class="service-card non-medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Grooming</h5>
-                  <i class="fa-solid fa-scissors fa-2x"></i>\
-                  <div class="discount-label text-center">
-                    <p>10% Off</p>
-                  </div>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 999.00</p>
-                <p class="card-text">Professional grooming services to keep your pets looking their best.</p>
-              </div>
-            </div>
-          </div>
-          <div class="service-card non-medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Boarding</h5>
-                  <i class="fa-solid fa-paw mr-2"></i>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 700.00</p>
-                <p class="card-text">Comfortable and safe boarding services for your pets.</p>
-              </div>
-            </div>
-          </div>
-          <div class="service-card non-medical-service">
-            <div class="card">
-              <div class="card-body text-center">
-                <div class="card-header">
-                  <h5 class="card-title mt-2">Pet Supplies</h5>
-                  <i class="fa-solid fa-bone mr-2"></i>
-                </div>
-                <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> 300.00</p>
-                <p class="card-text">A wide range of pet supplies for your pet's needs.</p>
-              </div>
-            </div>
-          </div>
-
+         
         </div>
       </div>
     </div>

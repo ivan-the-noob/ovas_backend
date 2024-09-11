@@ -228,6 +228,9 @@ tr:hover{
     color: #007bff;
 }
 
+.buttons{
+    display: flex !important;
+}
 .modal-header button{
     border: none;
     background-color: transparent;

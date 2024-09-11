@@ -238,7 +238,9 @@
     margin-top: 20px;
     justify-content: start;
 }
-
+.card-body{
+  width: 280px !important;
+}
 
 .card-body i {
     font-size: 1.5rem;
