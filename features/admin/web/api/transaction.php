@@ -1,72 +1,76 @@
+<?php 
+    require '../../../../db.php';
+    include '../../function/php/transaction.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin User List | Admin</title>
+    <title>Transaction | Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/admin-user.css">
+    <link rel="stylesheet" href="../../css/transaction.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
 <body>
-    <!--Navigation Links-->
+     <!--Navigation Links-->
     <div class="navbar flex-column bg-white shadow-sm p-3 collapse d-md-flex" id="navbar">
         <div class="navbar-links">
             <a class="navbar-brand d-none d-md-block logo-container" href="#">
                 <img src="../../../../assets/img/logo.png">
             </a>
-            <a href="admin.html">
+            <a href="admin.php">
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="app-req.html">
+            <a href="app-req.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="app-records.html">
+            <a href="app-records.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Patients Records</span>
             </a>
-            <a href="app-records-list.html">
+            <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
             </a>
-            <a href="pos.html">
+            <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
             </a>
-            <a href="transaction.html">
+            <a href="transaction.php" class="navbar-highlight">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Transaction</span>
             </a>
-
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
-                <a href="category-list.html">
+                <a href="category-list.php">
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.html">
+                <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
-                <a href="admin-user.html" class="navbar-highlight">
+                <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="settings.html">
+                <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
                 </a>
             </div>
         </div>
     </div>
-         <!--Navigation Links End-->
+     <!--Navigation Links End-->
     <div class="content flex-grow-1">
         <div class="header">
             <button class="navbar-toggler d-block d-md-none" type="button" onclick="toggleMenu()">
@@ -76,7 +80,6 @@
                     </path>
                 </svg>
             </button>
-            
            <!--Notification and Profile Admin-->
             <div class="profile-admin">
                 <div class="dropdown">
@@ -124,122 +127,98 @@
                 </div>
             </div>
         </div>
-         <!--Noticiation and Profile Admin End-->
+         <!--Notification and Profile Admin End-->
         <div class="app-req">
-            <h3>Admin User List</h3>
+            <h3>Transactions</h3>
             <div class="walk-in px-lg-5">
-                <div class="mb-3 x d-flex">
-                    <div class="">
+                <div class="mb-3 x d-flex justify-content-end">
+                    <div class="search ">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search by owner name..." />
                         </div>
                     </div>
-                    <button type="button" class=" btn-new" data-toggle="modal" data-target="#addCategoryModal">
-                        Add new
-                    </button>
+    
                 </div>
             </div>
-            <!--Category Modal-->
-            <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header justify-content-between">
-                            <h5 class="modal-title" id="addCategoryModalLabel">Add New Admin</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="categoryType">Type</label>
-                                    <select class="form-control mt-2" id="categoryType">
-                                        <option value="">Select Type</option>
-                                        <option value="medical">Medical</option>
-                                        <option value="non-medical">Non-Medical</option>
-                                    </select>
+            
+
+            <div class="container my-4 px-lg-4">
+    <div class="row px-lg-4">
+        <?php foreach ($records as $record): 
+            // Decode JSON fields (services, cost, medication, and supplies)
+            $services = json_decode($record['services'], true);
+            $costs = json_decode($record['cost'], true);  // Ensure costs are decoded as a JSON array
+            $medications = json_decode($record['medication'], true);
+            $supplies = json_decode($record['supplies'], true);
+
+            // Handle potential empty or invalid numbers for total
+            $total = !empty($record['total']) && is_numeric($record['total']) ? number_format($record['total'], 2) : '0.00';
+        ?>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Thank you, <span class="fw-bold"><?php echo htmlspecialchars($record['owner_name']); ?>.</span></h5>
+                    
+                    <!-- Services Section -->
+                    <div class="mb-3">
+                        <label for="service" class="form-label fw-bold">Services:</label>
+                        <?php if (is_array($services) && is_array($costs)): ?>
+                            <?php foreach ($services as $index => $service): ?>
+                                <div class="d-flex justify-content-between">
+                                    <span id="service"><?php echo htmlspecialchars($service); ?></span>
+                                    <span>₱ <?php echo isset($costs[$index]) ? number_format((float)$costs[$index], 2) : '0.00'; ?></span>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label for="categoryName">Service</label>
-                                    <input type="text" class="form-control mt-2" id="categoryName" placeholder="Enter category name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="categoryName">Cost</label>
-                                    <input type="number" class="form-control mt-2" id="categoryName" placeholder="Enter category name">
-                                </div>
-                            </form>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <!-- Medications Section -->
+                    <?php if (!empty($medications)): ?>
+                    <div class="mb-3">
+                        <label for="medication" class="form-label fw-bold">Add Medication or Supplies:</label>
+                        <?php foreach ($medications as $medication): ?>
+                        <div class="d-flex justify-content-between">
+                            <span id="medication"><?php echo htmlspecialchars($medication); ?></span>
+                            <span>₱ 25.00</span> <!-- Adjust cost based on your data structure if applicable -->
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-new">Save changes</button>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Supplies Section -->
+                    <?php if (!empty($supplies)): ?>
+                    <div class="mb-3">
+                        <label for="supplies" class="form-label fw-bold">Supplies:</label>
+                        <?php foreach ($supplies as $supply): ?>
+                        <div class="d-flex justify-content-between">
+                            <span id="supplies"><?php echo htmlspecialchars($supply); ?></span>
+                            <span>₱ 299.00</span> <!-- Adjust cost based on your data structure if applicable -->
                         </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Total Section -->
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>TOTAL:</span>
+                        <span>₱ <?php echo $total; ?></span> <!-- Safely handle and format the total -->
+                    </div>
+                    
+                    <!-- Buttons Section -->
+                    <div class="buttons d-flex justify-content-center gap-2">
+                        <button>Print</button>
+                        <button class="paid">Paid</button>
                     </div>
                 </div>
             </div>
-             <!--Category Modal End-->
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+        
 
-
-           <!--Category Table-->
-            <div class = "table-wrapper px-lg-5">
-              <table class="table table-hover table-remove-borders">
-                <thead class="thead-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Avatar</th>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>User Type</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <tr class="test-hover">
-                        <td>1</td>
-                        <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                        <td>Kim</td>
-                        <td>Kim312</td>
-                        <td>Staff</td>
-                        <td>
-                            <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                            <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                        </td>                          
-                    </tr>                       
-                    <tr class="test-hover">
-                      <td>2</td>
-                      <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                      <td>Jake</td>
-                      <td>jake_23</td>
-                      <td>Staff</td>
-                      <td>
-                          <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                          <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                      </td>                          
-                  </tr>    <tr class="test-hover">
-                    <td>3</td>
-                    <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                    <td>Ana</td>
-                    <td>ana#123</td>
-                    <td>Staff</td>
-                    <td>
-                        <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                        <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                    </td>                          
-                </tr>    <tr class="test-hover">
-                  <td>4</td>
-                  <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                  <td>Racel</td>
-                  <td>racel123</td>
-                  <td>Admin</td>
-                  <td>
-                      <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                      <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                  </td>                          
-              </tr>   
-                </tbody>
-            </table>
-       
-            </div>
+              <!--Transaction Card End-->
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
                 <li class="page-item">
                     <a class="page-link" href="#" data-page="prev"><</a>
@@ -249,9 +228,38 @@
                     <a class="page-link" href="#" data-page="next">></a>
                 </li>
             </ul>
+                
+            </div>
+           
+            
              </div>
-            <!--Category Table End-->
-</body>     
+</body>
+
+       
+
+<script>
+    $(document).ready(function() {
+        // Trigger AJAX request on input
+        $('#search-input').on('input', function() {
+            let searchTerm = $(this).val();
+            
+            // Send AJAX request to the server
+            $.ajax({
+                url: '../../function/search/search_transactions.php', // The PHP file to handle the search
+                type: 'GET',
+                data: { search: searchTerm }, // Send the search term as GET parameter
+                success: function(response) {
+                    // Clear the existing records container content before updating
+                    $('#records-container').html(response);  // Update the record list with the response
+                },
+                error: function(xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        });
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" crossorigin="anonymous">

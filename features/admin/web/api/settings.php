@@ -31,45 +31,45 @@
             <a class="navbar-brand d-none d-md-block logo-container" href="#">
                 <img src="../../../../assets/img/logo.png">
             </a>
-            <a href="admin.html">
+            <a href="admin.php">
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="app-req.html">
+            <a href="app-req.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="app-records.html">
+            <a href="app-records.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Patients Records</span>
             </a>
-            <a href="app-records-list.html">
+            <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
             </a>
-            <a href="pos.html">
+            <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
             </a>
-            <a href="transaction.html">
+            <a href="transaction.php">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Transaction</span>
             </a>
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
-                <a href="category-list.html">
+                <a href="category-list.php">
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.html">
+                <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
-                <a href="admin-user.html">
+                <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="settings.html" class="navbar-highlight">
+                <a href="settings.php" class="navbar-highlight">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
                 </a>

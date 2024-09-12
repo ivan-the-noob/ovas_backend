@@ -29,45 +29,45 @@
             <a class="navbar-brand d-none d-md-block logo-container" href="#">
                 <img src="../../../../assets/img/logo.png">
             </a>
-            <a href="admin.html">
+            <a href="admin.php">
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="app-req.html">
+            <a href="app-req.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="app-records.html" class="navbar-highlight">
+            <a href="app-records.php" class="navbar-highlight">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Patients Records</span>
             </a>
-            <a href="app-records-list.html">
+            <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
             </a>
-            <a href="pos.html">
+            <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
             </a>
-            <a href="transaction.html">
+            <a href="transaction.php">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Transaction</span>
             </a>
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
-                <a href="category-list.html" >
+                <a href="category-list.php" >
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.html">
+                <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
-                <a href="admin-user.html">
+                <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="settings.html">
+                <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
                 </a>
@@ -135,187 +135,199 @@
          <!--Notification and Profile Admin End-->
 
         <!--Input fields of Patients Records-->
-        <div class="app-req">
-          <h3>Patients Records</h3>
-          <div class="container px-5 pt-3">
-              <div class="row justify-content-center">
-                  <!-- Client Information -->
-                  <div class="col-md-3">
-                    <h6>Client Information</h6>
-                    <div class="mb-3">
-                      <label for="ownerName" class="form-label">Client Name</label>
-                      <input type="text" class="form-control" id="ownerName" placeholder="Racel Mae Loquellano">
-                    </div>
-                    <div class="mb-3">
-                      <label for="ownerAddress" class="form-label">Complete Address</label>
-                      <textarea class="form-control" id="ownerAddress" rows="3"
-                        placeholder="2nd Floor A & A Building Magdiwang Highway"></textarea>
-                    </div>
-                    <div class="mb-3 contacts">
-                      <label for="contactNum" class="form-labels">Contact Details</label>
-                      <input type="number" class="form-control" id="contactNum" placeholder="Mobile">
-                      <input type="number" class="form-control" id="contactNum" placeholder="Home">
-                      <input type="number" class="form-control" id="contactNum" placeholder="Work">
-                      <input type="number" class="form-control" id="contactNum" placeholder="Viber">
-                    </div>
-                    <div class="mb-3">
-                      <label for="ownerEmail" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="ownerEmail" placeholder="bardyardpets@gmail.com">
-                    </div>
-                    <div class="mb-3">
-                      <label for="preferredContact" class="form-label">Preferred Contact</label>
-                      <div class="d-flex flex-wrap">
-                        <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="preferredContact" id="preferredEmail" value="Email">
-                          <label class="form-check-label" for="preferredEmail">Email</label>
-                        </div>
-                        <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="preferredContact" id="preferredMobile" value="Mobile">
-                          <label class="form-check-label" for="preferredMobile">Mobile</label>
-                        </div>
-                        <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="preferredContact" id="preferredHome" value="Home">
-                          <label class="form-check-label" for="preferredHome">Home</label>
-                        </div>
-                        <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="preferredContact" id="preferredWork" value="Work">
-                          <label class="form-check-label" for="preferredWork">Work</label>
-                        </div>
-                        <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="preferredContact" id="preferredFbMessenger" value="Fb Messenger">
-                          <label class="form-check-label" for="preferredFbMessenger">Fb Messenger</label>
-                        </div>
-                        <div class="form-check me-3">
-                          <input class="form-check-input" type="radio" name="preferredContact" id="preferredViber" value="Viber">
-                          <label class="form-check-label" for="preferredViber">Viber</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>         
-                  <!-- Pet Information -->
-                  <div class="col-md-3">
-                    <h6>Pet Information</h6>
-                    <div class="mb-3">
-                      <label for="pet-name" class="form-label">Pet's Name</label>
-                      <input type="text" class="form-control" placeholder="Ara" id="pet-name">
-                    </div>
-                    <div class="mb-3">
-                      <label for="petType" class="form-label">Species</label>
-                      <select class="form-control" id="petType">
-                        <option>Cat</option>
-                        <option>Dog</option>
-                        <option>Rabit</option>
-                        <option>Reptile</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="petType" class="form-label">Sex</label>
-                      <select class="form-control" id="sex">
-                        <option>Male Intact</option>
-                        <option>Male Neutered (kapon)</option>
-                        <option>Female Intact</option>
-                        <option>Female Spayed (kapon)</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="breed" class="form-label">Breed</label>
-                      <input type="text" class="form-control" placeholder="husky" id="breed">
-                    </div>
-                    <div class="mb-3">
-                      <label for="Color & markings" class="form-label">Colors and Marking</label>
-                      <input type="text" class="form-control" placeholder="White" id="color-markings">
-                    </div>
-                    <div class="mb-3">
-                      <label for="Microchip No" class="form-label">Microchip No.</label>
-                      <input type="number" class="form-control" placeholder="312421" id="micro-no">
-                    </div>
-                    <div class="mb-3">
-                      <label for="Date of Birth" class="form-label">Date of Birth</label>
-                      <input type="date" class="form-control" placeholder="01/01/24" id="micro-no">
-                    </div>
-                    <div class="mb-3">
-                      <label for="age" class="form-label">Age</label>
-                      <input type="number" class="form-control" placeholder="Months" id="age">
-                    </div>  
-                  </div> 
-                  <div class="col-md-3">
-                    <h6>Services</h6>
-                    <div class="mb-3">
-                      <label for="serviceCategory" class="form-label">Service Category</label>
-                      <div class="dropdowns">
-                        <button class="dropdown-toggle" type="button" id="serviceCategoryDropdown"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Select Category
-                </button>
-                        <div class="dropdown-menu" aria-labelledby="serviceCategoryDropdown">
-                          <a class="dropdown-item" href="#" data-value="medical">Medical</a>
-                          <a class="dropdown-item" href="#" data-value="nonMedical">Non-Medical</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="service" class="form-label">Service</label>
-                      <div class="dropdowns">
-                        <button class=" dropdown-toggle" type="button" id="serviceDropdown"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select Service
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="serviceDropdown">
-                          <!-- Medical Services -->
-                          <div class="medical-services">
-                            <a class="dropdown-item" href="#" data-value="1200.00">Diagnostic and Therapeutic -
-                              ₱1200.00</a>
-                            <a class="dropdown-item" href="#" data-value="850.00">Preventive Health Care - ₱850.00</a>
-                            <a class="dropdown-item" href="#" data-value="1500.00">Internal Medicine Consults -
-                              ₱1500.00</a>
-                            <a class="dropdown-item" href="#" data-value="2500.00">Surgical Services - ₱2500.00</a>
-                            <a class="dropdown-item" href="#" data-value="300.00">Pharmacy - ₱300.00</a>
-                            <a class="dropdown-item" href="#" data-value="500.00">House Visit - ₱500.00</a>
-                          </div>
-                          <!-- Non-Medical Services -->
-                          <div class="nonMedical-services">
-                            <a class="dropdown-item" href="#" data-value="999.00">Grooming - ₱999.00</a>
-                            <a class="dropdown-item" href="#" data-value="700.00">Boarding - ₱700.00</a>
-                            <a class="dropdown-item" href="#" data-value="300.00">Pet Supplies - ₱300.00</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="mt-3">
-                      <label for="totalPayment" class="form-label">Total Payment</label>
-                      <p id="totalPayment">₱0.00</p>
-                    </div>     
-                  </div>
-                  <div class="col-md-3">
-                    <h6>Other Information</h6>
-                    <div class="mb-3">
-                      <label for="Color & markings" class="form-label">Date</label>
-                      <input type="date" class="form-control" placeholder="White" id="color-markings">
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label">Is there an authorization for medical and/or surgical treatment?</label><br>
-                      <div class="input-radio">
-                        <input type="radio" id="auth-yes" name="authorization" value="yes">Yes
-                        <input type="radio" id="auth-no" name="authorization" value="no">No
-                      </div>
-                    </div>
-                    <div class="mb-3">
-                      <label for="entering-complaint" class="form-label">Veterinarian's Report:<br> Entering Complaint</label>
-                      <textarea class="form-control" id="entering-complaint" rows="5"></textarea>
-                    </div>
-                    <div class="mb-3">
-                      <label for="history-physical-diagnosis-treatment" class="form-label">History • Physical Findings • Diagnosis • Treatment</label>
-                      <textarea class="form-control" id="history-physical-diagnosis-treatment" rows="5"></textarea>
-                    </div>
-                    <div class="mb-3">
-                      <button class="book-save">Save</button>
-                    </div>
-                  </div>
-
-                  </div>
-                 
-                </div>
+        <form action="../../function/php/save_patient.php" method="POST">
+  <div class="app-req">
+    <h3>Patients Records</h3>
+    <div class="container px-5 pt-3">
+      <div class="row justify-content-center">
+        <!-- Client Information -->
+        <div class="col-md-3">
+          <h6>Client Information</h6>
+          <div class="mb-3">
+            <label for="ownerName" class="form-label">Client Name</label>
+            <input type="text" class="form-control" id="ownerName" name="ownerName" placeholder="Racel Mae Loquellano">
           </div>
+          <div class="mb-3">
+            <label for="ownerAddress" class="form-label">Complete Address</label>
+            <textarea class="form-control" id="ownerAddress" name="ownerAddress" rows="3"
+              placeholder="2nd Floor A & A Building Magdiwang Highway"></textarea>
+          </div>
+          <div class="mb-3 contacts">
+            <label for="contactNum" class="form-label">Contact Details</label>
+            <input type="number" class="form-control" name="mobile" placeholder="Mobile">
+            <input type="number" class="form-control" name="home" placeholder="Home">
+            <input type="number" class="form-control" name="work" placeholder="Work">
+            <input type="number" class="form-control" name="viber" placeholder="Viber">
+          </div>
+          <div class="mb-3">
+            <label for="ownerEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="bardyardpets@gmail.com">
+          </div>
+          <div class="mb-3">
+            <label for="preferredContact" class="form-label">Preferred Contact</label>
+            <div class="d-flex flex-wrap">
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="preferredContact" id="preferredEmail" value="Email">
+                <label class="form-check-label" for="preferredEmail">Email</label>
+              </div>
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="preferredContact" id="preferredMobile" value="Mobile">
+                <label class="form-check-label" for="preferredMobile">Mobile</label>
+              </div>
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="preferredContact" id="preferredHome" value="Home">
+                <label class="form-check-label" for="preferredHome">Home</label>
+              </div>
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="preferredContact" id="preferredWork" value="Work">
+                <label class="form-check-label" for="preferredWork">Work</label>
+              </div>
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="preferredContact" id="preferredFbMessenger" value="Fb Messenger">
+                <label class="form-check-label" for="preferredFbMessenger">Fb Messenger</label>
+              </div>
+              <div class="form-check me-3">
+                <input class="form-check-input" type="radio" name="preferredContact" id="preferredViber" value="Viber">
+                <label class="form-check-label" for="preferredViber">Viber</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Pet Information -->
+        <div class="col-md-3">
+          <h6>Pet Information</h6>
+          <div class="mb-3">
+            <label for="pet-name" class="form-label">Pet's Name</label>
+            <input type="text" class="form-control" name="petName" placeholder="Ara" id="pet-name">
+          </div>
+          <div class="mb-3">
+            <label for="petType" class="form-label">Species</label>
+            <select class="form-control" id="petType" name="petType">
+              <option>Cat</option>
+              <option>Dog</option>
+              <option>Rabit</option>
+              <option>Reptile</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="petType" class="form-label">Sex</label>
+            <select class="form-control" id="sex" name="sex">
+              <option>Male Intact</option>
+              <option>Male Neutered (kapon)</option>
+              <option>Female Intact</option>
+              <option>Female Spayed (kapon)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="breed" class="form-label">Breed</label>
+            <input type="text" class="form-control" name="breed" placeholder="husky" id="breed">
+          </div>
+          <div class="mb-3">
+            <label for="Color & markings" class="form-label">Colors and Marking</label>
+            <input type="text" class="form-control" name="colorMarkings" placeholder="White" id="color-markings">
+          </div>
+          <div class="mb-3">
+            <label for="Microchip No" class="form-label">Microchip No.</label>
+            <input type="number" class="form-control" name="microchipNo" placeholder="312421" id="micro-no">
+          </div>
+          <div class="mb-3">
+            <label for="Date of Birth" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" name="dob" placeholder="01/01/24" id="dob">
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <input type="number" class="form-control" name="age" placeholder="Months" id="age">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h6>Services</h6>
+          <div class="mb-3">
+            <label for="serviceCategory" class="form-label">Service Category</label>
+            <div class="dropdowns">
+              <select class="form-control" id="serviceCategory" name="serviceCategory">
+                <option value="medical">Medical</option>
+                <option value="nonMedical">Non-Medical</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="service" class="form-label">Service</label>
+            <select class="form-control" id="service" name="service">
+              <option value="1200">Diagnostic and Therapeutic - ₱1200.00</option>
+              <option value="850">Preventive Health Care - ₱850.00</option>
+              <option value="1500">Internal Medicine Consults - ₱1500.00</option>
+              <option value="2500">Surgical Services - ₱2500.00</option>
+              <option value="300">Pharmacy - ₱300.00</option>
+              <option value="500">House Visit - ₱500.00</option>
+              <option value="999">Grooming - ₱999.00</option>
+              <option value="700">Boarding - ₱700.00</option>
+              <option value="300">Pet Supplies - ₱300.00</option>
+            </select>
+          </div>
+
+          <input type="hidden" id="payment" name="payment" value="0">
+
+          <div class="mt-3">
+            <label for="totalPayment" class="form-label">Total Payment</label>
+            <p id="totalPayment">₱0.00</p>
+          </div>
+
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+    const serviceSelect = document.getElementById('service');
+    const totalPayment = document.getElementById('totalPayment');
+    const paymentInput = document.getElementById('payment'); // Hidden input for total payment
+
+    // Add an event listener for when the service dropdown value changes
+    serviceSelect.addEventListener('change', function () {
+        // Get the selected option's value (which is the price)
+        const selectedValue = serviceSelect.value;
+
+        // Update the total payment display
+        if (selectedValue) {
+            totalPayment.textContent = `₱${selectedValue}`;
+            paymentInput.value = selectedValue; // Update the hidden input value
+        } else {
+            totalPayment.textContent = '₱0.00';
+            paymentInput.value = '0'; // Reset hidden input value if no service is selected
+        }
+    });
+});
+
+
+            </script>
+
+        </div>
+        <div class="col-md-3">
+          <h6>Other Information</h6>
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" name="date" id="date">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Is there an authorization for medical and/or surgical treatment?</label><br>
+            <div class="input-radio">
+              <input type="radio" id="auth-yes" name="authorization" value="yes">Yes
+              <input type="radio" id="auth-no" name="authorization" value="no">No
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="entering-complaint" class="form-label">Veterinarian's Report:<br> Entering Complaint</label>
+            <textarea class="form-control" id="entering-complaint" name="enteringComplaint" rows="5"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="history-physical-diagnosis-treatment" class="form-label">History • Physical Findings • Diagnosis • Treatment</label>
+            <textarea class="form-control" id="history-physical-diagnosis-treatment" name="historyPhysical" rows="5"></textarea>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="book-save">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
            <!--Input fields of Patients Records-->
            
 </body>

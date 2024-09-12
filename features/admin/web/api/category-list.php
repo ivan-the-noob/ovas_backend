@@ -4,68 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Point of Sales | Admin</title>
+    <title>Category List | Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/pos.css">
+    <link rel="stylesheet" href="../../css/category-list.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
 </head>
 
 <body>
-        <!--Navigation Links-->
+    <!--Navigation Links-->
     <div class="navbar flex-column bg-white shadow-sm p-3 collapse d-md-flex" id="navbar">
         <div class="navbar-links">
             <a class="navbar-brand d-none d-md-block logo-container" href="#">
                 <img src="../../../../assets/img/logo.png">
             </a>
-            <a href="admin.html">
+            <a href="admin.php">
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="app-req.html">
+            <a href="app-req.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="app-records.html">
+            <a href="app-records.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Patients Records</span>
             </a>
-            <a href="app-records-list.html">
+            <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
             </a>
-            <a href="pos.html"  class="navbar-highlight">
+            <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
             </a>
-            <a href="transaction.html">
+            <a href="transaction.php">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Transaction</span>
             </a>
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
-                <a href="category-list.html">
+                <a href="category-list.php" class="navbar-highlight">
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.html">
+                <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
-                <a href="admin-user.html">
+                <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="settings.html">
+                <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
                 </a>
             </div>
         </div>
     </div>
-        <!--Navigation Links End-->
+    <!--Navigation Links-->
     <div class="content flex-grow-1">
         <div class="header">
             <button class="navbar-toggler d-block d-md-none" type="button" onclick="toggleMenu()">
@@ -75,7 +75,7 @@
                     </path>
                 </svg>
             </button>
-              <!--Notification and Profile Admin-->
+            <!--Notification and Profile Admin-->
             <div class="profile-admin">
                 <div class="dropdown">
                     <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -122,53 +122,110 @@
                 </div>
             </div>
         </div>
-           <!--Notification and Profile Admin End-->
+         <!--Notification and Profile Admin End-->
         <div class="app-req">
-            <h3>Point of Sales</h3> 
+            <h3>Category List</h3>
+            <div class="walk-in px-lg-5">
+                <div class="mb-3 x d-flex">
+                    <div class="search">
+                        <div class="search-bars">
+                            <i class="fa fa-magnifying-glass"></i>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                    </div>
+                    <button type="button" class="btn-new" data-toggle="modal" data-target="#addCategoryModal">
+                        Add new
+                    </button>
+                </div>
+            </div>
+             <!--Notification and Profile Admin End-->
 
-            <div class="container field">
-                <div class="row justify-content-center">
-                    <div class="col-md-6 col-lg-6">
-                        <div class="receipt">
-                            <h3>Pet Owner Name: <input type="text" class="form-control" name="owner_name" placeholder="Name"></h3>
-                            
-                            <div class="form-group row" style="border-bottom: 1px solid #ddd;">
-                                <label class="col-7 col-form-label">Services:</label>
-                                <div class="col-5 d-flex">
-                                    <input type="text" class="form-control" name="services" placeholder="Service">
-                                    <button class="add">+</button>
+              <!--Category List Modal (add new)-->
+            <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-between">
+                            <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="categoryName">Category Name</label>
+                                    <input type="text" class="form-control mt-2" id="categoryName" placeholder="Enter category name">
                                 </div>
-                            </div>
-            
-                            <div class="form-group row">
-                                <h5>Add Medication or Supplies</h5>
-                                <label class="col-7 col-form-label">Medications:</label>
-                                <div class="col-5 d-flex">
-                                    <input type="text" class="form-control" name="medication" placeholder="Medication">
-                                    <button class="add">+</button>
-                                </div>
-                            </div>
-            
-                            <div class="form-group row" >
-                                <label class="col-7 col-form-label">Supplies:</label>
-                                <div class="col-5 d-flex">
-                                    <input type="text" class="form-control" name="supplies" placeholder="Supplies">
-                                    <button class="add">+</button>
-                                </div>
-                            </div>
-            
-                            <div class="form-group row total">
-                                <label class="col-7 col-form-label">TOTAL:</label>
-                                <div class="col-5">
-                                    <input type="number" class="form-control" name="total" placeholder="₱00.0">
-                                </div>
-                            </div>
-                                <button class="save">Add Bills</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-new">Save changes</button>
                         </div>
                     </div>
                 </div>
-            </div>     
-        </div>                  
+            </div>
+             <!--Category List Modal (add new) End-->
+           
+             <!--Category Table-->
+            <div class="px-lg-5" style="overflow-x: auto;">
+                <table class="table table-hover table-remove-borders">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Species</th>
+                            <th>Action</th>
+                        
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr class="test-hover">
+                            <td>1</td>
+                            <td>Cat</td>
+                            <td>
+                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
+                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
+                            </td>                          
+                        </tr>                       
+                        <tr>
+                            <td>2</td>
+                            <td>Dog</td>   
+                            <td>
+                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
+                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
+                            </td>                                              
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Reptiles</td>   
+                            <td>
+                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
+                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
+                            </td>                                              
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Rabbit</td>   
+                            <td>
+                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
+                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
+                            </td>                                              
+                        </tr>
+                    </tbody>
+                </table>
+                <!--Category Table-->
+                
+            </div>
+            <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
+                <li class="page-item">
+                    <a class="page-link" href="#" data-page="prev"><</a>
+                </li>
+                <li class="page-item" id="pageNumbers"></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" data-page="next">></a>
+                </li>
+            </ul>
+            
+             </div>
 </body>
 
        
