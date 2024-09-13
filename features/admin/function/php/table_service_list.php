@@ -1,5 +1,5 @@
 <?php
-try {
+ try {
     // Fetch services from the database
     $sql = "SELECT * FROM service_list";
     $stmt = $conn->prepare($sql);
@@ -9,13 +9,14 @@ try {
     if ($services) {
         foreach ($services as $service) {
             echo "<tr>";
-            // Use the database ID for the first column
+            // Display the ID, service_type, service_name, cost, discount, and info
             echo "<td>" . htmlspecialchars($service['id']) . "</td>"; 
-            echo "<td>" . htmlspecialchars($service['service_type']) . "</td>";
+            echo "<td>" . htmlspecialchars($service['service_type']) . "</td>"; // This is the "Type" column
             echo "<td>" . htmlspecialchars($service['service_name']) . "</td>";
             echo "<td>₱" . number_format($service['cost'], 2) . "</td>";
             echo "<td>" . htmlspecialchars($service['discount']) . "%</td>";
             echo "<td>" . htmlspecialchars($service['info']) . "</td>";
+            // Action buttons for editing and deleting
             echo '<td>
                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal' . $service['id'] . '"><i class="fas fa-edit"></i></button>
                     <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal' . $service['id'] . '"><i class="fas fa-trash-alt"></i></button>
@@ -31,4 +32,6 @@ try {
 
 // Close the connection
 $conn = null;
+
+// Include additional functionality for editing and deleting services
 ?>

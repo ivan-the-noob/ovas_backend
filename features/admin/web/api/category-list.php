@@ -1,3 +1,18 @@
+<?php
+require '../../../../db.php';
+
+try {
+    $sql = "SELECT id, category_name FROM categories";
+    $stmt = $conn->query($sql);
+    
+    // Fetch all the categories
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,9 +145,26 @@
                     <div class="search">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search...">
                         </div>
                     </div>
+
+                    <script>
+                            $(document).ready(function() {
+                                $('#searchInput').on('keyup', function() {
+                                    var searchTerm = $(this).val().trim();
+
+                                    $.ajax({
+                                        url: '../../function/php/search/search_categories.php', // Create this PHP script
+                                        type: 'POST',
+                                        data: { search: searchTerm },
+                                        success: function(data) {
+                                            $('#tableBody').html(data); // Update the table with filtered results
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
                     <button type="button" class="btn-new" data-toggle="modal" data-target="#addCategoryModal">
                         Add new
                     </button>
@@ -141,78 +173,122 @@
              <!--Notification and Profile Admin End-->
 
               <!--Category List Modal (add new)-->
-            <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header justify-content-between">
-                            <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="categoryName">Category Name</label>
-                                    <input type="text" class="form-control mt-2" id="categoryName" placeholder="Enter category name">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-new">Save changes</button>
+              <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header justify-content-between">
+                                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="../../function/php/categories/save_category.php" method="POST">
+                                    <div class="form-group">
+                                        <label for="categoryName">Category Name</label>
+                                        <input type="text" class="form-control mt-2" id="categoryName" name="category_name" placeholder="Enter category name" required>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                                </form>
                         </div>
                     </div>
                 </div>
-            </div>
+
              <!--Category List Modal (add new) End-->
            
              <!--Category Table-->
             <div class="px-lg-5" style="overflow-x: auto;">
-                <table class="table table-hover table-remove-borders">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Species</th>
-                            <th>Action</th>
-                        
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <tr class="test-hover">
-                            <td>1</td>
-                            <td>Cat</td>
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                          
-                        </tr>                       
-                        <tr>
-                            <td>2</td>
-                            <td>Dog</td>   
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                                              
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Reptiles</td>   
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                                              
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Rabbit</td>   
-                            <td>
-                                <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                                <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                            </td>                                              
-                        </tr>
-                    </tbody>
-                </table>
-                <!--Category Table-->
+            <table class="table table-hover table-remove-borders">
+    <thead class="thead-light">
+        <tr>
+            <th>#</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        <?php if (!empty($categories)): ?>
+            <?php foreach ($categories as $category): ?>
+                <tr class="test-hover">
+                    <td><?php echo htmlspecialchars($category['id']); ?></td>
+                    <td><?php echo htmlspecialchars($category['category_name']); ?></td>
+                    <td>
+                        <!-- Update Button triggers the modal -->
+                        <button type="button" data-toggle="modal" data-target="#editModal<?php echo $category['id']; ?>" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+
+                        <!-- Delete Button triggers the delete modal -->
+                        <button type="button" data-toggle="modal" data-target="#deleteModal<?php echo $category['id']; ?>" title="Delete" style="color: red;">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+
+                        <!-- Edit Category Modal -->
+                        <div class="modal fade" id="editModal<?php echo $category['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?php echo $category['id']; ?>" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel<?php echo $category['id']; ?>">Edit Category</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="../../function/php/categories/edit_categories.php" method="POST">
+                                        <div class="modal-body">
+                                            <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
+                                            <div class="form-group">
+                                                <label for="categoryName<?php echo $category['id']; ?>">Category Name</label>
+                                                <input type="text" class="form-control" id="categoryName<?php echo $category['id']; ?>" name="category_name" value="<?php echo htmlspecialchars($category['category_name']); ?>" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delete Confirmation Modal -->
+                        <div class="modal fade" id="deleteModal<?php echo $category['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?php echo $category['id']; ?>" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex justify-content-between">
+                                        <h5 class="modal-title" id="deleteModalLabel<?php echo $category['id']; ?>">Delete Category</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete the category "<?php echo htmlspecialchars($category['category_name']); ?>"?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <a href="../../function/php/categories/delete_category.php?id=<?php echo $category['id']; ?>" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="3">No categories found</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
+                <!--Category Table End-->
+
+                
+
+
                 
             </div>
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
@@ -237,5 +313,6 @@
 <script src="../../function/script/pagination.js"></script>
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

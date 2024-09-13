@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="../../css/transaction.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
 </head>
 
@@ -141,6 +143,23 @@
     
                 </div>
             </div>
+
+            <script>
+                    $(document).ready(function() {
+                        $('#search-input').on('keyup', function() {
+                            var searchTerm = $(this).val().trim();
+
+                            $.ajax({
+                                url: '../../function/php/search/search_transactions.php', // PHP script to handle search
+                                type: 'POST',
+                                data: { search: searchTerm },
+                                success: function(data) {
+                                    $('.row').html(data); // Replace the cards with search results
+                                }
+                            });
+                        });
+                    });
+                </script>
             
 
             <div class="container my-4 px-lg-4">
@@ -207,7 +226,7 @@
                     
                     <!-- Buttons Section -->
                     <div class="buttons d-flex justify-content-center gap-2">
-                        <button>Print</button>
+                        <button onclick="printCard(this)">Print</button>
                         <button class="paid">Paid</button>
                     </div>
                 </div>
@@ -217,6 +236,88 @@
     </div>
 </div>
         
+
+<script>
+    function printCard(button) {
+    // Find the full card that the clicked button belongs to
+    var card = button.closest('.card');
+    
+    // Store the buttons element and remove it from the card
+    var buttons = card.querySelector('.buttons');
+    if (buttons) {
+        buttons.remove();  // Remove buttons completely
+    }
+
+    // Create a header with the brand name and today's date
+    var brandHeader = document.createElement('div');
+    var today = new Date();
+    
+    // Format the date as "Month Day, Year" (e.g., September 12, 2024)
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    var formattedDate = today.toLocaleDateString('en-US', options);
+    
+    brandHeader.innerHTML = `
+        <p style="text-align: end; padding: 3px;">${formattedDate}</p>
+        <h5 style="text-align: center;">Bark Yard Pet Salon and Wellness Clinic</h5>
+        <div style="border: 2px solid #7A3015; width: 80%; justify-content: center; margin: auto;"></div>
+
+    `;
+    
+    // Insert the header at the top of the card
+    card.prepend(brandHeader);
+
+    // Use html2canvas to convert the entire card to an image
+    html2canvas(card, { scale: 2 }).then(function(canvas) {
+        // Convert canvas to an image URL
+        var imgData = canvas.toDataURL('image/png');
+        
+        // Create a new window for printing
+        var printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Print Card</title>
+                <style>
+                    body {
+                        margin: 0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                        width: 100vw;
+                        overflow: hidden;
+                    }
+                    img {
+                        width: 50%;
+                        height: auto;
+                    }
+                </style>
+            </head>
+            <body>
+                <img src="${imgData}" />
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+
+        // Add an event listener for when printing is done (whether printed or canceled)
+        printWindow.onafterprint = function() {
+            printWindow.close();
+            location.reload(); // Reload the current page after printing is done
+        };
+        
+        printWindow.onload = function() {
+            printWindow.print();
+        };
+
+    }).catch(function(error) {
+        console.error('Error capturing the card for printing:', error);
+    });
+}
+
+
+</script>
 
               <!--Transaction Card End-->
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
@@ -237,28 +338,6 @@
 
        
 
-<script>
-    $(document).ready(function() {
-        // Trigger AJAX request on input
-        $('#search-input').on('input', function() {
-            let searchTerm = $(this).val();
-            
-            // Send AJAX request to the server
-            $.ajax({
-                url: '../../function/search/search_transactions.php', // The PHP file to handle the search
-                type: 'GET',
-                data: { search: searchTerm }, // Send the search term as GET parameter
-                success: function(response) {
-                    // Clear the existing records container content before updating
-                    $('#records-container').html(response);  // Update the record list with the response
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error: " + error);
-                }
-            });
-        });
-    });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous">
 </script>
@@ -268,5 +347,6 @@
 <script src="../../function/script/pagination.js"></script>
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

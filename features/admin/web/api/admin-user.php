@@ -1,3 +1,60 @@
+<?php 
+require '../../../../db.php'; // Include your database connection file
+
+// Initialize variables for storing error and success messages
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get the form data
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password for security
+    $role = $_POST['role'];
+
+    try {
+        // Check if the email already exists in the database
+        $checkEmailStmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $checkEmailStmt->bindParam(':email', $email);
+        $checkEmailStmt->execute();
+
+        if ($checkEmailStmt->rowCount() > 0) {
+            // Email already exists, set error message
+            $error = "The email address is already in use.";
+        } else {
+            // Email does not exist, proceed with the insertion
+            $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
+
+            // Bind the parameters to the statement
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':role', $role);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+               
+            } else {
+                $error = "Error: Could not add user.";
+            }
+        }
+    } catch (PDOException $e) {
+        $error = "Error: " . $e->getMessage();
+    }
+
+}
+
+try {
+    $stmt = $conn->prepare("SELECT * FROM users WHERE role IN ('admin', 'staff')");
+    $stmt->execute();
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+
+    $conn = null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,9 +189,27 @@
                     <div class="">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search...">
                         </div>
                     </div>
+
+                    <script>
+                        $(document).ready(function() {
+                            $('#search-input').on('keyup', function() {
+                                var searchTerm = $(this).val().trim();
+
+                                $.ajax({
+                                    url: '../../function/php/search/search_users.php', // PHP script to handle search
+                                    type: 'POST',
+                                    data: { search: searchTerm },
+                                    success: function(data) {
+                                        $('#tableBody').html(data); // Replace the table body with search results
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+
                     <button type="button" class=" btn-new" data-toggle="modal" data-target="#addCategoryModal">
                         Add new
                     </button>
@@ -142,102 +217,172 @@
             </div>
             <!--Category Modal-->
             <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header justify-content-between">
-                            <h5 class="modal-title" id="addCategoryModalLabel">Add New Admin</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label for="categoryType">Type</label>
-                                    <select class="form-control mt-2" id="categoryType">
-                                        <option value="">Select Type</option>
-                                        <option value="medical">Medical</option>
-                                        <option value="non-medical">Non-Medical</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="categoryName">Service</label>
-                                    <input type="text" class="form-control mt-2" id="categoryName" placeholder="Enter category name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="categoryName">Cost</label>
-                                    <input type="number" class="form-control mt-2" id="categoryName" placeholder="Enter category name">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-new">Save changes</button>
-                        </div>
-                    </div>
-                </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <h5 class="modal-title" id="addCategoryModalLabel">Add New User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <!-- Form that submits to the same page -->
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control mt-2" id="name" name="name" placeholder="Enter name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control mt-2" id="email" name="email" placeholder="Enter email" required>
+                        <!-- Display error below the input if email exists -->
+                        <?php if (!empty($error)): ?>
+                            <small class="text-danger"><?php echo $error; ?></small>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control mt-2" id="password" name="password" placeholder="Enter password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select class="form-control mt-2" id="role" name="role" required>
+                            <option value="">Select User Type</option>
+                            <option value="staff">Staff</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+
+ 
+                    <div class="modal-footer">
+                        <button type="submit" class="btn-new">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
              <!--Category Modal End-->
 
 
            <!--Category Table-->
             <div class = "table-wrapper px-lg-5">
-              <table class="table table-hover table-remove-borders">
+            <table class="table table-hover table-remove-borders">
                 <thead class="thead-light">
                     <tr>
                         <th>#</th>
                         <th>Avatar</th>
                         <th>Name</th>
-                        <th>Username</th>
-                        <th>User Type</th>
+                        <th>Email</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <tr class="test-hover">
-                        <td>1</td>
-                        <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                        <td>Kim</td>
-                        <td>Kim312</td>
-                        <td>Staff</td>
-                        <td>
-                            <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                            <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                        </td>                          
-                    </tr>                       
-                    <tr class="test-hover">
-                      <td>2</td>
-                      <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                      <td>Jake</td>
-                      <td>jake_23</td>
-                      <td>Staff</td>
-                      <td>
-                          <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                          <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                      </td>                          
-                  </tr>    <tr class="test-hover">
-                    <td>3</td>
-                    <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                    <td>Ana</td>
-                    <td>ana#123</td>
-                    <td>Staff</td>
-                    <td>
-                        <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                        <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                    </td>                          
-                </tr>    <tr class="test-hover">
-                  <td>4</td>
-                  <td><img src="../../../../assets/img/customer.jfif" alt=""></td>
-                  <td>Racel</td>
-                  <td>racel123</td>
-                  <td>Admin</td>
-                  <td>
-                      <button href="#" title="Update"><i class="fas fa-edit"></i></button>
-                      <button href="#" title="Delete" style="color: red;"><i class="fas fa-trash-alt"></i></button>
-                  </td>                          
-              </tr>   
-                </tbody>
+    <?php if (!empty($users)): ?>
+        <?php foreach ($users as $index => $user): ?>
+            <tr class="test-hover">
+                <td><?php echo $index + 1; ?></td>
+                <td><img src="../../../../assets/img/customer.jfif" alt="Avatar"></td>
+                <td><?php echo htmlspecialchars($user['name']); ?></td>
+                <td><?php echo htmlspecialchars($user['email']); ?></td>
+                <td><?php echo ucfirst(htmlspecialchars($user['role'])); ?></td>
+                <td>
+                    <!-- Button to open the modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal-<?php echo $user['id']; ?>">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal-<?php echo $user['id']; ?>">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="editUserModal-<?php echo $user['id']; ?>" tabindex="-1" aria-labelledby="editUserModalLabel-<?php echo $user['id']; ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex justify-content-between">
+                                    <h5 class="modal-title" id="editUserModalLabel-<?php echo $user['id']; ?>">Edit User</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form to update user -->
+                                    <form action="../../function/php/edit_user.php" method="POST">
+                                        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+
+                                        <div class="mb-3">
+                                            <label for="name-<?php echo $user['id']; ?>" class="form-label">Name</label>
+                                            <input type="text" class="form-control edit_admin text-center" id="name-<?php echo $user['id']; ?>" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email-<?php echo $user['id']; ?>" class="form-label">Email</label>
+                                            <input type="email" class="form-control edit_admin text-center" id="email-<?php echo $user['id']; ?>" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="role-<?php echo $user['id']; ?>" class="form-label">Role</label>
+                                            <select class="form-control edit_admin text-center" id="role-<?php echo $user['id']; ?>" name="role" required>
+                                                <option value="staff" <?php if ($user['role'] == 'staff') echo 'selected'; ?>>Staff</option>
+                                                <option value="admin" <?php if ($user['role'] == 'admin') echo 'selected'; ?>>Admin</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="deleteUserModal-<?php echo $user['id']; ?>" tabindex="-1" aria-labelledby="deleteUserModalLabel-<?php echo $user['id']; ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex justify-content-between">
+                                    <h5 class="modal-title" id="deleteUserModalLabel-<?php echo $user['id']; ?>">Delete User</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this user?</p>
+                                    <p><strong><?php echo htmlspecialchars($user['name']); ?></strong> (<?php echo htmlspecialchars($user['email']); ?>)</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="../../function/php/delete_user.php" method="POST">
+                                        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                                        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="6" class="text-center">No users found</td>
+        </tr>
+    <?php endif; ?>
+</tbody>
+
+
             </table>
+            <?php if (!empty($error)): ?>
+                            <small class="text-danger"><?php echo $error; ?></small>
+                        <?php endif; ?>
        
             </div>
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
@@ -260,5 +405,7 @@
 <script src="../../function/script/pagination.js"></script>
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

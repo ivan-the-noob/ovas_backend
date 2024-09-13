@@ -223,6 +223,10 @@ img{
     background-color: transparent;
     font-size: 20px;
 }
+
+.edit_admin input{
+    width: 80%;
+}
 td button{
     border: none;
     background-color: #7A3015;

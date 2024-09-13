@@ -130,9 +130,25 @@
                     <div class="search">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" id="search-input" class="form-control" placeholder="Search...">
                         </div>
                     </div>
+                    <script>
+                        $(document).ready(function() {
+                            $('#search-input').on('keyup', function() {
+                                var searchTerm = $(this).val().trim();
+
+                                $.ajax({
+                                    url: '../../function/php/search/service_list.php', // PHP script to handle search
+                                    type: 'POST',
+                                    data: { search: searchTerm },
+                                    success: function(data) {
+                                        $('#tableBody').html(data); // Replace table rows with search results
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                     <button type="button" class=" btn-new" data-toggle="modal" data-target="#addCategoryModal">
                         Add new
                     </button>
@@ -276,9 +292,9 @@
 
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteModal<?php echo $service['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?php echo $service['id']; ?>" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header d-flex justify-content-between">
                     <h5 class="modal-title" id="deleteModalLabel<?php echo $service['id']; ?>">Delete Service</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -307,5 +323,6 @@
 <script src="../../function/script/pagination.js"></script>
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </html>

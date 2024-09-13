@@ -5,6 +5,18 @@
         header("Location: ../../../users/web/api/login.php");
         exit(); 
     }
+    require '../../../../db.php';
+
+    try {
+        // Fetch the categories from the database
+        $sql = "SELECT category_name FROM categories";
+        $stmt = $conn->query($sql);
+
+        // Fetch all categories
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -201,14 +213,20 @@
             <input type="text" class="form-control" name="petName" placeholder="Ara" id="pet-name">
           </div>
           <div class="mb-3">
-            <label for="petType" class="form-label">Species</label>
-            <select class="form-control" id="petType" name="petType">
-              <option>Cat</option>
-              <option>Dog</option>
-              <option>Rabit</option>
-              <option>Reptile</option>
-            </select>
+              <label for="petType" class="form-label">Species</label>
+              <select class="form-control" id="petType" name="petType">
+                  <?php if (!empty($categories)): ?>
+                      <?php foreach ($categories as $category): ?>
+                          <option value="<?php echo htmlspecialchars($category['category_name']); ?>">
+                              <?php echo htmlspecialchars($category['category_name']); ?>
+                          </option>
+                      <?php endforeach; ?>
+                  <?php else: ?>
+                      <option value="">No categories available</option>
+                  <?php endif; ?>
+              </select>
           </div>
+
           <div class="mb-3">
             <label for="petType" class="form-label">Sex</label>
             <select class="form-control" id="sex" name="sex">

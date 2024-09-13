@@ -16,6 +16,18 @@ $stmt2 = $conn->prepare("SELECT * FROM notifications WHERE email = :email ORDER 
 $stmt2->bindParam(':email', $user_email);
 $stmt2->execute();
 $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+
+try {
+  // Fetch the categories from the database
+  $sql = "SELECT category_name FROM categories";
+  $stmt = $conn->query($sql);
+
+  // Fetch all categories
+  $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+  echo "Error: " . $e->getMessage();
+}
 ?>
 
 
@@ -194,14 +206,20 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                 <div class="col-md-4">
                                     <h6>Pet Information</h6>
                                     <div class="mb-3">
-                                        <label for="petType" class="form-label">Pet Type</label>
-                                        <select class="form-control" id="petType" name="petType" required>
-                                            <option>Cat</option>
-                                            <option>Dog</option>
-                                            <option>Rabbit</option>
-                                            <option>Reptile</option>
-                                        </select>
-                                    </div>
+                                      <label for="petType" class="form-label">Pet Type</label>
+                                      <select class="form-control" id="petType" name="petType">
+                                          <?php if (!empty($categories)): ?>
+                                              <?php foreach ($categories as $category): ?>
+                                                  <option value="<?php echo htmlspecialchars($category['category_name']); ?>">
+                                                      <?php echo htmlspecialchars($category['category_name']); ?>
+                                                  </option>
+                                              <?php endforeach; ?>
+                                          <?php else: ?>
+                                              <option value="">No categories available</option>
+                                          <?php endif; ?>
+                                      </select>
+                                  </div>
+
                                     <div class="mb-3">
                                         <label for="breed" class="form-label">Breed</label>
                                         <input type="text" class="form-control" id="breed" name="breed" placeholder="Husky" required>
