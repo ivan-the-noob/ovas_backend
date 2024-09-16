@@ -9,6 +9,11 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
-$conn = null; 
+$conn = null;
+
+// Make sure appointments is defined
+return $appointments; 
+
+
 
 ?>

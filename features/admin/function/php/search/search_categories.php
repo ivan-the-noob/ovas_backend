@@ -1,18 +1,18 @@
 <?php
 
-// Include the database connection
+
 require '../../../../../db.php';
 
-// Get the search term from POST request
+
 $search = $_POST['search'] ?? '';
 
-// Prepare the SQL query with LIKE to match categories
+
 $query = "SELECT * FROM categories WHERE category_name LIKE ? ORDER BY id ASC";
-$stmt = $conn->prepare($query); // Change $pdo to $conn
+$stmt = $conn->prepare($query); 
 $stmt->execute(['%' . $search . '%']);
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Output the results as table rows
+
 if (!empty($categories)) {
     foreach ($categories as $category) {
         echo '<tr class="test-hover">';

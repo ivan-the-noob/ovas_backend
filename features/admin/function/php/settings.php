@@ -1,12 +1,12 @@
 <?php
-require '../../../../db.php'; // Connect to the database
+require '../../../../db.php'; 
 
-// Fetch the current settings from the database
-$stmt = $conn->prepare("SELECT * FROM system_settings WHERE id = 1"); // Adjust the `id` as needed
+
+$stmt = $conn->prepare("SELECT * FROM system_settings WHERE id = 1"); 
 $stmt->execute();
-$settings = $stmt->fetch(PDO::FETCH_ASSOC); // Fetch the settings as an associative array
+$settings = $stmt->fetch(PDO::FETCH_ASSOC); 
 
-// Check if the settings exist
+
 if ($settings) {
     $system_logo = $settings['system_logo'];
     $cover = $settings['cover'];

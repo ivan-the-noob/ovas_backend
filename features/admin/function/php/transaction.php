@@ -3,7 +3,7 @@
 try {
     $stmt = $conn->prepare("SELECT * FROM pos_records");
     $stmt->execute();
-    $records = $stmt->fetchAll(PDO::FETCH_ASSOC); // Fetch all records as associative arrays
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }

@@ -3,7 +3,7 @@ require '../../../../../db.php';
 
 $search = $_POST['search'] ?? '';
 
-// Query to filter records by owner name
+
 $query = "SELECT * FROM pos_records WHERE owner_name LIKE ? ORDER BY id ASC";
 $stmt = $conn->prepare($query);
 $stmt->execute(['%' . $search . '%']);

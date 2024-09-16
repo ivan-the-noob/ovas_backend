@@ -196,7 +196,6 @@
 </div>
 
 <script>
-    // Function to update the hidden cost input when a service is selected
     function updateCostListeners() {
         document.querySelectorAll('.service-dropdown').forEach(function(dropdown) {
             dropdown.addEventListener('change', function() {
@@ -205,18 +204,16 @@
                 
                 if (selectedOption) {
                     var cost = selectedOption.getAttribute('data-cost');
-                    costInput.value = cost;  // Update the hidden input with the service cost
+                    costInput.value = cost; 
                 } else {
-                    costInput.value = '';  // Clear the hidden input if no service is selected
+                    costInput.value = ''; 
                 }
             });
         });
     }
 
-    // Initially apply cost update listeners
     updateCostListeners();
 
-    // Add new service input when the "+" button is clicked
     document.querySelector('#service-group').addEventListener('click', function(event) {
         if (event.target.classList.contains('add-service')) {
             var serviceItem = event.target.closest('.service-item');
@@ -224,7 +221,6 @@
             newServiceItem.classList.add('form-group', 'row', 'service-item');
             newServiceItem.style.marginTop = '10px';
 
-            // Create select element and remove button, along with hidden cost input
             newServiceItem.innerHTML = `
                 <div class="col-7"></div>
                 <div class="col-5 d-flex">
@@ -241,22 +237,18 @@
                 </div>
             `;
 
-            // Append the new service item to the service group
             document.querySelector('#service-group').appendChild(newServiceItem);
 
-            // Re-apply the cost update listeners to the new dropdowns
             updateCostListeners();
         }
     });
 
-    // Add new medication input when the "+" button is clicked
     document.querySelector('#medication-group').addEventListener('click', function(event) {
         if (event.target.classList.contains('add-medication')) {
             var medicationItem = document.createElement('div');
             medicationItem.classList.add('form-group', 'row', 'medication-item');
             medicationItem.style.marginTop = '10px';
 
-            // Create input field and remove button
             medicationItem.innerHTML = `
                 <div class="col-7"></div>
                 <div class="col-5 d-flex">
@@ -265,19 +257,16 @@
                 </div>
             `;
 
-            // Append the new medication item to the medication group
             document.querySelector('#medication-group').appendChild(medicationItem);
         }
     });
 
-    // Add new supplies input when the "+" button is clicked
     document.querySelector('#supplies-group').addEventListener('click', function(event) {
         if (event.target.classList.contains('add-supplies')) {
             var suppliesItem = document.createElement('div');
             suppliesItem.classList.add('form-group', 'row', 'supplies-item');
             suppliesItem.style.marginTop = '10px';
 
-            // Create input field and remove button
             suppliesItem.innerHTML = `
                 <div class="col-7"></div>
                 <div class="col-5 d-flex">
@@ -286,12 +275,12 @@
                 </div>
             `;
 
-            // Append the new supplies item to the supplies group
+
             document.querySelector('#supplies-group').appendChild(suppliesItem);
         }
     });
 
-    // Remove service, medication, or supplies input when "-" button is clicked
+
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-service')) {
             event.target.closest('.service-item').remove();

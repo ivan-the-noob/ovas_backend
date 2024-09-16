@@ -168,20 +168,16 @@
 </div>
             <script>
    $(document).ready(function() {
-        // Trigger AJAX request on input
         $('#search-input').on('input', function() {
             let searchTerm = $(this).val();
             
-            // Send AJAX request to the server
             $.ajax({
-                url: '../../function/php/search/search_patients.php', // The PHP file to handle the search
+                url: '../../function/php/search/search_patients.php', 
                 type: 'GET',
-                data: { search: searchTerm }, // Send the search term as GET parameter
+                data: { search: searchTerm }, 
                 success: function(response) {
-                    // Clear the existing patient container content before updating
                     $('#patient-container').empty();
                     
-                    // Update the patient container with the new response
                     $('#patient-container').html(response);
                 },
                 error: function(xhr, status, error) {
@@ -194,7 +190,6 @@
 
 
 <?php foreach ($patients as $patient): ?>
-            <!-- Modal for each patient -->
             <div class="modal fade" id="modal<?php echo $patient['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

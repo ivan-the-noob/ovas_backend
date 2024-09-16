@@ -1,15 +1,15 @@
 <?php
-require '../../../../db.php'; // Include your database connection file
+require '../../../../db.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the form data
+    
     $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
     $role = $_POST['role'];
 
     try {
-        // Update the user's data in the database
+        
         $stmt = $conn->prepare("UPDATE users SET name = :name, email = :email, role = :role WHERE id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':name', $name);

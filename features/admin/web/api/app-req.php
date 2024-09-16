@@ -84,6 +84,17 @@
             </button>
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
+                <?php 
+                require '../../../../db.php'; 
+                try {
+                    $sql = "SELECT * FROM admin_confirm ORDER BY created_at DESC";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute();
+                    $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    echo "Query failed: " . $e->getMessage();
+                }
+                ?>
                 <div class="dropdown">
                     <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-bell"></i>
@@ -92,31 +103,32 @@
                         <li class="dropdown-header">
                             <h5 class=" mb-0">Notification</h5>
                         </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-danger mb-0">
-                                <strong>Decline</strong>
-                                <p>Admin Kim declined Jana's appointment.<a href="#" class="alert-link">See here.</a></p> 
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-success mb-0">
-                                <strong>Paid!</strong>
-                                <p>James paid the bill.</p> 
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
-                       
+                        <?php if (!empty($notifications)): ?>
+                            <?php foreach ($notifications as $notification): ?>
+                                <?php if ($notification['status'] == 'confirm'): ?>
+                                    <li class="dropdown-item">
+                                        <div class="alert alert-primary mb-0">
+                                            <strong>Appointment Confirmed</strong>
+                                            <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been confirmed!</p>                               
+                                        </div>
+                                    </li>
+                                <?php elseif ($notification['status'] == 'decline'): ?>
+                                    <li class="dropdown-item">
+                                        <div class="alert alert-danger mb-0">
+                                            <strong>Declined</strong>
+                                            <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been declined. <a href="#" class="alert-link">See here.</a></p> 
+                                        </div>
+                                    </li>
+                                <?php elseif ($notification['status'] == 'complete'): ?>
+                                    <li class="dropdown-item">
+                                        <div class="alert alert-success mb-0">
+                                            <strong>Completed!</strong>
+                                            <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been completed.</p>
+                                        </div>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endif; ?>                  
                     </ul>
                 </div>
                 <div class="dropdown">
@@ -146,17 +158,14 @@
             </div>
             <script>
                     $(document).ready(function() {
-                        // Trigger AJAX request on input
                         $('#search-input').on('input', function() {
                             let searchTerm = $(this).val();
                             
-                            // Send AJAX request to the server
                             $.ajax({
                                 url: '../../function/php/search/search_appointments.php',
                                 type: 'GET',
                                 data: { search: searchTerm },
                                 success: function(response) {
-                                    // Update the table body with the response
                                     $('#tableBody').html(response);
                                 }
                             });

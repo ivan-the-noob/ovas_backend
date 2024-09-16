@@ -139,11 +139,11 @@
                                 var searchTerm = $(this).val().trim();
 
                                 $.ajax({
-                                    url: '../../function/php/search/service_list.php', // PHP script to handle search
+                                    url: '../../function/php/search/service_list.php', 
                                     type: 'POST',
                                     data: { search: searchTerm },
                                     success: function(data) {
-                                        $('#tableBody').html(data); // Replace table rows with search results
+                                        $('#tableBody').html(data);
                                     }
                                 });
                             });

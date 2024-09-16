@@ -5,7 +5,24 @@
         header("Location: ../../../users/web/api/login.php");
         exit(); 
     }
+    
+    require '../../../../db.php';
+    $user_email = $_SESSION['email'] ?? '';
+
+    // Fetch count of unread notifications for the badge
+    $stmt = $conn->prepare("SELECT COUNT(*) AS unread_count FROM notifications WHERE email = :email AND is_read = 0");
+    $stmt->bindParam(':email', $user_email);
+    $stmt->execute();
+    $unread_notification = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Fetch all notifications for the user, ordered by newest first (descending)
+    $stmt2 = $conn->prepare("SELECT * FROM notifications WHERE email = :email ORDER BY created_at DESC"); 
+    $stmt2->bindParam(':email', $user_email);
+    $stmt2->execute();
+    $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,12 +100,7 @@
                     </path>
                 </svg>
             </button>
-            <div class="col-8 col-md-6 col-lg-3">
-                <div class="search-bar">
-                    <i class="fa fa-magnifying-glass"></i>
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div>
-            </div>
+          
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
                     <div class="dropdown">
@@ -137,7 +149,29 @@
             </div>
         </div>
          <!--Notification and Profile Admin End-->
-
+        <?php 
+            require '../../../../db.php';
+            try {
+                $stmt = $conn->prepare("SELECT COUNT(*) as total_users FROM users WHERE role = :role");
+                $stmt->execute(['role' => 'user']);
+            
+                // Fetch the total number of users
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $totalUsers = $result['total_users'];
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            try {
+                $stmt = $conn->prepare("SELECT COUNT(*) as total_booked FROM appointments");
+                $stmt->execute();
+            
+                // Fetch the total number of booked appointments
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $totalBooked = $result['total_booked'];
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        ?>
         <!--Pos Card with graphs-->
         <div class="dashboard">
             <h3>Dashboard</h3>
@@ -147,7 +181,7 @@
                         <div class="cards">
                             <div class="card-text">
                                 <p>Total Users</p>
-                                <h5>125</h5>
+                                <h5><?php echo $totalUsers; ?></h5>
                             </div>
                             <div class="logo">
                                 <i class="fa-solid fa-users"></i>
@@ -162,7 +196,7 @@
                         <div class="cards">
                             <div class="card-text">
                                 <p>Total Booked</p>
-                                <h5>20</h5>
+                                <h5><?php echo $totalBooked; ?></h5>
                             </div>
                             <div class="logo">
                                 <i class="fa-solid fa-calendar-check"></i>

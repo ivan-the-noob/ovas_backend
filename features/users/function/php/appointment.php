@@ -3,7 +3,7 @@ session_start();
 require '../../../../db.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Capture the form data
+    
     $owner_name = $_POST['ownerName'] ?? '';
     $contact_number = $_POST['contactNum'] ?? '';
     $email = $_POST['ownerEmail'] ?? '';
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $appointment_date = $_POST['appointmentDate'] ?? ''; 
 
     try {
-        // Insert the appointment into the database
+        
         $stmt = $conn->prepare("INSERT INTO appointments 
             (owner_name, contact_number, email, address, pet_type, breed, age, service_category, service_type, appointment_time, appointment_date, total_payment)
             VALUES (:owner_name, :contact_number, :email, :address, :pet_type, :breed, :age, :service_category, :service_type, :appointment_time, :appointment_date, :total_payment)");
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':total_payment', $total_payment, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            // Insert the notification after booking is successful
+            
             $notification_stmt = $conn->prepare("INSERT INTO notifications 
                 (email, type, message) VALUES (:email, :type, :message)");
 
@@ -49,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $notification_stmt->bindParam(':message', $message);
 
             if ($notification_stmt->execute()) {
-                // Store the success message in session
+                
                 $_SESSION['success_message'] = '<div class="notification-content alert-primary">
                     <strong>Successfully Booked!</strong>
                     <p class="notification-text">You successfully booked! Please Wait for Confirmation</p>
                 </div>';
                 
-                // Redirect to appointment page
+                
                 header('Location: ../../web/api/appointment.php');
                 exit;
             } else {

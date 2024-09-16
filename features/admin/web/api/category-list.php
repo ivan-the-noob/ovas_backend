@@ -155,11 +155,11 @@ try {
                                     var searchTerm = $(this).val().trim();
 
                                     $.ajax({
-                                        url: '../../function/php/search/search_categories.php', // Create this PHP script
+                                        url: '../../function/php/search/search_categories.php', 
                                         type: 'POST',
                                         data: { search: searchTerm },
                                         success: function(data) {
-                                            $('#tableBody').html(data); // Update the table with filtered results
+                                            $('#tableBody').html(data); 
                                         }
                                     });
                                 });

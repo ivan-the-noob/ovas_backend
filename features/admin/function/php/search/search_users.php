@@ -1,9 +1,9 @@
 <?php
-require '../../../../../db.php'; // Include your database connection
+require '../../../../../db.php'; 
 
 $search = $_POST['search'] ?? '';
 
-// Query to search users by name or email
+
 $query = "SELECT * FROM users WHERE name LIKE ? OR email LIKE ? ORDER BY id ASC";
 
 try {

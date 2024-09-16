@@ -199,11 +199,11 @@ try {
                                 var searchTerm = $(this).val().trim();
 
                                 $.ajax({
-                                    url: '../../function/php/search/search_users.php', // PHP script to handle search
+                                    url: '../../function/php/search/search_users.php',
                                     type: 'POST',
                                     data: { search: searchTerm },
                                     success: function(data) {
-                                        $('#tableBody').html(data); // Replace the table body with search results
+                                        $('#tableBody').html(data); 
                                     }
                                 });
                             });
@@ -226,7 +226,6 @@ try {
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Form that submits to the same page -->
                 <form action="" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -236,7 +235,6 @@ try {
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control mt-2" id="email" name="email" placeholder="Enter email" required>
-                        <!-- Display error below the input if email exists -->
                         <?php if (!empty($error)): ?>
                             <small class="text-danger"><?php echo $error; ?></small>
                         <?php endif; ?>

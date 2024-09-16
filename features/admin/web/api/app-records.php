@@ -294,20 +294,20 @@
               document.addEventListener('DOMContentLoaded', function () {
     const serviceSelect = document.getElementById('service');
     const totalPayment = document.getElementById('totalPayment');
-    const paymentInput = document.getElementById('payment'); // Hidden input for total payment
+    const paymentInput = document.getElementById('payment'); 
 
-    // Add an event listener for when the service dropdown value changes
+
     serviceSelect.addEventListener('change', function () {
-        // Get the selected option's value (which is the price)
+
         const selectedValue = serviceSelect.value;
 
-        // Update the total payment display
+
         if (selectedValue) {
             totalPayment.textContent = `₱${selectedValue}`;
-            paymentInput.value = selectedValue; // Update the hidden input value
+            paymentInput.value = selectedValue; 
         } else {
             totalPayment.textContent = '₱0.00';
-            paymentInput.value = '0'; // Reset hidden input value if no service is selected
+            paymentInput.value = '0'; 
         }
     });
 });
@@ -346,7 +346,6 @@
   </div>
 </form>
 
-           <!--Input fields of Patients Records-->
            
 </body>
 

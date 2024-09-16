@@ -59,7 +59,7 @@ if (!empty($about_us_image)) {
 }
 
 try {
-    // Prepare the SQL query
+    
     $sql = "UPDATE system_settings SET 
             system_logo = :system_logo,
             cover = :cover,
@@ -72,12 +72,12 @@ try {
             email = :email,
             contact_num = :contact_num,
             location = :location
-            WHERE id = 1"; // Assuming you're updating the first record
+            WHERE id = 1"; 
 
-    // Prepare the statement
+    
     $stmt = $conn->prepare($sql);
 
-    // Bind parameters to statement
+    
     $stmt->bindParam(':system_logo', $system_logo);
     $stmt->bindParam(':cover', $cover);
     $stmt->bindParam(':system_name', $system_name);
@@ -90,7 +90,7 @@ try {
     $stmt->bindParam(':contact_num', $contact_num);
     $stmt->bindParam(':location', $location);
 
-    // Execute the statement
+    
     if ($stmt->execute()) {
         header('Location: ../../web/api/settings.php');
     } else {
@@ -101,7 +101,7 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
-// Unset the connection to close it
+
 $conn = null;
 
 ?>

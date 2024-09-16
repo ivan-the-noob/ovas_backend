@@ -1,12 +1,12 @@
 <?php
 require '../../../../../db.php';
-// Get the search term from the AJAX request
+
 $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
 
-// Default SQL query
+
 $query = "SELECT * FROM appointments";
 
-// Modify the query if a search term is provided
+
 if (!empty($searchTerm)) {
     $query .= " WHERE 
                 owner_name LIKE :searchTerm OR 
@@ -18,17 +18,17 @@ if (!empty($searchTerm)) {
                 service_type LIKE :searchTerm";
 }
 
-// Prepare and execute the query
+
 $stmt = $conn->prepare($query);
 if (!empty($searchTerm)) {
     $stmt->bindValue(':searchTerm', '%' . $searchTerm . '%');
 }
 $stmt->execute();
 
-// Fetch the results
+
 $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Display the filtered results as table rows
+
 if (count($appointments) > 0) {
     foreach ($appointments as $index => $appointment) {
         echo '<tr>

@@ -150,11 +150,11 @@
                             var searchTerm = $(this).val().trim();
 
                             $.ajax({
-                                url: '../../function/php/search/search_transactions.php', // PHP script to handle search
+                                url: '../../function/php/search/search_transactions.php', 
                                 type: 'POST',
                                 data: { search: searchTerm },
                                 success: function(data) {
-                                    $('.row').html(data); // Replace the cards with search results
+                                    $('.row').html(data); 
                                 }
                             });
                         });
@@ -165,13 +165,10 @@
             <div class="container my-4 px-lg-4">
     <div class="row px-lg-4">
         <?php foreach ($records as $record): 
-            // Decode JSON fields (services, cost, medication, and supplies)
             $services = json_decode($record['services'], true);
-            $costs = json_decode($record['cost'], true);  // Ensure costs are decoded as a JSON array
+            $costs = json_decode($record['cost'], true); 
             $medications = json_decode($record['medication'], true);
             $supplies = json_decode($record['supplies'], true);
-
-            // Handle potential empty or invalid numbers for total
             $total = !empty($record['total']) && is_numeric($record['total']) ? number_format($record['total'], 2) : '0.00';
         ?>
         <div class="col-md-4 mb-4">
@@ -199,7 +196,7 @@
                         <?php foreach ($medications as $medication): ?>
                         <div class="d-flex justify-content-between">
                             <span id="medication"><?php echo htmlspecialchars($medication); ?></span>
-                            <span>₱ 25.00</span> <!-- Adjust cost based on your data structure if applicable -->
+                            <span>₱ 25.00</span> 
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -212,7 +209,7 @@
                         <?php foreach ($supplies as $supply): ?>
                         <div class="d-flex justify-content-between">
                             <span id="supplies"><?php echo htmlspecialchars($supply); ?></span>
-                            <span>₱ 299.00</span> <!-- Adjust cost based on your data structure if applicable -->
+                            <span>₱ 299.00</span>
                         </div>
                         <?php endforeach; ?>
                     </div>
@@ -221,7 +218,7 @@
                     <!-- Total Section -->
                     <div class="d-flex justify-content-between fw-bold">
                         <span>TOTAL:</span>
-                        <span>₱ <?php echo $total; ?></span> <!-- Safely handle and format the total -->
+                        <span>₱ <?php echo $total; ?></span>
                     </div>
                     
                     <!-- Buttons Section -->
@@ -239,20 +236,17 @@
 
 <script>
     function printCard(button) {
-    // Find the full card that the clicked button belongs to
     var card = button.closest('.card');
     
-    // Store the buttons element and remove it from the card
     var buttons = card.querySelector('.buttons');
     if (buttons) {
-        buttons.remove();  // Remove buttons completely
+        buttons.remove();  
     }
 
-    // Create a header with the brand name and today's date
+
     var brandHeader = document.createElement('div');
     var today = new Date();
     
-    // Format the date as "Month Day, Year" (e.g., September 12, 2024)
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     var formattedDate = today.toLocaleDateString('en-US', options);
     
@@ -263,15 +257,11 @@
 
     `;
     
-    // Insert the header at the top of the card
     card.prepend(brandHeader);
 
-    // Use html2canvas to convert the entire card to an image
     html2canvas(card, { scale: 2 }).then(function(canvas) {
-        // Convert canvas to an image URL
         var imgData = canvas.toDataURL('image/png');
         
-        // Create a new window for printing
         var printWindow = window.open('', '_blank');
         printWindow.document.write(`
             <html>
@@ -301,10 +291,9 @@
         printWindow.document.close();
         printWindow.focus();
 
-        // Add an event listener for when printing is done (whether printed or canceled)
         printWindow.onafterprint = function() {
             printWindow.close();
-            location.reload(); // Reload the current page after printing is done
+            location.reload(); 
         };
         
         printWindow.onload = function() {
