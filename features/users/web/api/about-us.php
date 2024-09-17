@@ -1,5 +1,7 @@
 <?php 
+  session_start();
   include '../../../../index_connection.php';
+  $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +69,7 @@
           <!--Notification End-->
           <div class="dropdown">
               <button class=" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../../../assets/img/customer.jfif" alt="" class="profile">
+              <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="" class="profile">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="../../../users/web/api/dashboard.html">Profile</a>

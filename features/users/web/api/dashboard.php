@@ -1,3 +1,12 @@
+<?php 
+  session_start();
+  if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+    header('Location: login.php'); 
+    exit();
+}
+  $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +40,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="../../../../../user.html">Home</a>
+            <a class="nav-link" href="../../../../index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Profile</a>
@@ -41,11 +50,11 @@
         <div class="d-flex ml-auto">
           <div class="dropdown">
               <button class=" dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../../../assets/img/customer.jfif" alt="" class="profile">
+              <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="profile" alt="Profile Picture" id="profileImg">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="login.html">Logout</a>
+                  <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
           </div>
         </div>
@@ -53,42 +62,44 @@
     </div>
   </nav>
   <!--Dashboard Section-->
-  <div class="container custom-container mt-5">
-    <h1 class="text-center mb-4">Profile</h1>
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-6 text-center mb-4">
-            <img src="../../../../assets/img/customer.jfif" class="rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px;">
-            <h4 class="mt-3">Racel</h4>
-            <div class="mt-3">
-                <label for="changeProfile" class="form-label">Change Profile Picture</label>
-                <input type="file" class="form-control" id="changeProfile">
+  <form action="../../function/php/profile_update.php" method="POST" enctype="multipart/form-data">
+    <div class="container custom-container mt-5">
+        <h1 class="text-center mb-4">Profile</h1>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 text-center mb-4">
+                <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; border: 2px solid #7A3015;" id="profileImg">
+                <h4 class="mt-3">Racel</h4>
+                <div class="mt-3">
+                    <input type="file" class="form-control" name="profile_picture" id="changeProfile">
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="mb-3">
+                    <label for="currentPassword" class="form-label">Current Password</label>
+                    <input type="password" class="form-control" name="current_password" id="currentPassword" placeholder="Enter current password">
+                </div>
+                <div class="mb-4">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" name="new_password" id="newPassword" placeholder="Enter new password">
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <div class="dash-button">
+                    <div class="col-12">
+                        <button type="submit" class="save">Save</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</form>
 
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-6">
-            <div class="mb-3">
-                <label for="currentPassword" class="form-label">Current Password</label>
-                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
-            </div>
-            <div class="mb-4">
-                <label for="newPassword" class="form-label">New Password</label>
-                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
-            </div>
-        </div>
-    </div>
-
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-6">
-          <div class="dash-button">
-              <div class="col-12">
-                  <button class="btn btn-primary">Save</button>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
 
   <!--Dashboard Section End-->
 

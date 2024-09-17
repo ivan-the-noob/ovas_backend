@@ -1,5 +1,7 @@
 <?php
-include 'index_connection.php';
+  session_start();
+  include 'index_connection.php';
+  $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
 ?>
 
 
@@ -75,7 +77,7 @@ include 'index_connection.php';
 
         <div class="dropdown second-dropdown">
             <button class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="assets/img/customer.jfif" alt="Profile" class="profile">
+            <img src="assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <a class="dropdown-item" href="features/users/web/api/dashboard.php">Profile</a>
@@ -195,64 +197,16 @@ include 'index_connection.php';
 
   <section class="choose-us py-5" id="choose-us">
     <h3 class="mb-4" id="review">Why Choose Us</h3>
-    <div class="container ">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="testimonial-card-custom p-3 review-box" id="translate-1">
-            <div class="d-flex align-items-center">
-              <img src="assets/img/customer.jfif" alt="Ivan Ablanida" width="50" height="50">
-              <div class="ml-3">
-                <p class="testimonial-title">Ivan Ablanida</p>
-              </div>
-            </div>
-            <p class="mt-3">Booking a pet appointment at Pawfect was a breeze. The staff was incredibly friendly, and
-              the online booking system made it simple to schedule a visit. Highly recommended for anyone looking for a
-              hassle-free experience.</p>
-          </div>
+    <div class="container">
+        <div class="row">
+           <?php
+             
+              include 'features/users/function/php/review.php'; 
+           ?>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="testimonial-card-custom p-3 review-box" id="translate-2">
-            <div class="d-flex align-items-center">
-              <img src="assets/img/customer.jfif" alt="Jannray Mostajo" width="50" height="50">
-              <div class="ml-3">
-                <p class="testimonial-title">Jannray Mostajo</p>
-              </div>
-            </div>
-            <p class="mt-3">The appointment booking process was seamless. The user-friendly platform allowed me to
-              easily select a time slot that fit my schedule. The clinic's professionalism and care for my pet made the
-              experience even better.</p>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="testimonial-card-custom p-3 review-box" id="translate-3">
-            <div class="d-flex align-items-center">
-              <img src="assets/img/customer.jfif" alt="Prince Jherico" width="50" height="50">
-              <div class="ml-3">
-                <p class="testimonial-title">Prince Jherico</p>
-              </div>
-            </div>
-            <p class="mt-3">I was impressed with how easy it was to book an appointment for my pet. The online system
-              was intuitive, and I appreciated the reminder notifications. The staff was welcoming and knowledgeable,
-              making the entire process smooth and stress-free.</p>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="testimonial-card-custom p-3 review-box" id="translate-4">
-            <div class="d-flex align-items-center">
-              <img src="assets/img/customer.jfif" alt="Johnloyd Belen" width="50" height="50">
-              <div class="ml-3">
-                <p class="testimonial-title">Johnloyd Belen</p>
-              </div>
-            </div>
-            <p class="mt-3">Booking a pet appointment at Pawfect was incredibly convenient. The staff was responsive and
-              caring, ensuring a positive experience for both me and my pet. The efficient booking system saved me time
-              and made the process effortless.</p>
-          </div>
-        </div>
-
-      </div>
     </div>
-  </section>
+</section>
+
 
 
   <section class="review">
@@ -260,16 +214,16 @@ include 'index_connection.php';
       <div class="row justify-content-center">
         <div class="col-md-8">
           <h2 class="text-center">Leave Us A Review</h2>
-          <form class="review-form">
+          <form class="review-form" action="features/users/function/php/process_review.php" method="POST">
             <div class="form-group">
-              <textarea class="form-control" id="comment" rows="4" placeholder="Leave Your Comment"></textarea>
+              <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Leave Your Comment" required></textarea>
             </div>
-            <button type="submit" class="mt-3 submit ">Submit</button>
+            <button type="submit" class="mt-3 submit">Submit</button>
           </form>
         </div>
       </div>
     </div>
-  </section>
+</section>
   <div class="wave-container1" id="about-us">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave1">
       <path fill="#7A3015" fill-opacity="1"

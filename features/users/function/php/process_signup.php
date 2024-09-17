@@ -75,12 +75,15 @@
             $email = $_SESSION['email'];
             $hashed_password = $_SESSION['hashed_password']; 
             $role = 'user'; 
+            $default_profile_picture = 'assets/img/profile/customer.jfif';
     
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
+
+            $stmt = $conn->prepare("INSERT INTO users (name, email, password, role, profile_picture) VALUES (:name, :email, :password, :role, :profile_picture)");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $hashed_password);
             $stmt->bindParam(':role', $role);
+            $stmt->bindParam(':profile_picture', $default_profile_picture);
             $stmt->execute();
     
             session_destroy();
@@ -95,6 +98,7 @@
             echo "<p class='alert alert-danger'>Invalid verification code.</p>";
         }
     }
+    
     
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {

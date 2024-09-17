@@ -83,54 +83,66 @@
                 </svg>
             </button>
             <!--Notification and Profile Admin-->
-            <div class="profile-admin">
-                <?php 
+            <?php 
                 require '../../../../db.php'; 
                 try {
+                    // Fetch notifications and unread count
                     $sql = "SELECT * FROM admin_confirm ORDER BY created_at DESC";
                     $stmt = $conn->prepare($sql);
                     $stmt->execute();
                     $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    // Fetch only unread notifications
+                    $unreadCountSql = "SELECT COUNT(*) FROM admin_confirm WHERE `read` = '0'";
+                    $unreadStmt = $conn->prepare($unreadCountSql);
+                    $unreadStmt->execute();
+                    $unreadCount = $unreadStmt->fetchColumn();
                 } catch (PDOException $e) {
                     echo "Query failed: " . $e->getMessage();
                 }
-                ?>
-                <div class="dropdown">
-                    <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        <li class="dropdown-header">
-                            <h5 class=" mb-0">Notification</h5>
-                        </li>
-                        <?php if (!empty($notifications)): ?>
-                            <?php foreach ($notifications as $notification): ?>
-                                <?php if ($notification['status'] == 'confirm'): ?>
+            ?>
+
+                <div class="profile-admin">
+                    <div class="dropdown">
+                        <button class="position-relative" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <?php if ($unreadCount > 0): ?>
+                                <span id="notification-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?php echo $unreadCount; ?>
+                                </span>
+                            <?php endif; ?>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                            <li class="dropdown-header">
+                                <h5 class="mb-0">Notification</h5>
+                            </li>
+                            <?php if (!empty($notifications)): ?>
+                                <?php foreach ($notifications as $notification): ?>
                                     <li class="dropdown-item">
-                                        <div class="alert alert-primary mb-0">
-                                            <strong>Appointment Confirmed</strong>
-                                            <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been confirmed!</p>                               
-                                        </div>
+                                        <?php if ($notification['status'] == 'confirm'): ?>
+                                            <div class="alert alert-primary mb-0">
+                                                <strong>Appointment Confirmed</strong>
+                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been confirmed!</p>                               
+                                            </div>
+                                        <?php elseif ($notification['status'] == 'decline'): ?>
+                                            <div class="alert alert-danger mb-0">
+                                                <strong>Declined</strong>
+                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been declined. <a href="#" class="alert-link">See here.</a></p> 
+                                            </div>
+                                        <?php elseif ($notification['status'] == 'complete'): ?>
+                                            <div class="alert alert-success mb-0">
+                                                <strong>Completed!</strong>
+                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been completed.</p>
+                                            </div>
+                                        <?php endif; ?>
                                     </li>
-                                <?php elseif ($notification['status'] == 'decline'): ?>
-                                    <li class="dropdown-item">
-                                        <div class="alert alert-danger mb-0">
-                                            <strong>Declined</strong>
-                                            <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been declined. <a href="#" class="alert-link">See here.</a></p> 
-                                        </div>
-                                    </li>
-                                <?php elseif ($notification['status'] == 'complete'): ?>
-                                    <li class="dropdown-item">
-                                        <div class="alert alert-success mb-0">
-                                            <strong>Completed!</strong>
-                                            <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been completed.</p>
-                                        </div>
-                                    </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        <?php endif; ?>                  
-                    </ul>
-                </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>                  
+                        </ul>
+                    </div>
+                
+
+
                 <div class="dropdown">
                     <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
@@ -283,6 +295,17 @@
     });
 }
 
+document.getElementById('notificationDropdown').addEventListener('show.bs.dropdown', function () {
+        // Make an AJAX request to mark notifications as read
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../function/php/mark_as_read.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send();
+
+        // Reset the notification count visually
+        document.getElementById('notification-count').textContent = '0';
+        document.getElementById('notification-count').classList.add('d-none');
+    });
 
 </script>
        

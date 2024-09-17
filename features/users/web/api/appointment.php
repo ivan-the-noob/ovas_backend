@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../../../../db.php'; 
+$profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
 
 // Assuming you have the user's email stored in the session
 $user_email = $_SESSION['email'] ?? '';
@@ -17,7 +18,7 @@ $stmt2->bindParam(':email', $user_email);
 $stmt2->execute();
 $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-
+// For categories example
 try {
   // Fetch the categories from the database
   $sql = "SELECT category_name FROM categories";
@@ -29,6 +30,7 @@ try {
   echo "Error: " . $e->getMessage();
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -75,59 +77,57 @@ try {
         </ul>
         <!--Header-->
         <div class="d-flex ml-auto align-items-center">
-            <div class="dropdown first-dropdown">
-                <button class="" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell"></i>
-                    <?php if ($unread_notification['unread_count'] > 0): ?>
-                        <span class="badge badge-danger" style="position: relative; top: -10px; left: -10px;">
-                            +<?= $unread_notification['unread_count']; ?>
-                        </span>
+    <div class="dropdown first-dropdown">
+        <button class="" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-bell"></i>
+            <?php if ($unread_notification['unread_count'] > 0): ?>
+                <span class="badge badge-danger" style="position: relative; top: -10px; left: -10px;">
+                    +<?= $unread_notification['unread_count']; ?>
+                </span>
+            <?php endif; ?>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <h5 class="notification-title">Notification</h5>
+            <?php if (!empty($notifications)): ?>
+                <?php foreach ($notifications as $notification): ?>
+                    <!-- Show notifications where type is 'Success' -->
+                    <?php if ($notification['type'] === 'Success'): ?>
+                        <div class="notification-content alert-primary">
+                            <strong>Appointment Confirmed!</strong>
+                            <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
+                        </div>
                     <?php endif; ?>
-                </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <h5 class="notification-title">Notification</h5>
-                      <?php if (!empty($notifications)): ?>
-            <?php foreach ($notifications as $notification): ?>
-                
-                <!-- Show notifications where type is 'confirm' -->
-                <?php if ($notification['type'] === 'Success'): ?>
-                    <div class="notification-content alert-primary">
-                        <strong>Appointment Confirmed!</strong>
-                        <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
-                    </div>
-                <?php endif; ?>
 
-                <!-- Show notifications where type is 'success' -->
-                <?php if ($notification['type'] === 'confirm'): ?>
-                    <div class="notification-content alert-success">
-                        <strong>Successfully Booked!</strong>
-                        <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
-                        <?php if (!empty($notification['code'])): ?>
+                    <!-- Show notifications where type is 'confirm' -->
+                    <?php if ($notification['type'] === 'confirm'): ?>
+                        <div class="notification-content alert-success">
+                            <strong>Successfully Booked!</strong>
+                            <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
+                            <?php if (!empty($notification['code'])): ?>
                                 <p class="code">Code: <?= htmlspecialchars($notification['code']); ?></p>
                             <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-                <?php if ($notification['type'] === 'decline'): ?>
-            <div class="notification-content alert-danger">
-                <strong>Rejected</strong>
-                <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
-            </div>
-        <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
 
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p class="notification-text">No new notifications</p>
-        <?php endif; ?>
-
-
-          </div>
-      </div>
-  </div>
+                    <!-- Show notifications where type is 'decline' -->
+                    <?php if ($notification['type'] === 'decline'): ?>
+                        <div class="notification-content alert-danger">
+                            <strong>Rejected</strong>
+                            <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="notification-text">No new notifications</p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
 
         
           <div class="dropdown">
               <button class="dropdown-toggle profiles" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="../../../../assets/img/customer.jfif" alt="" class="profile">
+              <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="" class="profile">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="../../../users/web/api/dashboard.html">Profile</a>
@@ -563,6 +563,24 @@ try {
     </div>
   </div>
 </body>
+
+<script>
+    document.getElementById('dropdownMenuButton1').addEventListener('click', function() {
+        // AJAX request to mark notifications as read
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../../function/php/appointment-notif.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send();
+
+        // Reset the badge count visually
+        var notificationBadge = document.querySelector('.badge-danger');
+        if (notificationBadge) {
+            notificationBadge.textContent = '';
+            notificationBadge.style.display = 'none';
+        }
+    });
+</script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="../../function/script/pagination-history.js"></script>
