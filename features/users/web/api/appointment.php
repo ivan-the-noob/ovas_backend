@@ -90,7 +90,6 @@ try {
             <h5 class="notification-title">Notification</h5>
             <?php if (!empty($notifications)): ?>
                 <?php foreach ($notifications as $notification): ?>
-                    <!-- Show notifications where type is 'Success' -->
                     <?php if ($notification['type'] === 'Success'): ?>
                         <div class="notification-content alert-primary">
                             <strong>Appointment Confirmed!</strong>
@@ -98,7 +97,6 @@ try {
                         </div>
                     <?php endif; ?>
 
-                    <!-- Show notifications where type is 'confirm' -->
                     <?php if ($notification['type'] === 'confirm'): ?>
                         <div class="notification-content alert-success">
                             <strong>Successfully Booked!</strong>
@@ -109,7 +107,6 @@ try {
                         </div>
                     <?php endif; ?>
 
-                    <!-- Show notifications where type is 'decline' -->
                     <?php if ($notification['type'] === 'decline'): ?>
                         <div class="notification-content alert-danger">
                             <strong>Rejected</strong>

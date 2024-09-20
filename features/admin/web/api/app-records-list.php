@@ -148,10 +148,6 @@
         </div>
     </div>
           
-            
-    
-            <div class="container">
-    <div class="row px-lg-5">
     <div class="container">
     <div class="row px-lg-5" id="patient-container">
         <?php foreach ($patients as $patient): ?>
@@ -159,14 +155,97 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title text-center"><?php echo htmlspecialchars($patient['ownerName']); ?></h5>
-                    <button type="button" class="view" data-toggle="modal" data-target="#modal<?php echo $patient['id']; ?>">View</button>
+                    <button type="button" class="btn btn-primary view" data-bs-toggle="modal" data-bs-target="#modal<?php echo $patient['id']; ?>">View</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for each patient -->
+        <div class="modal fade" id="modal<?php echo $patient['id']; ?>" tabindex="-1" aria-labelledby="modalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-between">
+                        <h5 class="modal-title" id="modalLabel<?php echo $patient['id']; ?>">Details for <?php echo htmlspecialchars($patient['ownerName']); ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="container p-4">
+                        <div class="row">
+                            <!-- First Column -->
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <h6>Client Information</h6>
+                                <p><strong>Name:</strong> <?php echo htmlspecialchars($patient['ownerName']); ?></p>
+                                <p><strong>Address:</strong> <?php echo htmlspecialchars($patient['ownerAddress']); ?></p>
+                                <p><strong>Contact:</strong></p>
+                                <p><strong>Home:</strong> <?php echo htmlspecialchars($patient['home']); ?></p>
+                                <p><strong>Work:</strong> <?php echo htmlspecialchars($patient['work']); ?></p>
+                                <p><strong>Email:</strong> <?php echo htmlspecialchars($patient['ownerEmail']); ?></p>
+                                <p><strong>Preferred:</strong> <?php echo htmlspecialchars($patient['preferredContact']); ?></p>
+                            </div>
+
+                            <!-- Second Column -->
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <h6>Pet Information</h6>
+                                <p><strong>Pet's Name:</strong> <?php echo htmlspecialchars($patient['petName']); ?></p>
+                                <p><strong>Species:</strong> <?php echo htmlspecialchars($patient['petType']); ?></p>
+                                <p><strong>Sex:</strong> <?php echo htmlspecialchars($patient['sex']); ?></p>
+                                <p><strong>Breed:</strong> <?php echo htmlspecialchars($patient['breed']); ?></p>
+                                <p><strong>Colors & Marking:</strong> <?php echo htmlspecialchars($patient['colorMarkings']); ?></p>
+                                <p><strong>Microchip No.:</strong> <?php echo htmlspecialchars($patient['microchipNo']); ?></p>
+                                <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($patient['dob']); ?></p>
+                                <p><strong>Age:</strong> <?php echo htmlspecialchars($patient['age']); ?></p>
+                            </div>
+
+                            <!-- Third Column -->
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <h6>Services</h6>
+                                <p><strong>Category:</strong> <?php echo htmlspecialchars($patient['serviceCategory']); ?></p>
+                                <p><strong>Services:</strong> <?php echo htmlspecialchars($patient['service']); ?></p>
+                                <p><strong>Total Payment:</strong> ₱<?php echo htmlspecialchars($patient['totalPayment']); ?></p>
+                            </div>
+
+                            <!-- Fourth Column -->
+                            <div class="col-lg-3 col-md-6 mb-3">
+                                <h6>Other Information</h6>
+                                <p><strong>Date:</strong> <?php echo htmlspecialchars($patient['date']); ?></p>
+                                <p><strong>Authorization for Treatment:</strong> <?php echo htmlspecialchars($patient['authorization']); ?></p>
+                                <p><strong>Veterinarian's Report:</strong><br> 
+                                    <?php echo nl2br(htmlspecialchars($patient['enteringComplaint'])); ?>
+                                </p>
+                                <p><strong>History • Physical Findings • Diagnosis • Treatment:</strong><br>
+                                    <?php echo nl2br(htmlspecialchars($patient['historyPhysical'])); ?>
+                                </p>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary">Update</button>
+                                </div>
+                            </div>                                 
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <?php endforeach; ?>
     </div>
 </div>
-            <script>
+
+             
+
+             <!--Page number-->
+            <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
+                <li class="page-item">
+                    <a class="page-link" href="#" data-page="prev"><</a>
+                </li>
+                <li class="page-item" id="pageNumbers"></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" data-page="next">></a>
+                </li>
+            </ul>
+              <!--Page number End-->
+            
+             </div>
+</body>
+
+       
+<script>
    $(document).ready(function() {
         $('#search-input').on('input', function() {
             let searchTerm = $(this).val();
@@ -187,95 +266,6 @@
         });
     });
 </script>
-
-
-<?php foreach ($patients as $patient): ?>
-            <div class="modal fade" id="modal<?php echo $patient['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header justify-content-between">
-                            <h5 class="modal-title" id="modalLabel<?php echo $patient['id']; ?>">Details for <?php echo htmlspecialchars($patient['ownerName']); ?></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="container">
-                            <div class="row">
-                                <!-- First Column -->
-                                <div class="col-md-3">
-                                    <h6>Client Information</h6>
-                                    <p><strong>Name:</strong> <?php echo htmlspecialchars($patient['ownerName']); ?></p>
-                                    <p><strong>Address:</strong> <?php echo htmlspecialchars($patient['ownerAddress']); ?></p>
-                                    <p><strong>Contact:</strong> </p>
-                                    <p><strong>Home:</strong> <?php echo htmlspecialchars($patient['home']); ?></p>
-                                    <p><strong>Work:</strong> <?php echo htmlspecialchars($patient['work']); ?></p>
-                                    <p><strong>Email:</strong> <?php echo htmlspecialchars($patient['ownerEmail']); ?></p>
-                                    <p><strong>Preferred:</strong> <?php echo htmlspecialchars($patient['preferredContact']); ?></p>
-                                </div>
-
-                                <!-- Second Column -->
-                                <div class="col-md-3">
-                                    <h6>Pet Information</h6>
-                                    <p><strong>Pet's Name:</strong> <?php echo htmlspecialchars($patient['petName']); ?></p>
-                                    <p><strong>Species:</strong> <?php echo htmlspecialchars($patient['petType']); ?></p>
-                                    <p><strong>Sex:</strong> <?php echo htmlspecialchars($patient['sex']); ?></p>
-                                    <p><strong>Breed:</strong> <?php echo htmlspecialchars($patient['breed']); ?></p>
-                                    <p><strong>Colors & Marking:</strong> <?php echo htmlspecialchars($patient['colorMarkings']); ?></p>
-                                    <p><strong>Microchip No.:</strong> <?php echo htmlspecialchars($patient['microchipNo']); ?></p>
-                                    <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($patient['dob']); ?></p>
-                                    <p><strong>Age:</strong> <?php echo htmlspecialchars($patient['age']); ?></p>
-                                </div>
-
-                                <!-- Third Column -->
-                                <div class="col-md-3">
-                                    <h6>Services</h6>
-                                    <p><strong>Category:</strong> <?php echo htmlspecialchars($patient['serviceCategory']); ?></p>
-                                    <p><strong>Services:</strong> <?php echo htmlspecialchars($patient['service']); ?></p>
-                                    <p><strong>Total Payment:</strong> ₱<?php echo htmlspecialchars($patient['totalPayment']); ?></p>
-                                </div>
-
-                                <!-- Fourth Column -->
-                                <div class="col-md-3">
-                                    <h6>Other Information</h6>
-                                    <p><strong>Date:</strong> <?php echo htmlspecialchars($patient['date']); ?></p>
-                                    <p><strong>Authorization for Treatment:</strong> <?php echo htmlspecialchars($patient['authorization']); ?></p>
-                                    <p><strong>Veterinarian's Report:</strong><br> 
-                                        <?php echo htmlspecialchars($patient['enteringComplaint']); ?>
-                                    </p>
-                                    <p><strong>History • Physical Findings • Diagnosis • Treatment:</strong><br>
-                                        <?php echo htmlspecialchars($patient['historyPhysical']); ?>
-                                    </p>
-                                    <div class="mb-3">
-                                        <button class="save">Update</button>
-                                    </div>
-                                </div>                                 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <!-- <?php endforeach; ?> -->
-    </div>
-</div>
-
-                        
-
-             <!--Page number-->
-            <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
-                <li class="page-item">
-                    <a class="page-link" href="#" data-page="prev"><</a>
-                </li>
-                <li class="page-item" id="pageNumbers"></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" data-page="next">></a>
-                </li>
-            </ul>
-              <!--Page number End-->
-            
-             </div>
-</body>
-
-       
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" crossorigin="anonymous">

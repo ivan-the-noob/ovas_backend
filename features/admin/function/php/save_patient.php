@@ -46,5 +46,42 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+{
+  require '../../../../db.php';
+  session_start();
+    // Check if 'ownerName' is set and not empty
+    if (isset($_POST['ownerName']) && !empty($_POST['ownerName'])) 
+    {
+        $client_name = $_POST['ownerName'];  // Client's name from the form
+        $admin_name = $_SESSION['name'];  // Admin's name from session
+
+        // Notification message
+        $message = "{$client_name}'s record added by {$admin_name}";
+
+        try 
+        {
+            // Insert notification into the database
+            $sql = "INSERT INTO app_req_notif (name, message, client_name) VALUES (:name, :message, :client_name)";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ':name' => $admin_name,
+                ':message' => $message,
+                ':client_name' => $client_name
+            ]);
+
+            echo "Notification added successfully!";
+        } 
+        catch (PDOException $e) 
+        {
+            echo "Error: " . $e->getMessage();
+        }
+    } 
+    else 
+    {
+        echo "Client name is required.";
+    }
+}
+
 $conn = null;
 ?>
