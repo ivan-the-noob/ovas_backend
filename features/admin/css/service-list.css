@@ -130,7 +130,7 @@ body {
     display: flex;
     align-items: center;
     margin-left: auto;
-    gap: 5px;
+    gap: 15px;
 }
 .profile-admin img {
     width: 40px;

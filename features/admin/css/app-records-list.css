@@ -250,7 +250,18 @@ h3{
     font-size: 20px;
 }
 
+
+
 .btn-new{
+    background-color: #7A3015 !important;
+    border: none !important;
+    color: #fff !important;
+    padding:  10px 20px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+}
+
+.toggle-edit-btn{
     background-color: #7A3015 !important;
     border: none !important;
     color: #fff !important;

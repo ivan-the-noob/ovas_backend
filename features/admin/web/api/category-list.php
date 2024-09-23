@@ -11,6 +11,11 @@ try {
     echo "Error: " . $e->getMessage();
     exit();
 }
+
+$count_sql = "SELECT COUNT(*) FROM categories WHERE is_read = 0";
+$count_stmt = $conn->query($count_sql);
+$unread_count = $count_stmt->fetchColumn();
+
 ?>
 
 <!DOCTYPE html>
@@ -92,50 +97,55 @@ try {
             </button>
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
-                <div class="dropdown">
-                    <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        <li class="dropdown-header">
-                            <h5 class=" mb-0">Notification</h5>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-danger mb-0">
-                                <strong>Decline</strong>
-                                <p>Admin Kim declined Jana's appointment.<a href="#" class="alert-link">See here.</a></p> 
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-success mb-0">
-                                <strong>Paid!</strong>
-                                <p>James paid the bill.</p> 
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
-                       
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../../../users/web/api/login.html">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
+            <div class="dropdown">
+    <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-bell"></i>
+        <?php if ($unread_count > 0): ?>
+            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle"><?php echo $unread_count; ?></span>
+        <?php endif; ?>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+        <li class="dropdown-header">
+            <h5 class="mb-0">Notifications</h5>
+        </li>
+        <?php
+        // Fetch notifications
+        $notification_sql = "SELECT message FROM notifications WHERE is_read = 0";
+        $notification_stmt = $conn->query($notification_sql);
+        if ($notification_stmt->rowCount() > 0) {
+            while ($row = $notification_stmt->fetch(PDO::FETCH_ASSOC)) {
+                $message = htmlspecialchars($row['message']);
+                echo '<li class="dropdown-item">
+                        <div class="alert alert-success mb-0">
+                            <strong>New Notification!</strong>
+                            <p>' . $message . '</p>
+                        </div>
+                    </li>';
+            }
+            // Mark notifications as read after displaying
+            $update_sql = "UPDATE notifications SET is_read = 1 WHERE is_read = 0";
+            $conn->query($update_sql);
+        } else {
+            echo '<li class="dropdown-item">
+                    <div class="alert alert-light mb-0">
+                        <p>No new notifications.</p>
+                    </div>
+                </li>';
+        }
+        ?>
+    </ul>
+</div>
+
+    <div class="dropdown">
+        <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../../../users/web/api/login.html">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
         </div>
          <!--Notification and Profile Admin End-->
         <div class="app-req">

@@ -7,6 +7,27 @@
     }
 
     include '../../function/php/view_record.php';
+    require '../../../../db.php';
+
+    $limit = 8;
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+    $offset = ($page - 1) * $limit;
+
+    try {
+        $stmt = $conn->prepare("SELECT * FROM patients_records LIMIT :limit OFFSET :offset");
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $countStmt = $conn->query("SELECT COUNT(*) as total FROM patients_records");
+        $totalRow = $countStmt->fetch(PDO::FETCH_ASSOC);
+        $totalPatients = $totalRow['total'];
+        $totalPages = ceil($totalPatients / $limit);
+
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -162,81 +183,239 @@
 
         <!-- Modal for each patient -->
         <div class="modal fade" id="modal<?php echo $patient['id']; ?>" tabindex="-1" aria-labelledby="modalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header justify-content-between">
-                        <h5 class="modal-title" id="modalLabel<?php echo $patient['id']; ?>">Details for <?php echo htmlspecialchars($patient['ownerName']); ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <h5 class="modal-title" id="modalLabel<?php echo $patient['id']; ?>">Details for <?php echo htmlspecialchars($patient['ownerName']); ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container p-4">
+                <div class="row">
+                    <!-- First Column -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6>Client Information</h6>
+                        <p><strong>Name:</strong> 
+                            <span class="text-view" id="ownerName-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['ownerName']); ?></span>
+                            <input type="text" class="form-control edit-view" id="ownerName-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerName']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Address:</strong> 
+                            <span class="text-view" id="ownerAddress-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['ownerAddress']); ?></span>
+                            <input type="text" class="form-control edit-view" id="ownerAddress-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerAddress']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Contact:</strong></p>
+                        <p><strong>Home:</strong> 
+                            <span class="text-view" id="home-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['home']); ?></span>
+                            <input type="text" class="form-control edit-view" id="home-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['home']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Work:</strong> 
+                            <span class="text-view" id="work-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['work']); ?></span>
+                            <input type="text" class="form-control edit-view" id="work-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['work']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Email:</strong> 
+                            <span class="text-view" id="ownerEmail-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['ownerEmail']); ?></span>
+                            <input type="email" class="form-control edit-view" id="ownerEmail-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerEmail']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Preferred:</strong> 
+                            <span class="text-view" id="preferredContact-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['preferredContact']); ?></span>
+                            <input type="text" class="form-control edit-view" id="preferredContact-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['preferredContact']); ?>" style="display:none;">
+                        </p>
                     </div>
-                    <div class="container p-4">
-                        <div class="row">
-                            <!-- First Column -->
-                            <div class="col-lg-3 col-md-6 mb-3">
-                                <h6>Client Information</h6>
-                                <p><strong>Name:</strong> <?php echo htmlspecialchars($patient['ownerName']); ?></p>
-                                <p><strong>Address:</strong> <?php echo htmlspecialchars($patient['ownerAddress']); ?></p>
-                                <p><strong>Contact:</strong></p>
-                                <p><strong>Home:</strong> <?php echo htmlspecialchars($patient['home']); ?></p>
-                                <p><strong>Work:</strong> <?php echo htmlspecialchars($patient['work']); ?></p>
-                                <p><strong>Email:</strong> <?php echo htmlspecialchars($patient['ownerEmail']); ?></p>
-                                <p><strong>Preferred:</strong> <?php echo htmlspecialchars($patient['preferredContact']); ?></p>
-                            </div>
 
-                            <!-- Second Column -->
-                            <div class="col-lg-3 col-md-6 mb-3">
-                                <h6>Pet Information</h6>
-                                <p><strong>Pet's Name:</strong> <?php echo htmlspecialchars($patient['petName']); ?></p>
-                                <p><strong>Species:</strong> <?php echo htmlspecialchars($patient['petType']); ?></p>
-                                <p><strong>Sex:</strong> <?php echo htmlspecialchars($patient['sex']); ?></p>
-                                <p><strong>Breed:</strong> <?php echo htmlspecialchars($patient['breed']); ?></p>
-                                <p><strong>Colors & Marking:</strong> <?php echo htmlspecialchars($patient['colorMarkings']); ?></p>
-                                <p><strong>Microchip No.:</strong> <?php echo htmlspecialchars($patient['microchipNo']); ?></p>
-                                <p><strong>Date of Birth:</strong> <?php echo htmlspecialchars($patient['dob']); ?></p>
-                                <p><strong>Age:</strong> <?php echo htmlspecialchars($patient['age']); ?></p>
-                            </div>
+                    <!-- Second Column -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6>Pet Information</h6>
+                        <p><strong>Pet's Name:</strong> 
+                            <span class="text-view" id="petName-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['petName']); ?></span>
+                            <input type="text" class="form-control edit-view" id="petName-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petName']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Species:</strong> 
+                            <span class="text-view" id="petType-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['petType']); ?></span>
+                            <input type="text" class="form-control edit-view" id="petType-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petType']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Sex:</strong> 
+                            <span class="text-view" id="sex-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['sex']); ?></span>
+                            <input type="text" class="form-control edit-view" id="sex-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['sex']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Breed:</strong> 
+                            <span class="text-view" id="breed-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['breed']); ?></span>
+                            <input type="text" class="form-control edit-view" id="breed-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['breed']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Colors & Marking:</strong> 
+                            <span class="text-view" id="colorMarkings-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['colorMarkings']); ?></span>
+                            <input type="text" class="form-control edit-view" id="colorMarkings-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['colorMarkings']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Microchip No.:</strong> 
+                            <span class="text-view" id="microchipNo-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['microchipNo']); ?></span>
+                            <input type="text" class="form-control edit-view" id="microchipNo-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['microchipNo']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Date of Birth:</strong> 
+                            <span class="text-view" id="dob-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['dob']); ?></span>
+                            <input type="date" class="form-control edit-view" id="dob-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['dob']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Age:</strong> 
+                            <span class="text-view" id="age-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['age']); ?></span>
+                            <input type="number" class="form-control edit-view" id="age-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['age']); ?>" style="display:none;">
+                        </p>
+                    </div>
 
-                            <!-- Third Column -->
-                            <div class="col-lg-3 col-md-6 mb-3">
-                                <h6>Services</h6>
-                                <p><strong>Category:</strong> <?php echo htmlspecialchars($patient['serviceCategory']); ?></p>
-                                <p><strong>Services:</strong> <?php echo htmlspecialchars($patient['service']); ?></p>
-                                <p><strong>Total Payment:</strong> ₱<?php echo htmlspecialchars($patient['totalPayment']); ?></p>
-                            </div>
+                    <!-- Third Column -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6>Services</h6>
+                        <p><strong>Category:</strong> 
+                            <span class="text-view" id="serviceCategory-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['serviceCategory']); ?></span>
+                            <input type="text" class="form-control edit-view" id="serviceCategory-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['serviceCategory']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Services:</strong> 
+                            <span class="text-view" id="service-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['service']); ?></span>
+                            <input type="text" class="form-control edit-view" id="service-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['service']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Total Payment:</strong> 
+                            <span class="text-view" id="totalPayment-text-<?php echo $patient['id']; ?>">₱<?php echo htmlspecialchars($patient['totalPayment']); ?></span>
+                            <input type="text" class="form-control edit-view" id="totalPayment-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['totalPayment']); ?>" style="display:none;">
+                        </p>
+                    </div>
 
-                            <!-- Fourth Column -->
-                            <div class="col-lg-3 col-md-6 mb-3">
-                                <h6>Other Information</h6>
-                                <p><strong>Date:</strong> <?php echo htmlspecialchars($patient['date']); ?></p>
-                                <p><strong>Authorization for Treatment:</strong> <?php echo htmlspecialchars($patient['authorization']); ?></p>
-                                <p><strong>Veterinarian's Report:</strong><br> 
-                                    <?php echo nl2br(htmlspecialchars($patient['enteringComplaint'])); ?>
-                                </p>
-                                <p><strong>History • Physical Findings • Diagnosis • Treatment:</strong><br>
-                                    <?php echo nl2br(htmlspecialchars($patient['historyPhysical'])); ?>
-                                </p>
-                                <div class="mb-3">
-                                    <button class="btn btn-primary">Update</button>
-                                </div>
-                            </div>                                 
+                    <!-- Fourth Column -->
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <h6>Other Information</h6>
+                        <p><strong>Date:</strong> 
+                            <span class="text-view" id="date-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['date']); ?></span>
+                            <input type="date" class="form-control edit-view" id="date-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Authorization for Treatment:</strong> 
+                            <span class="text-view" id="authorization-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['authorization']); ?></span>
+                            <input type="text" class="form-control edit-view" id="authorization-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['authorization']); ?>" style="display:none;">
+                        </p>
+                        <p><strong>Veterinarian's Report:</strong><br> 
+                            <span class="text-view" id="enteringComplaint-text-<?php echo $patient['id']; ?>"><?php echo nl2br(htmlspecialchars($patient['enteringComplaint'])); ?></span>
+                            <textarea class="form-control edit-view" id="enteringComplaint-input-<?php echo $patient['id']; ?>" style="display:none;"><?php echo htmlspecialchars($patient['enteringComplaint']); ?></textarea>
+                        </p>
+                        <p><strong>History • Physical Findings • Diagnosis • Treatment:</strong><br>
+                            <span class="text-view" id="historyPhysical-text-<?php echo $patient['id']; ?>"><?php echo nl2br(htmlspecialchars($patient['historyPhysical'])); ?></span>
+                            <textarea class="form-control edit-view" id="historyPhysical-input-<?php echo $patient['id']; ?>" style="display:none;"><?php echo htmlspecialchars($patient['historyPhysical']); ?></textarea>
+                        </p>
+                        <div class="mb-3">
+                            <button class="btn toggle-edit-btn " data-patient-id="<?php echo $patient['id']; ?>">Update</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php endforeach; ?>
     </div>
 </div>
+        <?php endforeach; ?>
 
-             
+        <script>
+    $(document).ready(function() {
+    // Event delegation for the dynamically generated view buttons after search
+    $('#patient-container').on('click', '.view', function() {
+        var patientId = $(this).data('bs-target');  // Grabs the modal ID from the button's data attribute
+        console.log('Opening modal for patient:', patientId);
+        $(patientId).modal('show');  // Open the modal for the selected patient
+    });
 
+    // Toggle edit mode logic
+    $('#patient-container').on('click', '.toggle-edit-btn', function() {
+        var id = $(this).data('patient-id');
+        var isEditing = $(this).hasClass('editing');
+
+        if (!isEditing) {
+            console.log('CLICK UPDATE BUTTON: Switching to edit mode for patient ID ' + id);
+            $('#modal' + id + ' .text-view').hide();
+            $('#modal' + id + ' .edit-view').show();
+            $(this).text('Save').addClass('editing');
+        } else {
+            console.log('CLICK SAVE BUTTON: Saving data for patient ID ' + id);
+
+            var updatedData = {
+                id: id,
+                ownerName: $('#ownerName-input-' + id).val(),
+                ownerAddress: $('#ownerAddress-input-' + id).val(),
+                home: $('#home-input-' + id).val(),
+                work: $('#work-input-' + id).val(),
+                ownerEmail: $('#ownerEmail-input-' + id).val(),
+                preferredContact: $('#preferredContact-input-' + id).val(),
+                petName: $('#petName-input-' + id).val(),
+                petType: $('#petType-input-' + id).val(),
+                sex: $('#sex-input-' + id).val(),
+                breed: $('#breed-input-' + id).val(),
+                colorMarkings: $('#colorMarkings-input-' + id).val(),
+                microchipNo: $('#microchipNo-input-' + id).val(),
+                dob: $('#dob-input-' + id).val(),
+                age: $('#age-input-' + id).val(),
+                serviceCategory: $('#serviceCategory-input-' + id).val(),
+                service: $('#service-input-' + id).val(),
+                totalPayment: $('#totalPayment-input-' + id).val(),
+                date: $('#date-input-' + id).val(),
+                authorization: $('#authorization-input-' + id).val(),
+                enteringComplaint: $('#enteringComplaint-input-' + id).val(),
+                historyPhysical: $('#historyPhysical-input-' + id).val(),
+            };
+
+            console.log('UPDATE DATA:', updatedData);
+
+            $.ajax({
+                url: '../../function/php/update_patient.php',
+                type: 'POST',
+                data: updatedData,
+                success: function(response) {
+                    console.log('UPDATE TABLE DATA: Response received:', response);
+
+                    $('#ownerName-text-' + id).text(updatedData.ownerName);
+                    $('#ownerAddress-text-' + id).text(updatedData.ownerAddress);
+                    $('#home-text-' + id).text(updatedData.home);
+                    $('#work-text-' + id).text(updatedData.work);
+                    $('#ownerEmail-text-' + id).text(updatedData.ownerEmail);
+                    $('#preferredContact-text-' + id).text(updatedData.preferredContact);
+                    $('#petName-text-' + id).text(updatedData.petName);
+                    $('#petType-text-' + id).text(updatedData.petType);
+                    $('#sex-text-' + id).text(updatedData.sex);
+                    $('#breed-text-' + id).text(updatedData.breed);
+                    $('#colorMarkings-text-' + id).text(updatedData.colorMarkings);
+                    $('#microchipNo-text-' + id).text(updatedData.microchipNo);
+                    $('#dob-text-' + id).text(updatedData.dob);
+                    $('#age-text-' + id).text(updatedData.age);
+                    $('#serviceCategory-text-' + id).text(updatedData.serviceCategory);
+                    $('#service-text-' + id).text(updatedData.service);
+                    $('#totalPayment-text-' + id).text(updatedData.totalPayment);
+                    $('#date-text-' + id).text(updatedData.date);
+                    $('#authorization-text-' + id).text(updatedData.authorization);
+                    $('#enteringComplaint-text-' + id).text(updatedData.enteringComplaint);
+                    $('#historyPhysical-text-' + id).text(updatedData.historyPhysical);
+
+                    // Switch back to view mode after saving
+                    $('#modal' + id + ' .text-view').show();
+                    $('#modal' + id + ' .edit-view').hide();
+                    $('.toggle-edit-btn[data-patient-id="' + id + '"]').text('Update').removeClass('editing');
+                },
+                error: function(error) {
+                    console.log('Error saving data:', error);
+                }
+            });
+        }
+    });
+});
+
+
+</script>
+
+
+    </div>
+</div>
              <!--Page number-->
-            <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
-                <li class="page-item">
-                    <a class="page-link" href="#" data-page="prev"><</a>
+             <ul class="pagination justify-content-end mt-3 px-lg-5">
+                <li class="page-item <?php if($page <= 1){ echo 'disabled'; } ?>">
+                    <a class="page-link" href="?page=<?php echo $page-1; ?>"><</a>
                 </li>
-                <li class="page-item" id="pageNumbers"></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" data-page="next">></a>
+                
+                <?php for($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?php if($i == $page){ echo 'active'; } ?>">
+                        <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                    </li>
+                <?php endfor; ?>
+                
+                <li class="page-item <?php if($page >= $totalPages){ echo 'disabled'; } ?>">
+                    <a class="page-link" href="?page=<?php echo $page+1; ?>">></a>
                 </li>
             </ul>
               <!--Page number End-->
@@ -247,31 +426,48 @@
        
 <script>
    $(document).ready(function() {
-        $('#search-input').on('input', function() {
-            let searchTerm = $(this).val();
-            
-            $.ajax({
-                url: '../../function/php/search/search_patients.php', 
-                type: 'GET',
-                data: { search: searchTerm }, 
-                success: function(response) {
-                    $('#patient-container').empty();
-                    
-                    $('#patient-container').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error: " + error);
-                }
-            });
+    // Handle search input
+    $('#search-input').on('input', function() {
+        let searchTerm = $(this).val();
+        
+        $.ajax({
+            url: '../../function/php/search/search_patients.php', 
+            type: 'GET',
+            data: { search: searchTerm }, 
+            success: function(response) {
+                $('#patient-container').empty();
+                $('#patient-container').html(response);
+
+                // Reinitialize the modals after AJAX loads the content
+                initModals(); // Call the function to initialize modals
+            },
+            error: function(xhr, status, error) {
+                console.log("Error: " + error);
+            }
         });
     });
+
+    function initModals() {
+        // Attach event handler for modal triggers
+        $('#patient-container').on('click', '.view', function() {
+            var patientId = $(this).data('bs-target');
+            console.log('Opening modal for patient:', patientId);
+            $(patientId).modal('show');
+        });
+    }
+
+    // Initialize modals for the initially loaded content
+    initModals();
+});
+
+
+   
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" crossorigin="anonymous">
 </script>
 <script src="../../function/script/toggle-menu.js"></script>
-<script src="../../function/script/pagination.js"></script>
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

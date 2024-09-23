@@ -1,5 +1,7 @@
 <?php
 
+
+
 require '../../../../../db.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -8,13 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (!empty($category_name)) {
         try {
-            
-            $sql = "INSERT INTO categories (category_name) VALUES (:category_name)";
+            // Insert category along with notification message and is_read flag
+            $sql = "INSERT INTO categories (category_name, message, is_read) VALUES (:category_name, :message, 0)";
             $stmt = $conn->prepare($sql);
-            
-            
             $stmt->bindParam(':category_name', $category_name, PDO::PARAM_STR);
             
+            // Set the notification message
+            $message = "New category '$category_name' has been added.";
+            $stmt->bindParam(':message', $message, PDO::PARAM_STR);
             
             if ($stmt->execute()) {
                 header('Location: ../../../web/api/category-list.php');
@@ -28,7 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Category name cannot be empty.";
     }
 
-    
     $conn = null;
 }
 ?>
