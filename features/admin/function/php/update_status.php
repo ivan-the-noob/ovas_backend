@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $code = $appointment['code'] ?? '';
             $owner_name = $appointment['owner_name'] ?? '';
 
-            // Determine new code and update appointment status
+            // Handle 'confirm' status: generate new code and update
             if ($new_status === 'confirm') {
                 // Generate new code
                 $stmt = $conn->prepare("SELECT code FROM appointments WHERE code IS NOT NULL AND code LIKE 'OVAS-%' ORDER BY CAST(SUBSTRING(code, 6) AS UNSIGNED) DESC LIMIT 1");
@@ -36,12 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bindParam(':status', $new_status);
                 $stmt->bindParam(':code', $newCode);
                 $stmt->bindParam(':id', $appointment_id, PDO::PARAM_INT);
+                $stmt->execute();
 
                 // Insert into admin_confirm table
                 $stmt_confirm = $conn->prepare("INSERT INTO admin_confirm (email, status, name) VALUES (:email, :status, :name)");
                 $stmt_confirm->bindParam(':email', $email);
                 $stmt_confirm->bindParam(':status', $new_status);
-                $stmt_confirm->bindParam(':name', $owner_name); // Added name here
+                $stmt_confirm->bindParam(':name', $owner_name);
                 $stmt_confirm->execute();
 
                 // Add notification
@@ -52,8 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bindParam(':message', $message);
                 $stmt->bindParam(':code', $newCode);
                 $stmt->execute();
-            } elseif ($new_status === 'decline' || $new_status === 'complete') {
-                // Update only status and insert into admin_confirm table
+            } 
+
+            // Handle 'complete' and 'decline' statuses
+            elseif ($new_status === 'complete' || $new_status === 'decline') {
+                // Update only status
                 $stmt = $conn->prepare("UPDATE appointments SET status = :status WHERE id = :id");
                 $stmt->bindParam(':status', $new_status);
                 $stmt->bindParam(':id', $appointment_id, PDO::PARAM_INT);
@@ -77,15 +81,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':type', $new_status); 
                 $stmt->bindParam(':message', $message);
-                $stmt->bindParam(':code', $code); 
+                $stmt->bindParam(':code', $code); // No new code, use the existing one
                 $stmt->execute();
             }
 
+            // Return success response with new code if applicable
             echo json_encode(['success' => true, 'code' => $newCode ?? null]);
         } catch (PDOException $e) {
+            // Return error message
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     } else {
+        // Invalid data
         echo json_encode(['success' => false, 'message' => 'Invalid data']);
     }
     $conn = null; 

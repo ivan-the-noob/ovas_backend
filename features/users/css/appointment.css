@@ -208,9 +208,49 @@
 /*Appointment History End*/
 
 /* Calendar Section */
+.calendar-container,
+#appointmentCalendar {
+    border: none !important; 
+}
 
-#appointmentCalendar{
-    height: 75vh;
+table{
+    border: none !important;
+}
+
+.p_date {
+    padding-top: 10px; 
+    padding-left: 10px; 
+}
+
+@media (min-width: 992px) {
+    .p_date {
+        padding-top: 100px;
+        padding-left: 30px;  
+    }
+}
+.p_date p{
+    color: #7A3015;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+
+th a{
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+#appointmentCalendar th, 
+#appointmentCalendar td {
+    border: none;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+
+#appointmentCalendar {
+    height: 112vh;
 }
 .appointment{
     background-color: #FBF9FA;
@@ -263,18 +303,11 @@
 
 
 .card{
-    width: 70%;
+    width: 100%;
     display: flex;
     margin: auto;
 }
-@media (max-width: 768px) {
-    .card{
-        width: 100%;
-    }
-    #appointmentCalendar{
-        height: 110vh;
-    }
-}
+
 .card-header{
     background-color: #7A3015;
     color: #fff;
@@ -329,6 +362,29 @@
     text-decoration: none;
 }
 
+
+.pay-btn button{
+    border: 1px solid #7A3015;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+}
+
+.pay-btn button:hover{
+    border: 1px solid #7A3015;
+    background-color: #7A3015;
+    color: #fff;
+}
+
+#gcash-details input{
+    padding: 5px 10px;
+    border: 1px solid #7A3015;
+    border-radius: 5px;
+}
+
+#gcash-details input:active{
+    border-radius: 5px;
+}
 
 
 

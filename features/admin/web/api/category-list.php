@@ -16,6 +16,10 @@ $count_sql = "SELECT COUNT(*) FROM categories WHERE is_read = 0";
 $count_stmt = $conn->query($count_sql);
 $unread_count = $count_stmt->fetchColumn();
 
+$notification_count_sql = "SELECT COUNT(*) AS unread_count FROM notifications WHERE is_read = 0";
+$notification_count_stmt = $conn->query($notification_count_sql);
+$unread_count = $notification_count_stmt->fetchColumn();
+
 ?>
 
 <!DOCTYPE html>
@@ -98,10 +102,12 @@ $unread_count = $count_stmt->fetchColumn();
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
             <div class="dropdown">
-    <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-bell"></i>
         <?php if ($unread_count > 0): ?>
-            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle"><?php echo $unread_count; ?></span>
+            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                <?php echo $unread_count; ?>
+            </span>
         <?php endif; ?>
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">

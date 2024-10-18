@@ -1,8 +1,6 @@
 <?php
 
-
-
-require '../../../../../db.php'; 
+require '../../../../../db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -10,17 +8,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (!empty($category_name)) {
         try {
-            // Insert category along with notification message and is_read flag
-            $sql = "INSERT INTO categories (category_name, message, is_read) VALUES (:category_name, :message, 0)";
+            // Insert the new category
+            $sql = "INSERT INTO categories (category_name) VALUES (:category_name)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':category_name', $category_name, PDO::PARAM_STR);
             
-            // Set the notification message
-            $message = "New category '$category_name' has been added.";
-            $stmt->bindParam(':message', $message, PDO::PARAM_STR);
-            
             if ($stmt->execute()) {
+                // Prepare the notification message
+                $message = "New category $category_name has been added.";
+                
+                // Insert the notification into the notifications table
+                $notification_sql = "INSERT INTO notifications (message, is_read) VALUES (:message, 0)";
+                $notification_stmt = $conn->prepare($notification_sql);
+                $notification_stmt->bindParam(':message', $message, PDO::PARAM_STR);
+                $notification_stmt->execute();
+                
+                // Redirect to the category list
                 header('Location: ../../../web/api/category-list.php');
+                exit();
             } else {
                 echo "Error: Unable to add category";
             }

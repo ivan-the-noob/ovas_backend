@@ -100,8 +100,8 @@
             <h5 class="mb-0">Notification</h5>
         </li>
         <?php
-        // Query to check for new data
-        $sql = "SELECT * FROM service_list WHERE created_at > NOW() - INTERVAL 1 DAY"; // Adjust the interval as needed
+
+        $sql = "SELECT * FROM service_list WHERE created_at > NOW() - INTERVAL 1 DAY"; 
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -111,7 +111,7 @@
             foreach ($services as $service) {
                 echo '<li class="dropdown-item">';
                 echo '    <div class="alert alert-success mb-0">';
-                echo '        <strong>Added Successfully!</strong>';
+                echo '       New Service has been Added Successfully!';
                 echo '    </div>';
                 echo '</li>';
             }
@@ -119,18 +119,7 @@
             echo '<li class="dropdown-item">No new notifications.</li>';
         }
         ?>
-        <li class="dropdown-item">
-            <div class="alert alert-danger mb-0">
-                <strong>Decline</strong>
-                <p>Admin Kim declined Jana's appointment. <a href="#" class="alert-link">See here.</a></p> 
-            </div>
-        </li>
-        <li class="dropdown-item">
-            <div class="alert alert-success mb-0">
-                <strong>Paid!</strong>
-                <p>James paid the bill.</p> 
-            </div>
-        </li>
+      
     </ul>
 </div>
                 <div class="dropdown">

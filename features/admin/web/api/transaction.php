@@ -110,12 +110,7 @@
                                 <p>James paid the bill.</p> 
                             </div>
                         </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
+                       
                        
                     </ul>
                 </div>

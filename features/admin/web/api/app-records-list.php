@@ -28,6 +28,38 @@
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
+
+    try {
+        $sql = "SELECT message FROM app_req_notif";
+        $stmt = $conn->query($sql);
+        $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+      }
+      
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['markAsRead']) && $_POST['markAsRead'] === 'true') {
+            try {
+                $sql = "UPDATE app_req_notif SET is_read = 1 WHERE is_read = 0";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+      
+                echo "Notifications marked as read.";
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+      }
+      
+      try {
+        // Fetch the unread count
+        $stmt = $conn->prepare("SELECT COUNT(*) as unread_count FROM app_req_notif WHERE is_read = FALSE");
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $unread_count = $row['unread_count'];
+      } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+      }
 ?>
 
 <!DOCTYPE html>
@@ -109,47 +141,43 @@
             </button>
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
-                <div class="dropdown">
-                    <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        <li class="dropdown-header">
-                            <h5 class=" mb-0">Notification</h5>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-danger mb-0">
-                                <strong>Decline</strong>
-                                <p>Admin Kim declined Jana's appointment.<a href="#" class="alert-link">See here.</a></p> 
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-success mb-0">
-                                <strong>Paid!</strong>
-                                <p>James paid the bill.</p> 
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
-                       
-                    </ul>
-                </div>
+              <div class="dropdown">
+                  <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-bell"></i>
+                      <?php if ($unread_count > 0): ?>
+                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unread_count; ?></span>
+                      <?php endif; ?>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                      <li class="dropdown-header">
+                          <h5 class=" mb-0">Notification</h5>
+                      </li>
+                      <?php if (!empty($notifications)): ?>
+                          <?php foreach ($notifications as $notification): ?>
+                              <li class="dropdown-item">
+                                  <div class="alert alert-success mb-0">
+                                      <strong>Added Successfully</strong>
+                                      <p><?php echo htmlspecialchars($notification['message']); ?></p>
+                                  </div>
+                              </li>
+                          <?php endforeach; ?>
+                      <?php else: ?>
+                          <li class="dropdown-item">
+                              <div class="alert alert-info mb-0">
+                                  <p>No notifications available.</p>
+                              </div>
+                          </li>
+                      <?php endif; ?>
+                  </ul>
+              </div>
+
+
                 <div class="dropdown">
                     <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../../../users/web/api/login.html">Logout</a></li>
+                      <li><a class="dropdown-item" href="../../../users/web/api/logout.php">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -307,11 +335,10 @@
 
         <script>
     $(document).ready(function() {
-    // Event delegation for the dynamically generated view buttons after search
     $('#patient-container').on('click', '.view', function() {
-        var patientId = $(this).data('bs-target');  // Grabs the modal ID from the button's data attribute
+        var patientId = $(this).data('bs-target');  
         console.log('Opening modal for patient:', patientId);
-        $(patientId).modal('show');  // Open the modal for the selected patient
+        $(patientId).modal('show'); 
     });
 
     // Toggle edit mode logic
@@ -383,7 +410,6 @@
                     $('#enteringComplaint-text-' + id).text(updatedData.enteringComplaint);
                     $('#historyPhysical-text-' + id).text(updatedData.historyPhysical);
 
-                    // Switch back to view mode after saving
                     $('#modal' + id + ' .text-view').show();
                     $('#modal' + id + ' .edit-view').hide();
                     $('.toggle-edit-btn[data-patient-id="' + id + '"]').text('Update').removeClass('editing');

@@ -69,7 +69,7 @@ try {
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="../../../../../user.html">Home</a>
+            <a class="nav-link" href="../../../../index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Appointment</a>
@@ -120,8 +120,6 @@ try {
         </div>
     </div>
 </div>
-
-        
           <div class="dropdown">
               <button class="dropdown-toggle profiles" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="" class="profile">
@@ -136,22 +134,31 @@ try {
       </div>
     </div>
   </nav>
-  <form method="POST" action="../../function/php/appointment.php">
+  <form method="POST" action="../../function/php/appointment.php" enctype="multipart/form-data">
   <section class="appointment">
     <div class="content py-5 date">
     <input type="hidden" id="appointmentDate" name="appointmentDate">
-        <div class="col-md-8 col-11 app">
+        <div class="col-md-10 app">
             <div class="appoints">
                 <button>Appointment Availability</button>
                 <button class="appoint" id="toggleViewBtn">My Appointment</button>
             </div>
-            <div class="card card-outline card-primary rounded-0 shadow" id="appointmentSection">
-                <div class="card-body">
-                    <div class="calendar-container">
-                        <div id="appointmentCalendar"></div>
-                    </div>
-                </div>
-            </div>
+              <div class="card card-outline card-primary rounded-0 shadow" id="appointmentSection">
+              <div class="card-body">
+                  <div class="row">
+                  <div class="col-md-2 mt-2 p_date pt-lg-100">
+                      <p><?php echo date('l'); ?></p>
+                      <p><?php echo date('F j'); ?></p>
+                  </div>
+                      <div class="col-md-10">
+                          <div class="calendar-container">
+                              <div id="appointmentCalendar"></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              </div>
         </div>
     </div>
 
@@ -286,10 +293,24 @@ try {
                                             <button type="button" class="choose-time" onclick="selectTime(this, '16:00')">4 PM</button>
                                             <button type="button" class="choose-time" onclick="selectTime(this, '17:00')">5 PM</button>
                                         </div>
-
                                         <input type="hidden" id="selectedTime" name="appointmentTime">
                                     </div>
 
+                                    <div class="mt-3">
+                                        <label for="pay-via" class="form-label">Pay Via</label>
+                                        <div class="d-flex justify-content-center pay-btn">
+                                            <button id="gcash-btn" class="btn" type="button" onclick="selectPayment('gcash', this)">Gcash</button>
+                                            <button id="store-btn" class="btn" type="button" onclick="selectPayment('pay_on_store', this)">Pay on Store</button>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="payment_method" name="payment_method" value="">
+
+                                    <div id="gcash-details" class="mt-3" style="display: none;">
+                                        <label for="gcash-screenshot" class="form-label">Upload screenshot</label>
+                                        <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*" class="form-control">
+                                        <label for="reference" class="form-label mt-2">Reference</label>
+                                        <input type="text" name="reference" placeholder="Input Gcash reference" class="form-control">
+                                    </div>
                                     <div class="mt-3">
                                         <button type="submit" class="book-save">Book Appointment</button>
                                     </div>
@@ -563,13 +584,11 @@ try {
 
 <script>
     document.getElementById('dropdownMenuButton1').addEventListener('click', function() {
-        // AJAX request to mark notifications as read
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "../../function/php/appointment-notif.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send();
 
-        // Reset the badge count visually
         var notificationBadge = document.querySelector('.badge-danger');
         if (notificationBadge) {
             notificationBadge.textContent = '';
@@ -584,6 +603,7 @@ try {
 <script src="../../function/script/calendar.js"></script>
 <script src="../../function/script/toggle-appointment.js"></script>
 <script src="../../function/script/tab-bar.js"></script>
+<script src="../../function/script/payment.js"></script>
 <script src="../../function/script/service-dropdown1.js"></script>
 <script src="../../function/script/service-dropdown.js"></script>
 <script src="../../function/script/chatbot-toggle.js"></script>

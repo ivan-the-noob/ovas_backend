@@ -157,79 +157,80 @@
         <!--Notification and Profile Admin-->
         <div class="app-req">
             <h3>Appointment Request</h3>
-            <div class="walk-in px-lg-5">
-                <div class="mb-3 x d-flex">
+            <div class="walk-in px-lg-5 d-flex ">
+                <div class="col-md-4 mb-3 x d-flex">
                     <div class="search">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
                             <input type="text" id="search-input" class="form-control" placeholder="Search..." />
                         </div>
                     </div>
-                  
+                </div>
+                <div class="col-md-2">
+                <div class="sort">
+                    <select id="sort-dropdown" class="form-select" aria-label="Sort By">
+                        <option value="">Sort By</option>
+                        <option value="name">Name</option>
+                        <option value="medical">Medical</option>
+                        <option value="nonMedical">Non-Medical</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirm">Confirm</option>
+                        <option value="decline">Decline</option>
+                    </select>
+                </div>
                 </div>
             </div>
-            <script>
-                    $(document).ready(function() {
-                        $('#search-input').on('input', function() {
-                            let searchTerm = $(this).val();
-                            
-                            $.ajax({
-                                url: '../../function/php/search/search_appointments.php',
-                                type: 'GET',
-                                data: { search: searchTerm },
-                                success: function(response) {
-                                    $('#tableBody').html(response);
-                                }
-                            });
-                        });
-                    });
-                </script>
+
             <!--Appointment Request Table-->
-            <div class="table-wrapper px-lg-5">
-            <table class="table table-hover table-remove-borders">
-                <thead class="thead-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Date Created</th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Contact</th>
-                        <th>Email</th>
-                        <th>Pet Type</th>
-                        <th>Breed</th>
-                        <th>Age</th>
-                        <th>Service Category</th>
-                        <th>Service</th>
-                        <th>Appointment Date</th>
-                        <th>Appointment Time</th>
-                        <th>Total Payment</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                        <?php foreach ($appointments as $index => $appointment): ?>
-                        <tr class="test-hover">
-                            <td><?= $index + 1 ?></td>
-                            <td><?= $appointment['created_at'] ?></td>
-                            <td id="code-<?= $appointment['id'] ?>"><?= $appointment['code'] ?? 'Pending' ?></td> <!-- Add id to the code column -->
-                            <td><?= $appointment['owner_name'] ?></td>
-                            <td><?= $appointment['contact_number'] ?></td>
-                            <td><?= $appointment['email'] ?></td>
-                            <td><?= $appointment['pet_type'] ?></td>
-                            <td><?= $appointment['breed'] ?></td>
-                            <td><?= $appointment['age'] ?> Yr Old</td>
-                            <td><?= $appointment['service_category'] ?></td>
-                            <td><?= $appointment['service_type'] ?></td>
-                            <td><?= $appointment['appointment_date'] ?></td>
-                            <td><?= $appointment['appointment_time'] ?></td>
-                            <td><?= number_format($appointment['total_payment'], 2) ?> PHP</td>
-                            <td>
-                                <span id="status-badge-<?= $appointment['id'] ?>" class="badge bg-<?= $appointment['status'] == 'confirm' ? 'success' : ($appointment['status'] == 'complete' ? 'info' : ($appointment['status'] == 'decline' ? 'danger' : 'primary')) ?>">
+            <div class="row" id="appointments-container">
+                <?php foreach ($appointments as $index => $appointment): ?>
+                    <div class="col-md-4 mb-4 appointment-card" data-name="<?= strtolower($appointment['owner_name']) ?>" data-service-category="<?= strtolower($appointment['service_category']) ?>" data-status="<?= strtolower($appointment['status']) ?>">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Appointment <?= $index + 1 ?></h5>
+                                <p class="card-text"><strong>Owner Name:</strong> <?= $appointment['owner_name'] ?></p>
+                                <p class="card-text"><strong>Service Category:</strong>  <?= $appointment['service_category'] === 'medical' ? 'medical' : ($appointment['service_category'] === 'nonMedical' ? 'nonMedical' : 'N/A') ?></p>
+                                <p class="card-text"><strong>Service:</strong> <?= $appointment['service_type'] ?></p>
+                                <p class="card-text"><strong>Code: </strong><?= $appointment['code'] ?? 'Pending' ?></p>
+
+                                <p class="card-text"><strong>Status:</strong> 
+                                    <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'success' : ($appointment['status'] == 'complete' ? 'info' : ($appointment['status'] == 'decline' ? 'danger' : 'primary')) ?>">
+                                        <?= ucfirst($appointment['status']) ?>
+                                    </span>
+                                </p>
+                                <!-- View Button to open modal -->
+                                <button type="button" class="btn btn-primary d-flex mx-auto" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
+                                    View Details
+                                </button>
+                                    </div>
+                                </div>
+                            </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="appointmentModal<?= $appointment['id'] ?>" tabindex="-1" aria-labelledby="modalLabel<?= $appointment['id'] ?>" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel<?= $appointment['id'] ?>">Appointment Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <div class="app-sched d-flex justify-content-between">
+                    <div class="col-md-4 gap-2">
+                    <h5 class="modal-title">Appointment Schedule</h5>
+                        <p class="appointment-date p-2 rounded-pill app-date text-center">
+                            <?php 
+                                echo date('M j, Y', strtotime($appointment['appointment_date'])); 
+                            ?> | <?= date('g A', strtotime($appointment['appointment_time'])) ?>
+                        </p>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h5 class="motal-title">Actions</h5>
+                            <div class="actions d-flex gap-2">
+                                <span id="status-badge-<?= $appointment['id'] ?>" class="d-flex align-items-center badge bg-<?= $appointment['status'] == 'confirm' ? 'success' : ($appointment['status'] == 'complete' ? 'info' : ($appointment['status'] == 'decline' ? 'danger' : 'primary')) ?>">
                                     <?= ucfirst($appointment['status']) ?>
                                 </span>
-                            </td>
-                            <td>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<?= $index ?>" data-bs-toggle="dropdown" aria-expanded="false">
                                     </button>
@@ -239,13 +240,98 @@
                                         <li><a class="dropdown-item" href="#" onclick="updateStatus(<?= $appointment['id'] ?>, 'decline')">Decline</a></li>
                                     </ul>
                                 </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-            </table>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Appointment Date -->
+                  
+
+                    <!-- Owner Information -->
+                    <div class="col-md-4">
+                        <h6 class="text-muted">Owner Information</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" value="<?= $appointment['owner_name'] ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Contact #</label>
+                            <input type="text" class="form-control" value="<?= $appointment['contact_number'] ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="<?= $appointment['email'] ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" value="<?= $appointment['address'] ?>" readonly>
+                        </div>
+                    </div>
+
+                    <!-- Pet Information -->
+                    <div class="col-md-4">
+                        <h6 class="text-muted">Pet Information</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Pet Type</label>
+                            <input type="text" class="form-control" value="<?= $appointment['pet_type'] ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Breed</label>
+                            <input type="text" class="form-control" value="<?= $appointment['breed'] ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Age</label>
+                            <input type="text" class="form-control" value="<?= $appointment['age'] ?> Months" readonly>
+                        </div>
+                    </div>
+
+                    <!-- Services Information -->
+                    <div class="col-md-4">
+                        <h6 class="text-muted">Services</h6>
+                        <div class="mb-3">
+                            <label class="form-label">Service Category</label>
+                            <input type="text" class="form-control" value="<?= $appointment['service_category'] ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Service</label>
+                            <input type="text" class="form-control" value="<?= $appointment['service_type'] ?>" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Total Payment</label>
+                            <input type="text" class="form-control" value="<?= number_format($appointment['total_payment'], 2) ?> PHP" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Pay Via</label>
+                            <input type="text" class="form-control" value="<?= htmlspecialchars($appointment['payment_method']) ?>" readonly>
+                        </div>
+
+                        <?php if ($appointment['payment_method'] === 'gcash'): ?>
+                            <div class="mb-3">
+                                <label class="form-label">Reference</label>
+                                <input type="text" class="form-control" value="<?= htmlspecialchars($appointment['reference']) ?>" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Screenshot</label>
+                                <img src="../../../../assets/img/gcash/<?= htmlspecialchars($appointment['gcash_screenshot']) ?>" alt="GCash Screenshot" class="img-fluid" />
+                            </div>
+                        <?php endif; ?>
+
+                    </div>
+                </div>
+               
                 
             </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
                 <li class="page-item">
                     <a class="page-link" href="#" data-page="prev"><</a>
@@ -256,7 +342,7 @@
                 </li>
             </ul>
         </div>
-             </div>
+    </div>
 </body>
 
 <script type="text/javascript">
@@ -312,9 +398,11 @@ document.getElementById('notificationDropdown').addEventListener('show.bs.dropdo
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="../../function/script/toggle-menu.js"></script>
-<script src="../../function/script/pagination.js"></script>
+<script src="../../function/script/appreq_search.js"></script>
+<script src="../../function/script/appreq-pagination.js"></script>
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 </html>

@@ -75,7 +75,7 @@
             $email = $_SESSION['email'];
             $hashed_password = $_SESSION['hashed_password']; 
             $role = 'user'; 
-            $default_profile_picture = 'assets/img/profile/customer.jfif';
+            $default_profile_picture = 'customer.jfif';
     
 
             $stmt = $conn->prepare("INSERT INTO users (name, email, password, role, profile_picture) VALUES (:name, :email, :password, :role, :profile_picture)");
