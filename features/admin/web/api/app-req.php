@@ -2,6 +2,13 @@
 <?php
     require '../../../../db.php'; 
     include '../../function/php/app-req.php';
+
+    session_start(); 
+
+    if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+        header("Location: ../../../users/web/api/login.php");
+        exit(); 
+    }
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +60,10 @@
             
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
+                <a href="review.php">
+                    <i class="fa-solid fa-list"></i>
+                    <span>User Reviews</span>
+                </a>
                 <a href="category-list.php">
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
@@ -148,7 +159,7 @@
                         <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
                     </button>
                     <ul class="dropdown-menu" style="background-color: transparent;">
-                        <li><a class="dropdown-item" href="../../../users/web/api/login.html">Logout</a></li>
+                    <li><a class="dropdown-item" href="../../../users/web/api/logout.php">Logout</a></li>
                     </ul>
                 </div>
             </div>

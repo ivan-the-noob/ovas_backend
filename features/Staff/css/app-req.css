@@ -131,13 +131,14 @@ body {
     display: flex;
     align-items: center;
     margin-left: auto;
-    gap: 5px;
+    gap: 20px;
 }
 .profile-admin img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    border: 2px solid #7A3015;
 }
 
 .profile-admin button {
@@ -176,12 +177,18 @@ body {
     color: #7A3015;
 }
 
+.app-date{
+    background-color: #7A3015;
+    color: #fff !important;
+}
 
 
 
 .table-remove-borders th,
 .table-remove-borders td {
     border: none !important;
+    white-space: nowrap;
+    text-align: center;
     
 }
 .table-remove-borders th{
@@ -267,8 +274,6 @@ tr:hover{
     color: #fff !important;
     padding:  10px 20px !important;
     border-radius: 10px !important;
-    display: flex !important;
-    margin: auto !important
 }
 .modal-dialog{
     max-width: 80%;
@@ -350,9 +355,6 @@ tr:hover{
 
 
 
-ul a{
-    color: #fff !important;
-}
 
 ul a:hover{
     background-color: #7A3015 !important;
@@ -405,9 +407,7 @@ ul a:hover{
     align-items: center;
 }
 
-.dropdown-menu a{
-    color: #5a220d !important;
-}
+
 
 .dropdown menu li{
     background-color: #fff !important;
@@ -419,6 +419,16 @@ ul a:hover{
     width: 300px;
     overflow-y: auto;
     height: 70vh;
+}
+
+.dropdown-item a{
+    text-decoration: none !important;
+
+}
+.dropdown-item a:hover{
+    background-color: transparent !important;
+
+
 }
 
 .dropdown-item p{

@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Anonymous';
     $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : null;
 
-    $stmt = $conn->prepare("INSERT INTO reviews (name, profile_picture, comment) VALUES (:name, :profile_picture, :comment)");
+    $stmt = $conn->prepare("INSERT INTO reviews (name, profile_picture, comment, view) VALUES (:name, :profile_picture, :comment, 0)");
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':profile_picture', $profilePicture);
     $stmt->bindParam(':comment', $comment);

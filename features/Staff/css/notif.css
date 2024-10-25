@@ -249,22 +249,3 @@ a{
     align-items: center;
 }
 
-/*Notif Section*/
-
-.dropdown-menu-end{
-    width: 300px;
-    overflow-y: auto;
-    height: 70vh;
-}
-
-.dropdown-item p{
-    margin: 0;
-}
-
-
-.alert {
-    white-space: wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-

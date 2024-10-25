@@ -21,6 +21,8 @@
 </head>
 
 <body>
+
+
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand d-none d-md-block" href="#">
@@ -199,8 +201,7 @@
     <h3 class="mb-4" id="review">Why Choose Us</h3>
     <div class="container">
         <div class="row">
-           <?php
-             
+           <?php  
               include 'features/users/function/php/review.php'; 
            ?>
         </div>
@@ -295,12 +296,21 @@
   </div>
 
 
-
+<script>
+  var animation = lottie.loadAnimation({
+    container: document.getElementById('loading-animation'),
+    renderer: 'svg',        
+    loop: true,            
+    autoplay: true,         
+    path: 'loading.json' 
+  });
+</script>
 </body>
 <script src="features/users/function/script/services-check.js"></script>
 <script src="features/users/function/script/chatbot-toggle.js"></script>
 <script src="features/users/function/script/scroll-choose_us.js"></script>
 <script src="features/users/function/script/scroll-service.js"></script>
+<script src="features/users/function/script/loading_animation.js"></script>
 <script src="features/users/function/script/services-carousel.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
