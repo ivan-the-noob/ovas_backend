@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .calculator {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .cost-input {
+            width: 200px;
+            height: 40px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .pos-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .pos-button, .undo-button {
+            padding: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .pos-button:hover, .undo-button:hover {
+            background-color: #0056b3;
+        }
+        .undo-button {
+            grid-column: span 3; /* Make undo button span full width */
+            background-color: #dc3545; /* Red color for undo button */
+        }
+        .undo-button:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" class="cost-input" placeholder="Enter Value 1" readonly>
+        <input type="text" class="cost-input" placeholder="Enter Value 2" readonly>
+        
+        <div class="pos-buttons">
+            <button class="pos-button" data-value="7">7</button>
+            <button class="pos-button" data-value="8">8</button>
+            <button class="pos-button" data-value="9">9</button>
+            <button class="pos-button" data-value="4">4</button>
+            <button class="pos-button" data-value="5">5</button>
+            <button class="pos-button" data-value="6">6</button>
+            <button class="pos-button" data-value="1">1</button>
+            <button class="pos-button" data-value="2">2</button>
+            <button class="pos-button" data-value="3">3</button>
+            <button class="pos-button" data-value="0">0</button>
+        </div>
+
+        <button class="undo-button">Undo</button>
+    </div>
+
+    <script>
+        // Variable to track which input field to update
+        let currentInputIndex = 0;
+
+        // Function to handle button clicks
+        function addValueToInput(value) {
+            const inputFields = document.querySelectorAll('.cost-input');
+            // Append the button value to the current input value
+            inputFields[currentInputIndex].value += value; // Concatenate the string
+        }
+
+        // Function to undo the last character
+        function undoLastCharacter() {
+            const inputFields = document.querySelectorAll('.cost-input');
+            // Remove the last character from the current input value
+            const currentInput = inputFields[currentInputIndex];
+            currentInput.value = currentInput.value.slice(0, -1);
+        }
+
+        // Add functionality for POS buttons
+        document.querySelectorAll('.pos-button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Get the value from the button's data attribute
+                const valueToAdd = this.getAttribute('data-value');
+                addValueToInput(valueToAdd);
+            });
+        });
+
+        // Add functionality for the undo button
+        document.querySelector('.undo-button').addEventListener('click', function() {
+            undoLastCharacter();
+        });
+
+        // Switch input focus on click (for demonstration)
+        document.querySelectorAll('.cost-input').forEach((input, index) => {
+            input.addEventListener('click', function() {
+                currentInputIndex = index; // Update the current input index
+            });
+        });
+    </script>
+
+</body>
+</html>

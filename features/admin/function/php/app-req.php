@@ -11,7 +11,6 @@ try {
 
 $conn = null;
 
-// Make sure appointments is defined
 return $appointments; 
 
 

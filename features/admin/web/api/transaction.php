@@ -84,36 +84,7 @@
             </button>
            <!--Notification and Profile Admin-->
             <div class="profile-admin">
-                <div class="dropdown">
-                    <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        <li class="dropdown-header">
-                            <h5 class=" mb-0">Notification</h5>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-primary mb-0">
-                                <strong>Successfully Booked!</strong>
-                                <p>Rachel booked an appointment! <a href="#" class="alert-link">Check it now!</a></p>                               
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-danger mb-0">
-                                <strong>Decline</strong>
-                                <p>Admin Kim declined Jana's appointment.<a href="#" class="alert-link">See here.</a></p> 
-                            </div>
-                        </li>
-                        <li class="dropdown-item">
-                            <div class="alert alert-success mb-0">
-                                <strong>Paid!</strong>
-                                <p>James paid the bill.</p> 
-                            </div>
-                        </li>
-                       
-                       
-                    </ul>
-                </div>
+                
                 <div class="dropdown">
                     <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
@@ -158,20 +129,20 @@
             
 
             <div class="container my-4 px-lg-4">
-    <div class="row px-lg-4">
+    <div class="row px-lg-4" id="cardContainer">
         <?php foreach ($records as $record): 
             $services = json_decode($record['services'], true);
             $costs = json_decode($record['cost'], true); 
             $medications = json_decode($record['medication'], true);
             $supplies = json_decode($record['supplies'], true);
             $total = !empty($record['total']) && is_numeric($record['total']) ? number_format($record['total'], 2) : '0.00';
+            $cash_tendered = !empty($record['cash_tendered']) && is_numeric($record['cash_tendered']) ? number_format($record['cash_tendered'], 2) : '0.00'; // Get cash_tendered
+            $changee = !empty($record['changee']) && is_numeric($record['changee']) ? number_format($record['changee'], 2) : '0.00'; // Get changee
         ?>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4 card-item">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Thank you, <span class="fw-bold"><?php echo htmlspecialchars($record['owner_name']); ?>.</span></h5>
-                    
-                    <!-- Services Section -->
                     <div class="mb-3">
                         <label for="service" class="form-label fw-bold">Services:</label>
                         <?php if (is_array($services) && is_array($costs)): ?>
@@ -183,8 +154,6 @@
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </div>
-                    
-                    <!-- Medications Section -->
                     <?php if (!empty($medications)): ?>
                     <div class="mb-3">
                         <label for="medication" class="form-label fw-bold">Add Medication or Supplies:</label>
@@ -196,8 +165,6 @@
                         <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
-
-                    <!-- Supplies Section -->
                     <?php if (!empty($supplies)): ?>
                     <div class="mb-3">
                         <label for="supplies" class="form-label fw-bold">Supplies:</label>
@@ -209,14 +176,21 @@
                         <?php endforeach; ?>
                     </div>
                     <?php endif; ?>
-
-                    <!-- Total Section -->
                     <div class="d-flex justify-content-between fw-bold">
                         <span>TOTAL:</span>
                         <span>₱ <?php echo $total; ?></span>
                     </div>
                     
-                    <!-- Buttons Section -->
+                    <div class="d-flex justify-content-between fw-bold mt-3">
+                        <span>CASH TENDERED:</span>
+                        <span>₱ <?php echo $cash_tendered; ?></span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>CHANGE:</span>
+                        <span>₱ <?php echo $changee; ?></span>
+                    </div>
+                    
                     <div class="buttons d-flex justify-content-center gap-2">
                         <button onclick="printCard(this)">Print</button>
                         <button class="paid">Paid</button>
@@ -227,6 +201,7 @@
         <?php endforeach; ?>
     </div>
 </div>
+
         
 
 <script>
@@ -303,14 +278,67 @@
 
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const rowsPerPage = 3; 
+    const cards = document.querySelectorAll('.card-item');
+    const totalPages = Math.ceil(cards.length / rowsPerPage);
+    const paginationControls = document.getElementById('paginationControls');
+    const pageNumbers = document.getElementById('pageNumbers');
+    let currentPage = 1;
+
+    function updatePageNumbers() {
+        pageNumbers.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.className = 'page-item';
+            li.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`;
+            if (i === currentPage) {
+                li.classList.add('active');
+            }
+            pageNumbers.appendChild(li);
+        }
+    }
+
+    function showPage(pageNumber) {
+        if (pageNumber < 1 || pageNumber > totalPages) return;
+        currentPage = pageNumber;
+
+        const start = (pageNumber - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+
+        cards.forEach((card, index) => {
+            card.style.display = (index >= start && index < end) ? '' : 'none';
+        });
+
+        updatePageNumbers();
+    }
+
+    paginationControls.addEventListener('click', function(e) {
+        e.preventDefault();
+        const page = e.target.getAttribute('data-page');
+        if (page === 'prev') {
+            showPage(currentPage - 1);
+        } else if (page === 'next') {
+            showPage(currentPage + 1);
+        } else if (page) {
+            showPage(parseInt(page));
+        }
+    });
+
+    // Show the first page by default
+    showPage(1);
+});
+</script>
+
               <!--Transaction Card End-->
-            <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
+              <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
                 <li class="page-item">
-                    <a class="page-link" href="#" data-page="prev"><</a>
+                    <a class="page-link" href="#" data-page="prev" style="margin-right: 5px"><</a>
                 </li>
-                <li class="page-item" id="pageNumbers"></li>
+                <li class="page-item d-flex gap-2" id="pageNumbers"></li>
                 <li class="page-item">
-                    <a class="page-link" href="#" data-page="next">></a>
+                    <a class="page-link" href="#" data-page="next" style="margin-left: 5px">></a>
                 </li>
             </ul>
                 
@@ -328,7 +356,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" crossorigin="anonymous">
 </script>
 <script src="../../function/script/toggle-menu.js"></script>
-<script src="../../function/script/pagination.js"></script>
+
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
