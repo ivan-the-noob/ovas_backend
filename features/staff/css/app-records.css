@@ -131,13 +131,14 @@ body {
     display: flex;
     align-items: center;
     margin-left: auto;
-    gap: 5px;
+    gap: 20px;
 }
 .profile-admin img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+    border: 2px solid #7A3015;
 }
 
 .profile-admin button {
@@ -153,6 +154,9 @@ body {
 .profile-admin span {
     font-size: 16px;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .maintenance {
     border-top: 1px solid #e4e0e0;
@@ -163,12 +167,26 @@ body {
     padding-left: 16px;
     margin-top: 20px;
 }
+.badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+}
 /*Navbar Section End*/
 
 /*Appointment Request Section*/
 
+.check-it{
+    text-decoration: none !important;
+    color: green;
+    padding: 5px;
+}
+
+
+
 .app-req{
-    padding: 10px 20px;
+    padding: 10px 5px;
     overflow-x: auto;
 }
 .app-req h3{
@@ -283,6 +301,15 @@ tr:hover{
 
 .dropdown-toggle {
     white-space: wrap;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+.input-radio{
+    display: flex;
+    justify-content:center;
+    gap: 5px;
+    color: #7A3015;
 }
 
 .medical-services a{

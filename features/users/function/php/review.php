@@ -1,10 +1,11 @@
 <?php
-    require 'db.php'; 
-    // Fetch the latest 4 reviews from the database
-    $stmt = $conn->prepare("SELECT name, profile_picture, comment FROM reviews ORDER BY created_at DESC LIMIT 4");
-    $stmt->execute();
-    $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+require 'db.php'; 
 
+$stmt = $conn->prepare("SELECT name, profile_picture, comment FROM reviews WHERE view = 1 ORDER BY created_at DESC LIMIT 4");
+$stmt->execute();
+$reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (count($reviews) > 0) {
     foreach ($reviews as $index => $review) {
         $profilePicture = $review['profile_picture'] ? 'assets/img/profile/' . htmlspecialchars($review['profile_picture'], ENT_QUOTES, 'UTF-8') : 'assets/img/customer.jfif';
         ?>
@@ -21,4 +22,7 @@
         </div>
         <?php
     }
+} else {
+   
+}
 ?>

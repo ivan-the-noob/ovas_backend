@@ -31,6 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 window.location.href = '../../../admin/web/api/admin.php';
                             }, 2000); 
                           </script>";
+                } elseif ($user['role'] === 'staff') { 
+                    echo "<script>
+                            setTimeout(function() {
+                                window.location.href = '../../../staff/web/api/admin.php';
+                            }, 2000); 
+                          </script>";
                 } else {
                     echo "<script>
                             setTimeout(function() {

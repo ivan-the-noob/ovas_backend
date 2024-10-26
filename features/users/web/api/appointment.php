@@ -51,10 +51,10 @@ try {
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand d-none d-md-block" href="#">
-        <img src="../../../../assets/img/logo.png" alt="Logo" width="30" height="30">
+      <img src="../../../../assets/img/logo.png" alt="Logo" width="30" height="30"> 
       </a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -75,62 +75,49 @@ try {
             <a class="nav-link" href="#">Appointment</a>
           </li>
         </ul>
-        <!--Header-->
+
         <div class="d-flex ml-auto align-items-center">
-    <div class="dropdown first-dropdown">
-        <button class="" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-bell"></i>
-            <?php if ($unread_notification['unread_count'] > 0): ?>
-                <span class="badge badge-danger" style="position: relative; top: -10px; left: -10px;">
-                    +<?= $unread_notification['unread_count']; ?>
-                </span>
-            <?php endif; ?>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <h5 class="notification-title">Notification</h5>
-            <?php if (!empty($notifications)): ?>
-                <?php foreach ($notifications as $notification): ?>
-                    <?php if ($notification['type'] === 'Success'): ?>
-                        <div class="notification-content alert-primary">
-                            <strong>Appointment Confirmed!</strong>
-                            <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if ($notification['type'] === 'confirm'): ?>
-                        <div class="notification-content alert-success">
-                            <strong>Successfully Booked!</strong>
-                            <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
-                            <?php if (!empty($notification['code'])): ?>
-                                <p class="code">Code: <?= htmlspecialchars($notification['code']); ?></p>
-                            <?php endif; ?>
-                        </div>
-                    <?php endif; ?>
-
-                    <?php if ($notification['type'] === 'decline'): ?>
-                        <div class="notification-content alert-danger">
-                            <strong>Rejected</strong>
-                            <p class="notification-text"><?= htmlspecialchars($notification['message']); ?></p>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="notification-text">No new notifications</p>
-            <?php endif; ?>
+    <?php if (isset($_SESSION['email'])): ?>
+        <div class="dropdown first-dropdown">
+            <button type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <h5 class="notification-title">Notification</h5>
+                <div class="notification-content alert alert-success">
+                    <strong>Appointment Confirmed!</strong>
+                    <p class="notification-text">Your appointment has been confirmed!</p>
+                    <p class="code">Code: OVAS-01234</p>
+                    <a href="/features/users/web/api/appointment.html" onclick="localStorage.setItem('showBookedHistory', 'true');">View Details</a>
+                </div>
+                <div class="notification-content alert-primary">
+                    <strong>Successfully Booked!</strong>
+                    <p class="notification-text">You successfully booked!</p>
+                </div>
+                <div class="notification-content alert-danger">
+                    <strong>Rejected</strong>
+                    <p class="notification-text">Your appointment has been rejected.</p>
+                </div>
+            </div>
         </div>
-    </div>
+
+
+        <div class="dropdown second-dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <a class="dropdown-item" href="features/users/web/api/dashboard.php">Profile</a>
+                <a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a>
+            </div>
+        </div>
+    <?php else: ?>
+
+        <div class="d-flex ml-auto">
+            <a href="../../../../features/users/web/api/login.php" class="btn-theme" type="button">Login</a>
+        </div>
+    <?php endif; ?>
 </div>
-          <div class="dropdown">
-              <button class="dropdown-toggle profiles" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="" class="profile">
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="../../../users/web/api/dashboard.html">Profile</a>
-                  <a class="dropdown-item" href="../../../users/web/api/login.html">Logout</a>
-              </div>
-      </div>
-        </div>
-        
       </div>
     </div>
   </nav>

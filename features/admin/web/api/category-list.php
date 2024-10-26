@@ -1,6 +1,13 @@
 <?php
 require '../../../../db.php';
 
+session_start();  
+
+    if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+        header("Location: ../../../users/web/api/login.php");
+        exit(); 
+    }
+
 try {
     $sql = "SELECT id, category_name FROM categories";
     $stmt = $conn->query($sql);
@@ -70,6 +77,10 @@ $unread_count = $notification_count_stmt->fetchColumn();
             </a>
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
+                <a href="review.php">
+                    <i class="fa-solid fa-list"></i>
+                    <span>User Reviews</span>
+                </a>
                 <a href="category-list.php" class="navbar-highlight">
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
@@ -147,7 +158,7 @@ $unread_count = $notification_count_stmt->fetchColumn();
             <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="../../../users/web/api/login.html">Logout</a></li>
+        <li><a class="dropdown-item" href="../../../users/web/api/logout.php">Logout</a></li>
         </ul>
     </div>
 </div>

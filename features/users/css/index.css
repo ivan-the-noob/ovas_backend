@@ -7,6 +7,12 @@
     margin: 0;
 }
 
+#loading-animation {
+  width: 200px;       
+  height: 200px;     
+  margin: 0 auto;    
+}
+
 .wave-container{
     background-color: #FBF9FA;
     padding-bottom: 0;

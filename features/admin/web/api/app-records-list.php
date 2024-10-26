@@ -110,6 +110,10 @@
             </a>
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
+                <a href="review.php">
+                    <i class="fa-solid fa-list"></i>
+                    <span>User Reviews</span>
+                </a>
                 <a href="category-list.php">
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
