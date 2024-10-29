@@ -15,6 +15,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" href="assets/img/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="features/users/css/index.css">
 
 
@@ -105,7 +106,7 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-6 order-1 order-md-2 text-center">
-          <img src="assets/img/about-us.png" alt="Vet Logo" class="img-fluid">
+          <img src="assets/img/about-us.png" alt="Vet Logo" class="img-fluid front-img">
         </div>
         <div class="col-md-6 order-2 order-md-1 text-md-left mb-4 mb-md-0 front-text">
           <h4>Book Your Pet's Next Appointment with Ease!</h4>
@@ -254,7 +255,7 @@
         </div>
         <div class="col-md-4">
           <h5>Contact Us</h5>
-          <p>Email: bardyardpets@gmail.com</p>
+          <p>Email: barkyardpets@gmail.com</p>
           <p>Phone: 09338182822</p>
         </div>
       </div>
@@ -272,40 +273,49 @@
 
   <div id="chat-interface" class="hidden">
     <div id="chat-header">
-      <p>Amazing Day! How may I help you?</p>
-      <button onclick="toggleChat()">X</button>
+        <p>Amazing Day! How may I help you?</p>
+        <button onclick="toggleChat()">X</button>
     </div>
     <div id="chat-body">
-      <div class="button-bot">
-        <button>How to book?</button>
-        <button>?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-      </div>
-    </div>
-    <div class="line"></div>
-    <div class="admin mt-3">
-      <div class="admin-chat">
-        <img src="/assets/img/vet logo.jpg" alt="Admin">
-        <p>Admin</p>
-      </div>
-      <p class="text">Hello, I am Chat Bot. Please Ask me a question just by pressing the question buttons.</p>
-    </div>
-  </div>
+        <div class="button-bot">
+        <?php
+            include 'db.php';
 
+            try {
+                $sql = "SELECT question FROM chat_messages";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
 
-<script>
-  var animation = lottie.loadAnimation({
-    container: document.getElementById('loading-animation'),
-    renderer: 'svg',        
-    loop: true,            
-    autoplay: true,         
-    path: 'loading.json' 
-  });
-</script>
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $question = htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8');
+                        echo "<button onclick=\"sendResponse('$question')\">$question</button>";
+                    }
+                } else {
+                    echo "<p>No questions available.</p>";
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            ?>
+
+        </div>
+        <div class="line"></div>
+        
+        <div class="admin mt-3">
+            <div class="admin-chat">
+                <img src="assets/img/logo.png" alt="Admin">
+                <p>Admin</p>
+            </div>
+            <p class="text" id="typing-text">Hello, I am Chat Bot. Please ask me a question by pressing the question buttons.</p>
+        </div>
+      
+    </div>
+
+</div>
+
 </body>
+<script src="features/users/function/script/chat-bot.js"></script>
 <script src="features/users/function/script/services-check.js"></script>
 <script src="features/users/function/script/chatbot-toggle.js"></script>
 <script src="features/users/function/script/scroll-choose_us.js"></script>

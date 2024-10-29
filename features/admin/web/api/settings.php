@@ -73,6 +73,10 @@
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
+                <a href="chat-bot.php" >
+                <i class="fa-solid fa-headset"></i>
+                    <span>Chat Bot</span>
+                </a>
                 <a href="settings.php" class="navbar-highlight">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>

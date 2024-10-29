@@ -5,38 +5,32 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../../../users/web/api/login.php");
     exit(); 
 }
-require '../../../../db.php'; // Include your database connection file
+require '../../../../db.php'; 
 
-// Initialize variables for storing error and success messages
+
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Get the form data
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password for security
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); 
     $role = $_POST['role'];
 
     try {
-        // Check if the email already exists in the database
         $checkEmailStmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
         $checkEmailStmt->bindParam(':email', $email);
         $checkEmailStmt->execute();
 
         if ($checkEmailStmt->rowCount() > 0) {
-            // Email already exists, set error message
             $error = "The email address is already in use.";
         } else {
-            // Email does not exist, proceed with the insertion
             $stmt = $conn->prepare("INSERT INTO users (name, email, password, role) VALUES (:name, :email, :password, :role)");
 
-            // Bind the parameters to the statement
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
             $stmt->bindParam(':role', $role);
 
-            // Execute the statement
             if ($stmt->execute()) {
                
             } else {
@@ -125,6 +119,10 @@ try {
                 <a href="admin-user.php" class="navbar-highlight">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
+                </a>
+                <a href="chat-bot.php" >
+                <i class="fa-solid fa-headset"></i>
+                    <span>Chat Bot</span>
                 </a>
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>

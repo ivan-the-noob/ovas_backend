@@ -10,11 +10,9 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin')
 require '../../../../db.php';
 
 try {
-  // Fetch the categories from the database
   $sql = "SELECT category_name FROM categories";
   $stmt = $conn->query($sql);
 
-  // Fetch all categories
   $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   echo "Error: " . $e->getMessage();
@@ -118,6 +116,10 @@ try {
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
+                </a>
+                <a href="chat-bot.php" >
+                <i class="fa-solid fa-headset"></i>
+                    <span>Chat Bot</span>
                 </a>
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>

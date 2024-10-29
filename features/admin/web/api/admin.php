@@ -9,13 +9,11 @@
     require '../../../../db.php';
     $user_email = $_SESSION['email'] ?? '';
 
-    // Fetch count of unread notifications for the badge
     $stmt = $conn->prepare("SELECT COUNT(*) AS unread_count FROM notifications WHERE email = :email AND is_read = 0");
     $stmt->bindParam(':email', $user_email);
     $stmt->execute();
     $unread_notification = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Fetch all notifications for the user, ordered by newest first (descending)
     $stmt2 = $conn->prepare("SELECT * FROM notifications WHERE email = :email ORDER BY created_at DESC"); 
     $stmt2->bindParam(':email', $user_email);
     $stmt2->execute();
@@ -86,6 +84,10 @@
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
+                </a>
+                <a href="chat-bot.php" >
+                <i class="fa-solid fa-headset"></i>
+                    <span>Chat Bot</span>
                 </a>
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>

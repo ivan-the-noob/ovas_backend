@@ -185,7 +185,7 @@ try {
                                     </div>
                                     <div class="mb-3">
                                         <label for="ownerEmail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="bardyardpets@gmail.com" required>
+                                        <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="barkyardpets@gmail.com" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="ownerAddress" class="form-label">Address</label>
@@ -425,7 +425,7 @@ try {
           <h5>Appointment with Dr. John Doe</h5>
           <p>Name: Racel Mae Loquellano</p>
           <p>Contact: 09123456789</p>
-          <p>Email: bardyardpets@gmail.com</p>
+          <p>Email: barkyardpets@gmail.com</p>
           <p>Adress: Magdiwang Highway</p>
           <h5>Pet Information</h5>
           <p>Pet Type: Cat</p>
@@ -455,7 +455,7 @@ try {
           <h5>Appointment with Dr. Jane Smith</h5>
           <p>Name: John Doe</p>
           <p>Contact: 09123456789</p>
-          <p>Email: bardyardpets@gmail.com</p>
+          <p>Email: barkyardpets@gmail.com</p>
           <p>Adress: Magdiwang Highway</p>
           <h5>Pet Information</h5>
           <p>Pet Type: Cat</p>
@@ -486,7 +486,7 @@ try {
           <h5>Appointment with Dr. Alan Brown</h5>
           <p>Name: Emily Clark</p>
           <p>Contact: 09123456789</p>
-          <p>Email: bardyardpets@gmail.com</p>
+          <p>Email: barkyardpets@gmail.com</p>
           <p>Adress: Magdiwang Highway</p>
           <h5>Pet Information</h5>
           <p>Pet Type: Cat</p>
@@ -517,7 +517,7 @@ try {
           <h5>Appointment with Dr. Sarah White</h5>
           <p>Name: Mark Johnson</p>
           <p>Contact: 09123456789</p>
-          <p>Email: bardyardpets@gmail.com</p>
+          <p>Email: barkyardpets@gmail.com</p>
           <p>Adress: Magdiwang Highway</p>
           <h5>Pet Information</h5>
           <p>Pet Type: Rabiit</p>
@@ -545,28 +545,45 @@ try {
 
   <div id="chat-interface" class="hidden">
     <div id="chat-header">
-      <p>Amazing Day! How may I help you?</p>
-      <button onclick="toggleChat()">X</button>
+        <p>Amazing Day! How may I help you?</p>
+        <button onclick="toggleChat()">X</button>
     </div>
     <div id="chat-body">
-      <div class="button-bot">
-        <button>How to book?</button>
-        <button>?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-      </div>
+        <div class="button-bot">
+        <?php
+            include '../../../../db.php';
+
+            try {
+                $sql = "SELECT question FROM chat_messages";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $question = htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8');
+                        echo "<button onclick=\"sendResponse('$question')\">$question</button>";
+                    }
+                } else {
+                    echo "<p>No questions available.</p>";
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            ?>
+
+        </div>
+        <div class="line"></div>
+        
+        <div class="admin mt-3">
+            <div class="admin-chat">
+                <img src="../../../../assets/img/logo.png" alt="Admin">
+                <p>Admin</p>
+            </div>
+            <p class="text" id="typing-text">Hello, I am Chat Bot. Please ask me a question by pressing the question buttons.</p>
+        </div>
+      
     </div>
-    <div class="line"></div>
-    <div class="admin mt-3">
-      <div class="admin-chat">
-        <img src="../../../../assets/img/vet logo.jpg" alt="Admin">
-        <p>Admin</p>
-      </div>
-      <p class="text">Hello, I am Chat Bot. Please Ask me a question just by pressing the question buttons.</p>
-    </div>
-  </div>
+</div>
 </body>
 
 <script>
@@ -587,6 +604,7 @@ try {
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script src="../../function/script/pagination-history.js"></script>
+<script src="../../function/script/chat-bot-app.js"></script>
 <script src="../../function/script/calendar.js"></script>
 <script src="../../function/script/toggle-appointment.js"></script>
 <script src="../../function/script/tab-bar.js"></script>

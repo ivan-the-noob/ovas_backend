@@ -130,7 +130,7 @@ body {
     display: flex;
     align-items: center;
     margin-left: auto;
-    gap: 20px;
+    gap: 5px;
 }
 .profile-admin img {
     width: 40px;
@@ -153,9 +153,6 @@ body {
 .profile-admin span {
     font-size: 16px;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 .maintenance {
     border-top: 1px solid #e4e0e0;
@@ -166,26 +163,16 @@ body {
     padding-left: 16px;
     margin-top: 20px;
 }
-.badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(50%, -50%);
+
+.admin-profile{
+    border:  3px solid #7A3015;
 }
 /*Navbar Section End*/
 
 /*Appointment Request Section*/
 
-.check-it{
-    text-decoration: none !important;
-    color: green;
-    padding: 5px;
-}
-
-
-
 .app-req{
-    padding: 10px 5px;
+    padding: 10px 20px;
     overflow-x: auto;
 }
 .app-req h3{
@@ -194,11 +181,11 @@ body {
 }
 
 
-
-
 .table-remove-borders th,
 .table-remove-borders td {
     border: none !important;
+    white-space: nowrap;
+    text-align: center;
     
 }
 .table-remove-borders th{
@@ -213,6 +200,8 @@ body {
 tr:hover{
     background-color: #FFFFFF;
 }
+
+
 
 .table-wrapper{
     overflow-x: auto;
@@ -284,11 +273,14 @@ tr:hover{
     color: #fff !important;
     padding:  10px 20px !important;
     border-radius: 10px !important;
-    display: flex !important;
 }
 .modal-dialog{
     max-width: 80%;
 }
+
+
+
+
 @media (max-width: 768px) {
     .modal-dialog {
         max-width: 80%;
@@ -300,42 +292,41 @@ tr:hover{
 
 .dropdown-toggle {
     white-space: wrap;
-    color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-}
-.input-radio{
-    display: flex;
-    justify-content:center;
-    gap: 5px;
-    color: #7A3015;
 }
 
 .medical-services a{
     word-break: break-word;
 }
 
-.container label{
+.modal-content {
+    width: 50%;
+}
+
+
+
+.modal-body label{
     color: #7A3015;
     font-size: 16px;
     font-weight: 500;
 }
-.container h6{
+.modal-body h6{
     color:#7A3015;
     font-size: 22px;
 }
 
-.container p{
+.modal-body p{
     color: #7A3015;
 }
 
-
+#dayModal .container{
+    padding: 0;
+}
 
 .contacts input{
     margin: 5px;
 }
 
-.sched p{
+.modal-body .sched p{
     font-size: 20px;
     font-weight: 400;
     padding: 0;
@@ -370,6 +361,11 @@ tr:hover{
 
 }
 
+.modal-header button{
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+}
 
 
 
@@ -393,4 +389,288 @@ ul a:hover{
     border-radius: 5px;
 }
 
+.swal-icon img{
+    height: 10vh !important;
+}
+
+.swal-button-container button{
+    background-color: green;
+}
 /*Appointment Request End*/
+
+
+.pagination .page-item .page-link {
+    border-radius: 50%;
+    background-color: #7A3015;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    border: none;
+}
+.pagination li a:hover{
+    background-color: #af5433 !important;
+    color: #fff !important;
+}
+.pagination .page-item.active .page-link {
+    background-color: #5a220d;
+    border-color: #5a220d;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #5a220d;
+    color: white;
+}
+
+.dropdown button{
+    align-items: center;
+}
+
+
+.dropdown menu li{
+    background-color: #fff !important;
+}
+
+/*Form Section*/
+
+.modal-header button{
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+}
+tbody input{
+    border-radius: 0 !important;
+    border: 1px solid #808080 !important;
+}
+
+.form-row{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.species{
+    border: .5px solid #dddada;
+    border-radius: 10px;
+    color: #000 !important;
+
+}
+
+.species label{
+    color: #808080 !important;
+    font-size: 13px;
+}
+
+
+.deworming{
+    width: 100% !important;
+}
+
+.modal-xl{
+    width: 100% !important;
+}
+
+
+.dwrm{
+    border: none !important;
+    width: 100%;
+}
+
+
+
+
+.dwrm td{
+    white-space: nowrap;
+}
+.title{
+    height: 5vh !important;
+}
+
+.deworming th, .vac th{
+    background-color: #808080;
+    color: #fff;
+}
+
+.radio-label{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.input-col textarea {
+    height: 100%;
+    width: 80%;
+}
+
+
+.bcs{
+    width: 20%;
+}
+
+
+.bcs p{
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+}
+
+.stool , .vomiting , .ticks_fleas{
+    color: #000 !important;
+}
+
+.stool p, .vomiting p , .ticks_fleas p{
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+}
+
+.stool{
+    width: 25%;
+}
+
+
+
+.button-checkup{
+    width: 100%;
+}
+
+.checkup-btn{
+    background-color: #7A3015;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+    display: flex;
+    margin-left: auto;
+    margin-right: 5%;
+    
+}
+
+.checkup-btn:hover{
+    background-color:#af5433;
+    color :#fff;
+}
+
+.swal2-confirm{
+    background-color: green;
+    margin-left: auto;
+    margin-right: 5%;
+}
+
+.swal2-actions{
+    width: 100%;
+}
+
+.card-body button{
+    display: flex;
+    margin: auto;
+}
+
+
+.modal-body {
+    overflow-y: auto;
+}
+
+.physical-exam p{
+    color: #fff !important;
+    border: 1px solid #dddada;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #808080;
+    
+}
+
+.phy-bcs p{
+    border: 1px solid #dddada;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #000;
+}
+
+.form-group p{
+    white-space: nowrap !important;
+}
+
+.bordered-box {
+    border: 1px solid #dddada;
+    padding: 10px;
+}
+
+.border-box{
+    border: 1px solid #dddada;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+   
+}
+
+.border-box p{
+    color: #000 !important;
+    font-size: 15px;
+    margin-bottom: 0 !important;
+    white-space: wrap;
+
+}
+
+.border-box textarea{
+    height: 100%;
+    border-radius: 0 !important;
+}
+
+.laboratory, .phy-weight, .chief , .treatment{
+    width: 100%;
+    background-color: #808080;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.form-check-label {
+    padding-left: 5px;
+}
+
+.print button{
+    margin-left: auto;
+    background-color:  #af5433;
+    color: #fff;
+    width: 200px;
+}
+
+.print button:hover{
+    background-color: red;
+    color: #fff;
+}
+/*Form Section End*/
+
+/*Notif Section*/
+
+.dropdown-menu-end{
+    width: 300px;
+    overflow-y: auto;
+    height: 70vh;
+}
+
+.dropdown-item a{
+    text-decoration: none !important;
+
+}
+.dropdown-item a:hover{
+    background-color: transparent !important;
+
+
+}
+
+.dropdown-item p{
+    margin: 0;
+}
+
+
+.alert {
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+

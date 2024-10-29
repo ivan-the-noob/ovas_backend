@@ -10,10 +10,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>About Us | Pawfect</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="icon" href="../../../../assets/img/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="../../css/about-us.css">
 
 </head>
@@ -234,7 +235,7 @@
         </div>
         <div class="col-md-4">
           <h5>Contact Us</h5>
-          <p>Email: bardyardpets@gmail.com</p>
+          <p>Email: barkyardpets@gmail.com</p>
           <p>Phone: 09338182822</p>
         </div>
       </div>
@@ -254,34 +255,52 @@
 
   <div id="chat-interface" class="hidden">
     <div id="chat-header">
-      <p>Amazing Day! How may I help you?</p>
-      <button onclick="toggleChat()">X</button>
+        <p>Amazing Day! How may I help you?</p>
+        <button onclick="toggleChat()">X</button>
     </div>
     <div id="chat-body">
-      <div class="button-bot">
-        <button>How to book?</button>
-        <button>?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-        <button>How to book?</button>
-      </div>
+        <div class="button-bot">
+        <?php
+            include '../../../../db.php';
+
+            try {
+                $sql = "SELECT question FROM chat_messages";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+
+                if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $question = htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8');
+                        echo "<button onclick=\"sendResponse('$question')\">$question</button>";
+                    }
+                } else {
+                    echo "<p>No questions available.</p>";
+                }
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            ?>
+
+        </div>
+        <div class="line"></div>
+        <div class="admin mt-3">
+            <div class="admin-chat">
+                <img src="../../../../assets/img/logo.png" alt="Admin">
+                <p>Admin</p>
+            </div>
+            <p class="text" id="typing-text">Hello, I am Chat Bot. Please ask me a question by pressing the question buttons.</p>
+        </div>
+      
     </div>
-    <div class="line"></div>
-    <div class="admin mt-3">
-      <div class="admin-chat">
-        <img src="../../../../assets/img/vet logo.jpg" alt="Admin">
-        <p>Admin</p>
-      </div>
-      <p class="text">Hello, I am Chat Bot. Please Ask me a question just by pressing the question buttons.</p>
-    </div>
-  </div>
+
+</div>
     <!--Chat Bot End-->
 
 
 
 </body>
 <script src="../../function/script/chatbot_questionslide.js"></script>
+<script src="../../function/script/chat-bot-about.js"></script>
 <script src="../../function/script/chatbot-toggle.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

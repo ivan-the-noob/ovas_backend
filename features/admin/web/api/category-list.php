@@ -12,7 +12,6 @@ try {
     $sql = "SELECT id, category_name FROM categories";
     $stmt = $conn->query($sql);
     
-    // Fetch all the categories
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -92,6 +91,10 @@ $unread_count = $notification_count_stmt->fetchColumn();
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
+                </a>
+                <a href="chat-bot.php" >
+                <i class="fa-solid fa-headset"></i>
+                    <span>Chat Bot</span>
                 </a>
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>
