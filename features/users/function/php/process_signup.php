@@ -19,7 +19,7 @@
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port       = 587;
 
-            $mail->setFrom('Bardyards@gmail.com', 'Bards Yards');
+            $mail->setFrom('Barkyards@gmail.com', 'Barks Yards');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Your Email Verification Code';

@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } elseif ($user['role'] === 'staff') { 
                     echo "<script>
                             setTimeout(function() {
-                                window.location.href = '../../../staff/web/api/admin.php';
+                                window.location.href = '../../../Staff/web/api/admin.php';
                             }, 2000); 
                           </script>";
                 } else {
