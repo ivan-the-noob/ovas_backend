@@ -101,7 +101,7 @@
     white-space: wrap !important;
 }
  #info{
-    max-width: 70%;
+    max-width: 90% !important;
 }
 @media (max-width: 768px) {
     #info {
@@ -110,6 +110,8 @@
         margin: auto;
     }
 }
+
+
 .modal-header{
     color: #7A3015;
     height: 10vh;
@@ -127,6 +129,23 @@
 .modal-body h5{
     font-size: 20px;
 
+}
+
+.modal-body h6{
+    background-color: #7A3015;
+    color: #fff !important;
+    width: 80%;
+    padding: 8px 24px 8px 24px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.modal-body .owner-info{
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
 }
 .modal-body p{
     font-size: 16px;
@@ -386,6 +405,18 @@ th a{
     border-radius: 5px;
 }
 
+.input-label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff; 
+    pointer-events: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    opacity: 80%;
+  }
+
 
 
 /* Calendar End Section */
@@ -476,6 +507,19 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .form-check-label{
     font-size: 15px !important;
+}
+
+.form-control{
+    background-color: #7A3015;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.form-control:focus{
+    background-color: #7A3015;
+    color: #fff;
+    border: 2px solid #fff;
+    outline: none !important;
 }
 
 .form-check-input:checked {

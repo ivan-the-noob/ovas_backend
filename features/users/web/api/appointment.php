@@ -3,28 +3,22 @@ session_start();
 require '../../../../db.php'; 
 $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
 
-// Assuming you have the user's email stored in the session
 $user_email = $_SESSION['email'] ?? '';
 
-// Fetch count of unread notifications for the badge
 $stmt = $conn->prepare("SELECT COUNT(*) AS unread_count FROM notifications WHERE email = :email AND is_read = 0");
 $stmt->bindParam(':email', $user_email);
 $stmt->execute();
 $unread_notification = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Fetch all notifications for the user, ordered by newest first (descending)
 $stmt2 = $conn->prepare("SELECT * FROM notifications WHERE email = :email ORDER BY created_at DESC"); 
 $stmt2->bindParam(':email', $user_email);
 $stmt2->execute();
 $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-// For categories example
 try {
-  // Fetch the categories from the database
   $sql = "SELECT category_name FROM categories";
   $stmt = $conn->query($sql);
 
-  // Fetch all categories
   $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   echo "Error: " . $e->getMessage();
@@ -150,7 +144,7 @@ try {
     </div>
 
     <div class="modal fade" id="dayModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" id="info" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl custom-modal" id="info" role="document">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between">
                     <h5 class="modal-title" id="modalLabel">Book Your Desired Schedule</h5>
@@ -172,25 +166,38 @@ try {
 
                         <div class="container">
                             <div class="row" style="padding: 20px;">
-                                <!-- Client Information -->
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <h6>Owner Information</h6>
-                                    <div class="mb-3">
-                                        <label for="ownerName" class="form-label"> Name</label>
-                                        <input type="text" class="form-control" id="ownerName" name="ownerName" placeholder="Racel Mae Loquellano" required>
+                                    <div class="owner-info">
+                                      <div class="mb-3 position-relative">
+                                        <div class="position-relative">
+                                          <span class="input-label">Name: </span>
+                                          <input type="text" class="form-control" id="ownerName" name="ownerName" style="padding-left: 60px;" required>
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 position-relative">
+                                        <div class="position-relative">
+                                          <span class="input-label">Contact: </span>
+                                          <input type="text" class="form-control" id="contactNum" name="contactNum"  style="padding-left: 80px;" required>
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 position-relative">
+                                        <div class="position-relative">
+                                          <span class="input-label">Email: </span>
+                                          <input type="email" class="form-control" id="ownerEmail" name="ownerEmail"  style="padding-left: 60px;" required>
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 position-relative">
+                                        <div class="position-relative">
+                                          <span class="input-label">Address: </span>
+                                          <input class="form-control" id="ownerAddress" name="ownerAddress"  style="padding-left: 80px;" required>
+                                        </div>
+                                      </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="ContactNum" class="form-label">Contact #</label>
-                                        <input type="text" class="form-control" id="contactNum" name="contactNum" placeholder="09123456789" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="ownerEmail" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="barkyardpets@gmail.com" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="ownerAddress" class="form-label">Address</label>
-                                        <textarea class="form-control" id="ownerAddress" name="ownerAddress" rows="3" placeholder="2nd Floor A & A Building Magdiwang Highway" required></textarea>
-                                    </div>
+
                                 </div>
 
                                 <!-- Pet Information -->
