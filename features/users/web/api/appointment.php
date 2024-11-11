@@ -101,8 +101,8 @@ try {
             <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <a class="dropdown-item" href="features/users/web/api/dashboard.php">Profile</a>
-                <a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a>
+                <a class="dropdown-item" href="dashboard.php">Profile</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
             </div>
         </div>
     <?php else: ?>
@@ -167,7 +167,7 @@ try {
                         <div class="container">
                             <div class="row" style="padding: 20px;">
                                 <div class="col-md-6">
-                                    <h6>Owner Information</h6>
+                                    <h6 class="d-flex mx-auto">Owner Information</h6>
                                     <div class="owner-info">
                                       <div class="mb-3 position-relative">
                                         <div class="position-relative">
@@ -197,40 +197,47 @@ try {
                                         </div>
                                       </div>
                                     </div>
+                                    <h6 class="mt-4 d-flex mx-auto">Pet Information</h6>
+                                    <div class="owner-info">
+                                    <div class="mb-3 position-relative">
+                                        <div class="position-relative">
+                                          <span class="input-label">Pet Type:</span>
+                                          <select class="form-control" id="petType" name="petType" style="padding-left: 80px;">
+                                            <?php if (!empty($categories)): ?>
+                                              <?php foreach ($categories as $category): ?>
+                                                <option value="<?php echo htmlspecialchars($category['category_name']); ?>">
+                                                  <?php echo htmlspecialchars($category['category_name']); ?>
+                                                </option>
+                                              <?php endforeach; ?>
+                                            <?php else: ?>
+                                              <option value="">No categories available</option>
+                                            <?php endif; ?>
+                                          </select>
+                                        </div>
+                                      </div>
+
+                                      <div class="mb-3 position-relative">
+                                        <div class="position-relative">
+                                          <span class="input-label">Breed:</span>
+                                          <input type="text" class="form-control" id="breed" name="breed"  style="padding-left: 60px;" required>
+                                        </div>                             
+                                      </div>
+                                      <div class="mb-3 position-relative">
+                                        <div class="position-relative">
+                                          <span class="input-label">Age:</span>
+                                          <input type="number" class="form-control" id="age" name="age"  style="padding-left: 60px;" required>
+                                        </div>
+                                      </div>
+                                      </div>
 
                                 </div>
 
                                 <!-- Pet Information -->
-                                <div class="col-md-4">
-                                    <h6>Pet Information</h6>
-                                    <div class="mb-3">
-                                      <label for="petType" class="form-label">Pet Type</label>
-                                      <select class="form-control" id="petType" name="petType">
-                                          <?php if (!empty($categories)): ?>
-                                              <?php foreach ($categories as $category): ?>
-                                                  <option value="<?php echo htmlspecialchars($category['category_name']); ?>">
-                                                      <?php echo htmlspecialchars($category['category_name']); ?>
-                                                  </option>
-                                              <?php endforeach; ?>
-                                          <?php else: ?>
-                                              <option value="">No categories available</option>
-                                          <?php endif; ?>
-                                      </select>
-                                  </div>
-
-                                    <div class="mb-3">
-                                        <label for="breed" class="form-label">Breed</label>
-                                        <input type="text" class="form-control" id="breed" name="breed" placeholder="Husky" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="age" class="form-label">Age</label>
-                                        <input type="number" class="form-control" id="age" name="age" placeholder="Months" required>
-                                    </div>
-                                </div>
-
+                               
                                 <!-- Services -->
-                                <div class="col-md-4">
-                                    <h6>Services</h6>
+                                <div class="col-md-6">
+                                    <h6 class="d-flex mx-auto">Services</h6>
+                                    <div class="owner-info">
                                     <div class="mb-3">
                                         <label for="serviceCategory" class="form-label">Service Category</label>
                                         <div class="dropdowns">
@@ -302,13 +309,17 @@ try {
                                     <div id="gcash-details" class="mt-3" style="display: none;">
                                         <label for="gcash-screenshot" class="form-label">Upload screenshot</label>
                                         <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*" class="form-control">
-                                        <label for="reference" class="form-label mt-2">Reference</label>
-                                        <input type="text" name="reference" placeholder="Input Gcash reference" class="form-control">
+                                        <div class="position-relative mt-2">
+                                        <span class="input-label">Ref #:</span>
+                                        <input type="text" name="reference"  class="form-control" style="padding-left: 80px;">
+                                      </div>
+                                    </div>
                                     </div>
                                     <div class="mt-3">
                                         <button type="submit" class="book-save">Book Appointment</button>
                                     </div>
                                 </div>
+                                            </div>
                             </div>
                         </div>
 

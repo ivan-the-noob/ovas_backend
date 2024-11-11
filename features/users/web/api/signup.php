@@ -17,7 +17,7 @@
             <div class="col-md-2 col-lg-6">
                 <div class="row login-container">
                     <div class="col-md-5 login-left text-center">
-                        <img src="../../../../assets/img/logo.png">
+                        <img src="../../../../assets/img/sign-up.png">
                     </div>
                     <div class="col-md-7 login-right">
                     <form method="POST">
