@@ -6,46 +6,76 @@ document.addEventListener('DOMContentLoaded', function () {
     headerToolbar: {
       left: '',
       center: 'title',
-      right: '',
+      right: 'prev,next',
     },
     dayCellDidMount: function (info) {
       var dayCell = info.el;
       var date = new Date(info.date);
       var today = new Date();
-      today.setHours(0, 0, 0, 0); 
+      today.setHours(0, 0, 0, 0);
       var maxDate = new Date(today);
-      maxDate.setDate(today.getDate() + 14); 
+      maxDate.setDate(today.getDate() + 14);
 
-      if (date < today) {
-        dayCell.style.visibility = 'hidden'; 
-      } else if (date > maxDate) {
-        dayCell.style.opacity = '0.5'; 
+      if (date < today || date > maxDate) {
+        dayCell.style.backgroundColor = '#808080';
+        dayCell.style.cursor = 'not-allowed';
         dayCell.style.pointerEvents = 'none';
       } else {
-        dayCell.classList.add('fc-daygrid-day-button');
-        dayCell.addEventListener('click', function () {
+        var adjustedDate = new Date(date);
+        adjustedDate.setDate(adjustedDate.getDate() + 1);
+        var formattedDate = adjustedDate.toISOString().split('T')[0];
 
-          var options = { year: 'numeric', month: 'long', day: 'numeric' };
-          var formattedDate = date.toLocaleDateString('en-US', options);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '../../function/php/check-bookings.php', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.error) {
+              console.error('Error:', response.error);
+              return;
+            }
 
-          document.getElementById('modalContent').textContent = formattedDate;
-
-          var isoDate = date.toISOString().split('T')[0]; 
-          var hiddenInput = document.getElementById('appointmentDate');
-          hiddenInput.value = isoDate;
+            var bookingCount = response.bookingCount;
+            var maxBooking = response.maxBooking; 
 
 
-          if (hiddenInput.value) {
-            console.log("Selected date (hidden input):", hiddenInput.value);
-          } else {
-            console.log("Selected date: none");
+            if (bookingCount >= maxBooking) {
+              dayCell.style.backgroundColor = 'red';
+              dayCell.style.pointerEvents = 'none';
+              dayCell.style.cursor = 'not-allowed';
+            } else {
+              dayCell.style.backgroundColor = 'green';
+
+              dayCell.addEventListener('mouseover', function () {
+                dayCell.style.backgroundColor = '#73BD1E';
+              });
+              dayCell.addEventListener('mouseout', function () {
+                dayCell.style.backgroundColor = 'green';
+              });
+
+              dayCell.classList.add('fc-daygrid-day-button');
+              dayCell.addEventListener('click', function () {
+                var options = { year: 'numeric', month: 'long', day: 'numeric' };
+                var formattedDate = date.toLocaleDateString('en-US', options);
+
+                document.getElementById('modalContent').textContent = formattedDate;
+
+                var isoDate = new Date(date);
+                isoDate.setDate(isoDate.getDate() + 1); 
+                var formattedDate = isoDate.toISOString().split('T')[0];
+                var hiddenInput = document.getElementById('appointmentDate');
+                hiddenInput.value = formattedDate;
+
+                var modal = new bootstrap.Modal(document.getElementById('dayModal'));
+                modal.show();
+              });
+            }
           }
-
-          var modal = new bootstrap.Modal(document.getElementById('dayModal'));
-          modal.show();
-        });
+        };
+        xhr.send('date=' + formattedDate);
       }
-    }
+    },
   });
 
   calendar.render();

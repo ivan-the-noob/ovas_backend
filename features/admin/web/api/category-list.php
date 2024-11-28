@@ -1,17 +1,17 @@
 <?php
 require '../../../../db.php';
 
-session_start();  
+session_start();
 
-    if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
-        header("Location: ../../../users/web/api/login.php");
-        exit(); 
-    }
+if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../../../users/web/api/login.php");
+    exit();
+}
 
 try {
     $sql = "SELECT id, category_name FROM categories";
     $stmt = $conn->query($sql);
-    
+
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -92,8 +92,8 @@ $unread_count = $notification_count_stmt->fetchColumn();
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="chat-bot.php" >
-                <i class="fa-solid fa-headset"></i>
+                <a href="chat-bot.php">
+                    <i class="fa-solid fa-headset"></i>
                     <span>Chat Bot</span>
                 </a>
                 <a href="settings.php">
@@ -115,59 +115,61 @@ $unread_count = $notification_count_stmt->fetchColumn();
             </button>
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
-            <div class="dropdown">
-    <button class="btn" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-bell"></i>
-        <?php if ($unread_count > 0): ?>
-            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
-                <?php echo $unread_count; ?>
-            </span>
-        <?php endif; ?>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-        <li class="dropdown-header">
-            <h5 class="mb-0">Notifications</h5>
-        </li>
-        <?php
-        // Fetch notifications
-        $notification_sql = "SELECT message FROM notifications WHERE is_read = 0";
-        $notification_stmt = $conn->query($notification_sql);
-        if ($notification_stmt->rowCount() > 0) {
-            while ($row = $notification_stmt->fetch(PDO::FETCH_ASSOC)) {
-                $message = htmlspecialchars($row['message']);
-                echo '<li class="dropdown-item">
+                <div class="dropdown">
+                    <button class="btn" type="button" id="notificationDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        <?php if ($unread_count > 0): ?>
+                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                                <?php echo $unread_count; ?>
+                            </span>
+                        <?php endif; ?>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+                        <li class="dropdown-header">
+                            <h5 class="mb-0">Notifications</h5>
+                        </li>
+                        <?php
+                        // Fetch notifications
+                        $notification_sql = "SELECT message FROM notifications WHERE is_read = 0";
+                        $notification_stmt = $conn->query($notification_sql);
+                        if ($notification_stmt->rowCount() > 0) {
+                            while ($row = $notification_stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $message = htmlspecialchars($row['message']);
+                                echo '<li class="dropdown-item">
                         <div class="alert alert-success mb-0">
                             <strong>New Notification!</strong>
                             <p>' . $message . '</p>
                         </div>
                     </li>';
-            }
-            // Mark notifications as read after displaying
-            $update_sql = "UPDATE notifications SET is_read = 1 WHERE is_read = 0";
-            $conn->query($update_sql);
-        } else {
-            echo '<li class="dropdown-item">
+                            }
+                            // Mark notifications as read after displaying
+                            $update_sql = "UPDATE notifications SET is_read = 1 WHERE is_read = 0";
+                            $conn->query($update_sql);
+                        } else {
+                            echo '<li class="dropdown-item">
                     <div class="alert alert-light mb-0">
                         <p>No new notifications.</p>
                     </div>
                 </li>';
-        }
-        ?>
-    </ul>
-</div>
+                        }
+                        ?>
+                    </ul>
+                </div>
 
-    <div class="dropdown">
-        <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
-        </button>
-        <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="../../../users/web/api/logout.php">Logout</a></li>
-        </ul>
-    </div>
-</div>
+                <div class="dropdown">
+                    <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../../../assets/img/vet logo.jpg"
+                            style="width: 40px; height: 40px; object-fit: cover;">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../../../users/web/api/logout.php">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
 
         </div>
-         <!--Notification and Profile Admin End-->
+        <!--Notification and Profile Admin End-->
         <div class="app-req">
             <h3>Category List</h3>
             <div class="walk-in px-lg-5">
@@ -180,161 +182,189 @@ $unread_count = $notification_count_stmt->fetchColumn();
                     </div>
 
                     <script>
-                            $(document).ready(function() {
-                                $('#searchInput').on('keyup', function() {
-                                    var searchTerm = $(this).val().trim();
+                        $(document).ready(function() {
+                            $('#searchInput').on('keyup', function() {
+                                var searchTerm = $(this).val().trim();
 
-                                    $.ajax({
-                                        url: '../../function/php/search/search_categories.php', 
-                                        type: 'POST',
-                                        data: { search: searchTerm },
-                                        success: function(data) {
-                                            $('#tableBody').html(data); 
-                                        }
-                                    });
+                                $.ajax({
+                                    url: '../../function/php/search/search_categories.php',
+                                    type: 'POST',
+                                    data: {
+                                        search: searchTerm
+                                    },
+                                    success: function(data) {
+                                        $('#tableBody').html(data);
+                                    }
                                 });
                             });
-                        </script>
+                        });
+                    </script>
                     <button type="button" class="btn-new" data-toggle="modal" data-target="#addCategoryModal">
                         Add new
                     </button>
                 </div>
             </div>
-             <!--Notification and Profile Admin End-->
+            <!--Notification and Profile Admin End-->
 
-              <!--Category List Modal (add new)-->
-              <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header justify-content-between">
-                                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="../../function/php/categories/save_category.php" method="POST">
-                                    <div class="form-group">
-                                        <label for="categoryName">Category Name</label>
-                                        <input type="text" class="form-control mt-2" id="categoryName" name="category_name" placeholder="Enter category name" required>
-                                    </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                                </form>
+            <!--Category List Modal (add new)-->
+            <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-between">
+                            <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div class="modal-body">
+                            <form action="../../function/php/categories/save_category.php" method="POST">
+                                <div class="form-group">
+                                    <label for="categoryName">Category Name</label>
+                                    <input type="text" class="form-control mt-2" id="categoryName" name="category_name"
+                                        placeholder="Enter category name" required>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </form>
                     </div>
                 </div>
+            </div>
 
-             <!--Category List Modal (add new) End-->
-           
-             <!--Category Table-->
+            <!--Category List Modal (add new) End-->
+
+            <!--Category Table-->
             <div class="px-lg-5" style="overflow-x: auto;">
-            <table class="table table-hover table-remove-borders">
-    <thead class="thead-light">
-        <tr>
-            <th>#</th>
-            <th>Category</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody">
-        <?php if (!empty($categories)): ?>
-            <?php foreach ($categories as $category): ?>
-                <tr class="test-hover">
-                    <td><?php echo htmlspecialchars($category['id']); ?></td>
-                    <td><?php echo htmlspecialchars($category['category_name']); ?></td>
-                    <td>
-                        <!-- Update Button triggers the modal -->
-                        <button type="button" data-toggle="modal" data-target="#editModal<?php echo $category['id']; ?>" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-
-                        <!-- Delete Button triggers the delete modal -->
-                        <button type="button" data-toggle="modal" data-target="#deleteModal<?php echo $category['id']; ?>" title="Delete" style="color: red;">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-
-                        <!-- Edit Category Modal -->
-                        <div class="modal fade" id="editModal<?php echo $category['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?php echo $category['id']; ?>" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel<?php echo $category['id']; ?>">Edit Category</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
+                <table class="table table-hover table-remove-borders">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Category</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <?php if (!empty($categories)): ?>
+                            <?php foreach ($categories as $category): ?>
+                                <tr class="test-hover">
+                                    <td><?php echo htmlspecialchars($category['id']); ?></td>
+                                    <td><?php echo htmlspecialchars($category['category_name']); ?></td>
+                                    <td>
+                                        <!-- Update Button triggers the modal -->
+                                        <button type="button" data-toggle="modal"
+                                            data-target="#editModal<?php echo $category['id']; ?>" title="Edit">
+                                            <i class="fas fa-edit"></i>
                                         </button>
-                                    </div>
-                                    <form action="../../function/php/categories/edit_categories.php" method="POST">
-                                        <div class="modal-body">
-                                            <input type="hidden" name="id" value="<?php echo $category['id']; ?>">
-                                            <div class="form-group">
-                                                <label for="categoryName<?php echo $category['id']; ?>">Category Name</label>
-                                                <input type="text" class="form-control" id="categoryName<?php echo $category['id']; ?>" name="category_name" value="<?php echo htmlspecialchars($category['category_name']); ?>" required>
+
+                                        <!-- Delete Button triggers the delete modal -->
+                                        <button type="button" data-toggle="modal"
+                                            data-target="#deleteModal<?php echo $category['id']; ?>" title="Delete"
+                                            style="color: red;">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+
+                                        <!-- Edit Category Modal -->
+                                        <div class="modal fade" id="editModal<?php echo $category['id']; ?>" tabindex="-1"
+                                            role="dialog" aria-labelledby="editModalLabel<?php echo $category['id']; ?>"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"
+                                                            id="editModalLabel<?php echo $category['id']; ?>">Edit Category</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="../../function/php/categories/edit_categories.php"
+                                                        method="POST">
+                                                        <div class="modal-body">
+                                                            <input type="hidden" name="id"
+                                                                value="<?php echo $category['id']; ?>">
+                                                            <div class="form-group">
+                                                                <label for="categoryName<?php echo $category['id']; ?>">Category
+                                                                    Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    id="categoryName<?php echo $category['id']; ?>"
+                                                                    name="category_name"
+                                                                    value="<?php echo htmlspecialchars($category['category_name']); ?>"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Delete Confirmation Modal -->
-                        <div class="modal fade" id="deleteModal<?php echo $category['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?php echo $category['id']; ?>" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header d-flex justify-content-between">
-                                        <h5 class="modal-title" id="deleteModalLabel<?php echo $category['id']; ?>">Delete Category</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete the category "<?php echo htmlspecialchars($category['category_name']); ?>"?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <a href="../../function/php/categories/delete_category.php?id=<?php echo $category['id']; ?>" class="btn btn-danger">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="3">No categories found</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+                                        <!-- Delete Confirmation Modal -->
+                                        <div class="modal fade" id="deleteModal<?php echo $category['id']; ?>" tabindex="-1"
+                                            role="dialog" aria-labelledby="deleteModalLabel<?php echo $category['id']; ?>"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header d-flex justify-content-between">
+                                                        <h5 class="modal-title"
+                                                            id="deleteModalLabel<?php echo $category['id']; ?>">Delete Category
+                                                        </h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete the category
+                                                        "<?php echo htmlspecialchars($category['category_name']); ?>"?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Cancel</button>
+                                                        <a href="../../function/php/categories/delete_category.php?id=<?php echo $category['id']; ?>"
+                                                            class="btn btn-danger">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="3">No categories found</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
 
                 <!--Category Table End-->
 
-                
 
 
-                
+
+
             </div>
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
                 <li class="page-item">
-                    <a class="page-link" href="#" data-page="prev"><</a>
+                    <a class="page-link" href="#" data-page="prev">
+                        << /a>
                 </li>
                 <li class="page-item" id="pageNumbers"></li>
                 <li class="page-item">
                     <a class="page-link" href="#" data-page="next">></a>
                 </li>
             </ul>
-            
-             </div>
+
+        </div>
 </body>
 
-       
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" crossorigin="anonymous">

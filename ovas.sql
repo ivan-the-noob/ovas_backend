@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2024 at 07:33 AM
+-- Generation Time: Nov 28, 2024 at 09:34 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -97,8 +97,20 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`) VALUES
-(63, 'Ablanida', 'OVAS-000001', 'confirm', '312312', 'ejivan@gmail.com', 'dasd', 'Rabit', '12', 12, 'medical', 'Diagnostic and Therapeutic', '15:00:00', '2024-10-18', 1200.00, '2024-10-18 06:05:48', 'gcash', 'news3.jpg', 100093121),
-(64, 'Ablanida', 'OVAS-000002', 'confirm', '312312', 'ejivan@gmail.com', 'dsadsa', 'Rabit', '12', 12, 'medical', 'Diagnostic and Therapeutic', '10:00:00', '2024-10-18', 1200.00, '2024-10-18 06:07:18', 'gcash', 'news3.jpg', 1000312);
+(68, 'Ivan', 'pending', 'pending', '0312321', 'ejivancalbanida@gmail.com', 'dasdas', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-11-28', 1200.00, '2024-11-28 06:56:39', 'pay_on_store', '', 0),
+(69, 'Ivan', 'pending', 'pending', '0312321', 'ejivancalbanida@gmail.com', 'dasdas', 'Cat', '12', 12, '', '', '00:00:00', '0000-00-00', 0.00, '2024-11-28 07:49:59', '', '', 0),
+(70, 'dasdasd', 'pending', 'pending', 'adsada', '32312@gmail.com', 'dasdas', 'Dog', 'dsadsa', 312312312, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-11-29', 1200.00, '2024-11-28 07:54:08', 'pay_on_store', '', 0),
+(71, 'dasdsadsa', 'pending', 'pending', 'dsadsa', '3123@gmail.co', 'mdasdsa', 'Cat', 'dsa', 12, 'nonMedical', 'Grooming', '12:00:00', '2024-11-30', 999.00, '2024-11-28 07:57:16', 'pay_on_store', '', 0),
+(72, 'daskdas', 'pending', 'pending', 'dasdsa', 'dasdas@gmail.com', 'dsadsa', 'Cat', '12', 12, 'nonMedical', '', '10:00:00', '2024-12-03', 0.00, '2024-11-28 07:58:13', 'pay_on_store', '', 0),
+(73, 'dasdsa321', 'pending', 'pending', '321321', 'dsada@gmail.com', 'dsadsa', 'Cat', '12', 21, 'medical', 'Preventive Health Care', '11:00:00', '2024-12-04', 850.00, '2024-11-28 07:59:06', '', '', 0),
+(74, 'dsadsadsa', 'pending', 'pending', 'dasdsadas', 'dasdas213@mgail.com', 'dsadas', 'Cat', '123', 123, 'medical', 'Diagnostic and Therapeutic', '10:00:00', '2024-12-05', 1200.00, '2024-11-28 07:59:49', 'pay_on_store', '', 0),
+(75, 'dsadsa3213', 'pending', 'pending', '312321', 'dasds@gmail.com', 'dasdas', 'Dog', '321312', 21, 'nonMedical', 'Boarding', '11:00:00', '2024-12-06', 700.00, '2024-11-28 08:00:17', 'pay_on_store', '', 0),
+(76, 'dsadsadsa', 'pending', 'pending', '21321', 'dasa@gmail.com', 'dasdas', 'Cat', '12', 12, 'medical', 'Preventive Health Care', '10:00:00', '2024-12-07', 850.00, '2024-11-28 08:00:33', 'pay_on_store', '', 0),
+(77, 'dasdsa', 'pending', 'pending', '321321', 'ejv@gmail.com', 'dasdsa', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '10:00:00', '2024-12-02', 1200.00, '2024-11-28 08:04:35', 'pay_on_store', '', 0),
+(78, 'dsadsa312', 'pending', 'pending', '32123321', 'ddas312@gmail.com', 'dasdsa', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '10:00:00', '2024-12-12', 1200.00, '2024-11-28 08:09:32', 'pay_on_store', '', 0),
+(79, 'ivan ablanida', 'pending', 'pending', 'dasdsa', 'dsa@gmail.com', 'dasdas', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '17:00:00', '2024-12-01', 1200.00, '2024-11-28 08:11:33', 'pay_on_store', '', 0),
+(80, 'dadasda', 'pending', 'pending', '312321', 'dasdas@gfmail.co', 'mdasdsa', 'Cat', '12', 12, 'nonMedical', 'Boarding', '15:00:00', '2024-12-11', 700.00, '2024-11-28 08:14:13', 'pay_on_store', '', 0),
+(81, 'dasdsa', 'pending', 'pending', 'dasdas', 'dasda@gmail.com', 'dasdsa', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '11:00:00', '2024-12-10', 1200.00, '2024-11-28 08:15:50', 'pay_on_store', '', 0);
 
 -- --------------------------------------------------------
 
@@ -147,6 +159,44 @@ INSERT INTO `categories` (`id`, `category_name`, `created_at`, `message`, `is_re
 (8, 'Dog', '2024-09-13 09:13:24', NULL, 1),
 (9, 'Rabit', '2024-09-13 09:15:00', NULL, 1),
 (10, 'Reptile', '2024-09-13 09:15:06', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat_messages`
+--
+
+CREATE TABLE `chat_messages` (
+  `id` int(11) NOT NULL,
+  `question` text NOT NULL,
+  `response` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chat_messages`
+--
+
+INSERT INTO `chat_messages` (`id`, `question`, `response`, `created_at`) VALUES
+(2, 'who is your mother?', 'dsadas', '2024-10-29 18:44:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `max_booking`
+--
+
+CREATE TABLE `max_booking` (
+  `id` int(11) NOT NULL,
+  `max_booking` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `max_booking`
+--
+
+INSERT INTO `max_booking` (`id`, `max_booking`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -229,7 +279,24 @@ INSERT INTO `notifications` (`id`, `email`, `code`, `type`, `message`, `created_
 (76, 'ejivan@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-10-18 06:05:48', 1),
 (77, 'ejivan@gmail.com', 'OVAS-000001', 'confirm', 'Admin has confirmed the appointment of Ablanida.', '2024-10-18 06:06:21', 1),
 (78, 'ejivan@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-10-18 06:07:18', 1),
-(79, 'ejivan@gmail.com', 'OVAS-000002', 'confirm', 'Admin has confirmed the appointment of Ablanida.', '2024-10-18 06:07:54', 1);
+(79, 'ejivan@gmail.com', 'OVAS-000002', 'confirm', 'Admin has confirmed the appointment of Ablanida.', '2024-10-18 06:07:54', 1),
+(80, 'ejivan.ablanida@cvsu.edu.ph', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 05:07:22', 1),
+(81, 'eej@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 05:07:59', 1),
+(82, 'e@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 05:12:22', 1),
+(83, 'ejivancalbanida@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 06:56:39', 1),
+(84, 'ejivancalbanida@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 07:49:59', 0),
+(85, '32312@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 07:54:08', 0),
+(86, '3123@gmail.co', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 07:57:16', 0),
+(87, 'dasdas@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 07:58:13', 0),
+(88, 'dsada@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 07:59:06', 0),
+(89, 'dasdas213@mgail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 07:59:49', 0),
+(90, 'dasds@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 08:00:17', 0),
+(91, 'dasa@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 08:00:33', 0),
+(92, 'ejv@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 08:04:35', 0),
+(93, 'ddas312@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 08:09:32', 0),
+(94, 'dsa@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 08:11:33', 0),
+(95, 'dasdas@gfmail.co', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 08:14:13', 0),
+(96, 'dasda@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-28 08:15:50', 0);
 
 -- --------------------------------------------------------
 
@@ -333,19 +400,21 @@ CREATE TABLE `reviews` (
   `name` varchar(255) NOT NULL,
   `profile_picture` varchar(255) DEFAULT NULL,
   `comment` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `view` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `name`, `profile_picture`, `comment`, `created_at`) VALUES
-(1, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:42:18'),
-(2, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:43:19'),
-(3, 'test', 'gallery-11.jpg', 'dadasdas', '2024-09-17 06:43:28'),
-(4, 'Ej Ivan Ablanida', NULL, 'Hello', '2024-10-18 02:52:06'),
-(5, 'Ej Ivan Ablanida', NULL, 'das', '2024-10-18 02:52:15');
+INSERT INTO `reviews` (`id`, `name`, `profile_picture`, `comment`, `created_at`, `view`) VALUES
+(1, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:42:18', 1),
+(2, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:43:19', 1),
+(4, 'Ej Ivan Ablanida', NULL, 'Hello', '2024-10-18 02:52:06', 1),
+(5, 'Ej Ivan Ablanida', NULL, 'das', '2024-10-18 02:52:15', 1),
+(6, 'Ivan', 'customer.jfif', 'dsadsa', '2024-10-26 07:38:11', 1),
+(7, 'Anonymous', NULL, 'dsadsa', '2024-10-26 07:38:22', 1);
 
 -- --------------------------------------------------------
 
@@ -431,7 +500,9 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `profile_picture
 (36, 'Admin', 'ab@gmail.com', '$2y$10$B4sTaZVYv6u1XGvXFZE2buBUxHz5uKW9/Dr5y1MxLY1H6QnVoLRvO', 'admin', ''),
 (37, 'Ej Ivan Ablanida', 'abc@gmail.com', '$2y$10$aSc1mOWnnS/EIQ9eF7beIO4YTiiSYYbxhbNcX.W0jS6Pi7kxFKoHe', 'admin', ''),
 (42, 'Tests', 'test@gmail.com', '$2y$10$hwURNTqnyPiVYte4Gueh0.dWfAjIEfRtB20YQv60LifoS3ugN0VkC', 'admin', ''),
-(44, 'ej ej', 'ejthecoder@gmail.com', '$2y$10$6qFHs8ZoGu.gQGNEVG7qG.bqKKA3enTvJi2BvJzJtB317t42VNjvy', 'user', 'customer.jfif');
+(44, 'ej ej', 'ejthecoder@gmail.com', '$2y$10$6qFHs8ZoGu.gQGNEVG7qG.bqKKA3enTvJi2BvJzJtB317t42VNjvy', 'user', 'customer.jfif'),
+(45, 'Ivan', 'ejivan.ablanida@cvsu.edu.ph', '$2y$10$CEJtNHPflXQ4mDooAahoFenQLbRnwA50ny.wqIDmBTH8qUtGehx7y', 'user', 'customer.jfif'),
+(46, 'ejivan', '1@gmail.com', '$2y$10$.u6lPyISRoBxc0HkpZtlP.yPT24G4fdIBm8MLBkz8Pgd3CynQcpmi', 'staff', 'customer.jfif');
 
 --
 -- Indexes for dumped tables
@@ -459,6 +530,18 @@ ALTER TABLE `app_req_notif`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `chat_messages`
+--
+ALTER TABLE `chat_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `max_booking`
+--
+ALTER TABLE `max_booking`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -518,7 +601,7 @@ ALTER TABLE `admin_confirm`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `app_req_notif`
@@ -533,10 +616,22 @@ ALTER TABLE `categories`
   MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
+-- AUTO_INCREMENT for table `chat_messages`
+--
+ALTER TABLE `chat_messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `max_booking`
+--
+ALTER TABLE `max_booking`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `patients_records`
@@ -554,7 +649,7 @@ ALTER TABLE `pos_records`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `service_list`
@@ -572,7 +667,7 @@ ALTER TABLE `system_settings`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
