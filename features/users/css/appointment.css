@@ -463,15 +463,6 @@ th a{
     padding: 20px 10px;
 }
 
-#appointmentSection{
-    height: 80vh;
-}
-
-@media (max-width: 767px) {
-    #appointmentSection {
-        height: 120vh; 
-    }
-}
 .fc-scrollgrid-sync-table {
     height: auto !important; /* Remove fixed height */
 }
@@ -479,10 +470,21 @@ th a{
     color: #7A3015 !important;
 }
 
+.fc .fc-scroller-harness-liquid{
+    height: 101% !important;
+}
+
+
+
 
 /* Calendar End Section */
 
 /*Calender Modal Info Section*/
+
+.modal p{
+    opacity: 80%;
+    margin-bottom: 3px;
+}
 
 .modal-body label{
     color: #7A3015;
@@ -588,7 +590,21 @@ input[type="number"]::-webkit-inner-spin-button {
     border-color: #7A3015 !important;
 }
 
+.status{
+    padding: 5px 10px;
+    width: 50%;
+    text-align: center;
+    color: #fff !important;
+    font-weight: bold;
+    border-radius: 10px;
+}
 
+
+
+.gcash img{
+    width: 100% !important;
+    border-radius: 10px;
+}
 
 
 /*Calender Modal Info End*/

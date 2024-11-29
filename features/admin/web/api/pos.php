@@ -68,6 +68,10 @@
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="max-book.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Max Book</span>
+                </a>
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
@@ -185,9 +189,7 @@
                                 <input type="number" class="form-control" name="changee" placeholder="₱00.0" readonly required>
                             </div>
                         </div>
-
-
-                        <button type="submit" class="save">Add Bills</button>
+                        <button type="submit" class="save">Enter Payment</button>
                     </div>
                 </div>
                 <div class="col-md-6">

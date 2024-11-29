@@ -84,6 +84,10 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="max-book.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Max Book</span>
+                </a>
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
@@ -124,14 +128,12 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
         </div>
-        <!--Notification and Profile Admin End-->
         <?php
         require '../../../../db.php';
         try {
             $stmt = $conn->prepare("SELECT COUNT(*) as total_users FROM users WHERE role = :role");
             $stmt->execute(['role' => 'user']);
 
-            // Fetch the total number of users
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $totalUsers = $result['total_users'];
         } catch (PDOException $e) {
@@ -141,13 +143,29 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
             $stmt = $conn->prepare("SELECT COUNT(*) as total_booked FROM appointments");
             $stmt->execute();
 
-            // Fetch the total number of booked appointments
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $totalBooked = $result['total_booked'];
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
         ?>
+
+        <div class="modal fade" id="dayModal" tabindex="-1" aria-labelledby="dayModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dayModalLabel">Appointments for Selected Date</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalContent">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+            </div>
+        </div>
+        </div>
         <!--Pos Card with graphs-->
         <div class="dashboard">
             <h3>Dashboard</h3>

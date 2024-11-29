@@ -79,6 +79,10 @@ $latestApprovedReviews = array_slice($latestApprovedReviews, 0, 4);
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="max-book.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Max Book</span>
+                </a>
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>

@@ -33,7 +33,13 @@
                         <form action="" method="POST">
                             <div id="signup-fields">
                                 <div class="mb-3">
-                                    <input type="text" name="name" class="form-control" placeholder="Enter name" required>
+                                    <input type="text" name="name" class="form-control" placeholder="Last name, First name, Middle I." required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" name="address" class="form-control" placeholder="Enter your address" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="number" name="contact_num" class="form-control" placeholder="Enter your contact #" required>
                                 </div>
                                 <div class="mb-3">
                                     <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
@@ -92,6 +98,8 @@
             document.querySelector('input[name="name"]').removeAttribute('required');
             document.querySelector('input[name="email"]').removeAttribute('required');
             document.querySelector('input[name="password"]').removeAttribute('required');
+            document.querySelector('input[name="address"]').removeAttribute('required');
+            document.querySelector('input[name="contact-num"]').removeAttribute('required');
 
             // Toggle display of signup fields and verification code fields
             signUpFields.style.display = 'none';

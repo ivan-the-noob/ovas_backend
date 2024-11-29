@@ -113,6 +113,10 @@ try {
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="max-book.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Max Book</span>
+                </a>
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
@@ -141,36 +145,7 @@ try {
            
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
-              <div class="dropdown">
-                  <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-bell"></i>
-                      <?php if ($unread_count > 0): ?>
-                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unread_count; ?></span>
-                      <?php endif; ?>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                      <li class="dropdown-header">
-                          <h5 class=" mb-0">Notification</h5>
-                      </li>
-                      <?php if (!empty($notifications)): ?>
-                          <?php foreach ($notifications as $notification): ?>
-                              <li class="dropdown-item">
-                                  <div class="alert alert-success mb-0">
-                                      <strong>Added Successfully</strong>
-                                      <p><?php echo htmlspecialchars($notification['message']); ?></p>
-                                      <a href="app-records-list.php" class="check-it">Check it Now!</a>
-                                  </div>
-                              </li>
-                          <?php endforeach; ?>
-                      <?php else: ?>
-                          <li class="dropdown-item">
-                              <div class="alert alert-info mb-0">
-                                  <p>No notifications available.</p>
-                              </div>
-                          </li>
-                      <?php endif; ?>
-                  </ul>
-              </div>
+             
 
 
                 <div class="dropdown">

@@ -74,6 +74,10 @@
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="max-book.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Max Book</span>
+                </a>
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
@@ -101,40 +105,7 @@
             </button>
            <!--Notification and Profile Admin-->
             <div class="profile-admin">
-            <div class="dropdown">
-    <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-bell"></i>
-        <?php if ($newCount > 0): ?>
-            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle"><?php echo $newCount; ?></span>
-        <?php endif; ?>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-        <li class="dropdown-header">
-            <h5 class="mb-0">Notification</h5>
-        </li>
-        <?php
-
-        $sql = "SELECT * FROM service_list WHERE created_at > NOW() - INTERVAL 1 DAY"; 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $services = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Check if there are new records
-        if (count($services) > 0) {
-            foreach ($services as $service) {
-                echo '<li class="dropdown-item">';
-                echo '    <div class="alert alert-success mb-0">';
-                echo '       New Service has been Added Successfully!';
-                echo '    </div>';
-                echo '</li>';
-            }
-        } else {
-            echo '<li class="dropdown-item">No new notifications.</li>';
-        }
-        ?>
-      
-    </ul>
-</div>
+            
                 <div class="dropdown">
                     <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">

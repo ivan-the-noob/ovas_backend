@@ -37,6 +37,8 @@
         $email = $_POST['email'];
         $name = $_POST['name'];
         $password = $_POST['password'];
+        $address = $_POST['address'];
+        $contact_num = $_POST['contact_num'];
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             echo "<p class='alert alert-danger'>Invalid email address. Please enter a valid email.</p>";
@@ -54,7 +56,9 @@
                 $_SESSION['name'] = $name;  
                 $_SESSION['email'] = $email;
                 $_SESSION['verification_code'] = $verification_code;
-                $_SESSION['hashed_password'] = $hashed_password; 
+                $_SESSION['hashed_password'] = $hashed_password;
+                $_SESSION['address'] = $address; 
+                $_SESSION['contact_num'] = $contact_num; 
 
                 $emailSent = sendVerificationEmail($email, $verification_code);
 
@@ -76,14 +80,18 @@
             $hashed_password = $_SESSION['hashed_password']; 
             $role = 'user'; 
             $default_profile_picture = 'customer.jfif';
-    
+            $address = $_SESSION['address']; 
+            $contact_num = $_SESSION['contact_num'];
 
-            $stmt = $conn->prepare("INSERT INTO users (name, email, password, role, profile_picture) VALUES (:name, :email, :password, :role, :profile_picture)");
+            $stmt = $conn->prepare("INSERT INTO users (name, email, password, role, profile_picture, address, contact_num) 
+                                    VALUES (:name, :email, :password, :role, :profile_picture, :address, :contact_num)");
             $stmt->bindParam(':name', $name);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $hashed_password);
             $stmt->bindParam(':role', $role);
             $stmt->bindParam(':profile_picture', $default_profile_picture);
+            $stmt->bindParam(':address', $address); 
+            $stmt->bindParam(':contact_num', $contact_num); 
             $stmt->execute();
     
             session_destroy();
@@ -98,8 +106,6 @@
             echo "<p class='alert alert-danger'>Invalid verification code.</p>";
         }
     }
-    
-    
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['resend'])) {
         $verification_code = rand(1000, 9999);
@@ -119,5 +125,4 @@
         header('Location: signup.php'); 
         exit();
     }
-
 ?>

@@ -52,7 +52,6 @@
       }
       
       try {
-        // Fetch the unread count
         $stmt = $conn->prepare("SELECT COUNT(*) as unread_count FROM app_req_notif WHERE is_read = FALSE");
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -126,6 +125,10 @@
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
+                <a href="max-book.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Max Book</span>
+                </a>
                 <a href="chat-bot.php" >
                 <i class="fa-solid fa-headset"></i>
                     <span>Chat Bot</span>
@@ -149,35 +152,7 @@
             </button>
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
-              <div class="dropdown">
-                  <button class="" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                      <i class="fas fa-bell"></i>
-                      <?php if ($unread_count > 0): ?>
-                          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"><?php echo $unread_count; ?></span>
-                      <?php endif; ?>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                      <li class="dropdown-header">
-                          <h5 class=" mb-0">Notification</h5>
-                      </li>
-                      <?php if (!empty($notifications)): ?>
-                          <?php foreach ($notifications as $notification): ?>
-                              <li class="dropdown-item">
-                                  <div class="alert alert-success mb-0">
-                                      <strong>Added Successfully</strong>
-                                      <p><?php echo htmlspecialchars($notification['message']); ?></p>
-                                  </div>
-                              </li>
-                          <?php endforeach; ?>
-                      <?php else: ?>
-                          <li class="dropdown-item">
-                              <div class="alert alert-info mb-0">
-                                  <p>No notifications available.</p>
-                              </div>
-                          </li>
-                      <?php endif; ?>
-                  </ul>
-              </div>
+              
 
 
                 <div class="dropdown">
@@ -472,8 +447,7 @@
                 $('#patient-container').empty();
                 $('#patient-container').html(response);
 
-                // Reinitialize the modals after AJAX loads the content
-                initModals(); // Call the function to initialize modals
+                initModals();
             },
             error: function(xhr, status, error) {
                 console.log("Error: " + error);
@@ -482,7 +456,6 @@
     });
 
     function initModals() {
-        // Attach event handler for modal triggers
         $('#patient-container').on('click', '.view', function() {
             var patientId = $(this).data('bs-target');
             console.log('Opening modal for patient:', patientId);
@@ -490,7 +463,6 @@
         });
     }
 
-    // Initialize modals for the initially loaded content
     initModals();
 });
 

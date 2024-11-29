@@ -4,6 +4,10 @@ require '../../../../db.php';
 $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
 
 $user_email = $_SESSION['email'] ?? '';
+$name = $_SESSION['name'] ?? '';
+$address = $_SESSION['address'] ?? '';
+$contactnum = $_SESSION['contact_num'] ?? '';
+
 
 $stmt = $conn->prepare("SELECT COUNT(*) AS unread_count FROM notifications WHERE email = :email AND is_read = 0");
 $stmt->bindParam(':email', $user_email);
@@ -125,13 +129,14 @@ try {
 
   <section class="appointment">
     <div class="content py-5 date">
-      <input type="hidden" id="appointmentDate" name="appointmentDate">
+
       <div class="col-md-10 app">
         <div class="appoints">
           <button>Appointment Availability</button>
           <button class="appoint" id="toggleViewBtn">My Appointment</button>
         </div>
         <form method="POST" action="../../function/php/appointment.php" enctype="multipart/form-data">
+        <input type="hidden" id="appointmentDate" name="appointmentDate">
           <div class="card card-outline card-primary rounded-0 shadow" id="appointmentSection">
             <div class="card-body">
               <div class="row">
@@ -198,7 +203,7 @@ try {
                       <div class="position-relative">
                         <span class="input-label">Name: </span>
                         <input type="text" class="form-control" id="ownerName" name="ownerName"
-                          style="padding-left: 60px;" required>
+                          style="padding-left: 60px;" value="<?php echo htmlspecialchars($name);?>"readonly>
                       </div>
                     </div>
 
@@ -206,15 +211,17 @@ try {
                       <div class="position-relative">
                         <span class="input-label">Contact: </span>
                         <input type="text" class="form-control" id="contactNum"
-                          name="contactNum" style="padding-left: 80px;" required>
+                          name="contactNum" style="padding-left: 80px;" value="<?php echo htmlspecialchars($contactnum);?>" readonly>
                       </div>
                     </div>
+                    
 
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
                         <span class="input-label">Email: </span>
-                        <input type="email" class="form-control" id="ownerEmail"
-                          name="ownerEmail" style="padding-left: 60px;" required>
+                        <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" 
+                        value="<?php echo htmlspecialchars($user_email); ?>" 
+                        style="padding-left: 60px;"  readonly>
                       </div>
                     </div>
 
@@ -222,7 +229,7 @@ try {
                       <div class="position-relative">
                         <span class="input-label">Address: </span>
                         <input class="form-control" id="ownerAddress" name="ownerAddress"
-                          style="padding-left: 80px;" required>
+                          style="padding-left: 80px;" value="<?php echo htmlspecialchars($address);?>"readonly>
                       </div>
                     </div>
                   </div>
@@ -360,15 +367,19 @@ try {
                       </div>
                     </div>
                     <input type="hidden" id="payment_method" name="payment_method" value="">
+                   
 
                     <div id="gcash-details" class="mt-3" style="display: none;">
+                      <div class="gcash">
+                        <img src="../../../../assets/img/gcash/gcash.jpg">
+                      </div>
                       <label for="gcash-screenshot" class="form-label">Upload
                         screenshot</label>
                       <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*"
                         class="form-control">
                       <div class="position-relative mt-2">
                         <span class="input-label">Ref #:</span>
-                        <input type="text" name="reference" class="form-control"
+                        <input type="number" name="reference" class="form-control"
                           style="padding-left: 80px;">
                       </div>
                     </div>
@@ -407,76 +418,258 @@ try {
             </div>
             <div class="card-body">
               <ul class="list-group" id="historyList">
-                <li class="list-group-item current-appointment">
-                  <div
-                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                    <div>
-                      <h5 class="mb-1">Appointment with Dr. John Doe</h5>
-                      <p class="mb-1">Service: Grooming</p>
-                      <p class="mb-1">Pet: Husky, 1 Yr Old</p>
-                      <p>Owner: Racel Mae Loquellano</p>
-                    </div>
-                    <div class="mt-3 mt-md-0 text-md-right">
-                      <p class="mb-1">Date: 2024-07-10</p>
-                      <p class="mb-1">Time: 10:00 AM</p>
-                      <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#modal1">View Info</button>
-                      <a href="appointment.html"><button
-                          class="btn btn-primary">Cancel</button></a>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item past-appointment">
-                  <div
-                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                    <div>
-                      <h5 class="mb-1">Appointment with Dr. Jane Smith</h5>
-                      <p class="mb-1">Service: Health Checkup</p>
-                      <p class="mb-1">Pet: Cat, 2 Yr Old</p>
-                      <p>Owner: John Doe</p>
-                    </div>
-                    <div class="mt-3 mt-md-0 text-md-right">
-                      <p class="mb-1">Date: 2024-06-20</p>
-                      <p class="mb-1">Time: 2:00 PM</p>
-                      <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#modal2">View Info</button>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item past-appointment">
-                  <div
-                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                    <div>
-                      <h5 class="mb-1">Appointment with Dr. Alan Brown</h5>
-                      <p class="mb-1">Service: Vaccination</p>
-                      <p class="mb-1">Pet: Dog, 3 Yr Old</p>
-                      <p>Owner: Emily Clark</p>
-                    </div>
-                    <div class="mt-3 mt-md-0 text-md-right">
-                      <p class="mb-1">Date: 2024-05-15</p>
-                      <p class="mb-1">Time: 9:00 AM</p>
-                      <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#modal3">View Info</button>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item past-appointment">
-                  <div
-                    class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                    <div>
-                      <h5 class="mb-1">Appointment with Dr. Sarah White</h5>
-                      <p class="mb-1">Service: Surgery</p>
-                      <p class="mb-1">Pet: Rabbit, 2 Yr Old</p>
-                      <p>Owner: Mark Johnson</p>
-                    </div>
-                    <div class="mt-3 mt-md-0 text-md-right">
-                      <p class="mb-1">Date: 2024-04-22</p>
-                      <p class="mb-1">Time: 11:00 AM</p>
-                      <button class="btn btn-primary" data-toggle="modal"
-                        data-target="#modal4">View Info</button>
-                    </div>
-                  </div>
-                </li>
+              <?php 
+                  try {
+                    require '../../../../db.php';
+          
+
+                    if (isset($_SESSION['email'])) {
+                      $sessionEmail = $_SESSION['email'];
+              
+                      $sql = "SELECT * FROM appointments WHERE email = :email AND status IN ('pending', 'confirm', 'complete')";
+                      $stmt = $conn->prepare($sql);
+                      
+                      $stmt->bindParam(':email', $sessionEmail, PDO::PARAM_STR);
+              
+                      $stmt->execute();
+              
+                      if ($stmt->rowCount() > 0) {
+                          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                              $appointmentId = $row['id'];
+                              $ownerName = $row['owner_name'];
+                              $status = $row['status'];
+                              $code = $row['code'];
+                              $contact = $row['contact_number'];
+                              $email = $row['email'];
+                              $address = $row['address'];
+                              $petType = $row['pet_type'];
+                              $breed = $row['breed'];
+                              $age = $row['age'];
+                              $serviceCategory = $row['service_category'];
+                              $serviceType = $row['service_type'];
+                              $appointmentTime = $row['appointment_time'];
+                              $appointmentDate = $row['appointment_date'];
+                              $totalPayment = $row['total_payment'];
+                              $paymentMethod = $row['payment_method'];
+                              $gcashScreenshot = $row['gcash_screenshot'];
+                              $reference = $row['reference'];
+                              $statusClass = '';
+                              if ($status === 'confirm') {
+                                  $statusClass = 'bg-success';
+                              } elseif ($status === 'complete') {
+                                  $statusClass = 'bg-success'; 
+                              } elseif ($status === 'pending') {
+                                  $statusClass = 'bg-primary text-white'; 
+                              }
+              
+                              echo '<li class="list-group-item current-appointment">
+                                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                                          <div>
+                                            <p class="mb-1 status ' . htmlspecialchars($statusClass) . '">' . htmlspecialchars($status) . '</p>
+                                            <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
+                                            <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
+                                            <p>Owner: ' . htmlspecialchars($ownerName) . '</p>
+                                          </div>
+                                          <div class="mt-3 mt-md-0 text-md-right">
+                                            <p class="mb-1">Code: ' . htmlspecialchars($code) . '</p>
+                                            <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
+                                            <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>
+                                            <!-- Cancel button triggers the delete confirmation modal -->
+                                            <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $appointmentId . '">Cancel</button>
+                                          </div>
+                                        </div>
+                                      </li>';
+              
+                              echo '<div class="modal fade" id="modal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="modalLabel' . $appointmentId . '" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header d-flex justify-content-between">
+                                            <h5 class="modal-title" id="modalLabel' . $appointmentId . '">Appointment Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <h5>Appointment Details</h5>
+                                            <p>Name: ' . htmlspecialchars($ownerName) . '</p>
+                                            <p>Contact: ' . htmlspecialchars($contact) . '</p>
+                                            <p>Email: ' . htmlspecialchars($email) . '</p>
+                                            <p>Address: ' . htmlspecialchars($address) . '</p>
+                                            <h5>Pet Information</h5>
+                                            <p>Pet Type: ' . htmlspecialchars($petType) . '</p>
+                                            <p>Breed: ' . htmlspecialchars($breed) . '</p>
+                                            <p>Age: ' . htmlspecialchars($age) . ' months</p>
+                                            <h5>Services</h5>
+                                            <p>Service Category: ' . htmlspecialchars($serviceCategory) . '</p>
+                                            <p>Service: ' . htmlspecialchars($serviceType) . '</p>
+                                            <h5>Payment Details</h5>
+                                            <p>Total Payment: ₱' . htmlspecialchars($totalPayment) . '</p>
+                                            <p>Payment Method: ' . htmlspecialchars($paymentMethod) . '</p>
+                                            <p>GCash Screenshot: <a href="' . htmlspecialchars($gcashScreenshot) . '" target="_blank">View Screenshot</a></p>
+                                            <p>Reference: ' . htmlspecialchars($reference) . '</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>';
+              
+                              // Confirmation delete modal
+                              echo '<div class="modal fade" id="deleteModal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel' . $appointmentId . '" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header d-flex justify-content-between">
+                                            <h5 class="modal-title" id="deleteModalLabel' . $appointmentId . '">Delete Appointment</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p>Are you sure you want to cancel this appointment?</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <!-- Delete button triggers PHP script to delete the appointment -->
+                                            <form action="../../function/php/delete_appointment.php" method="POST">
+                                            
+                                              <input type="hidden" name="id" value="' . $appointmentId . '">
+                                              <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Keep</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>';
+                          }
+                      } else {
+                          echo "No appointments found for this user or with the selected status.";
+                      }
+                  } else {
+                      echo "No email found in session.";
+                  }
+              
+              } catch (PDOException $e) {
+                  echo "Error: " . $e->getMessage();
+              }
+              
+              $conn = null;
+                ?>
+
+                
+<?php 
+                  try {
+                    require '../../../../db.php';
+          
+
+                    if (isset($_SESSION['email'])) {
+                      $sessionEmail = $_SESSION['email'];
+              
+                      $sql = "SELECT * FROM appointments WHERE email = :email AND status IN ('decline')";
+                      $stmt = $conn->prepare($sql);
+                      
+                      $stmt->bindParam(':email', $sessionEmail, PDO::PARAM_STR);
+              
+                      $stmt->execute();
+              
+                      if ($stmt->rowCount() > 0) {
+                          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                              $appointmentId = $row['id'];
+                              $ownerName = $row['owner_name'];
+                              $status = $row['status'];
+                              $code = $row['code'];
+                              $contact = $row['contact_number'];
+                              $email = $row['email'];
+                              $address = $row['address'];
+                              $petType = $row['pet_type'];
+                              $breed = $row['breed'];
+                              $age = $row['age'];
+                              $serviceCategory = $row['service_category'];
+                              $serviceType = $row['service_type'];
+                              $appointmentTime = $row['appointment_time'];
+                              $appointmentDate = $row['appointment_date'];
+                              $totalPayment = $row['total_payment'];
+                              $paymentMethod = $row['payment_method'];
+                              $gcashScreenshot = $row['gcash_screenshot'];
+                              $reference = $row['reference'];
+                              $statusClass = '';
+                              if ($status === 'confirm') {
+                                  $statusClass = 'bg-success';
+                              } elseif ($status === 'complete') {
+                                  $statusClass = 'bg-success'; 
+                              } elseif ($status === 'pending') {
+                                  $statusClass = 'bg-primary text-white'; 
+                              }elseif($status === 'decline'){
+                                  $statusClass = 'bg-danger text-white';
+                              }
+              
+                              echo '<li class="list-group-item past-appointment">
+                                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                                          <div>
+                                            <p class="mb-1 status ' . htmlspecialchars($statusClass) . '">' . htmlspecialchars($status) . '</p>
+                                            <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
+                                            <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
+                                            <p>Owner: ' . htmlspecialchars($ownerName) . '</p>
+                                          </div>
+                                          <div class="mt-3 mt-md-0 text-md-right">
+                                            <p class="mb-1">Code: ' . htmlspecialchars($code) . '</p>
+                                            <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
+                                            <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>
+                                           
+                                          </div>
+                                        </div>
+                                      </li>';
+              
+                              echo '<div class="modal fade" id="modal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="modalLabel' . $appointmentId . '" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header d-flex justify-content-between">
+                                            <h5 class="modal-title" id="modalLabel' . $appointmentId . '">Appointment Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <h5>Appointment Details</h5>
+                                            <p>Name: ' . htmlspecialchars($ownerName) . '</p>
+                                            <p>Contact: ' . htmlspecialchars($contact) . '</p>
+                                            <p>Email: ' . htmlspecialchars($email) . '</p>
+                                            <p>Address: ' . htmlspecialchars($address) . '</p>
+                                            <h5>Pet Information</h5>
+                                            <p>Pet Type: ' . htmlspecialchars($petType) . '</p>
+                                            <p>Breed: ' . htmlspecialchars($breed) . '</p>
+                                            <p>Age: ' . htmlspecialchars($age) . ' months</p>
+                                            <h5>Services</h5>
+                                            <p>Service Category: ' . htmlspecialchars($serviceCategory) . '</p>
+                                            <p>Service: ' . htmlspecialchars($serviceType) . '</p>
+                                            <h5>Payment Details</h5>
+                                            <p>Total Payment: ₱' . htmlspecialchars($totalPayment) . '</p>
+                                            <p>Payment Method: ' . htmlspecialchars($paymentMethod) . '</p>
+                                            <p>GCash Screenshot: <a href="' . htmlspecialchars($gcashScreenshot) . '" target="_blank">View Screenshot</a></p>
+                                            <p>Reference: ' . htmlspecialchars($reference) . '</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>';         
+                          }
+                      } else {
+                       
+                      }
+                  } else {
+                      echo "No email found in session.";
+                  }
+              
+              } catch (PDOException $e) {
+                  echo "Error: " . $e->getMessage();
+              }
+              
+              $conn = null;
+                ?>
+                
               </ul>
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center mt-3" id="paginationControls">
@@ -492,131 +685,6 @@ try {
   </section>
   <!--Book-History Section End-->
 
-  <!--Book-History Modal Section-->
-  <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="modalLabel1" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header d-flex justify-content-between">
-          <h5 class="modal-title" id="modalLabel1">Appointment Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h5>Appointment with Dr. John Doe</h5>
-          <p>Name: Racel Mae Loquellano</p>
-          <p>Contact: 09123456789</p>
-          <p>Email: barkyardpets@gmail.com</p>
-          <p>Adress: Magdiwang Highway</p>
-          <h5>Pet Information</h5>
-          <p>Pet Type: Cat</p>
-          <p>Breed: Husky</p>
-          <p>Age: 12months</p>
-          <h5>Services</h5>
-          <p>Service Category: Non-Medical</p>
-          <p>Service: Grooming</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="modalLabel2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header d-flex justify-content-between">
-          <h5 class="modal-title" id="modalLabel2">Appointment Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h5>Appointment with Dr. Jane Smith</h5>
-          <p>Name: John Doe</p>
-          <p>Contact: 09123456789</p>
-          <p>Email: barkyardpets@gmail.com</p>
-          <p>Adress: Magdiwang Highway</p>
-          <h5>Pet Information</h5>
-          <p>Pet Type: Cat</p>
-          <p>Breed: Husky</p>
-          <p>Age: 24months</p>
-          <h5>Services</h5>
-          <p>Service Category: Medical</p>
-          <p>Service:Health Check up</p>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="modalLabel3" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header d-flex justify-content-between">
-          <h5 class="modal-title" id="modalLabel3">Appointment Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h5>Appointment with Dr. Alan Brown</h5>
-          <p>Name: Emily Clark</p>
-          <p>Contact: 09123456789</p>
-          <p>Email: barkyardpets@gmail.com</p>
-          <p>Adress: Magdiwang Highway</p>
-          <h5>Pet Information</h5>
-          <p>Pet Type: Cat</p>
-          <p>Breed: Husky</p>
-          <p>Age: 36months</p>
-          <h5>Services</h5>
-          <p>Service Category: Medical</p>
-          <p>Service: Vaccination</p>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="modalLabel4" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header d-flex justify-content-between">
-          <h5 class="modal-title" id="modalLabel4">Appointment Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h5>Appointment with Dr. Sarah White</h5>
-          <p>Name: Mark Johnson</p>
-          <p>Contact: 09123456789</p>
-          <p>Email: barkyardpets@gmail.com</p>
-          <p>Adress: Magdiwang Highway</p>
-          <h5>Pet Information</h5>
-          <p>Pet Type: Rabiit</p>
-          <p>Breed: White</p>
-          <p>Age: 24months</p>
-          <h5>Services</h5>
-          <p>Service Category: Medical</p>
-          <p>Surgery</p>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--Book-History Modal Section-->
 
 
   <!--Chat Bot-->

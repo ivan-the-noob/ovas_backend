@@ -171,6 +171,10 @@ body {
     
 }
 
+.appointment-details p{
+    margin-bottom: 2px !important;
+}
+
 table{
     border: none !important;
 }

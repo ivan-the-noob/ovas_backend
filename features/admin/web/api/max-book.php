@@ -80,13 +80,17 @@ $unread_count = $notification_count_stmt->fetchColumn();
                     <i class="fa-solid fa-list"></i>
                     <span>User Reviews</span>
                 </a>
-                <a href="category-list.php" class="navbar-highlight">
+                <a href="category-list.php">
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
                 <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
+                </a>
+                <a href="#" class="navbar-highlight">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Max Book</span>
                 </a>
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
@@ -115,48 +119,6 @@ $unread_count = $notification_count_stmt->fetchColumn();
             </button>
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
-                <div class="dropdown">
-                    <button class="btn" type="button" id="notificationDropdown" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="fas fa-bell"></i>
-                        <?php if ($unread_count > 0): ?>
-                            <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
-                                <?php echo $unread_count; ?>
-                            </span>
-                        <?php endif; ?>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-                        <li class="dropdown-header">
-                            <h5 class="mb-0">Notifications</h5>
-                        </li>
-                        <?php
-                        // Fetch notifications
-                        $notification_sql = "SELECT message FROM notifications WHERE is_read = 0";
-                        $notification_stmt = $conn->query($notification_sql);
-                        if ($notification_stmt->rowCount() > 0) {
-                            while ($row = $notification_stmt->fetch(PDO::FETCH_ASSOC)) {
-                                $message = htmlspecialchars($row['message']);
-                                echo '<li class="dropdown-item">
-                        <div class="alert alert-success mb-0">
-                            <strong>New Notification!</strong>
-                            <p>' . $message . '</p>
-                        </div>
-                    </li>';
-                            }
-                            // Mark notifications as read after displaying
-                            $update_sql = "UPDATE notifications SET is_read = 1 WHERE is_read = 0";
-                            $conn->query($update_sql);
-                        } else {
-                            echo '<li class="dropdown-item">
-                    <div class="alert alert-light mb-0">
-                        <p>No new notifications.</p>
-                    </div>
-                </li>';
-                        }
-                        ?>
-                    </ul>
-                </div>
-
                 <div class="dropdown">
                     <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../../assets/img/vet logo.jpg"

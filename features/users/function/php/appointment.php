@@ -26,12 +26,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $uploads_dir = '../../../../assets/img/gcash/';
             $tmp_name = $_FILES['gcash-ss']['tmp_name'];
             $name = basename($_FILES['gcash-ss']['name']);
-
+    
+            $max_file_size = 10 * 1024 * 1024; 
+            if ($_FILES['gcash-ss']['size'] > $max_file_size) {
+                echo "File size exceeds the 10MB limit.";
+                exit;
+            }
+    
             if (!is_dir($uploads_dir) || !is_writable($uploads_dir)) {
                 echo "Upload directory is not accessible.";
                 exit;
             }
-
+    
             if (move_uploaded_file($tmp_name, $uploads_dir . $name)) {
                 $gcash_screenshot = $name;
             } else {
@@ -43,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit;
         }
     }
+    
 
     try {
         $stmt = $conn->prepare("INSERT INTO appointments 
