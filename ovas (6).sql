@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2024 at 06:30 AM
+-- Generation Time: Dec 06, 2024 at 03:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -63,7 +63,98 @@ INSERT INTO `admin_confirm` (`id`, `name`, `status`, `created_at`, `email`, `rea
 (20, 'Ivan Ablanida', 'confirm', '2024-10-17 20:34:55', 'ejthecoder@gmail.com', '1'),
 (21, 'Ablanida', 'confirm', '2024-10-18 06:06:21', 'ejivan@gmail.com', '1'),
 (22, 'Ablanida', 'confirm', '2024-10-18 06:07:54', 'ejivan@gmail.com', '1'),
-(23, 'Ivan', 'confirm', '2024-11-29 03:09:09', 'ejivan.ablanida@cvsu.edu.ph', '1');
+(23, 'Ivan', 'confirm', '2024-11-29 03:09:09', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(24, 'Ivan', 'confirm', '2024-12-05 19:22:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(25, 'Ivan', 'complete', '2024-12-05 20:57:26', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(26, 'Ivan', 'complete', '2024-12-05 21:08:16', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(27, 'Ivan', 'confirm', '2024-12-05 21:08:21', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(28, 'Ivan', 'complete', '2024-12-05 21:08:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(29, 'Ivan', 'confirm', '2024-12-05 21:08:26', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(30, 'Ivan', 'confirm', '2024-12-05 21:10:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(31, 'Ivan', 'complete', '2024-12-05 21:10:25', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(32, 'Ivan', 'complete', '2024-12-05 21:10:27', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(33, 'Ivan', 'decline', '2024-12-05 21:10:29', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(34, 'Ivan', 'confirm', '2024-12-05 21:10:32', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(35, 'Ivan', 'confirm', '2024-12-05 21:10:33', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(36, 'Ivan', 'complete', '2024-12-05 21:10:35', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(37, 'Ivan', 'decline', '2024-12-05 21:10:37', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(38, 'Ivan', 'confirm', '2024-12-05 21:10:45', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(39, 'Ivan', 'decline', '2024-12-05 21:10:47', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(40, 'Ivan', 'complete', '2024-12-05 21:12:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(41, 'Ivan', 'complete', '2024-12-05 21:12:25', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(42, 'Ivan', 'complete', '2024-12-05 21:12:29', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(43, 'Ivan', 'decline', '2024-12-05 21:12:31', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(44, 'Ivan', 'confirm', '2024-12-05 21:12:33', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(45, 'Ivan', 'decline', '2024-12-05 21:12:41', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(46, 'Ivan', 'confirm', '2024-12-05 21:12:42', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(47, 'Ivan', 'confirm', '2024-12-05 21:15:04', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(48, 'Ivan', 'complete', '2024-12-05 21:15:07', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(49, 'Ivan', 'decline', '2024-12-05 21:15:09', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(50, 'Ivan', 'complete', '2024-12-05 21:16:28', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(51, 'Ivan', 'confirm', '2024-12-05 21:16:28', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(52, 'Ivan', 'confirm', '2024-12-05 21:17:17', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(53, 'Ivan', 'confirm', '2024-12-05 21:21:36', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(54, 'Ivan', 'complete', '2024-12-05 21:21:39', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(55, 'Ivan', 'decline', '2024-12-05 21:21:46', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(56, 'Ivan', 'complete', '2024-12-05 21:21:48', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(57, 'Ivan', 'confirm', '2024-12-05 21:23:10', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(58, 'Ivan', 'confirm', '2024-12-05 21:23:27', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(59, 'Ivan', 'complete', '2024-12-05 21:23:28', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(60, 'Ivan', 'decline', '2024-12-05 21:23:30', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(61, 'Ivan', 'confirm', '2024-12-05 21:23:34', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(62, 'Ivan', 'complete', '2024-12-05 21:27:50', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(63, 'Ivan', 'complete', '2024-12-05 21:27:53', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(64, 'Ivan', 'decline', '2024-12-05 21:27:55', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(65, 'Ivan', 'confirm', '2024-12-05 21:28:05', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(66, 'Ivan', 'complete', '2024-12-05 21:31:42', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(67, 'Ivan', 'decline', '2024-12-05 21:31:43', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(68, 'Ivan', 'confirm', '2024-12-05 21:31:46', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(69, 'Ivan', 'decline', '2024-12-05 21:46:05', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(70, 'Ivan', 'confirm', '2024-12-05 21:49:09', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(71, 'Ivan', 'decline', '2024-12-05 21:49:11', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(72, 'Ivan', 'decline', '2024-12-05 21:49:33', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(73, 'Ivan', 'complete', '2024-12-05 21:49:44', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(74, 'Ivan', 'confirm', '2024-12-05 21:51:03', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(75, 'Ivan', 'complete', '2024-12-05 21:51:06', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(76, 'Ivan', 'decline', '2024-12-05 21:51:08', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(77, 'Ivan', 'decline', '2024-12-05 21:51:11', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(78, 'Ivan', 'confirm', '2024-12-05 21:57:16', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(79, 'Ivan', 'decline', '2024-12-05 21:57:19', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(80, 'Ivan', 'confirm', '2024-12-05 22:00:34', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(81, 'Ivan', 'decline', '2024-12-05 22:00:43', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(82, 'Ablanida, Ej ivan C.', 'confirm', '2024-12-05 22:03:23', 'ejthecoder@gmail.com', '1'),
+(83, 'Ivan', 'confirm', '2024-12-05 22:05:20', 'ejivan.ablanida@cvsu.edu.ph', '1'),
+(84, 'Ablanida, Ej ivan C.', 'decline', '2024-12-05 22:06:32', 'ejthecoder@gmail.com', '0'),
+(85, 'Ivan', 'confirm', '2024-12-05 22:07:20', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(86, 'Ivan', 'decline', '2024-12-05 22:07:23', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(87, 'Ivan', 'confirm', '2024-12-05 22:07:45', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(88, 'Ivan', 'decline', '2024-12-05 22:07:48', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(89, 'Ivan', 'confirm', '2024-12-05 22:08:21', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(90, 'Ivan', 'decline', '2024-12-05 22:08:23', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(91, 'Ivan', 'decline', '2024-12-05 22:08:41', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(92, 'Ivan', 'complete', '2024-12-05 22:09:07', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(93, 'Ivan', 'decline', '2024-12-05 22:09:08', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(94, 'Ivan', 'complete', '2024-12-05 22:09:12', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(95, 'Ivan', 'decline', '2024-12-05 22:09:14', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(96, 'Ivan', 'complete', '2024-12-05 22:09:54', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(97, 'Ivan', 'decline', '2024-12-05 22:10:02', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(98, 'Ivan', 'complete', '2024-12-05 22:10:11', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(99, 'Ivan', 'decline', '2024-12-05 22:10:12', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(100, 'Ivan', 'complete', '2024-12-05 22:10:54', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(101, 'Ivan', 'decline', '2024-12-05 22:10:56', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(102, 'Ivan', 'complete', '2024-12-05 22:11:46', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(103, 'Ivan', 'decline', '2024-12-05 22:11:47', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(104, 'Ivan', 'complete', '2024-12-05 22:13:16', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(105, 'Ivan', 'decline', '2024-12-05 22:13:18', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(106, 'Ivan', 'complete', '2024-12-05 22:15:47', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(107, 'Ivan', 'confirm', '2024-12-05 22:15:48', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(108, 'Ivan', 'decline', '2024-12-05 22:15:50', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(109, 'Ivan', 'confirm', '2024-12-05 22:18:52', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(110, 'Ivan', 'complete', '2024-12-05 22:18:54', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(111, 'Ivan', 'decline', '2024-12-05 22:18:55', 'ejivan.ablanida@cvsu.edu.ph', '0'),
+(112, 'Ablanida, Ej ivan C.', 'confirm', '2024-12-06 01:00:16', 'ejthecoder@gmail.com', '0'),
+(113, 'Ablanida, Ej ivan C.', 'decline', '2024-12-06 01:00:24', 'ejthecoder@gmail.com', '0'),
+(114, 'Ablanida, Ej ivan C.', 'complete', '2024-12-06 01:05:32', 'ejthecoder@gmail.com', '0');
 
 -- --------------------------------------------------------
 
@@ -90,16 +181,26 @@ CREATE TABLE `appointments` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `payment_method` varchar(50) DEFAULT NULL,
   `gcash_screenshot` varchar(255) DEFAULT NULL,
-  `reference` int(100) DEFAULT NULL
+  `reference` int(100) DEFAULT NULL,
+  `decline_reason` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`) VALUES
-(90, 'Ivan', 'OVAS-000001', 'decline', '12', 'ejivan.ablanida@cvsu.edu.ph', '12', 'Cat', '12', 12, 'medical', 'Preventive Health Care', '15:00:00', '2024-11-29', 850.00, '2024-11-29 03:04:39', 'pay_on_store', '', 0),
-(91, 'Ivan', 'pending', 'pending', '12', 'ejivan.ablanida@cvsu.edu.ph', '12', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '11:00:00', '2024-11-29', 1200.00, '2024-11-29 03:53:44', 'pay_on_store', '', 0);
+INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`, `decline_reason`) VALUES
+(90, 'Ivan', 'OVAS-000028', 'decline', '12', 'ejivan.ablanida@cvsu.edu.ph', '12', 'Cat', '12', 12, 'medical', 'Preventive Health Care', '15:00:00', '2024-11-29', 850.00, '2024-11-29 03:04:39', 'pay_on_store', '', 0, 'DASDASDASDASDASDSDASDASDASDASDASDSDASDASDASDASDASDSDASDA'),
+(91, 'Ivan', 'OVAS-000030', 'decline', '12', 'ejivan.ablanida@cvsu.edu.ph', '12', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '11:00:00', '2024-11-29', 1200.00, '2024-11-29 03:53:44', 'pay_on_store', '', 0, 'dsadsa'),
+(92, 'Ablanida, Ej ivan C.', 'OVAS-000024', 'decline', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', 'Husky', 12, 'medical', 'Diagnostic and Therapeutic', '00:00:00', '2024-12-06', 1200.00, '2024-12-05 22:02:38', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 312312312, NULL),
+(93, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-12-07', 1200.00, '2024-12-05 22:46:09', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 12, NULL),
+(94, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '1221', 1212, 'medical', 'Diagnostic and Therapeutic', '10:00:00', '2024-12-08', 1200.00, '2024-12-05 22:46:54', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 2121, NULL),
+(95, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '1221', 1212, 'medical', 'Diagnostic and Therapeutic', '11:00:00', '2024-12-08', 1200.00, '2024-12-05 23:19:16', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 1212, NULL),
+(102, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '12', 12, 'medical', 'Preventive Health Care', '10:00:00', '0000-00-00', 850.00, '2024-12-05 23:36:35', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 21312, NULL),
+(103, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', 'dasdsa', 1221, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-12-08', 1200.00, '2024-12-05 23:38:21', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 121212, NULL),
+(104, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '122112', 1212, 'nonMedical', 'Grooming', '16:00:00', '2024-12-08', 999.00, '2024-12-05 23:49:04', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 122112, NULL),
+(105, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Dog', 'Cat', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2024-12-08', 1200.00, '2024-12-06 00:43:41', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 312321, NULL),
+(106, 'Ablanida, Ej ivan C.', 'OVAS-000031', 'complete', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-12-05', 1200.00, '2024-12-06 00:47:59', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 3121221, 'Ayoko lang bat ba');
 
 -- --------------------------------------------------------
 
@@ -185,7 +286,7 @@ CREATE TABLE `max_booking` (
 --
 
 INSERT INTO `max_booking` (`id`, `max_booking`) VALUES
-(1, 1);
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -296,7 +397,113 @@ INSERT INTO `notifications` (`id`, `email`, `code`, `type`, `message`, `created_
 (104, 'ejivan.ablanida@cvsu.edu.ph', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-29 02:42:40', 1),
 (105, 'ejivan.ablanida@cvsu.edu.ph', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-29 03:04:39', 1),
 (106, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000001', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-11-29 03:09:09', 1),
-(107, 'ejivan.ablanida@cvsu.edu.ph', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-29 03:53:44', 1);
+(107, 'ejivan.ablanida@cvsu.edu.ph', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-11-29 03:53:44', 1),
+(108, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000002', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 19:22:22', 0),
+(109, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000002', 'complete', 'Your appointment has been completed.', '2024-12-05 20:57:26', 0),
+(110, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000002', 'complete', 'Your appointment has been completed.', '2024-12-05 21:08:16', 0),
+(111, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000003', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:08:21', 0),
+(112, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000003', 'complete', 'Your appointment has been completed.', '2024-12-05 21:08:22', 0),
+(113, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000004', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:08:26', 0),
+(114, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000005', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:10:22', 0),
+(115, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000005', 'complete', 'Your appointment has been completed.', '2024-12-05 21:10:25', 0),
+(116, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000005', 'complete', 'Your appointment has been completed.', '2024-12-05 21:10:27', 0),
+(117, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000005', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:10:29', 0),
+(118, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000006', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:10:32', 0),
+(119, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000007', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:10:33', 0),
+(120, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000007', 'complete', 'Your appointment has been completed.', '2024-12-05 21:10:35', 0),
+(121, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000007', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:10:37', 0),
+(122, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000008', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:10:45', 0),
+(123, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000008', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:10:47', 0),
+(124, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000002', 'complete', 'Your appointment has been completed.', '2024-12-05 21:12:22', 0),
+(125, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000002', 'complete', 'Your appointment has been completed.', '2024-12-05 21:12:25', 0),
+(126, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000008', 'complete', 'Your appointment has been completed.', '2024-12-05 21:12:29', 0),
+(127, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000008', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:12:31', 0),
+(128, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000009', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:12:33', 0),
+(129, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000009', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:12:41', 0),
+(130, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000010', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:12:42', 0),
+(131, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000011', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:15:04', 0),
+(132, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000011', 'complete', 'Your appointment has been completed.', '2024-12-05 21:15:07', 0),
+(133, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000011', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:15:09', 0),
+(134, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000010', 'complete', 'Your appointment has been completed.', '2024-12-05 21:16:28', 0),
+(135, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000012', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:16:28', 0),
+(136, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000013', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:17:17', 0),
+(137, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000014', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:21:36', 0),
+(138, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000014', 'complete', 'Your appointment has been completed.', '2024-12-05 21:21:39', 0),
+(139, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000014', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:21:46', 0),
+(140, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000014', 'complete', 'Your appointment has been completed.', '2024-12-05 21:21:48', 0),
+(141, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000015', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:23:10', 0),
+(142, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000016', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:23:27', 0),
+(143, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000016', 'complete', 'Your appointment has been completed.', '2024-12-05 21:23:28', 0),
+(144, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000016', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:23:30', 0),
+(145, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000017', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:23:34', 0),
+(146, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000013', 'complete', 'Your appointment has been completed.', '2024-12-05 21:27:50', 0),
+(147, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000013', 'complete', 'Your appointment has been completed.', '2024-12-05 21:27:53', 0),
+(148, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000013', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:27:55', 0),
+(149, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000018', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:28:05', 0),
+(150, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000018', 'complete', 'Your appointment has been completed.', '2024-12-05 21:31:42', 0),
+(151, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000018', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:31:43', 0),
+(152, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000019', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:31:46', 0),
+(153, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000019', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:46:05', 0),
+(154, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000020', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:49:09', 0),
+(155, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000020', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:49:11', 0),
+(156, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000017', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:49:33', 0),
+(157, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000017', 'complete', 'Your appointment has been completed.', '2024-12-05 21:49:44', 0),
+(158, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000021', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:51:03', 0),
+(159, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000021', 'complete', 'Your appointment has been completed.', '2024-12-05 21:51:06', 0),
+(160, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000021', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:51:08', 0),
+(161, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000021', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:51:11', 0),
+(162, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000022', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 21:57:16', 0),
+(163, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000022', 'decline', 'Your appointment has been rejected.', '2024-12-05 21:57:19', 0),
+(164, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000023', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 22:00:34', 0),
+(165, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000023', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:00:43', 0),
+(166, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 22:02:38', 0),
+(167, 'ejthecoder@gmail.com', 'OVAS-000024', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2024-12-05 22:03:23', 0),
+(168, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 22:05:20', 0),
+(169, 'ejthecoder@gmail.com', 'OVAS-000024', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:06:32', 0),
+(170, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000026', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 22:07:20', 0),
+(171, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000026', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:07:23', 0),
+(172, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000027', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 22:07:45', 0),
+(173, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000027', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:07:48', 0),
+(174, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000028', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 22:08:21', 0),
+(175, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000028', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:08:23', 0),
+(176, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:08:41', 0),
+(177, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'complete', 'Your appointment has been completed.', '2024-12-05 22:09:07', 0),
+(178, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:09:08', 0),
+(179, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'complete', 'Your appointment has been completed.', '2024-12-05 22:09:12', 0),
+(180, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:09:14', 0),
+(181, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000028', 'complete', 'Your appointment has been completed.', '2024-12-05 22:09:54', 0),
+(182, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000028', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:10:02', 0),
+(183, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000028', 'complete', 'Your appointment has been completed.', '2024-12-05 22:10:11', 0),
+(184, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000028', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:10:12', 0),
+(185, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'complete', 'Your appointment has been completed.', '2024-12-05 22:10:54', 0),
+(186, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:10:56', 0),
+(187, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'complete', 'Your appointment has been completed.', '2024-12-05 22:11:46', 0),
+(188, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:11:47', 0),
+(189, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'complete', 'Your appointment has been completed.', '2024-12-05 22:13:16', 0),
+(190, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:13:18', 0),
+(191, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000025', 'complete', 'Your appointment has been completed.', '2024-12-05 22:15:47', 0),
+(192, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000029', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 22:15:48', 0),
+(193, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000029', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:15:50', 0),
+(194, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000030', 'confirm', 'Admin has confirmed the appointment of Ivan.', '2024-12-05 22:18:52', 0),
+(195, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000030', 'complete', 'Your appointment has been completed.', '2024-12-05 22:18:54', 0),
+(196, 'ejivan.ablanida@cvsu.edu.ph', 'OVAS-000030', 'decline', 'Your appointment has been rejected.', '2024-12-05 22:18:55', 0),
+(197, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 22:46:09', 0),
+(198, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 22:46:54', 0),
+(199, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:19:16', 0),
+(200, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:23:41', 0),
+(201, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:26:57', 0),
+(202, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:29:17', 0),
+(203, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:30:14', 0),
+(204, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:32:29', 0),
+(205, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:34:23', 0),
+(206, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:36:36', 0),
+(207, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:38:21', 0),
+(208, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-05 23:49:04', 0),
+(209, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-06 00:43:41', 0),
+(210, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-06 00:47:59', 0),
+(211, 'ejthecoder@gmail.com', 'OVAS-000031', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2024-12-06 01:00:16', 0),
+(212, 'ejthecoder@gmail.com', 'OVAS-000031', 'decline', 'Your appointment has been rejected.', '2024-12-06 01:00:24', 0),
+(213, 'ejthecoder@gmail.com', 'OVAS-000031', 'complete', 'Your appointment has been completed.', '2024-12-06 01:05:32', 0);
 
 -- --------------------------------------------------------
 
@@ -597,13 +804,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_confirm`
 --
 ALTER TABLE `admin_confirm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `app_req_notif`
@@ -633,7 +840,7 @@ ALTER TABLE `max_booking`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- AUTO_INCREMENT for table `patients_records`
