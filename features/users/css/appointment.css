@@ -79,6 +79,30 @@
 
 /* navbar end */
 
+/*Modal Guidelines*/
+
+.guidelines, .guidelines p{
+    color: #000 !important;
+}
+
+.guidelines .modal-header{
+    border-bottom: 0 !important;
+}
+
+.desired-time{
+    padding-left: 20px;
+}
+
+.end-letter{
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    margin-left: auto;
+    width: 50%;
+}
+
+/*Modal Guidelines End*/
+
 /*Appointment History Section*/
 .booked-history{
     background-color: #FBF9FA;
@@ -255,11 +279,7 @@ table{
 }
 
 
-@media (min-width: 768px) and (max-width: 1437px) {
-    .legend span {
-        display: none;
-    }
-}
+
 .p_date p{
     color: #7A3015;
     font-size: 25px;
@@ -440,6 +460,10 @@ th a{
     font-weight: 500;
     opacity: 80%;
   }
+  
+.input-labels {
+    color :#7A3015;
+  }
   .fc-button-group{
     margin-top: 10px !important;
     display: flex;
@@ -450,12 +474,14 @@ th a{
     width: 20px;
     height: 20px;
     background-color: #155724;
+    flex-shrink: 0;
 }
 
 .unavailable-color{
     width: 20px;
     height: 20px;
     background-color: red;
+    flex-shrink: 0;
 }
 
 
@@ -608,9 +634,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 
 /*Calender Modal Info End*/
-
-
-
 
 
 /* Footer Section */

@@ -193,6 +193,55 @@ body {
     color: #7A3015;
 }
 
+.patientss h6{
+    color: #7A3015 !important;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 10px;
+    text-align: start;
+    margin-bottom: 0;
+    font-size: 20px;
+}
+/*New Update */
+
+.section{
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px; 
+    margin: 5px;
+}
+.input-label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff; 
+    pointer-events: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    opacity: 80%;
+  }
+  .input-labels {
+    position: absolute;
+    left: 15px;
+    top: 20%;
+    transform: translateY(-50%);
+    color: #fff; 
+    pointer-events: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    opacity: 80%;
+  }
+  input, textarea{
+    background-color: #7A3015 !important;
+    color: #fff !important;
+  }
+
+  select{
+    background-color: #7A3015 !important;
+    color: #fff !important;
+  }
 
 
 
@@ -322,7 +371,6 @@ tr:hover{
 }
 .container h6{
     color:#7A3015;
-    font-size: 22px;
 }
 
 .container p{

@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
+  
   var calendarEl = document.getElementById('appointmentCalendar');
+  
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: 'dayGridMonth',
@@ -21,9 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dayCell.style.cursor = 'not-allowed';
         dayCell.style.pointerEvents = 'none';
       } else {
-        var adjustedDate = new Date(date);
-        adjustedDate.setDate(adjustedDate.getDate() + 1);
-        var formattedDate = adjustedDate.toISOString().split('T')[0];
+        var formattedDate = date.toISOString().split('T')[0]; 
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../../function/php/check-bookings.php', true);
@@ -37,35 +37,69 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             var bookingCount = response.bookingCount;
-            var maxBooking = response.maxBooking; 
-
+            var maxBooking = response.maxBooking;
 
             if (bookingCount >= maxBooking) {
-              dayCell.style.backgroundColor = 'red';
+              dayCell.style.backgroundColor = '#F65859';
               dayCell.style.pointerEvents = 'none';
               dayCell.style.cursor = 'not-allowed';
             } else {
-              dayCell.style.backgroundColor = 'green';
+              dayCell.style.backgroundColor = '#9EF3A0';
 
               dayCell.addEventListener('mouseover', function () {
                 dayCell.style.backgroundColor = '#73BD1E';
               });
               dayCell.addEventListener('mouseout', function () {
-                dayCell.style.backgroundColor = 'green';
+                dayCell.style.backgroundColor = '#9EF3A0';
               });
-
               dayCell.classList.add('fc-daygrid-day-button');
               dayCell.addEventListener('click', function () {
                 var options = { year: 'numeric', month: 'long', day: 'numeric' };
-                var formattedDate = date.toLocaleDateString('en-US', options);
+                var clickedDate = date.toLocaleDateString('en-US', options);
 
-                document.getElementById('modalContent').textContent = formattedDate;
+                console.log('Clicked date:', clickedDate);
 
-                var isoDate = new Date(date);
-                isoDate.setDate(isoDate.getDate() + 1); 
-                var formattedDate = isoDate.toISOString().split('T')[0];
+                var timesXhr = new XMLHttpRequest();
+                timesXhr.open('POST', '../../function/php/getBookedTimes.php', true);
+                timesXhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                timesXhr.onload = function () {
+                  if (timesXhr.status === 200) {
+                    console.log('Response from PHP (unavailable times):', timesXhr.responseText);
+
+                    var unavailableTimes = timesXhr.responseText.split(',');
+
+                    console.log('Unavailable appointment times:', unavailableTimes);
+
+                    var timeButtons = document.querySelectorAll('.choose-time');
+                    timeButtons.forEach(function(button) {
+                      var time = button.textContent.trim();
+                      var buttonTime = convertTo24HourFormat(time);
+
+                      if (unavailableTimes.includes(buttonTime)) {
+                        button.disabled = true;
+                        button.style.backgroundColor = '#808080'; 
+                        button.style.cursor = 'not-allowed';
+                        button.style.color = 'white';
+                      } else {
+                        button.disabled = false;
+                        button.style.backgroundColor = ''; 
+                        button.style.cursor = '';
+                      }
+                    });
+
+                    unavailableTimes.forEach(function(time) {
+                      console.log('Unavailable time: ' + time);
+                    });
+                  }
+                };
+                timesXhr.send('date=' + formattedDate);
+
+                document.getElementById('modalContent').textContent = clickedDate;
+
+                var isoDate = new Date(date); 
+                var formattedDateForInput = isoDate.toISOString().split('T')[0];
                 var hiddenInput = document.getElementById('appointmentDate');
-                hiddenInput.value = formattedDate;
+                hiddenInput.value = formattedDateForInput;
 
                 var modal = new bootstrap.Modal(document.getElementById('dayModal'));
                 modal.show();
@@ -80,3 +114,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 });
+
+function convertTo24HourFormat(time) {
+  var timeParts = time.split(' '); 
+  var hour = parseInt(timeParts[0], 10);
+  var period = timeParts[1].toUpperCase();
+
+  if (period === 'PM' && hour !== 12) {
+    hour += 12; 
+  }
+  if (period === 'AM' && hour === 12) {
+    hour = 0; 
+  }
+
+  return (hour < 10 ? '0' + hour : hour) + ':00:00'; 
+}

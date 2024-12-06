@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $_SESSION['booked'] = true;
 
-                header('Location: ../../web/api/appointment.php');
+                header('Location: ../../web/api/dashboard.php');
                 exit;
             } else {
                 echo "Error adding notification!";

@@ -112,9 +112,12 @@
           <h4>Book Your Pet's Next Appointment with Ease!</h4>
           <p>Welcome to Bark Yard Pet Wellness Center, your one-stop destination for pet
             grooming and care.</p>
-            <a href="<?php echo isset($_SESSION['email']) ? 'features/users/web/api/appointment.php' : 'features/users/web/api/login.php'; ?>">
-                <button class="btn btn-primary">Book an appointment</button>
-            </a>
+            <?php if (isset($_SESSION['email'])): ?>
+                <a href="features/users/web/api/appointment.php">
+                    <button class="btn btn-primary">Book an appointment</button>
+                </a>
+            <?php endif; ?>
+
         </div>
       </div>
     </div>
@@ -149,57 +152,44 @@
     </svg>
   </div>
   <section class="services" id="services">
-    <h3>Services Category</h3>
-
-    <div class="checkbox-container text-start">
-      <label>
-        <input type="checkbox" id="medical-checkbox" onclick="filterServices()" checked> Medical Services
-      </label>
-      <label>
-        <input type="checkbox" id="non-medical-checkbox" onclick="filterServices()"> Non-Medical Services
-      </label>
-    </div>
+    <h3>Services Offered</h3>
 
     <div class="container mt-4">
-      <div class="slider-container">
-        <div class="slider-wrapper">
-          <?php 
-            require 'db.php';
-            include 'features/admin/function/php/view_service.php';
-            
-          ?>
-          <?php if (!empty($services)): ?> 
-          <?php foreach ($services as $service): ?>
-              <div class="service-card <?php echo $service['service_type'] == 'medical' ? 'medical-service' : 'non-medical-service'; ?>">
-                  <div class="card">
-                      <div class="card-body text-center">
-                          <div class="card-header">
-                              <h5 class="card-title mt-2"><?php echo htmlspecialchars($service['service_name']); ?></h5>
-                              <?php if ($service['discount'] > 0): ?>
-                                  <div class="discount-label text-center">
-                                      <p><?php echo round($service['discount']); ?>% OFF</p>
-                                  </div>
-                              <?php endif; ?>
-                          </div>
-                          <p class="d-flex ml-5 price"><i class="fa-solid fa-tag"></i> <?php echo number_format($service['cost'], 2); ?></p>
-                          <p class="card-text"><?php echo htmlspecialchars($service['info']); ?></p>
-                      </div>
-                  </div>
-              </div>
-          <?php endforeach; ?>
-      <?php endif; ?>
-          
-
-         
+        <div class="slider-container">
+            <div class="slider-wrapper">
+                <?php 
+                    require 'db.php';
+                    include 'features/admin/function/php/view_service.php';
+                ?>
+                <?php if (!empty($services)): ?> 
+                    <?php foreach ($services as $service): ?>
+                        <div class="service-card <?php echo $service['service_type'] == 'medical' ? 'medical-service' : 'non-medical-service'; ?>">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <div class="card-header">
+                                        <h5 class="card-title mt-2"><?php echo htmlspecialchars($service['service_name']); ?></h5>
+                                        <?php if ($service['discount'] > 0): ?>
+                                            <div class="discount-label text-center">
+                                                <p><?php echo round($service['discount']); ?>% OFF</p>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <p class="card-text"><?php echo htmlspecialchars($service['info']); ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
+</section>
+
 
 
 
   <section class="choose-us py-5" id="choose-us">
-    <h3 class="mb-4" id="review">Why Choose Us</h3>
+    <h3 class="mb-4" id="review">Pet Owners Reviews</h3>
     <div class="container">
         <div class="row">
            <?php  
@@ -211,21 +201,24 @@
 
 
 
-  <section class="review">
+<?php if (isset($_SESSION['email'])): ?>
+<section class="review">
     <div class="container review-section">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <h2 class="text-center">Leave Us A Review</h2>
-          <form class="review-form" action="features/users/function/php/process_review.php" method="POST">
-            <div class="form-group">
-              <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Leave Your Comment" required></textarea>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="text-center">Leave Us A Review</h2>
+                <form class="review-form" action="features/users/function/php/process_review.php" method="POST">
+                    <div class="form-group">
+                        <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Leave Your Comment" required></textarea>
+                    </div>
+                    <button type="submit" class="mt-3 submit">Submit</button>
+                </form>
             </div>
-            <button type="submit" class="mt-3 submit">Submit</button>
-          </form>
         </div>
-      </div>
     </div>
 </section>
+<?php endif; ?>
+
   <div class="wave-container1" id="about-us">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave1">
       <path fill="#7A3015" fill-opacity="1"

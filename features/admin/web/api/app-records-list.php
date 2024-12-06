@@ -152,9 +152,6 @@
             </button>
             <!--Notification and Profile Admin-->
             <div class="profile-admin">
-              
-
-
                 <div class="dropdown">
                     <button class="" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="../../../../assets/img/vet logo.jpg" style="width: 40px; height: 40px; object-fit: cover;">
@@ -203,107 +200,143 @@
             <div class="container p-4">
                 <div class="row">
                     <!-- First Column -->
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <h6>Client Information</h6>
-                        <p><strong>Name:</strong> 
-                            <span class="text-view" id="ownerName-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['ownerName']); ?></span>
-                            <input type="text" class="form-control edit-view" id="ownerName-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerName']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Address:</strong> 
-                            <span class="text-view" id="ownerAddress-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['ownerAddress']); ?></span>
-                            <input type="text" class="form-control edit-view" id="ownerAddress-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerAddress']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Contact:</strong></p>
-                        <p><strong>Home:</strong> 
-                            <span class="text-view" id="home-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['home']); ?></span>
-                            <input type="text" class="form-control edit-view" id="home-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['home']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Work:</strong> 
-                            <span class="text-view" id="work-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['work']); ?></span>
-                            <input type="text" class="form-control edit-view" id="work-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['work']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Email:</strong> 
-                            <span class="text-view" id="ownerEmail-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['ownerEmail']); ?></span>
-                            <input type="email" class="form-control edit-view" id="ownerEmail-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerEmail']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Preferred:</strong> 
-                            <span class="text-view" id="preferredContact-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['preferredContact']); ?></span>
-                            <input type="text" class="form-control edit-view" id="preferredContact-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['preferredContact']); ?>" style="display:none;">
-                        </p>
+                    <div class="col-lg-3 col-md-6 mb-3 section">
+                        <h6 class="d-flex mx-auto mb-4">Client Information</h6>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Name:</span> 
+                                    <input type="text" style="padding-left: 65px;" class="form-control edit-view" id="ownerName-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerName']); ?>" readonly>
+                               
+                            </div>
+                        </div>
+                         
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Address:</span> 
+                                <input type="text" style="padding-left: 80px;" class="form-control edit-view" id="ownerAddress-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerAddress']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Home:</span> 
+                                <input type="text" style="padding-left: 65px;" class="form-control edit-view" id="home-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['home']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Work:</span> 
+                                <input type="text" style="padding-left: 65px;" class="form-control edit-view" id="work-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['work']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Email:</span> 
+                                <input type="email" style="padding-left: 65px;" class="form-control edit-view" id="ownerEmail-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerEmail']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Preferred:</span> 
+                                <input type="text" style="padding-left: 90px;" class="form-control edit-view" id="preferredContact-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['preferredContact']); ?>" readonly>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Second Column -->
-                    <div class="col-lg-3 col-md-6 mb-3">
-                        <h6>Pet Information</h6>
-                        <p><strong>Pet's Name:</strong> 
-                            <span class="text-view" id="petName-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['petName']); ?></span>
-                            <input type="text" class="form-control edit-view" id="petName-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petName']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Species:</strong> 
-                            <span class="text-view" id="petType-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['petType']); ?></span>
-                            <input type="text" class="form-control edit-view" id="petType-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petType']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Sex:</strong> 
-                            <span class="text-view" id="sex-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['sex']); ?></span>
-                            <input type="text" class="form-control edit-view" id="sex-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['sex']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Breed:</strong> 
-                            <span class="text-view" id="breed-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['breed']); ?></span>
-                            <input type="text" class="form-control edit-view" id="breed-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['breed']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Colors & Marking:</strong> 
-                            <span class="text-view" id="colorMarkings-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['colorMarkings']); ?></span>
-                            <input type="text" class="form-control edit-view" id="colorMarkings-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['colorMarkings']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Microchip No.:</strong> 
-                            <span class="text-view" id="microchipNo-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['microchipNo']); ?></span>
-                            <input type="text" class="form-control edit-view" id="microchipNo-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['microchipNo']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Date of Birth:</strong> 
-                            <span class="text-view" id="dob-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['dob']); ?></span>
-                            <input type="date" class="form-control edit-view" id="dob-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['dob']); ?>" style="display:none;">
-                        </p>
-                        <p><strong>Age:</strong> 
-                            <span class="text-view" id="age-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['age']); ?></span>
-                            <input type="number" class="form-control edit-view" id="age-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['age']); ?>" style="display:none;">
-                        </p>
+                    <div class="col-lg-3 col-md-6 mb-3 section">
+                        <h6 class="d-flex mx-auto mb-4">Pet Information</h6>
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Pet's Name:</span> 
+                                <input type="text" style="padding-left: 100px;" class="form-control edit-view" id="petName-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petName']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Species:</span> 
+                                <input type="text" style="padding-left: 90px;" class="form-control edit-view" id="petType-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petType']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Sex:</span> 
+                                <input type="text" style="padding-left: 55px;" class="form-control edit-view" id="sex-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['sex']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Breed:</span> 
+                                <input type="text" style="padding-left: 70px;" class="form-control edit-view" id="breed-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['breed']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Colors:</span> 
+                                <input type="text" style="padding-left: 70px;" class="form-control edit-view" id="colorMarkings-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['colorMarkings']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Microchip No:</span> 
+                                <input type="text" style="padding-left: 120px;" class="form-control edit-view" id="microchipNo-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['microchipNo']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Birth Date:</span> 
+                                <input type="date" style="padding-left: 90px;" class="form-control edit-view" id="dob-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['dob']); ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="position-relative">
+                                <span class="input-label">Age:</span> 
+                                <input type="number" style="padding-left: 50px;" class="form-control edit-view" id="age-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['age']); ?>" readonly>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- Third Column -->
-                    <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="col-lg-2 col-md-6 mb-3 section">
                         <h6>Services</h6>
                         <p><strong>Category:</strong> 
-                            <span class="text-view" id="serviceCategory-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['serviceCategory']); ?></span>
-                            <input type="text" class="form-control edit-view" id="serviceCategory-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['serviceCategory']); ?>" style="display:none;">
+                        <input type="text" class="form-control edit-view" id="serviceCategory-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['serviceCategory']); ?>" readonly>
                         </p>
+                       
                         <p><strong>Services:</strong> 
-                            <span class="text-view" id="service-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['service']); ?></span>
-                            <input type="text" class="form-control edit-view" id="service-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['service']); ?>" style="display:none;">
+                        <input type="text" class="form-control edit-view" id="service-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['service']); ?>" readonly>
                         </p>
                         <p><strong>Total Payment:</strong> 
-                            <span class="text-view" id="totalPayment-text-<?php echo $patient['id']; ?>">₱<?php echo htmlspecialchars($patient['totalPayment']); ?></span>
-                            <input type="text" class="form-control edit-view" id="totalPayment-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['totalPayment']); ?>" style="display:none;">
+                        <input type="text" class="form-control edit-view" id="totalPayment-input-<?php echo $patient['id']; ?>" value="₱<?php echo htmlspecialchars($patient['totalPayment']); ?>" readonly>
                         </p>
                     </div>
 
                     <!-- Fourth Column -->
-                    <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="col-lg-3 col-md-6 mb-3 section">
                         <h6>Other Information</h6>
                         <p><strong>Date:</strong> 
-                            <span class="text-view" id="date-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['date']); ?></span>
-                            <input type="date" class="form-control edit-view" id="date-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date']); ?>" style="display:none;">
-                        </p>
+                        <input type="text" class="form-control edit-view" id="date-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date']); ?>" readonly>
                         <p><strong>Authorization for Treatment:</strong> 
-                            <span class="text-view" id="authorization-text-<?php echo $patient['id']; ?>"><?php echo htmlspecialchars($patient['authorization']); ?></span>
-                            <input type="text" class="form-control edit-view" id="authorization-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['authorization']); ?>" style="display:none;">
+                        <input type="text" class="form-control edit-view" id="authorization-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['authorization']); ?>" readonly>
                         </p>
                         <p><strong>Veterinarian's Report:</strong><br> 
-                            <span class="text-view" id="enteringComplaint-text-<?php echo $patient['id']; ?>"><?php echo nl2br(htmlspecialchars($patient['enteringComplaint'])); ?></span>
-                            <textarea class="form-control edit-view" id="enteringComplaint-input-<?php echo $patient['id']; ?>" style="display:none;"><?php echo htmlspecialchars($patient['enteringComplaint']); ?></textarea>
+                        <textarea class="form-control edit-view" id="enteringComplaint-input-<?php echo $patient['id']; ?>" readonly><?php echo nl2br(htmlspecialchars($patient['enteringComplaint'])); ?></textarea>
                         </p>
                         <p><strong>History • Physical Findings • Diagnosis • Treatment:</strong><br>
-                            <span class="text-view" id="historyPhysical-text-<?php echo $patient['id']; ?>"><?php echo nl2br(htmlspecialchars($patient['historyPhysical'])); ?></span>
-                            <textarea class="form-control edit-view" id="historyPhysical-input-<?php echo $patient['id']; ?>" style="display:none;"><?php echo htmlspecialchars($patient['historyPhysical']); ?></textarea>
+                        <textarea class="form-control edit-view" id="historyPhysical-input-<?php echo $patient['id']; ?>" readonly><?php echo nl2br(htmlspecialchars($patient['historyPhysical'])); ?></textarea>
                         </p>
                         <div class="mb-3">
                             <button class="btn toggle-edit-btn " data-patient-id="<?php echo $patient['id']; ?>">Update</button>

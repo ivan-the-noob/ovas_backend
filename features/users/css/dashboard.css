@@ -128,6 +128,168 @@
 
 /* About Us End */
 
+/*Appointment History Section*/
+.status{
+  padding: 5px 10px;
+  width: 100px;
+  text-align: center;
+  color: #fff !important;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.btn-info{
+  color: #fff;
+}
+
+
+.card-header{
+  background-color: #7A3015;
+  color:#fff;
+}
+
+.booked-history p{
+  color: #7A3015;
+}
+.booked-history h5{
+  color:#7A3015;
+}
+
+.booked-history button{
+  border: none;
+}
+.booked-history button:hover{
+  background-color: #5a220d;
+}
+.dm{
+  white-space: wrap !important;
+}
+#info{
+  max-width: 90% !important;
+}
+@media (max-width: 768px) {
+  #info {
+      max-width: 80%;
+      display: flex;
+      margin: auto;
+  }
+}
+
+
+.modal-header{
+  color: #7A3015;
+  height: 10vh;
+}
+
+.modal-header h5{
+  font-size: 20px;
+}
+
+
+.modal-body{
+  color:#7A3015;
+}
+
+.modal-body h5{
+  font-size: 20px;
+
+}
+
+.modal-body h6{
+  background-color: #7A3015;
+  color: #fff !important;
+  width: 80%;
+  padding: 8px 24px 8px 24px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.modal-body .owner-info{
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+}
+.modal-body p{
+  font-size: 16px;
+}
+
+.modal-header button{
+  background-color: transparent;
+  border: none;
+  color: #7A3015;
+  font-size: 30px;
+}
+
+
+
+.booked-history .container{
+  padding: 0;
+  width: 90%;
+}
+
+.dropdown-toggle{
+  display: flex;
+  text-align: start;
+}
+.dropdown-toggle::after{
+  margin-top: 10px;
+}
+
+.tab-bar{
+  text-align: end !important;
+  background-color: transparent;
+  color: #7A3015;
+  border: none;
+  padding: 20px;
+  margin: 5px;
+  border-radius: 5px;
+  display: flex;
+  margin: auto;
+  align-items: center;
+}
+
+.tab-bar .none{
+  cursor: none;
+}
+.tab-bar button{
+  background-color: transparent !important;
+  color: #7A3015;
+  font-weight: 600 !important;
+  cursor: pointer;
+
+}
+
+/*Sub-content pagination*/
+.pagination .page-item .page-link {
+  border-radius: 50%;
+  background-color: #7A3015;
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  border: none;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #5a220d;
+  border-color: #5a220d;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #5a220d;
+  color: white;
+}
+
+.fc-toolbar-title{
+  text-align: start;
+}
+/*Appointment History End*/
+
 .save{
   border: none;
   background-color: #7A3015;

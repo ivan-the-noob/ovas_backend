@@ -211,18 +211,53 @@
                                 <p class="card-text"><strong>Service Category:</strong>  <?= $appointment['service_category'] === 'medical' ? 'medical' : ($appointment['service_category'] === 'nonMedical' ? 'nonMedical' : 'N/A') ?></p>
                                 <p class="card-text"><strong>Service:</strong> <?= $appointment['service_type'] ?></p>
                                 <p class="card-text"><strong>Code: </strong><?= $appointment['code'] ?? 'Pending' ?></p>
-
                                 <p class="card-text"><strong>Status:</strong> 
-                                    <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'success' : ($appointment['status'] == 'complete' ? 'info' : ($appointment['status'] == 'decline' ? 'danger' : 'primary')) ?>">
+                                    <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'complete' ? 'success' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
                                         <?= ucfirst($appointment['status']) ?>
                                     </span>
                                 </p>
-                                <!-- View Button to open modal -->
-                                <button type="button" class="btn btn-primary d-flex mx-auto" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
-                                    View Details
-                                </button>
+                                <?php if ($appointment['status'] == 'decline'): ?>
+                                    <p class="card-text"><strong>Reason:</strong> <?= $appointment['decline_reason'] ?></p>
+                                <?php endif; ?>
+                                 <div class="d-flex gap-3 justify-content-center">
+                                    <button type="button" class="d-flex view-details" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
+                                        View Details
+                                    </button>
+                                    <div class="dropdown">
+                                    <?php
+                                        $currentStatus = ucfirst($appointment['status']); 
+                                        $buttonClass = '';
+                                        switch ($appointment['status']) {
+                                            case 'pending':
+                                                $buttonClass = 'btn-warning'; 
+                                                break;
+                                            case 'confirm':
+                                                $buttonClass = 'btn-primary';
+                                                break;
+                                            case 'complete':
+                                                $buttonClass = 'btn-success';
+                                                break;
+                                            case 'decline':
+                                                $buttonClass = 'btn-danger'; 
+                                                break;
+                                            default:
+                                                $buttonClass = 'btn-secondary'; 
+                                        }
+                                        ?>
+
+                                        <button class="btn <?= $buttonClass ?> " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <?= $currentStatus ?> 
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li class="dropdown-item" onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">Confirm</li>
+                                            <li class="dropdown-item" onclick="updateStatus(<?= $appointment['id'] ?>, 'complete')">Complete</li>
+                                            <li class="dropdown-item" onclick="updateStatus(<?= $appointment['id'] ?>, 'decline')">Decline</li>
+                                            
+                                        </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                        </div>
+                                    </div>
                             </div>
 
     <!-- Modal -->
@@ -244,24 +279,9 @@
                         </p>
                     </div>
 
-                    <div class="col-md-4">
-                        <h5 class="motal-title">Actions</h5>
-                            <div class="actions d-flex gap-2">
-                                <span id="status-badge-<?= $appointment['id'] ?>" class="d-flex align-items-center badge bg-<?= $appointment['status'] == 'confirm' ? 'success' : ($appointment['status'] == 'complete' ? 'info' : ($appointment['status'] == 'decline' ? 'danger' : 'primary')) ?>">
-                                    <?= ucfirst($appointment['status']) ?>
-                                </span>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton<?= $index ?>" data-bs-toggle="dropdown" aria-expanded="false">
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<?= $index ?>">
-                                        <li><a class="dropdown-item" href="#" onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">Confirm</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="updateStatus(<?= $appointment['id'] ?>, 'complete')">Complete</a></li>
-                                        <li><a class="dropdown-item" href="#" onclick="updateStatus(<?= $appointment['id'] ?>, 'decline')">Decline</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                    </div>
+                   
                 </div>
+                
 
                 <div class="row">
                     <!-- Appointment Date -->
@@ -342,14 +362,35 @@
                 
             </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
-            </div>
-        </div>
-    </div>
-    <?php endforeach; ?>
-</div>
+
+                <div class="modal fade" id="declineModal" tabindex="-1" aria-labelledby="declineModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="declineModalLabel">Reason for Cancellation</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="../../function/php/submit_decline_reason.php" method="POST" id="declineReasonForm">
+                                    <input type="hidden" name="id" id="appointmentId" /> <!-- Hidden field to pass the appointment ID -->
+                                    <div class="mb-3">
+                                        <label for="declineReason" class="form-label">Reason</label>
+                                        <textarea class="form-control" id="declineReason" name="declineReason" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
                 <li class="page-item">
@@ -365,54 +406,60 @@
 </body>
 
 <script type="text/javascript">
-        function updateStatus(appointmentId, newStatus) {
+  function updateStatus(appointmentId, newStatus) {
     $.ajax({
-        url: '../../function/php/update_status.php', 
+        url: '../../function/php/update_status.php',  
         type: 'POST',
         data: {
-            id: appointmentId,
-            status: newStatus
+            id: appointmentId, 
+            status: newStatus  
         },
         success: function(response) {
-            const result = JSON.parse(response);
-            if (result.success) {
+            if (response === 'success') {
                 const badge = $('#status-badge-' + appointmentId);
-                badge.removeClass('bg-primary bg-success bg-info bg-danger');
+                badge.removeClass('bg-primary bg-success bg-info bg-danger'); 
+
                 if (newStatus === 'confirm') {
                     badge.addClass('bg-success');
                     badge.text('Confirmed');
-
-                    if (result.code) {
-                        $('#code-' + appointmentId).text(result.code);
-                    }
-
                 } else if (newStatus === 'complete') {
                     badge.addClass('bg-info');
                     badge.text('Completed');
                 } else if (newStatus === 'decline') {
                     badge.addClass('bg-danger');
                     badge.text('Declined');
+                    
+                    $('#appointmentId').val(appointmentId);  
+                    $('#declineModal').modal('show');  
+                } else if (newStatus === 'pending') {
+                    badge.addClass('bg-primary');
+                    badge.text('Pending');
+                }
+                if (newStatus !== 'decline') {
+                    location.reload(); 
                 }
             } else {
-                alert(result.message || 'Failed to update status');
+                alert('Failed to update status'); 
             }
+        },
+        error: function() {
+            alert('Error occurred while updating status.'); 
         }
     });
 }
 
-document.getElementById('notificationDropdown').addEventListener('show.bs.dropdown', function () {
-        // Make an AJAX request to mark notifications as read
+    document.getElementById('notificationDropdown').addEventListener('show.bs.dropdown', function () {
+
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "../../function/php/mark_as_read.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send();
 
-        // Reset the notification count visually
         document.getElementById('notification-count').textContent = '0';
         document.getElementById('notification-count').classList.add('d-none');
     });
-
 </script>
+
        
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>

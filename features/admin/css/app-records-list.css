@@ -353,6 +353,36 @@ tr:hover{
     align-items: center;
 }
 
+/*New Update */
+
+.section{
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px; 
+    margin: 5px;
+}
+.input-label {
+    position: absolute;
+    left: 15px;
+    top: 45%;
+    transform: translateY(-50%);
+    color: #fff; 
+    pointer-events: none;
+    font-size: 0.9em;
+    font-weight: 500;
+    opacity: 80%;
+  }
+ 
+  .container input, textarea{
+    background-color: #7A3015 !important;
+    color: #fff !important;
+  }
+
+  select{
+    background-color: #7A3015 !important;
+    color: #fff !important;
+  }
 /*Notif Section*/
 
 .dropdown-menu-end{

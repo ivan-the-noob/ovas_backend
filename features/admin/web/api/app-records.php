@@ -163,31 +163,51 @@ try {
         <!--Input fields of Patients Records-->
         <form action="../../function/php/save_patient.php" method="POST">
   <div class="app-req">
-    <h3>Patients Records</h3>
-    <div class="container px-5 pt-3">
+    <h3>Patient Records</h3>
+    <div class="container px-5 pt-3 patientss">
       <div class="row justify-content-center">
         <!-- Client Information -->
-        <div class="col-md-3">
-          <h6>Client Information</h6>
-          <div class="mb-3">
-            <label for="ownerName" class="form-label">Client Name</label>
-            <input type="text" class="form-control" id="ownerName" name="ownerName" placeholder="Racel Mae Loquellano">
+        <div class="col-md-3 section">
+          <h6 class="mb-4">Client Information</h6>
+          <div class=" mb-3 position-relative">
+            <div class="position-relative">
+            <span class="input-label">Name: </span>
+            <input type="text" class="form-control" id="ownerName" name="ownerName" style="padding-left: 60px;">
           </div>
-          <div class="mb-3">
-            <label for="ownerAddress" class="form-label">Complete Address</label>
-            <textarea class="form-control" id="ownerAddress" name="ownerAddress" rows="3"
-              placeholder="2nd Floor A & A Building Magdiwang Highway"></textarea>
+        </div>
+         
+          <div class="mb-3 position-relative">
+            <div class="position-relative">
+              <span class="input-labels">Address: </span>
+              <textarea class="form-control" id="ownerAddress" name="ownerAddress" rows="3" style=" padding-top: 25px;"
+               ></textarea>
+            </div>
           </div>
           <div class="mb-3 contacts">
             <label for="contactNum" class="form-label">Contact Details</label>
-            <input type="number" class="form-control" name="mobile" placeholder="Mobile">
-            <input type="number" class="form-control" name="home" placeholder="Home">
-            <input type="number" class="form-control" name="work" placeholder="Work">
-            <input type="number" class="form-control" name="viber" placeholder="Viber">
+            <div class="position-relative">
+              <span class="input-label">Mobile:</span>
+              <input type="number" class="form-control" name="mobile" style="padding-left: 65px;">
+            </div>
+            <div class="position-relative">
+              <span class="input-label">Home:</span>
+              <input type="number" class="form-control" name="home" style="padding-left: 65px;">
+            </div>
+            <div class="position-relative">
+              <span class="input-label">Work:</span>
+              <input type="number" class="form-control" name="work" style="padding-left: 65px;">
+            </div>
+            <div class="position-relative">
+              <span class="input-label">Viber:</span>
+              <input type="number" class="form-control" name="viber" style="padding-left: 65px;">
+            </div>
           </div>
           <div class="mb-3">
             <label for="ownerEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" placeholder="bardyardpets@gmail.com">
+            <div class="position-relative">
+            <span class="input-label">Email:</span>
+            <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" style="padding-left: 65px;">
+          </div>
           </div>
           <div class="mb-3">
             <label for="preferredContact" class="form-label">Preferred Contact</label>
@@ -220,15 +240,19 @@ try {
           </div>
         </div>
         <!-- Pet Information -->
-        <div class="col-md-3">
-          <h6>Pet Information</h6>
+        <div class="col-md-3 section">
+          <h6 class="mb-4">Pet Information</h6>
           <div class="mb-3">
-            <label for="pet-name" class="form-label">Pet's Name</label>
-            <input type="text" class="form-control" name="petName" placeholder="Ara" id="pet-name">
+            <div class="position-relative">
+             <span class="input-label">Pet Name:</span>
+              <input type="text" class="form-control" name="petName" id="pet-name" style="padding-left: 90px;">
+            </div>
+            
           </div>
           <div class="mb-3">
-              <label for="petType" class="form-label">Species</label>
-              <select class="form-control" id="petType" name="petType">
+            <div class="position-relative">
+            <span class="input-label">Species:</span>
+              <select class="form-control" id="petType" name="petType" style="padding-left: 80px;">
                   <?php if (!empty($categories)): ?>
                       <?php foreach ($categories as $category): ?>
                           <option value="<?php echo htmlspecialchars($category['category_name']); ?>">
@@ -239,40 +263,51 @@ try {
                       <option value="">No categories available</option>
                   <?php endif; ?>
               </select>
+                  </div>
           </div>
 
           <div class="mb-3">
-            <label for="petType" class="form-label">Sex</label>
-            <select class="form-control" id="sex" name="sex">
-              <option>Male Intact</option>
-              <option>Male Neutered (kapon)</option>
-              <option>Female Intact</option>
-              <option>Female Spayed (kapon)</option>
-            </select>
+            <div class="position-relative">
+            <span class="input-label">Sex:</span>
+              <select class="form-control" id="sex" name="sex" style="padding-left: 50px">
+                <option>Male Intact</option>
+                <option>Male Neutered (kapon)</option>
+                <option>Female Intact</option>
+                <option>Female Spayed (kapon)</option>
+              </select>
+            </div>
           </div>
           <div class="mb-3">
-            <label for="breed" class="form-label">Breed</label>
-            <input type="text" class="form-control" name="breed" placeholder="husky" id="breed">
+            <div class="position-relative">
+              <span class="input-label">Breed:</span> 
+              <input type="text" class="form-control" name="breed"  id="breed" style="padding-left: 70px;">
+            </div>
           </div>
           <div class="mb-3">
-            <label for="Color & markings" class="form-label">Colors and Marking</label>
-            <input type="text" class="form-control" name="colorMarkings" placeholder="White" id="color-markings">
+            <div class="position-relative">
+              <span class="input-label">Colors:</span> 
+            <input type="text" class="form-control" name="colorMarkings" id="color-markings" style="padding-left: 70px">
+            </div>
           </div>
           <div class="mb-3">
-            <label for="Microchip No" class="form-label">Microchip No.</label>
-            <input type="number" class="form-control" name="microchipNo" placeholder="312421" id="micro-no">
+            <div class="position-relative">
+              <span class="input-label">Microchip No:</span> 
+              <input type="number" class="form-control" name="microchipNo" id="micro-no" style="padding-left: 115px">
+            </div>
           </div>
           <div class="mb-3">
             <label for="Date of Birth" class="form-label">Date of Birth</label>
             <input type="date" class="form-control" name="dob" placeholder="01/01/24" id="dob">
           </div>
           <div class="mb-3">
-            <label for="age" class="form-label">Age</label>
-            <input type="number" class="form-control" name="age" placeholder="Months" id="age">
+            <div class="position-relative">
+            <span class="input-label">Age:</span> 
+            <input type="number" class="form-control" name="age" id="age" style="padding-left: 60px;">
+            </div>         
           </div>
         </div>
-        <div class="col-md-3">
-          <h6>Services</h6>
+        <div class="col-md-2 section">
+          <h6 class="mb-4">Services</h6>
           <div class="mb-3">
             <label for="serviceCategory" class="form-label">Service Category</label>
             <div class="dropdowns">
@@ -340,7 +375,6 @@ try {
                           body: 'markAsRead=true'
                       }).then(response => response.text())
                       .then(data => {
-                          // Optionally update badge count or remove badge
                           const badge = document.querySelector('.badge');
                           if (badge) {
                               badge.remove();
@@ -352,8 +386,8 @@ try {
             </script>
 
         </div>
-        <div class="col-md-3">
-          <h6>Other Information</h6>
+        <div class="col-md-3 section">
+          <h6 class="mb-4">Other Information</h6>
           <div class="mb-3">
             <label for="date" class="form-label">Date</label>
             <input type="date" class="form-control" name="date" id="date">

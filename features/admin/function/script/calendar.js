@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
       headerToolbar: {
         left: '',
         center: 'title',
-        right: '',
+        right: 'next, prev',
       },
       dayCellDidMount: function (info) {
         var dayCell = info.el;

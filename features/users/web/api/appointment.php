@@ -125,6 +125,48 @@ try {
     </div>
   </nav>
 
+  <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-between guidelines">
+                    <h5 class="modal-title" id="appointmentModalLabel">Appointment Guidelines</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body guidelines">
+                    <p>Dear Valued Clients,</p>
+                    <p>Please be informed of the following guidelines when booking an appointment for your pet:</p>
+                    <ol>
+                        <li class="mt-4">
+                            <strong>Booking Period:</strong>
+                            <ul>
+                                <li>You can only book an appointment for today or within the next 14 days (2 weeks) from the current date.</li>
+                            </ul>
+                        </li>
+                        <li class="mt-4">
+                            <strong>Downpayment Requirement:</strong>
+                            <ul>
+                                <li>A ₱250.00 downpayment is required to confirm your booking. This amount will be deducted from your total bill during your visit to the clinic.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p>We appreciate your understanding and cooperation to help us serve you and your pets better. Thank you!</p>
+                    <div class="end-letter mt-4">
+                      <div class="div">
+                        <p class="mb-0 mt-0 d-flex">Sincerely,</p>
+                      </div>
+                      <div class="div">
+                        <p class="mt-0 d-flex mt-0 mb-0">Bark Yard Pet Wellness Center</p>
+                      </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+
+    
 
 
   <section class="appointment">
@@ -136,28 +178,27 @@ try {
           <button class="appoint" id="toggleViewBtn">My Appointment</button>
         </div>
         <form method="POST" action="../../function/php/appointment.php" enctype="multipart/form-data">
-        <input type="hidden" id="appointmentDate" name="appointmentDate">
+      
           <div class="card card-outline card-primary rounded-0 shadow" id="appointmentSection">
             <div class="card-body">
               <div class="row">
-                <div class="col-md-2 mt-2 p_date pt-lg-100">
-                  <p><?php echo date('l'); ?></p>
+                <div class="col-md-3 mt-2 p_date pt-lg-100">
+                  <p class="mb-0"><?php echo date('l'); ?></p>
                   <p><?php echo date('F j'); ?></p>
                   <div class="card legend">
                     <div class="card-body">
-                      <p>Legend</p>
                       <div class=" d-flex gap-1 available">
                         <div class="available-color"></div>
-                        <span class="p-avail">Avail</span>
+                        <span class="p-avail">Available</span>
                       </div>
                       <div class=" d-flex gap-1 unavailable">
                         <div class="unavailable-color"></div>
-                        <span class="p-avail">Unavail</span>
+                        <span class="p-avail">Fully Booked</span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                   <div class="calendar-container">
                     <div id="appointmentCalendar">
                     </div>
@@ -175,18 +216,36 @@ try {
     <div class="modal fade" id="dayModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-xl custom-modal" id="info" role="document">
-        <div class="modal-content">
-          <div class="modal-header d-flex justify-content-between">
-            <h5 class="modal-title" id="modalLabel">Book Your Desired Schedule</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+        <div class="modal-content guidelines">
+        <div class="modal-header d-flex justify-content-between align-items-center">
+    <h5 class="modal-title" id="modalLabel">Book Your Desired Schedule</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="w-50 desired-time">
+    <label for="Time" class="form-label">Choose Desired Time</label>
+    <div class="choose-time-div">
+        <button type="button" class="choose-time" onclick="selectTime(this, '09:00')">9 AM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '10:00')">10 AM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '11:00')">11 AM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '12:00')">12 PM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '13:00')">1 PM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '14:00')">2 PM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '15:00')">3 PM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '16:00')">4 PM</button>
+        <button type="button" class="choose-time" onclick="selectTime(this, '17:00')">5 PM</button>
+    </div>
+    <input type="hidden" id="selectedTime" name="appointmentTime">
+    <input type="hidden" id="appointmentDate" name="appointmentDate">
+</div>
+
           <div class="modal-body">
             <div class="sched row">
               <div class="col-md-6">
-                <p>Appointment Schedule</p>
+              <label for="Appointment Schedule" class="form-label">Appointment Schedule</label>
                 <div id="modalContent" class="col-6"></div>
+                <input type="hidden" id="appointmentDateModal" name="appointment_date">
               </div>
 
               <div class="line w-100"></div>
@@ -331,42 +390,17 @@ try {
                     </div>
 
                     <!-- Time Selection -->
-                    <div class="mt-3">
-                      <label for="Time" class="form-label">Choose Time</label>
-                      <div class="choose-time-div">
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '09:00')">9 AM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '10:00')">10 AM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '11:00')">11 AM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '12:00')">12 PM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '13:00')">1 PM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '14:00')">2 PM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '15:00')">3 PM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '16:00')">4 PM</button>
-                        <button type="button" class="choose-time"
-                          onclick="selectTime(this, '17:00')">5 PM</button>
-                      </div>
-                      <input type="hidden" id="selectedTime" name="appointmentTime">
-                    </div>
+                   
 
                     <div class="mt-3">
                       <label for="pay-via" class="form-label">Pay Via</label>
-                      <div class="d-flex justify-content-center pay-btn">
+                      <div class="d-flex justify-content-start pay-btn">
                         <button id="gcash-btn" class="btn" type="button"
                           onclick="selectPayment('gcash', this)">Gcash</button>
-                        <button id="store-btn" class="btn" type="button"
-                          onclick="selectPayment('pay_on_store', this)">Pay on
-                          Store</button>
+                       
                       </div>
                     </div>
-                    <input type="hidden" id="payment_method" name="payment_method" value="">
+                    <input type="hidden" id="payment_method" name="payment_method" value="" required>
                    
 
                     <div id="gcash-details" class="mt-3" style="display: none;">
@@ -376,7 +410,7 @@ try {
                       <label for="gcash-screenshot" class="form-label">Upload
                         screenshot</label>
                       <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*"
-                        class="form-control">
+                        class="form-control" required>
                       <div class="position-relative mt-2">
                         <span class="input-label">Ref #:</span>
                         <input type="number" name="reference" class="form-control"
@@ -473,9 +507,8 @@ try {
                                           <div class="mt-3 mt-md-0 text-md-right">
                                             <p class="mb-1">Code: ' . htmlspecialchars($code) . '</p>
                                             <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
-                                            <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
+                                            <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>  
                                             <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>
-                                            <!-- Cancel button triggers the delete confirmation modal -->
                                             <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $appointmentId . '">Cancel</button>
                                           </div>
                                         </div>
@@ -685,8 +718,6 @@ try {
   </section>
   <!--Book-History Section End-->
 
-
-
   <!--Chat Bot-->
   <button id="chat-bot-button" onclick="toggleChat()">
     <i class="fa-solid fa-headset"></i>
@@ -751,6 +782,14 @@ try {
   });
 </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var appointmentModal = new bootstrap.Modal(document.getElementById('appointmentModal'));
+            appointmentModal.show();
+        });
+    </script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 
@@ -765,5 +804,6 @@ try {
 <script src="../../function/script/chatbot-toggle.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
 </html>
