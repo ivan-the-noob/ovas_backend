@@ -84,6 +84,10 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="unavailable.php">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Unavailable Date</span>
+                </a>
                 <a href="max-book.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Max Book</span>

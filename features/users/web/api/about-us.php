@@ -97,7 +97,7 @@
         <div class="col-md-8">
           <img src="../../../../assets/img/map.PNG" alt="Map Image" class="img-fluid">
           <h3 class="mt-4">About Us</h3>
-          <p class="about-text"><?php echo $about_us; ?></p>
+          <p class="about-text"><?php echo nl2br(htmlspecialchars($about_us)); ?></p>
         </div>
       </div>
     </div>

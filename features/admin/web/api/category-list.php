@@ -88,6 +88,11 @@ $unread_count = $notification_count_stmt->fetchColumn();
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="unavailable.php">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Unavailable Date</span>
+                </a>
+
                 <a href="max-book.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Max Book</span>
@@ -315,7 +320,7 @@ $unread_count = $notification_count_stmt->fetchColumn();
             <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
                 <li class="page-item">
                     <a class="page-link" href="#" data-page="prev">
-                        << /a>
+                        <</a>
                 </li>
                 <li class="page-item" id="pageNumbers"></li>
                 <li class="page-item">

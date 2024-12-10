@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2024 at 03:33 AM
+-- Generation Time: Dec 10, 2024 at 08:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -680,7 +680,26 @@ CREATE TABLE `system_settings` (
 --
 
 INSERT INTO `system_settings` (`id`, `system_logo`, `cover`, `system_name`, `system_short_name`, `welcome_content`, `welcome_image`, `about_us`, `about_us_image`, `email`, `contact_num`, `location`, `created_at`, `updated_at`) VALUES
-(1, 'logo.png', '', 'Pawfects', 'Pawfect', 'Welcome to Bark Yard Pet Wellness Center, your one-stop destination for pet grooming and care.s\r\n\r\n', 'about-us.png', 'The Bark Yard Pet Salon and Wellness Clinic is an animal care facility dedicated to providing high customer satisfaction by rendering quality pet care while furnishing a fun, clean, thematic, enjoyable atmosphere at an acceptable price. Our experienced team is passionate about animals and committed to their well-being. We offer a range of services tailored to meet the unique needs of each pet, ensuring they leave happy and healthy.', 'vet logo.jpg', 'sample@gmail.com', '09338182822', '2nd Floor A & A Building Magdiwang Highway, Noveleta, Philippines, 4105', '2024-09-10 06:04:11', '2024-09-10 11:11:10');
+(1, 'logo.png', '', 'Pawfects', 'Pawfect', 'Welcome to Bark Yard Pet Wellness Center, your one-stop destination for pet grooming and care.s\r\n\r\n', 'about-us.png', 'The Bark Yard Pet Salon and Wellness Clinic is an animal care facility dedicated to providing high customer satisfaction by rendering quality pet care while furnishing a fun, clean, thematic, enjoyable atmosphere at an acceptable price. Our experienced team is passionate about animals and committed to their well-being. We offer a range of services tailored to meet the unique needs of each pet, ensuring they leave happy and healthy.\r\n\r\n\r\nBYPWC has been in operation for 8 years – opened by Dr. Anna Kristine Mendoza after she earned her Doctorate in Veterinary Medicine in 2005 from University of the Philippines Los Baños. The clinic focuses on small animals –most of its patients being dogs and cats. The clinic does not handle larger animals like horses, cows, or pigs. The clinic now has 3 full time employees  amd 1 part time veterinarian– including one veterinarian (Dr. Mendoza), one veterinary assistant, and one office manager.\r\n- DOC TIN', 'vet logo.jpg', 'sample@gmail.com', '09338182822', '2nd Floor A & A Building Magdiwang Highway, Noveleta, Philippines, 4105', '2024-09-10 06:04:11', '2024-12-10 19:29:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unavailable`
+--
+
+CREATE TABLE `unavailable` (
+  `id` int(11) NOT NULL,
+  `unavailable` date NOT NULL,
+  `reason` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `unavailable`
+--
+
+INSERT INTO `unavailable` (`id`, `unavailable`, `reason`) VALUES
+(1, '2024-12-13', 'dasdsa123try');
 
 -- --------------------------------------------------------
 
@@ -790,6 +809,12 @@ ALTER TABLE `system_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `unavailable`
+--
+ALTER TABLE `unavailable`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -871,6 +896,12 @@ ALTER TABLE `service_list`
 --
 ALTER TABLE `system_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `unavailable`
+--
+ALTER TABLE `unavailable`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

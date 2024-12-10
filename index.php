@@ -138,7 +138,7 @@
         </div>
         <div class="col-md-8">
           <h3 class="mt-3">About Us</h3>
-          <p class="about-text"><?php echo $about_us; ?></p>
+          <p class="about-text"><?php echo nl2br(htmlspecialchars($about_us)); ?></p>
           <a href="features/users/web/api/about-us.php"><button class="btn btn-primary mt-3">Read More</button></a>
         </div>
       </div>

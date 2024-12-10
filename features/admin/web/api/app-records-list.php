@@ -121,14 +121,19 @@
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
-                <a href="admin-user.php">
-                    <i class="fa-solid fa-user-tie"></i>
-                    <span>Admin User List</span>
+                <a href="unavailable.php">
+                    <i class="fa-solid fa-list"></i>
+                    <span>Unavailable Date</span>
                 </a>
                 <a href="max-book.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Max Book</span>
                 </a>
+                <a href="admin-user.php">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Admin User List</span>
+                </a>
+              
                 <a href="chat-bot.php" >
                 <i class="fa-solid fa-headset"></i>
                     <span>Chat Bot</span>
