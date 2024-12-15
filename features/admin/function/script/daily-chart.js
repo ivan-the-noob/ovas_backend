@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var ctx = document.getElementById('weekSalesChart').getContext('2d');
+    var ctx = document.getElementById('salesChart').getContext('2d');
 
     var chartData = {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], // Week labels
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
         datasets: [
             {
-                label: 'This Week Sales',
-                data: [], // Placeholder for dynamic data
+                label: 'Today',
+                data: [],
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 pointHoverBorderColor: 'rgba(54, 162, 235, 1)'
             },
             {
-                label: 'Last Week Sales',
-                data: [], // Placeholder for dynamic data
+                label: 'Yesterday',
+                data: [],
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
@@ -38,11 +38,12 @@ document.addEventListener("DOMContentLoaded", function () {
             scales: {
                 y: {
                     beginAtZero: true,
-                    min: 1000, // Minimum value for Y-axis
-                    max: 20000, // Maximum value for Y-axis
+                    min: 1000, // Set minimum value for the y-axis to 1,000
+                    max: 20000, // Set maximum value for the y-axis to 20,000
                     ticks: {
                         callback: function (value) {
-                            return value.toLocaleString(); // Format with commas (e.g., 1,000)
+                            // Display the raw value without converting to 'k'
+                            return value.toLocaleString(); // Adds comma separation (e.g., 1,000)
                         }
                     }
                 }
@@ -64,21 +65,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Fetch data for This Week and Last Week Sales
+    // Fetch data for Today and Yesterday
     function fetchData() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../function/php/fetch_sales_data_weekly.php', true); // Your new endpoint for weekly sales data
+        xhr.open('GET', '../../function/php/fetch_sales_data.php', true);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 try {
-                    var response = xhr.responseText.split('|'); // Split response by '|'
-                    var thisWeekData = response[0].split(',').map(Number); // Convert to numbers
-                    var lastWeekData = response[1].split(',').map(Number); // Convert to numbers
+                    var response = xhr.responseText.split('|');
+                    var todayData = response[0].split(',').map(Number); // Keep raw value
+                    var yesterdayData = response[1].split(',').map(Number); // Same for yesterday's data
 
-                    // Update chart datasets with fetched data
-                    salesChart.data.datasets[0].data = thisWeekData;
-                    salesChart.data.datasets[1].data = lastWeekData;
-                    salesChart.update(); // Update the chart
+                    // Populate chart datasets
+                    salesChart.data.datasets[0].data = todayData;
+                    salesChart.data.datasets[1].data = yesterdayData;
+                    salesChart.update();
                 } catch (e) {
                     console.error('Error parsing response:', e);
                 }
@@ -89,5 +90,5 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send();
     }
 
-    fetchData(); // Fetch the sales data when the page loads
+    fetchData();
 });

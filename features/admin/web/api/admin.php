@@ -18,6 +18,11 @@ $stmt2 = $conn->prepare("SELECT * FROM notifications WHERE email = :email ORDER 
 $stmt2->bindParam(':email', $user_email);
 $stmt2->execute();
 $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt3 = $conn->prepare("SELECT SUM(total_payment) AS total_sales FROM appointments WHERE status = 'complete'");
+$stmt3->execute();
+$total_sales_data = $stmt3->fetch(PDO::FETCH_ASSOC);
+$total_sales = $total_sales_data['total_sales'] ?? 0;
 ?>
 
 
@@ -209,7 +214,7 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                         <div class="cards">
                             <div class="card-text">
                                 <p>Total Sales</p>
-                                <h5>₱40,689</h5>
+                                <h5>₱<?php echo number_format($total_sales, 2); ?></h5>
                             </div>
                             <div class="logo">
                                 <i class="fa-solid fa-dollar-sign"></i>
@@ -221,14 +226,14 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
             </div>
-            <!-- <div class="flex-container">
+            <div class="flex-container">
                 <div class="chart-container">
                     <canvas id="salesChart"></canvas>
                 </div>
                 <div class="chart-container">
                     <canvas id="weekSalesChart"></canvas>
                 </div>
-            </div> -->
+            </div>
 
         </div>
         <div class="col-md-8 justify-content-center mx-auto">
@@ -249,7 +254,7 @@ $notifications = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     <!--Pos Card with graphs End-->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../function/script/month-chart.js"></script>
+    <script src="../../function/script/daily-chart.js"></script>
     <script src="../../function/script/toggle-menu.js"></script>
     <script src="../../function/script/week-chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
