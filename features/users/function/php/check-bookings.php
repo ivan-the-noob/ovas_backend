@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['date'])) {
 
     try {
         // Fetch the current booking count for the selected date
-        $stmt = $conn->prepare("SELECT COUNT(*) AS booking_count FROM appointments WHERE appointment_date = :date");
+        $stmt = $conn->prepare("SELECT COUNT(*) AS booking_count FROM appointments WHERE appointment_date = :date AND status != 'decline'");
         $stmt->bindParam(':date', $date);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

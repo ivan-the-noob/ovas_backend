@@ -171,23 +171,26 @@ try {
     <div class="container px-5 pt-3 patientss">
       <div class="row justify-content-center">
         <!-- Client Information -->
-        <div class="col-md-3 section">
+        <div class="col-md-12 section">
           <h6 class="mb-4">Client Information</h6>
-          <div class=" mb-3 position-relative">
+          <div class="d-flex gap-2 justify-content-center">
+          <div class=" mb-3 position-relative col-md-5">
             <div class="position-relative">
             <span class="input-label">Name: </span>
             <input type="text" class="form-control" id="ownerName" name="ownerName" style="padding-left: 60px;">
           </div>
         </div>
          
-          <div class="mb-3 position-relative">
+          <div class="mb-3 position-relative col-md-5">
             <div class="position-relative">
               <span class="input-labels">Address: </span>
               <textarea class="form-control" id="ownerAddress" name="ownerAddress" rows="3" style=" padding-top: 25px;"
                ></textarea>
             </div>
           </div>
-          <div class="mb-3 contacts">
+        </div>
+        <div class="d-flex gap-2 justify-content-center">
+          <div class="mb-3 contacts col-md-5">
             <label for="contactNum" class="form-label">Contact Details</label>
             <div class="position-relative">
               <span class="input-label">Mobile:</span>
@@ -206,14 +209,14 @@ try {
               <input type="number" class="form-control" name="viber" style="padding-left: 65px;">
             </div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 col-md-5">
             <label for="ownerEmail" class="form-label">Email</label>
             <div class="position-relative">
             <span class="input-label">Email:</span>
             <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" style="padding-left: 65px;">
           </div>
-          </div>
-          <div class="mb-3">
+
+          <div class="mb-3 col-md-5">
             <label for="preferredContact" class="form-label">Preferred Contact</label>
             <div class="d-flex flex-wrap">
               <div class="form-check me-3">
@@ -242,18 +245,21 @@ try {
               </div>
             </div>
           </div>
+          </div>
+          </div>
         </div>
         <!-- Pet Information -->
-        <div class="col-md-3 section">
+        <div class="col-md-12 section">
           <h6 class="mb-4">Pet Information</h6>
-          <div class="mb-3">
+          <div class="d-flex justify-content-center gap-2">
+          <div class="mb-3 col-md-5">
             <div class="position-relative">
              <span class="input-label">Pet Name:</span>
               <input type="text" class="form-control" name="petName" id="pet-name" style="padding-left: 90px;">
             </div>
             
           </div>
-          <div class="mb-3">
+          <div class="mb-3 col-md-5">
             <div class="position-relative">
             <span class="input-label">Species:</span>
               <select class="form-control" id="petType" name="petType" style="padding-left: 80px;">
@@ -269,8 +275,9 @@ try {
               </select>
                   </div>
           </div>
-
-          <div class="mb-3">
+          </div>
+          <div class="d-flex justify-content-center gap-2">
+          <div class="mb-3 col-md-5">
             <div class="position-relative">
             <span class="input-label">Sex:</span>
               <select class="form-control" id="sex" name="sex" style="padding-left: 50px">
@@ -281,38 +288,44 @@ try {
               </select>
             </div>
           </div>
-          <div class="mb-3">
+          
+          <div class="mb-3 col-md-5">
             <div class="position-relative">
               <span class="input-label">Breed:</span> 
               <input type="text" class="form-control" name="breed"  id="breed" style="padding-left: 70px;">
             </div>
           </div>
-          <div class="mb-3">
+          </div>
+          <div class="d-flex justify-content-center gap-2"> 
+          <div class="mb-3 col-md-5">
             <div class="position-relative">
               <span class="input-label">Colors:</span> 
             <input type="text" class="form-control" name="colorMarkings" id="color-markings" style="padding-left: 70px">
             </div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 col-md-5">
             <div class="position-relative">
               <span class="input-label">Microchip No:</span> 
               <input type="number" class="form-control" name="microchipNo" id="micro-no" style="padding-left: 115px">
             </div>
           </div>
-          <div class="mb-3">
-            <label for="Date of Birth" class="form-label">Date of Birth</label>
+          </div>
+          <div class="d-flex justify-content-center gap-2"> 
+          <div class="mb-3 col-md-5">
             <input type="date" class="form-control" name="dob" placeholder="01/01/24" id="dob">
           </div>
-          <div class="mb-3">
+          <div class="mb-3 col-md-5">
             <div class="position-relative">
             <span class="input-label">Age:</span> 
             <input type="number" class="form-control" name="age" id="age" style="padding-left: 60px;">
             </div>         
           </div>
+          </div>
         </div>
-        <div class="col-md-2 section">
+        <div class="col-md-12 section">
           <h6 class="mb-4">Services</h6>
-          <div class="mb-3">
+          <div class="d-flex justify-content-center gap-2"> 
+          <div class="mb-3 col-md-5">
             <label for="serviceCategory" class="form-label">Service Category</label>
             <div class="dropdowns">
               <select class="form-control" id="serviceCategory" name="serviceCategory">
@@ -321,7 +334,7 @@ try {
               </select>
             </div>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 col-md-5">
             <label for="service" class="form-label">Service</label>
             <select class="form-control" id="service" name="service">
               <option value="1200">Diagnostic and Therapeutic - ₱1200.00</option>
@@ -335,10 +348,11 @@ try {
               <option value="300">Pet Supplies - ₱300.00</option>
             </select>
           </div>
+          </div>
 
           <input type="hidden" id="payment" name="payment" value="0">
 
-          <div class="mt-3">
+          <div class="mt-3 d-flex justify-content-end" style="margin-right: 80px;">
             <label for="totalPayment" class="form-label">Total Payment</label>
             <p id="totalPayment">₱0.00</p>
           </div>
@@ -390,28 +404,33 @@ try {
             </script>
 
         </div>
-        <div class="col-md-3 section">
+        
+        <div class="col-md-12 section">
           <h6 class="mb-4">Other Information</h6>
-          <div class="mb-3">
+          <div class="d-flex justify-content-center gap-2"> 
+          <div class="mb-3 col-md-5">
             <label for="date" class="form-label">Date</label>
             <input type="date" class="form-control" name="date" id="date">
           </div>
-          <div class="mb-3">
+          <div class="mb-3 col-md-5">
             <label class="form-label">Is there an authorization for medical and/or surgical treatment?</label><br>
             <div class="input-radio">
               <input type="radio" id="auth-yes" name="authorization" value="yes">Yes
               <input type="radio" id="auth-no" name="authorization" value="no">No
             </div>
           </div>
-          <div class="mb-3">
-            <label for="entering-complaint" class="form-label">Veterinarian's Report:<br> Entering Complaint</label>
+            </div>
+            <div class="d-flex justify-content-center gap-2"> 
+          <div class="mb-3 col-md-5">
+            <label for="entering-complaint" class="form-label">Veterinarian's Report: Entering Complaint</label>
             <textarea class="form-control" id="entering-complaint" name="enteringComplaint" rows="5"></textarea>
           </div>
-          <div class="mb-3">
+          <div class="mb-3 col-md-5">
             <label for="history-physical-diagnosis-treatment" class="form-label">History • Physical Findings • Diagnosis • Treatment</label>
             <textarea class="form-control" id="history-physical-diagnosis-treatment" name="historyPhysical" rows="5"></textarea>
           </div>
-          <div class="mb-3">
+            </div>
+          <div class="mb-3 col-md-1 mx-auto">
             <button type="submit" class="book-save">Save</button>
           </div>
         </div>

@@ -167,7 +167,7 @@
                               echo '<li class="list-group-item current-appointment">
                               <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                 <div>
-                                 <p class="mb-1 status ' . htmlspecialchars($statusClass) . '">' . ($status === 'confirm' ? 'Confirmed' : htmlspecialchars($status)) . '</p>
+                                 <p class="mb-1 status btn btn-primary ' . htmlspecialchars($statusClass) . '">' . ($status === 'confirm' ? 'Confirmed' : htmlspecialchars($status)) . '</p>
                                   <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
                                   <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
                                   <p>Owner: ' . htmlspecialchars($ownerName) . '</p>
@@ -177,7 +177,7 @@
                                   <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
                                   <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
                                   <div class="d-flex gap-1">
-                                  <button class="btn btn-info" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>';
+                                  <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>';
                     
                                   if ($status === 'pending') {
                                       echo '<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $appointmentId . '">Cancel</button>';
@@ -238,11 +238,10 @@
                                             <p>Are you sure you want to cancel this appointment?</p>
                                           </div>
                                           <div class="modal-footer">
-                                            <!-- Delete button triggers PHP script to delete the appointment -->
                                             <form action="../../function/php/delete_appointment.php" method="POST">
                                             
                                               <input type="hidden" name="id" value="' . $appointmentId . '">
-                                              <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                                              <button type="submit" class="btn btn-danger">Yes, Cancel</button>
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Keep</button>
                                             </form>
                                           </div>
@@ -273,7 +272,7 @@
                     if (isset($_SESSION['email'])) {
                       $sessionEmail = $_SESSION['email'];
               
-                      $sql = "SELECT * FROM appointments WHERE email = :email AND status IN ('decline')";
+                      $sql = "SELECT * FROM appointments WHERE email = :email AND status IN ('decline','complete','cancelled')";
                       $stmt = $conn->prepare($sql);
                       
                       $stmt->bindParam(':email', $sessionEmail, PDO::PARAM_STR);
@@ -315,7 +314,7 @@
                               echo '<li class="list-group-item past-appointment">
                               <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                 <div>
-                                  <p class="mb-1 status ' . htmlspecialchars($statusClass) . '">' . htmlspecialchars($status) . '</p>
+                                  <p class="mb-1 status btn btn-primary ' . htmlspecialchars($statusClass) . '">' . htmlspecialchars($status) . '</p>
                                   <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
                                   <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
                                   <p>Owner: ' . htmlspecialchars($ownerName) . '</p>

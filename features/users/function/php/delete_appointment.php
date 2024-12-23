@@ -10,7 +10,7 @@ try {
             throw new Exception("Database connection failed.");
         }
 
-        $sql = "DELETE FROM appointments WHERE id = :id";
+        $sql = "UPDATE appointments SET status = 'cancelled' WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id', $appointmentId, PDO::PARAM_INT);
         
@@ -18,7 +18,7 @@ try {
             header("Location: ../../web/api/appointment.php"); 
             exit(); 
         } else {
-            throw new Exception("Error executing delete query.");
+            throw new Exception("Error executing update query.");
         }
     } else {
         throw new Exception("Appointment ID not provided.");
