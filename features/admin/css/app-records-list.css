@@ -163,6 +163,16 @@ body {
 }
 /*Navbar Section End*/
 
+th,td{
+    white-space: nowrap;
+}
+
+th{
+    color: #fff !important;
+    background-color: #7A3015 !important;
+    padding: 10px !important;
+}
+
 
 .app-req{
     padding: 10px 20px;
@@ -176,6 +186,10 @@ body {
 h3{
     padding: 20px 30px; 
 }
+.modal-content{
+    width: auto !important;
+}
+
 
 /*Card Section */
 .card{

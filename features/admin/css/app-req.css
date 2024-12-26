@@ -167,6 +167,19 @@ body {
 
 /*Appointment Request Section*/
 
+.card{
+    height: 60vh;
+}
+
+.cards{
+    height: 40vh;
+}
+
+.card-btn{
+    display: flex;
+    margin-top: 40px;
+}
+
 .app-req{
     padding: 10px 20px;
     overflow-x: auto;

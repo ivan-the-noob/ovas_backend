@@ -193,30 +193,10 @@
                                 <input type="number" class="form-control" name="changee" placeholder="₱00.0" readonly required>
                             </div>
                         </div>
-                        <button type="submit" class="save">Enter Payment</button>
+                        <button type="submit" class="save" style="padding: 10px 40px;">Print</button>
                     </div>
                 </div>
-                <div class="col-md-6">
-                <div class="container">
-                            <div class="row">
-                                <div class="col-6 text-center">
-                                    <div class="pos-buttons">
-                                        <div class="buttons">
-                                            <button type="button"  class="pos-button btn btn-primary m-1" data-value="0">0</button>
-                                            <button type="button" class="pos-button btn btn-primary m-1" data-value="1">1</button>
-                                            <button type="button" class="pos-button btn btn-primary m-1" data-value="5">5</button>
-                                            <button type="button" class="pos-button btn btn-primary m-1" data-value="10">10</button>
-                                            <button type="button" class="pos-button btn btn-primary m-1" data-value="20">20</button>
-                                            <button type="button" class="pos-button btn btn-primary m-1" data-value="50">50</button>
-                                            <button type="button" class="pos-button btn btn-primary m-1" data-value="100">100</button>
-                                            <button type="button" class="pos-button btn btn-primary m-1" data-value="1000">1000</button>
-                                            <button type="button" class="undo-button btn btn-secondary m-1"><i class="fas fa-arrow-left"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
+               
             </div>
         </div>     
     </form>

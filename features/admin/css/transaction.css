@@ -224,6 +224,17 @@ input, textarea{
     width: 100px;   
 }
 
+th,td{
+    white-space: nowrap;
+}
+
+th{
+    color: #fff !important;
+    background-color: #7A3015 !important;
+    padding: 10px !important;
+}
+
+
 
 
 /*Card Section End*/

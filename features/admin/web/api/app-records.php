@@ -169,47 +169,43 @@ try {
   <div class="app-req">
     <h3>Patient Records</h3>
     <div class="container px-5 pt-3 patientss">
-      <div class="row justify-content-center">
+      <div class="row justify-content-center mx-auto">
         <!-- Client Information -->
         <div class="col-md-12 section">
           <h6 class="mb-4">Client Information</h6>
-          <div class="d-flex gap-2 justify-content-center">
-          <div class=" mb-3 position-relative col-md-5">
+          <div class=" mb-3 position-relative col-md-8 d-flex flex-column mx-auto">
             <div class="position-relative">
             <span class="input-label">Name: </span>
             <input type="text" class="form-control" id="ownerName" name="ownerName" style="padding-left: 60px;">
           </div>
         </div>
          
-          <div class="mb-3 position-relative col-md-5">
+          <div class="mb-3 position-relative col-md-8 d-flex flex-column mx-auto">
             <div class="position-relative">
               <span class="input-labels">Address: </span>
               <textarea class="form-control" id="ownerAddress" name="ownerAddress" rows="3" style=" padding-top: 25px;"
                ></textarea>
             </div>
-          </div>
         </div>
-        <div class="d-flex gap-2 justify-content-center">
-          <div class="mb-3 contacts col-md-5">
-            <label for="contactNum" class="form-label">Contact Details</label>
-            <div class="position-relative">
+          <div class="mb-3 contacts">
+            <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Mobile:</span>
               <input type="number" class="form-control" name="mobile" style="padding-left: 65px;">
             </div>
-            <div class="position-relative">
+            <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Home:</span>
               <input type="number" class="form-control" name="home" style="padding-left: 65px;">
             </div>
-            <div class="position-relative">
+            <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Work:</span>
               <input type="number" class="form-control" name="work" style="padding-left: 65px;">
             </div>
-            <div class="position-relative">
+            <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Viber:</span>
               <input type="number" class="form-control" name="viber" style="padding-left: 65px;">
             </div>
           </div>
-          <div class="mb-3 col-md-5">
+          <div class="mb-3 col-md-8 d-flex flex-column mx-auto">
             <label for="ownerEmail" class="form-label">Email</label>
             <div class="position-relative">
             <span class="input-label">Email:</span>
@@ -217,7 +213,6 @@ try {
           </div>
 
           <div class="mb-3 col-md-5">
-            <label for="preferredContact" class="form-label">Preferred Contact</label>
             <div class="d-flex flex-wrap">
               <div class="form-check me-3">
                 <input class="form-check-input" type="radio" name="preferredContact" id="preferredEmail" value="Email">
@@ -407,29 +402,27 @@ try {
         
         <div class="col-md-12 section">
           <h6 class="mb-4">Other Information</h6>
-          <div class="d-flex justify-content-center gap-2"> 
-          <div class="mb-3 col-md-5">
+          <div class="mb-3 col-md-8 d-flex flex-column mx-auto">
             <label for="date" class="form-label">Date</label>
             <input type="date" class="form-control" name="date" id="date">
           </div>
-          <div class="mb-3 col-md-5">
-            <label class="form-label">Is there an authorization for medical and/or surgical treatment?</label><br>
-            <div class="input-radio">
+          <div class="mb-3 col-md-8 d-flex flex-column mx-auto" style="background-color: #7A3015; padding: 20px; border-radius: 5px;">
+            <label class="form-label text-white">Is there an authorization for medical and/or surgical treatment?</label><br>
+            <div class="input-radio text-white">
               <input type="radio" id="auth-yes" name="authorization" value="yes">Yes
               <input type="radio" id="auth-no" name="authorization" value="no">No
             </div>
           </div>
+
+            <div class="textarea-container mb-3 col-md-8 d-flex flex-column mx-auto">
+              <label for="entering-complaint" class="textarea-label">Veterinarian's Report: Entering Complaint</label>
+              <textarea class="form-control" id="entering-complaint" name="enteringComplaint" rows="5"></textarea>
             </div>
-            <div class="d-flex justify-content-center gap-2"> 
-          <div class="mb-3 col-md-5">
-            <label for="entering-complaint" class="form-label">Veterinarian's Report: Entering Complaint</label>
-            <textarea class="form-control" id="entering-complaint" name="enteringComplaint" rows="5"></textarea>
-          </div>
-          <div class="mb-3 col-md-5">
-            <label for="history-physical-diagnosis-treatment" class="form-label">History • Physical Findings • Diagnosis • Treatment</label>
-            <textarea class="form-control" id="history-physical-diagnosis-treatment" name="historyPhysical" rows="5"></textarea>
-          </div>
+            <div class="textarea-container mb-3 col-md-8 d-flex flex-column mx-auto">
+                <label for="history-physical-diagnosis-treatment" class="textarea-label">History • Physical Findings • Diagnosis • Treatment</label>
+                <textarea class="form-control" id="history-physical-diagnosis-treatment" name="historyPhysical" rows="5"></textarea>
             </div>
+
           <div class="mb-3 col-md-1 mx-auto">
             <button type="submit" class="book-save">Save</button>
           </div>

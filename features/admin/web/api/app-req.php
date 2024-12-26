@@ -211,20 +211,23 @@
                     <div class="col-md-4 mb-4 appointment-card" data-name="<?= strtolower($appointment['owner_name']) ?>" data-service-category="<?= strtolower($appointment['service_category']) ?>" data-status="<?= strtolower($appointment['status']) ?>">
                         <div class="card shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title">Appointment <?= $index + 1 ?></h5>
-                                <p class="card-text"><strong>Owner Name:</strong> <?= $appointment['owner_name'] ?></p>
-                                <p class="card-text"><strong>Service Category:</strong>  <?= $appointment['service_category'] === 'medical' ? 'medical' : ($appointment['service_category'] === 'nonMedical' ? 'nonMedical' : 'N/A') ?></p>
-                                <p class="card-text"><strong>Service:</strong> <?= $appointment['service_type'] ?></p>
-                                <p class="card-text"><strong>Code: </strong><?= $appointment['code'] ?? 'Pending' ?></p>
-                                <p class="card-text"><strong>Status:</strong> 
-                                    <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'complete' ? 'success' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
-                                        <?= ucfirst($appointment['status']) ?>
-                                    </span>
-                                </p>
+                                <div class="cards">
+                                    <h5 class="card-title">Appointment <?= $index + 1 ?></h5>
+                                    <p class="card-text"><strong>Owner Name:</strong> <?= $appointment['owner_name'] ?></p>
+                                    <p class="card-text"><strong>Service Category:</strong>  <?= $appointment['service_category'] === 'medical' ? 'medical' : ($appointment['service_category'] === 'nonMedical' ? 'nonMedical' : 'N/A') ?></p>
+                                    <p class="card-text"><strong>Service:</strong> <?= $appointment['service_type'] ?></p>
+                                    <p class="card-text"><strong>Code: </strong><?= $appointment['code'] ?? 'Pending' ?></p>
+                                    <p class="card-text"><strong>Status:</strong> 
+                                        <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'complete' ? 'success' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
+                                            <?= ucfirst($appointment['status']) ?>
+                                        </span>
+                                    </p>
                                 <?php if ($appointment['status'] == 'decline'): ?>
                                     <p class="card-text"><strong>Reason:</strong> <?= $appointment['decline_reason'] ?></p>
                                 <?php endif; ?>
-                                 <div class="d-flex gap-3 justify-content-center">
+                                </div>
+                                <div class="card-btn">
+                                 <div class="d-flex gap-3 justify-content-center mx-auto">
                                     <button type="button" class="d-flex view-details" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
                                         View Details
                                     </button>
@@ -250,8 +253,8 @@
                                         }
                                         ?>
 
-                                        <button class="btn <?= $buttonClass ?> " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <?= $currentStatus ?> 
+                                        <button class="btn btn-primary " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Action
+                                       
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <li class="dropdown-item" onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">Confirm</li>
@@ -264,6 +267,7 @@
                                         </div>
                                     </div>
                             </div>
+                        </div>
 
     <!-- Modal -->
     <div class="modal fade" id="appointmentModal<?= $appointment['id'] ?>" tabindex="-1" aria-labelledby="modalLabel<?= $appointment['id'] ?>" aria-hidden="true">
