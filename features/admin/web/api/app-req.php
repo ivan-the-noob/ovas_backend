@@ -227,17 +227,17 @@
                                 <?php endif; ?>
                                 </div>
                                 <div class="card-btn">
-                                 <div class="d-flex gap-3 justify-content-center mx-auto">
-                                    <button type="button" class="d-flex view-details" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
+                                 <div class=" gap-3 justify-content-center mx-auto">
+                                    <button type="button" class="d-flex view-details w-100 justify-content-center mb-2" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
                                         View Details
                                     </button>
-                                    <div class="dropdown">
-                                    <?php
-                                        $currentStatus = ucfirst($appointment['status']); 
+                                    <div class="action-buttons">
+                                        <?php
+                                        $currentStatus = ucfirst($appointment['status']);
                                         $buttonClass = '';
                                         switch ($appointment['status']) {
                                             case 'pending':
-                                                $buttonClass = 'btn-warning'; 
+                                                $buttonClass = 'btn-warning';
                                                 break;
                                             case 'confirm':
                                                 $buttonClass = 'btn-primary';
@@ -246,24 +246,38 @@
                                                 $buttonClass = 'btn-success';
                                                 break;
                                             case 'decline':
-                                                $buttonClass = 'btn-danger'; 
+                                                $buttonClass = 'btn-danger';
                                                 break;
                                             default:
-                                                $buttonClass = 'btn-secondary'; 
+                                                $buttonClass = 'btn-secondary';
                                         }
                                         ?>
-
-                                        <button class="btn btn-primary " type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">Action
+                                         </div>
                                        
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li class="dropdown-item" onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">Confirm</li>
-                                            <li class="dropdown-item" onclick="updateStatus(<?= $appointment['id'] ?>, 'complete')">Complete</li>
-                                            <li class="dropdown-item" onclick="updateStatus(<?= $appointment['id'] ?>, 'decline')">Decline</li>
-                                            
-                                        </ul>
+                                        
+                                        <div class="d-flex">
+
+                                            <!-- Confirm Button -->
+                                            <button class="btn btn-primary me-2" 
+                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">
+                                                Confirm
+                                            </button>
+
+                                            <!-- Complete Button -->
+                                            <button class="btn btn-success me-2" 
+                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'complete')">
+                                                Complete
+                                            </button>
+
+                                            <!-- Decline Button -->
+                                            <button class="btn btn-danger" 
+                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'decline')">
+                                                Decline
+                                            </button>
+                                       
                                         </div>
-                                    </div>
+                                        </div>
+
                                         </div>
                                     </div>
                             </div>
