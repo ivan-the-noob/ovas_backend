@@ -76,19 +76,13 @@
                     <i class="fa-solid fa-list"></i>
                     <span>Unavailable Date</span>
                 </a>
-                <a href="max-book.php">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span>Max Book</span>
-                </a>
+            
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
 
-                <a href="chat-bot.php" >
-                <i class="fa-solid fa-headset"></i>
-                    <span>Chat Bot</span>
-                </a>
+              
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
@@ -284,6 +278,24 @@
                         </div>
 
     <!-- Modal -->
+
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Are you sure?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to change the status to <span id="status-text"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmActionButton">Yes, Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="appointmentModal<?= $appointment['id'] ?>" tabindex="-1" aria-labelledby="modalLabel<?= $appointment['id'] ?>" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -430,6 +442,38 @@
 
 <script type="text/javascript">
   function updateStatus(appointmentId, newStatus) {
+    // Store the current appointmentId and status globally for use in the modal confirmation
+    currentAppointmentId = appointmentId;
+    currentStatus = newStatus;
+
+    // Handle Decline separately, since it opens a different modal
+    if (newStatus === 'decline') {
+        $('#appointmentId').val(appointmentId);  
+        $('#declineModal').modal('show');  // Show decline modal directly
+        return;  // Exit here, as we do not need to show confirmation modal for decline
+    }
+
+    // Set the status text for the modal
+    let statusText = "";
+    if (newStatus === 'confirm') {
+        statusText = "Confirm";
+    } else if (newStatus === 'complete') {
+        statusText = "Complete";
+    }
+
+    // Update the confirmation modal text
+    document.getElementById('status-text').textContent = statusText;
+    $('#confirmationModal').modal('show');  // Show confirmation modal
+
+    // Wait for confirmation before executing the status change
+    document.getElementById('confirmActionButton').onclick = function() {
+        $('#confirmationModal').modal('hide');
+        executeStatusChange(currentAppointmentId, currentStatus);
+    };
+}
+
+// Function to execute the actual status change after confirmation
+function executeStatusChange(appointmentId, newStatus) {
     $.ajax({
         url: '../../function/php/update_status.php',  
         type: 'POST',
@@ -451,25 +495,39 @@
                 } else if (newStatus === 'decline') {
                     badge.addClass('bg-danger');
                     badge.text('Declined');
-                    
-                    $('#appointmentId').val(appointmentId);  
-                    $('#declineModal').modal('show');  
                 } else if (newStatus === 'pending') {
                     badge.addClass('bg-primary');
                     badge.text('Pending');
                 }
+
+                // Reload the page to reflect changes, except for decline
                 if (newStatus !== 'decline') {
-                    location.reload(); 
+                    location.reload();
                 }
             } else {
-                alert('Failed to update status'); 
+                alert('Failed to update status');
             }
         },
         error: function() {
-            alert('Error occurred while updating status.'); 
+            alert('Error occurred while updating status.');
         }
     });
 }
+
+// Decline Confirmation (after submitting the reason)
+document.getElementById('declineReasonForm').onsubmit = function(event) {
+    event.preventDefault();
+    let form = this;
+
+    // Make sure the form is valid
+    if (form.checkValidity()) {
+        executeStatusChange(currentAppointmentId, 'decline');
+        form.submit();  // Submit the form to process the decline reason
+    } else {
+        alert('Please provide a reason for cancellation.');
+    }
+};
+
 
     document.getElementById('notificationDropdown').addEventListener('show.bs.dropdown', function () {
 

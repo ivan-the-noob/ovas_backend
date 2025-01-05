@@ -1,31 +1,39 @@
 <?php
 session_start();
-try {
-    if (isset($_POST['id'])) {
-        $appointmentId = $_POST['id'];
+require '../../../../db.php';
 
-        require '../../../../db.php';  
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $appointmentId = $_POST['id'];
+    $reasonCancel = $_POST['reason_cancel'];
+    $userEmail = $_SESSION['email'];
 
-        if (!$conn) {
-            throw new Exception("Database connection failed.");
+    try {
+        if (empty($reasonCancel)) {
+            $_SESSION['alert'] = ['type' => 'danger', 'message' => 'Cancellation reason is required.'];
+            header('Location: ../../web/api/appointments.php');
+            exit();
         }
 
-        $sql = "UPDATE appointments SET status = 'cancelled' WHERE id = :id";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id', $appointmentId, PDO::PARAM_INT);
-        
-        if ($stmt->execute()) {
-            header("Location: ../../web/api/appointment.php"); 
-            exit(); 
-        } else {
-            throw new Exception("Error executing update query.");
-        }
-    } else {
-        throw new Exception("Appointment ID not provided.");
+        $stmt = $conn->prepare("UPDATE appointments SET status = 'cancelled', reason_cancel = :reason_cancel WHERE id = :appointmentId");
+        $stmt->bindParam(':reason_cancel', $reasonCancel);
+        $stmt->bindParam(':appointmentId', $appointmentId);
+        $stmt->execute();
+
+        $notificationMessage = "Your appointment has been cancelled.";
+        $notificationType = "cancel";
+
+        $notificationStmt = $conn->prepare("INSERT INTO notifications (email, type, message) VALUES (:email, :type, :message)");
+        $notificationStmt->bindParam(':email', $userEmail);
+        $notificationStmt->bindParam(':type', $notificationType);
+        $notificationStmt->bindParam(':message', $notificationMessage);
+        $notificationStmt->execute();
+
+        $_SESSION['alert'] = ['type' => 'success', 'message' => 'Appointment cancelled successfully.'];
+    } catch (PDOException $e) {
+        $_SESSION['alert'] = ['type' => 'danger', 'message' => 'An error occurred: ' . $e->getMessage()];
     }
-} catch (PDOException $e) {
-    echo "PDO Error: " . $e->getMessage();
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+
+    header('Location: ../../web/api/appointments.php');
+    exit();
 }
 ?>

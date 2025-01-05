@@ -15,7 +15,7 @@ $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $latestApprovedReviews = array_filter($reviews, function($review) {
     return $review['view'] == 1;
 });
-$latestApprovedReviews = array_slice($latestApprovedReviews, 0, 4);
+
 
 ?>
 
@@ -83,18 +83,12 @@ $latestApprovedReviews = array_slice($latestApprovedReviews, 0, 4);
                     <i class="fa-solid fa-list"></i>
                     <span>Unavailable Date</span>
                 </a>
-                <a href="max-book.php">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span>Max Book</span>
-                </a>
+               
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="chat-bot.php" >
-                <i class="fa-solid fa-headset"></i>
-                    <span>Chat Bot</span>
-                </a>
+               
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
@@ -187,12 +181,29 @@ $latestApprovedReviews = array_slice($latestApprovedReviews, 0, 4);
                     </form>
 
                     <!-- Delete button -->
-                    <form action="../../function/php/delete_review.php" method="POST" style="display:inline;">
-                        <input type="hidden" name="review_id" value="<?php echo $review['id']; ?>">
-                        <button type="submit" class="btn btn-danger btn-sm" title="Delete">
+                    <form id="deleteReviewForm" action="../../function/php/delete_review.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="review_id" id="review_id">
+                        <button type="button" class="btn btn-danger btn-sm" title="Delete" onclick="confirmDelete(<?php echo $review['id']; ?>)">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>
+                        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete this review?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" id="confirmDeleteButton" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 </td>
             </tr>
             <?php
@@ -223,6 +234,18 @@ $latestApprovedReviews = array_slice($latestApprovedReviews, 0, 4);
             
              </div>
 </body>
+
+<script>
+    function confirmDelete(reviewId) {
+        document.getElementById('review_id').value = reviewId;
+        $('#deleteConfirmationModal').modal('show');
+    }
+
+    document.getElementById('confirmDeleteButton').onclick = function() {
+        document.getElementById('deleteReviewForm').submit();
+        $('#deleteConfirmationModal').modal('hide');
+    };
+</script>
 
        
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" crossorigin="anonymous">

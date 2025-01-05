@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2024 at 08:30 PM
+-- Generation Time: Jan 05, 2025 at 07:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -154,7 +154,25 @@ INSERT INTO `admin_confirm` (`id`, `name`, `status`, `created_at`, `email`, `rea
 (111, 'Ivan', 'decline', '2024-12-05 22:18:55', 'ejivan.ablanida@cvsu.edu.ph', '0'),
 (112, 'Ablanida, Ej ivan C.', 'confirm', '2024-12-06 01:00:16', 'ejthecoder@gmail.com', '0'),
 (113, 'Ablanida, Ej ivan C.', 'decline', '2024-12-06 01:00:24', 'ejthecoder@gmail.com', '0'),
-(114, 'Ablanida, Ej ivan C.', 'complete', '2024-12-06 01:05:32', 'ejthecoder@gmail.com', '0');
+(114, 'Ablanida, Ej ivan C.', 'complete', '2024-12-06 01:05:32', 'ejthecoder@gmail.com', '0'),
+(115, 'Ej Ivan Ablanida', 'confirm', '2024-12-26 06:50:37', 'a@gmail.com', '0'),
+(116, 'Ej Ivan Ablanida', 'confirm', '2024-12-27 22:16:27', 'a@gmail.com', '0'),
+(117, 'Ej Ivan Ablanida', 'complete', '2024-12-27 22:16:27', 'a@gmail.com', '0'),
+(118, 'Ej Ivan Ablanida', 'complete', '2024-12-27 22:16:29', 'a@gmail.com', '0'),
+(119, 'Ej Ivan Ablanida', 'decline', '2024-12-27 22:16:31', 'a@gmail.com', '0'),
+(120, 'Ej Ivan Ablanida', 'decline', '2024-12-27 22:19:16', 'a@gmail.com', '0'),
+(121, 'Ej Ivan Ablanida', 'complete', '2024-12-27 22:19:17', 'a@gmail.com', '0'),
+(122, 'Ej Ivan Ablanida', 'confirm', '2024-12-27 22:19:17', 'a@gmail.com', '0'),
+(123, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:36:34', 'ejthecoder@gmail.com', '0'),
+(124, 'Ablanida, Ej ivan C.', 'complete', '2025-01-05 05:36:38', 'ejthecoder@gmail.com', '0'),
+(125, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:36:39', 'ejthecoder@gmail.com', '0'),
+(126, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:48:04', 'ejthecoder@gmail.com', '0'),
+(127, 'Ablanida, Ej ivan C.', 'complete', '2025-01-05 05:48:05', 'ejthecoder@gmail.com', '0'),
+(128, 'Ablanida, Ej ivan C.', 'decline', '2025-01-05 05:48:07', 'ejthecoder@gmail.com', '0'),
+(129, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:55:22', 'ejthecoder@gmail.com', '0'),
+(130, 'Ablanida, Ej ivan C.', 'complete', '2025-01-05 05:55:23', 'ejthecoder@gmail.com', '0'),
+(131, 'Ablanida, Ej ivan C.', 'decline', '2025-01-05 05:55:26', 'ejthecoder@gmail.com', '0'),
+(132, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:55:29', 'ejthecoder@gmail.com', '0');
 
 -- --------------------------------------------------------
 
@@ -166,7 +184,8 @@ CREATE TABLE `appointments` (
   `id` int(11) NOT NULL,
   `owner_name` varchar(255) NOT NULL,
   `code` varchar(255) NOT NULL DEFAULT 'pending',
-  `status` enum('pending','confirm','complete','decline') NOT NULL,
+  `status` enum('pending','confirm','complete','decline','cancelled') NOT NULL,
+  `reason_cancel` text DEFAULT NULL,
   `contact_number` varchar(20) NOT NULL,
   `email` varchar(255) NOT NULL,
   `address` text NOT NULL,
@@ -189,18 +208,8 @@ CREATE TABLE `appointments` (
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`, `decline_reason`) VALUES
-(90, 'Ivan', 'OVAS-000028', 'decline', '12', 'ejivan.ablanida@cvsu.edu.ph', '12', 'Cat', '12', 12, 'medical', 'Preventive Health Care', '15:00:00', '2024-11-29', 850.00, '2024-11-29 03:04:39', 'pay_on_store', '', 0, 'DASDASDASDASDASDSDASDASDASDASDASDSDASDASDASDASDASDSDASDA'),
-(91, 'Ivan', 'OVAS-000030', 'decline', '12', 'ejivan.ablanida@cvsu.edu.ph', '12', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '11:00:00', '2024-11-29', 1200.00, '2024-11-29 03:53:44', 'pay_on_store', '', 0, 'dsadsa'),
-(92, 'Ablanida, Ej ivan C.', 'OVAS-000024', 'decline', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', 'Husky', 12, 'medical', 'Diagnostic and Therapeutic', '00:00:00', '2024-12-06', 1200.00, '2024-12-05 22:02:38', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 312312312, NULL),
-(93, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-12-07', 1200.00, '2024-12-05 22:46:09', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 12, NULL),
-(94, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '1221', 1212, 'medical', 'Diagnostic and Therapeutic', '10:00:00', '2024-12-08', 1200.00, '2024-12-05 22:46:54', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 2121, NULL),
-(95, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '1221', 1212, 'medical', 'Diagnostic and Therapeutic', '11:00:00', '2024-12-08', 1200.00, '2024-12-05 23:19:16', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 1212, NULL),
-(102, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '12', 12, 'medical', 'Preventive Health Care', '10:00:00', '0000-00-00', 850.00, '2024-12-05 23:36:35', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 21312, NULL),
-(103, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', 'dasdsa', 1221, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-12-08', 1200.00, '2024-12-05 23:38:21', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 121212, NULL),
-(104, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '122112', 1212, 'nonMedical', 'Grooming', '16:00:00', '2024-12-08', 999.00, '2024-12-05 23:49:04', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 122112, NULL),
-(105, 'Ablanida, Ej ivan C.', 'pending', 'pending', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Dog', 'Cat', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2024-12-08', 1200.00, '2024-12-06 00:43:41', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 312321, NULL),
-(106, 'Ablanida, Ej ivan C.', 'OVAS-000031', 'complete', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '12', 12, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2024-12-05', 1200.00, '2024-12-06 00:47:59', 'gcash', 'deedfc55-0872-4cd0-9460-dbf533bdb346.jpg', 3121221, 'Ayoko lang bat ba');
+INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `reason_cancel`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`, `decline_reason`) VALUES
+(113, 'Ablanida, Ej ivan C.', 'OVAS-000005', 'confirm', 'dasdas', '09957939703', 'ejthecoder@gmail.com', 'Blk 4. Lot 24', 'Cat', '123', 321321, 'medical', 'Diagnostic and Therapeutic', '09:00:00', '2025-01-04', 1200.00, '2025-01-05 04:02:31', 'gcash', 'gcash.jpg', 312321312, 'dasdas');
 
 -- --------------------------------------------------------
 
@@ -309,19 +318,15 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `email`, `code`, `type`, `message`, `created_at`, `is_read`) VALUES
-(12, 'ejivancablanida@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-10 11:07:13', 1),
-(13, 'ejivancablanida@gmail.com', 'OVAS-000010', 'confirm', 'Your appointment has been confirmed!', '2024-09-10 11:07:43', 1),
 (14, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-12 10:45:02', 1),
 (15, 'racel@gmail.com', 'OVAS-000011', 'confirm', 'Your appointment has been confirmed!', '2024-09-12 10:45:47', 1),
 (16, 'ejivan@gmail.com', 'OVAS-000012', 'confirm', 'Your appointment has been confirmed!', '2024-09-16 05:40:34', 1),
 (17, 'racel@gmail.com', 'OVAS-000013', 'confirm', 'Your appointment has been confirmed!', '2024-09-16 05:43:36', 1),
-(18, 'ejivan@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-16 05:44:24', 1),
+(18, 'ejivancablanida@gmail.com', 'ovas-312312', 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-16 05:44:24', 1),
 (19, 'ejivan@gmail.com', 'OVAS-000014', 'confirm', 'Your appointment has been confirmed!', '2024-09-16 05:44:32', 1),
 (20, 'ejivan@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-16 05:47:25', 1),
 (21, 'ejivan@gmail.com', 'OVAS-000015', 'confirm', 'Admin has confirmed the appointment of Ivan Ablanida.', '2024-09-16 05:54:17', 1),
-(22, 'ejivancablanida@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-16 06:00:28', 1),
 (23, 'ejivan@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-16 06:35:01', 1),
-(24, 'ejivancablanida@gmail.com', 'OVAS-000016', 'confirm', 'Admin has confirmed the appointment of Ivan Ablanida.', '2024-09-16 06:36:10', 1),
 (25, 'ejivan@gmail.com', 'pending', 'decline', 'Your appointment has been rejected.', '2024-09-16 06:45:43', 1),
 (26, 'a@gmail.com', 'OVAS-000004', 'complete', 'Your appointment has been completed.', '2024-09-16 06:49:04', 1),
 (27, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-09-17 05:14:07', 1),
@@ -503,7 +508,30 @@ INSERT INTO `notifications` (`id`, `email`, `code`, `type`, `message`, `created_
 (210, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-06 00:47:59', 0),
 (211, 'ejthecoder@gmail.com', 'OVAS-000031', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2024-12-06 01:00:16', 0),
 (212, 'ejthecoder@gmail.com', 'OVAS-000031', 'decline', 'Your appointment has been rejected.', '2024-12-06 01:00:24', 0),
-(213, 'ejthecoder@gmail.com', 'OVAS-000031', 'complete', 'Your appointment has been completed.', '2024-12-06 01:05:32', 0);
+(213, 'ejthecoder@gmail.com', 'OVAS-000031', 'complete', 'Your appointment has been completed.', '2024-12-06 01:05:32', 0),
+(214, 'a@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-23 06:11:52', 0),
+(215, 'a@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2024-12-23 06:15:03', 0),
+(216, 'a@gmail.com', 'OVAS-000001', 'confirm', 'Admin has confirmed the appointment of Ej Ivan Ablanida.', '2024-12-26 06:50:37', 0),
+(217, 'a@gmail.com', 'OVAS-000002', 'confirm', 'Admin has confirmed the appointment of Ej Ivan Ablanida.', '2024-12-27 22:16:27', 0),
+(218, 'a@gmail.com', 'OVAS-000002', 'complete', 'Your appointment has been completed.', '2024-12-27 22:16:27', 0),
+(219, 'a@gmail.com', 'OVAS-000002', 'complete', 'Your appointment has been completed.', '2024-12-27 22:16:29', 0),
+(220, 'a@gmail.com', 'OVAS-000002', 'decline', 'Your appointment has been rejected.', '2024-12-27 22:16:31', 0),
+(221, 'a@gmail.com', 'OVAS-000001', 'decline', 'Your appointment has been rejected.', '2024-12-27 22:19:16', 0),
+(222, 'a@gmail.com', 'OVAS-000001', 'complete', 'Your appointment has been completed.', '2024-12-27 22:19:17', 0),
+(223, 'a@gmail.com', 'OVAS-000003', 'confirm', 'Admin has confirmed the appointment of Ej Ivan Ablanida.', '2024-12-27 22:19:17', 0),
+(224, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-05 02:52:00', 0),
+(225, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-05 03:17:56', 0),
+(226, 'ejthecoder@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-05 04:02:31', 0),
+(227, 'ejthecoder@gmail.com', 'OVAS-000001', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2025-01-05 05:36:34', 0),
+(228, 'ejthecoder@gmail.com', 'OVAS-000001', 'complete', 'Your appointment has been completed.', '2025-01-05 05:36:38', 0),
+(229, 'ejthecoder@gmail.com', 'OVAS-000002', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2025-01-05 05:36:39', 0),
+(230, 'ejthecoder@gmail.com', 'OVAS-000003', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2025-01-05 05:48:04', 0),
+(231, 'ejthecoder@gmail.com', 'OVAS-000003', 'complete', 'Your appointment has been completed.', '2025-01-05 05:48:05', 0),
+(232, 'ejthecoder@gmail.com', 'OVAS-000003', 'decline', 'Your appointment has been rejected.', '2025-01-05 05:48:08', 0),
+(233, 'ejthecoder@gmail.com', 'OVAS-000004', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2025-01-05 05:55:22', 0),
+(234, 'ejthecoder@gmail.com', 'OVAS-000004', 'complete', 'Your appointment has been completed.', '2025-01-05 05:55:23', 0),
+(235, 'ejthecoder@gmail.com', 'OVAS-000004', 'decline', 'Your appointment has been rejected.', '2025-01-05 05:55:26', 0),
+(236, 'ejthecoder@gmail.com', 'OVAS-000005', 'confirm', 'Admin has confirmed the appointment of Ablanida, Ej ivan C..', '2025-01-05 05:55:29', 0);
 
 -- --------------------------------------------------------
 
@@ -543,20 +571,20 @@ CREATE TABLE `patients_records` (
 --
 
 INSERT INTO `patients_records` (`id`, `ownerName`, `ownerAddress`, `mobile`, `home`, `work`, `viber`, `ownerEmail`, `preferredContact`, `petName`, `petType`, `sex`, `breed`, `colorMarkings`, `microchipNo`, `dob`, `age`, `serviceCategory`, `service`, `totalPayment`, `authorization`, `enteringComplaint`, `historyPhysical`, `date`) VALUES
-(1, 'Ivan Ablanida', '', '09957939703', '312321', '312321', '31321312', 'ejivan@gmail.com', 'Mobile', '312312', 'Cat', 'Male Intact', 'dadas', 'dasds', '12312', '2024-09-27', 111, 'medical', '1500', 1500.00, 'no', 'dasdas', 'dasdasdas', '2024-09-29'),
 (2, 'Ivan Ablanidas', 'dsadsadas', '09957939703', '312321', '312321', '31321312', 'ejivan@gmail.com', 'Mobile', '312312', 'Cat', 'Male Intact', 'dadas', 'dasds', '12312', '0000-00-00', 111, 'nonMedical', '850', 850.00, 'yes', 'dasdas', 'dsadas', '0000-00-00'),
 (3, 'Ivan Ablanida', 'dasdasdasdsa', '09957939703', '312321', '312321', '31321312', 'ejivan@gmail.com', 'Work', '312312', 'Cat', 'Male Intact', 'dadas', 'dasds', '12312', '2024-09-26', 111, 'medical', '850', 850.00, 'no', 'dsadas', 'dasdsadas', '2024-09-26'),
 (4, 'Racel Maes', '2nd Flor', '321', '312321', '312312', '12312', 'ejivancablanida@gmail.com', 'Email', '312312', 'Cat', 'Male Intact', 'dadas', 'dasds', '12312', '2026-02-02', 111, 'nonMedical', '2500', 2500.00, 'yes', 'dasdsa', 'dasdsa', '2024-09-03'),
-(5, 'Kate', 'SANA SA INYO :((', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', 'Mobile', 'Hello', 'Rabit', 'Male Neutered (kapon)', 'dadas', 'White', '123', '2024-10-03', 12, 'nonMedical', '999', 999.00, 'no', 'wala e', 'wala rin', '2024-09-20'),
+(5, 'Kate', 'SANA SA INYO :((aa', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', 'Mobile', 'Hello', 'Rabit', 'DSADAS', 'dadas', 'White', '123', '2024-10-03', 12, 'nonMedical', 'dasdas', 0.00, '312312dsad', 'dsadsa', 'dsadas', '0000-00-00'),
 (6, 'Kate', 'dasdsadas', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', 'Mobile', 'Hello', 'Cat', 'Male Intact', 'dadas', 'White', '123', '2024-09-25', 12, 'medical', '1200', NULL, 'yes', 'dasdas', 'dasdsa', '2024-09-11'),
-(7, 'Kate', 'dasdsadsa', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', 'Mobile', 'Hello', 'Cat', 'Male Intact', 'dadas', 'White', '123', '2024-09-26', 12, 'medical', '2500', 2500.00, 'yes', 'dasdas', 'dsadas', '0000-00-00'),
+(7, 'Kate', 'dasdsadsa', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', 'Mobile', 'Hello', 'Cat', 'Male Intact', 'dadas', 'White', '123', '2024-09-26', 12, 'medical', '2500', 0.00, 'yes', 'dasdas', 'a1', '0000-00-00'),
 (8, 'KateS', 'dsadasdas', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', 'Email', 'Hello', 'Dog', 'Male Intact', 'dadas', 'White', '123', '2024-10-01', 12, 'medical', '1500', 1500.00, 'yes', 'dasda', 'dasdsadas', '2024-09-18'),
 (9, 'Kate', '', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', NULL, 'Hello', 'Cat', 'Male Intact', 'dadas', 'White', '123', '0000-00-00', 12, 'medical', '1200', 0.00, NULL, '', '', '0000-00-00'),
 (10, 'Kate', '', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', NULL, 'Hello', 'Cat', 'Male Intact', 'dadas', 'White', '123', '0000-00-00', 12, 'medical', '1200', 0.00, NULL, '', '', '0000-00-00'),
 (11, 'Kate', 'brgy. san agustin', '09957939703', '123', '12321321', '312321', 'ejivan@gmail.com', NULL, 'Hello', 'Cat', 'Male Intact', 'dadas', 'White', '123', '0000-00-00', 12, 'medical', '1200', 0.00, NULL, 'sadsadsa', 'dasd', '0000-00-00'),
 (12, 'Kate', 'dsadsa', '09957939703', '312', '321321312', '312312', 'ej@gmail.com', 'Email', '', 'Cat', 'Male Neutered (kapon)', '321312', '312312', '123', '2024-09-26', 12, 'medical', '1500', 1500.00, 'yes', 'dasdsa', 'dasdas', '2024-09-03'),
 (13, 'Kate', 'dsadsa', '09957939703', '312', '', '312312', 'ej@gmail.com', NULL, '', 'Cat', 'Male Intact', '321312', '312312', '123', '0000-00-00', 12, 'medical', '1200', 0.00, NULL, '', '', '0000-00-00'),
-(14, 'Test Updated', 'Test', '123', '123', '123', '123', 'ejthecoder@gmail.com', 'Email', 'Test', 'Dog', 'Male Neutered (kapon)', 'Test', 'Test', '123', '2024-09-26', 12, 'nonMedical', '2500', 2500.00, 'yes', '12', '12', '2024-09-19');
+(14, 'Test Updated', 'Test', '123', '123', '123', '123', 'ejthecoder@gmail.com', 'Email', 'Test', 'Dog', 'Male Neutered (kapon)', 'Test', 'Test', '123', '2024-09-26', 12, 'nonMedical', '2500', 2500.00, 'yes', '12', '12', '2024-09-19'),
+(15, '', '', '', '', '', '', '', NULL, '', 'Cat', 'Male Intact', '', '', '', '0000-00-00', 0, 'medical', '1200', 0.00, NULL, '', '', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -574,27 +602,28 @@ CREATE TABLE `pos_records` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `cost` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`cost`)),
   `cash_tendered` decimal(10,2) NOT NULL,
-  `changee` decimal(10,2) NOT NULL
+  `changee` decimal(10,2) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pos_records`
 --
 
-INSERT INTO `pos_records` (`id`, `owner_name`, `services`, `medication`, `supplies`, `total`, `created_at`, `cost`, `cash_tendered`, `changee`) VALUES
-(55, 'Ivan', '[\"Surgical Servicesss\",\"Grooming\"]', '[\"nana\"]', '[\"dog food\",\"cat food\"]', 1999.00, '2024-09-12 10:10:40', '[\"\"]', 0.00, 0.00),
-(56, 'Ivan', '[\"Surgical Servicesss\",\"Grooming\"]', '[\"med\",\"mad\"]', '[\"dog\",\"cat\"]', 1234.00, '2024-09-12 10:13:20', '[\"2500.00\",\"999.00\"]', 0.00, 0.00),
-(57, 'ivan', '[\"Surgical Servicesss\"]', '[\"anan\"]', '[\"123\"]', 123.00, '2024-09-12 10:14:10', '[\"2500.00\"]', 0.00, 0.00),
-(58, 'Hello', '[\"Surgical Servicesss\",\"Grooming\",\"Preventive Health Caress\"]', '[\"dsa\"]', '[\"dsadsa\"]', 1.00, '2024-09-12 10:24:05', '[\"2500.00\",\"999.00\",\"1.00\"]', 0.00, 0.00),
-(59, 'Test Payment', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"na\",\"drink\"]', '[\"na\",\"food\"]', 1000.00, '2024-09-23 05:52:13', '[\"2500.00\",\"300.00\"]', 0.00, 0.00),
-(60, 'Ivan Oct 24', '[\"Surgical Servicesss\"]', '[\"Gamot\"]', '[\"123\"]', 3712.00, '2024-10-24 23:21:05', '[\"2500.00\"]', 0.00, 0.00),
-(61, 'Test ni Ivan', '[\"Surgical Servicesss\",\"Surgical Servicesss\"]', '[\"dsadsa\",\"dsadsa\"]', '[\"21312\"]', 6011.00, '2024-10-25 02:48:27', '[\"2500.00\",\"2500.00\"]', 7000.00, 989.00),
-(62, 'Ivan', '[\"\"]', '[\"\"]', '[\"\"]', 1000.00, '2024-10-25 02:50:10', '[\"\"]', 600.00, -400.00),
-(63, 'Ivan', '[\"Pharmacy\"]', '[\"\"]', '[\"\"]', 100350.00, '2024-10-25 02:53:21', '[\"300.00\"]', 400.00, -99950.00),
-(64, 'ivan test oct 24', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"gamot\"]', '[\"cat food\",\"dog food\"]', 3150.00, '2024-10-25 02:57:44', '[\"2500.00\",\"300.00\"]', 4000.00, 850.00),
-(65, 'Ivan test', '[\"Pharmacy\"]', '[\"gamot\",\"gamot2\"]', '[\"cat food\"]', 10550.00, '2024-10-25 02:59:44', '[\"300.00\"]', 4000.00, -6550.00),
-(66, 'Ivan', '[\"\"]', '[\"\"]', '[\"\",\"\"]', 505050.00, '2024-10-25 03:00:04', '[\"\"]', 6000.00, -499050.00),
-(67, 'Ivan test', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"gamot\"]', '[\"cat food\"]', 3900.00, '2024-10-25 03:03:47', '[\"2500.00\",\"300.00\"]', 3950.00, 50.00);
+INSERT INTO `pos_records` (`id`, `owner_name`, `services`, `medication`, `supplies`, `total`, `created_at`, `cost`, `cash_tendered`, `changee`, `timestamp`) VALUES
+(55, 'Ivan', '[\"Surgical Servicesss\",\"Grooming\"]', '[\"nana\"]', '[\"dog food\",\"cat food\"]', 1999.00, '2024-09-12 10:10:40', '[\"\"]', 0.00, 0.00, '2025-01-05 04:41:59'),
+(56, 'Ivan', '[\"Surgical Servicesss\",\"Grooming\"]', '[\"med\",\"mad\"]', '[\"dog\",\"cat\"]', 1234.00, '2024-09-12 10:13:20', '[\"2500.00\",\"999.00\"]', 0.00, 0.00, '2025-01-05 04:41:59'),
+(57, 'ivan', '[\"Surgical Servicesss\"]', '[\"anan\"]', '[\"123\"]', 123.00, '2024-09-12 10:14:10', '[\"2500.00\"]', 0.00, 0.00, '2025-01-05 04:41:59'),
+(58, 'Hello', '[\"Surgical Servicesss\",\"Grooming\",\"Preventive Health Caress\"]', '[\"dsa\"]', '[\"dsadsa\"]', 1.00, '2024-09-12 10:24:05', '[\"2500.00\",\"999.00\",\"1.00\"]', 0.00, 0.00, '2025-01-05 04:41:59'),
+(59, 'Test Payment', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"na\",\"drink\"]', '[\"na\",\"food\"]', 1000.00, '2024-09-23 05:52:13', '[\"2500.00\",\"300.00\"]', 0.00, 0.00, '2025-01-05 04:41:59'),
+(60, 'Ivan Oct 24', '[\"Surgical Servicesss\"]', '[\"Gamot\"]', '[\"123\"]', 3712.00, '2024-10-24 23:21:05', '[\"2500.00\"]', 0.00, 0.00, '2025-01-05 04:41:59'),
+(61, 'Test ni Ivan', '[\"Surgical Servicesss\",\"Surgical Servicesss\"]', '[\"dsadsa\",\"dsadsa\"]', '[\"21312\"]', 6011.00, '2024-10-25 02:48:27', '[\"2500.00\",\"2500.00\"]', 7000.00, 989.00, '2025-01-05 04:41:59'),
+(62, 'Ivan', '[\"\"]', '[\"\"]', '[\"\"]', 1000.00, '2024-10-25 02:50:10', '[\"\"]', 600.00, -400.00, '2025-01-05 04:41:59'),
+(63, 'Ivan', '[\"Pharmacy\"]', '[\"\"]', '[\"\"]', 100350.00, '2024-10-25 02:53:21', '[\"300.00\"]', 400.00, -99950.00, '2025-01-05 04:41:59'),
+(64, 'ivan test oct 24', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"gamot\"]', '[\"cat food\",\"dog food\"]', 3150.00, '2024-10-25 02:57:44', '[\"2500.00\",\"300.00\"]', 4000.00, 850.00, '2025-01-05 04:41:59'),
+(65, 'Ivan test', '[\"Pharmacy\"]', '[\"gamot\",\"gamot2\"]', '[\"cat food\"]', 10550.00, '2024-10-25 02:59:44', '[\"300.00\"]', 4000.00, -6550.00, '2025-01-05 04:41:59'),
+(66, 'Ivan', '[\"\"]', '[\"\"]', '[\"\",\"\"]', 505050.00, '2024-10-25 03:00:04', '[\"\"]', 6000.00, -499050.00, '2025-01-05 04:41:59'),
+(67, 'Ivan test', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"gamot\"]', '[\"cat food\"]', 3900.00, '2024-10-25 03:03:47', '[\"2500.00\",\"300.00\"]', 3950.00, 50.00, '2025-01-05 04:41:59');
 
 -- --------------------------------------------------------
 
@@ -616,9 +645,7 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `name`, `profile_picture`, `comment`, `created_at`, `view`) VALUES
-(1, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:42:18', 1),
 (2, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:43:19', 1),
-(4, 'Ej Ivan Ablanida', NULL, 'Hello', '2024-10-18 02:52:06', 1),
 (5, 'Ej Ivan Ablanida', NULL, 'das', '2024-10-18 02:52:15', 1),
 (6, 'Ivan', 'customer.jfif', 'dsadsa', '2024-10-26 07:38:11', 1),
 (7, 'Anonymous', NULL, 'dsadsa', '2024-10-26 07:38:22', 1);
@@ -723,14 +750,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `role`, `profile_picture`, `address`, `contact_num`) VALUES
-(32, 'Ej Ivan Ablanids', 'ejivancablanida@gmail.com', '$2y$10$0eNUhX8Nx6.gSi.L85kIdemmaT6bt.3iOzbVlVfXUwlYG.OE2lWf2', 'admin', '', '', ''),
 (34, 'Ej Ivan Ablanida', 'a@gmail.com', '$2y$10$0eNUhX8Nx6.gSi.L85kIdemmaT6bt.3iOzbVlVfXUwlYG.OE2lWf2', 'user', 'R.png', '', ''),
 (36, 'Admin', 'ab@gmail.com', '$2y$10$B4sTaZVYv6u1XGvXFZE2buBUxHz5uKW9/Dr5y1MxLY1H6QnVoLRvO', 'admin', '', '', ''),
 (37, 'Ej Ivan Ablanida', 'abc@gmail.com', '$2y$10$aSc1mOWnnS/EIQ9eF7beIO4YTiiSYYbxhbNcX.W0jS6Pi7kxFKoHe', 'admin', '', '', ''),
 (42, 'Tests', 'test@gmail.com', '$2y$10$hwURNTqnyPiVYte4Gueh0.dWfAjIEfRtB20YQv60LifoS3ugN0VkC', 'admin', '', '', ''),
-(45, 'Ivan', 'ejivan.ablanida@cvsu.edu.ph', '$2y$10$CEJtNHPflXQ4mDooAahoFenQLbRnwA50ny.wqIDmBTH8qUtGehx7y', 'user', 'customer.jfif', '', ''),
 (46, 'ejivan', '1@gmail.com', '$2y$10$.u6lPyISRoBxc0HkpZtlP.yPT24G4fdIBm8MLBkz8Pgd3CynQcpmi', 'staff', 'customer.jfif', '', ''),
-(47, 'Ablanida, Ej ivan C.', 'ejthecoder@gmail.com', '$2y$10$N46Z5IOEwdxum5nez0Uy1OqVaUGVCYOdZTaveSR9EgrDouinIU3kS', 'user', 'customer.jfif', 'Blk 4. Lot 24', '09957939703');
+(47, 'Ablanida, Ej ivan C.', 'ejthecoder@gmail.com', '$2y$10$cjtS7ME9ZzIFQgD6p7kZf.tjtQZymeCsWZn3NMKJtzs57lldnZ9DO', 'user', 'about6.jpg', 'Blk 4. Lot 24', '09957939703'),
+(48, 'Ivan ablanida', 'ejivancablanida@gmail.com', '$2y$10$FTdk.3ZY0bkFr8kQ6N4Go.ltTqFdLIkr8PdXbu1IG7sMqSRkzElYu', 'admin', 'customer.jfif', 'Blk 4 Lot 23', '09957939703');
 
 --
 -- Indexes for dumped tables
@@ -829,13 +855,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_confirm`
 --
 ALTER TABLE `admin_confirm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `app_req_notif`
@@ -865,13 +891,13 @@ ALTER TABLE `max_booking`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
 
 --
 -- AUTO_INCREMENT for table `patients_records`
 --
 ALTER TABLE `patients_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `pos_records`
@@ -907,7 +933,7 @@ ALTER TABLE `unavailable`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

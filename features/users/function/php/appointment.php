@@ -69,9 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':appointment_time', $appointment_time);
         $stmt->bindParam(':appointment_date', $appointment_date);
         $stmt->bindParam(':total_payment', $total_payment, PDO::PARAM_STR);
-        $stmt->bindParam(':payment_method', $payment_method); // Bind payment method
-        $stmt->bindParam(':gcash_screenshot', $gcash_screenshot); // Bind only the filename
-        $stmt->bindParam(':reference', $reference); // Bind reference
+        $stmt->bindParam(':payment_method', $payment_method);
+        $stmt->bindParam(':gcash_screenshot', $gcash_screenshot); 
+        $stmt->bindParam(':reference', $reference); 
 
         if ($stmt->execute()) {
             $notification_stmt = $conn->prepare("INSERT INTO notifications 
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $_SESSION['booked'] = true;
 
-                header('Location: ../../web/api/dashboard.php');
+                header('Location: ../../web/api/appointments.php');
                 exit;
             } else {
                 echo "Error adding notification!";

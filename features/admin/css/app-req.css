@@ -288,7 +288,9 @@ tr:hover{
     border-radius: 10px !important;
 }
 .modal-dialog{
-    max-width: 80%;
+    max-width: 50%;
+    display: flex;
+    margin: auto;
 }
 @media (max-width: 768px) {
     .modal-dialog {

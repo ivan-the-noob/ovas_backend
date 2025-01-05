@@ -117,18 +117,12 @@ try {
                     <i class="fa-solid fa-list"></i>
                     <span>Unavailable Date</span>
                 </a>
-                <a href="max-book.php">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span>Max Book</span>
-                </a>
+               
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
-                <a href="chat-bot.php" >
-                <i class="fa-solid fa-headset"></i>
-                    <span>Chat Bot</span>
-                </a>
+              
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
@@ -176,7 +170,7 @@ try {
           <div class=" mb-3 position-relative col-md-8 d-flex flex-column mx-auto">
             <div class="position-relative">
             <span class="input-label">Name: </span>
-            <input type="text" class="form-control" id="ownerName" name="ownerName" style="padding-left: 60px;">
+            <input type="text" class="form-control" id="ownerName" name="ownerName" style="padding-left: 60px;" required>
           </div>
         </div>
          
@@ -190,19 +184,19 @@ try {
           <div class="mb-3 contacts">
             <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Mobile:</span>
-              <input type="number" class="form-control" name="mobile" style="padding-left: 65px;">
+              <input type="number" class="form-control" name="mobile" style="padding-left: 65px;" required>
             </div>
             <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Home:</span>
-              <input type="number" class="form-control" name="home" style="padding-left: 65px;">
+              <input type="number" class="form-control" name="home" style="padding-left: 65px;" required>
             </div>
             <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Work:</span>
-              <input type="number" class="form-control" name="work" style="padding-left: 65px;">
+              <input type="number" class="form-control" name="work" style="padding-left: 65px;" required>
             </div>
             <div class="position-relative col-md-8 d-flex flex-column mx-auto">
               <span class="input-label">Viber:</span>
-              <input type="number" class="form-control" name="viber" style="padding-left: 65px;">
+              <input type="number" class="form-control" name="viber" style="padding-left: 65px;" required>
             </div>
           </div>
           <div class="mb-3 col-md-8 d-flex flex-column mx-auto">
@@ -210,35 +204,6 @@ try {
             <div class="position-relative">
             <span class="input-label">Email:</span>
             <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" style="padding-left: 65px;">
-          </div>
-
-          <div class="mb-3 col-md-5">
-            <div class="d-flex flex-wrap">
-              <div class="form-check me-3">
-                <input class="form-check-input" type="radio" name="preferredContact" id="preferredEmail" value="Email">
-                <label class="form-check-label" for="preferredEmail">Email</label>
-              </div>
-              <div class="form-check me-3">
-                <input class="form-check-input" type="radio" name="preferredContact" id="preferredMobile" value="Mobile">
-                <label class="form-check-label" for="preferredMobile">Mobile</label>
-              </div>
-              <div class="form-check me-3">
-                <input class="form-check-input" type="radio" name="preferredContact" id="preferredHome" value="Home">
-                <label class="form-check-label" for="preferredHome">Home</label>
-              </div>
-              <div class="form-check me-3">
-                <input class="form-check-input" type="radio" name="preferredContact" id="preferredWork" value="Work">
-                <label class="form-check-label" for="preferredWork">Work</label>
-              </div>
-              <div class="form-check me-3">
-                <input class="form-check-input" type="radio" name="preferredContact" id="preferredFbMessenger" value="Fb Messenger">
-                <label class="form-check-label" for="preferredFbMessenger">Fb Messenger</label>
-              </div>
-              <div class="form-check me-3">
-                <input class="form-check-input" type="radio" name="preferredContact" id="preferredViber" value="Viber">
-                <label class="form-check-label" for="preferredViber">Viber</label>
-              </div>
-            </div>
           </div>
           </div>
           </div>
@@ -250,7 +215,7 @@ try {
           <div class="mb-3 col-md-5">
             <div class="position-relative">
              <span class="input-label">Pet Name:</span>
-              <input type="text" class="form-control" name="petName" id="pet-name" style="padding-left: 90px;">
+              <input type="text" class="form-control" name="petName" id="pet-name" style="padding-left: 90px;" required>
             </div>
             
           </div>
@@ -287,7 +252,7 @@ try {
           <div class="mb-3 col-md-5">
             <div class="position-relative">
               <span class="input-label">Breed:</span> 
-              <input type="text" class="form-control" name="breed"  id="breed" style="padding-left: 70px;">
+              <input type="text" class="form-control" name="breed"  id="breed" style="padding-left: 70px;" required>
             </div>
           </div>
           </div>
@@ -295,24 +260,24 @@ try {
           <div class="mb-3 col-md-5">
             <div class="position-relative">
               <span class="input-label">Colors:</span> 
-            <input type="text" class="form-control" name="colorMarkings" id="color-markings" style="padding-left: 70px">
+            <input type="text" class="form-control" name="colorMarkings" id="color-markings" style="padding-left: 70px" required>
             </div>
           </div>
           <div class="mb-3 col-md-5">
             <div class="position-relative">
               <span class="input-label">Microchip No:</span> 
-              <input type="number" class="form-control" name="microchipNo" id="micro-no" style="padding-left: 115px">
+              <input type="number" class="form-control" name="microchipNo" id="micro-no" style="padding-left: 115px" required>
             </div>
           </div>
           </div>
           <div class="d-flex justify-content-center gap-2"> 
           <div class="mb-3 col-md-5">
-            <input type="date" class="form-control" name="dob" placeholder="01/01/24" id="dob">
+            <input type="date" class="form-control" name="dob" placeholder="01/01/24" id="dob" required>
           </div>
           <div class="mb-3 col-md-5">
             <div class="position-relative">
             <span class="input-label">Age:</span> 
-            <input type="number" class="form-control" name="age" id="age" style="padding-left: 60px;">
+            <input type="number" class="form-control" name="age" id="age" style="padding-left: 60px;" required>
             </div>         
           </div>
           </div>
@@ -347,7 +312,7 @@ try {
 
           <input type="hidden" id="payment" name="payment" value="0">
 
-          <div class="mt-3 d-flex justify-content-end" style="margin-right: 80px;">
+          <div class="mt-3 d-flex justify-content-end" style="margin-right: 80px;" required>
             <label for="totalPayment" class="form-label">Total Payment</label>
             <p id="totalPayment">₱0.00</p>
           </div>

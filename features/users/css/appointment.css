@@ -473,14 +473,20 @@ th a{
 .available-color{
     width: 20px;
     height: 20px;
-    background-color: #155724;
+    background-color: #9EF3A0;
+    flex-shrink: 0;
+}
+.fully-color{
+    width: 20px;
+    height: 20px;
+    background-color: red;
     flex-shrink: 0;
 }
 
 .unavailable-color{
     width: 20px;
     height: 20px;
-    background-color: red;
+    background-color: #808080;
     flex-shrink: 0;
 }
 

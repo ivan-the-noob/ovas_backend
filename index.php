@@ -2,6 +2,23 @@
   session_start();
   include 'index_connection.php';
   $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
+
+
+require 'db.php';
+
+$userEmail = $_SESSION['email']; 
+$notifications = [];
+
+try {
+    $stmt = $conn->prepare("SELECT * FROM notifications WHERE email = :email ORDER BY created_at DESC");
+    $stmt->bindParam(':email', $userEmail);
+    $stmt->execute();
+    $notifications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+
+    error_log("Error fetching notifications: " . $e->getMessage());
+}
+
 ?>
 
 
@@ -54,28 +71,55 @@
 
         <div class="d-flex ml-auto align-items-center">
     <?php if (isset($_SESSION['email'])): ?>
-        <div class="dropdown first-dropdown">
-            <button type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell"></i>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <h5 class="notification-title">Notification</h5>
-                <div class="notification-content alert alert-success">
-                    <strong>Appointment Confirmed!</strong>
-                    <p class="notification-text">Your appointment has been confirmed!</p>
-                    <p class="code">Code: OVAS-01234</p>
-                    <a href="/features/users/web/api/appointment.html" onclick="localStorage.setItem('showBookedHistory', 'true');">View Details</a>
-                </div>
-                <div class="notification-content alert-primary">
-                    <strong>Successfully Booked!</strong>
-                    <p class="notification-text">You successfully booked!</p>
-                </div>
-                <div class="notification-content alert-danger">
-                    <strong>Rejected</strong>
-                    <p class="notification-text">Your appointment has been rejected.</p>
-                </div>
-            </div>
-        </div>
+      <div class="dropdown first-dropdown">
+          <button type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-bell"></i>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <h5 class="notification-title">Notification</h5>
+              <?php if (!empty($notifications)): ?>
+                  <?php foreach ($notifications as $notification): ?>
+                      <?php if ($notification['type'] === 'Success'): ?>
+                          <div class="notification-content alert alert-success">
+                              <strong>Appointment Confirmed!</strong>
+                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                              <p class="code">Code: <?= htmlspecialchars($notification['code']) ?></p>
+                              <a href="features/users/web/api/appointments.php">View Details</a>
+                          </div>
+                      <?php elseif ($notification['type'] === 'confirm'): ?>
+                          <div class="notification-content alert-primary">
+                              <strong>Successfully Booked!</strong>
+                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                          </div>
+                        <?php elseif ($notification['type'] === 'profile'): ?>
+                          <div class="notification-content alert-success">
+                              <strong>Profile Change!</strong>
+                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                          </div>
+                        <?php elseif ($notification['type'] === 'password'): ?>
+                          <div class="notification-content alert-success">
+                              <strong>Password Change!</strong>
+                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                          </div>
+                        <?php elseif ($notification['type'] === 'cancel'): ?>
+                          <div class="notification-content alert-danger">
+                              <strong>Appointment Cancelled!</strong>
+                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                          </div>
+                      <?php elseif ($notification['type'] === 'decline'): ?>
+                          <div class="notification-content alert-danger">
+                              <strong>Rejected</strong>
+                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                          </div>
+                      <?php endif; ?>
+                  <?php endforeach; ?>
+              <?php else: ?>
+                  <div class="notification-content alert alert-secondary">
+                      <p class="notification-text">No notifications available.</p>
+                  </div>
+              <?php endif; ?>
+          </div>
+      </div>
 
 
         <div class="dropdown second-dropdown">
@@ -260,57 +304,10 @@
     </div>
   </footer>
 
-  <button id="chat-bot-button" onclick="toggleChat()">
-    <i class="fa-solid fa-headset"></i>
-  </button>
 
-  <div id="chat-interface" class="hidden">
-    <div id="chat-header">
-        <p>Amazing Day! How may I help you?</p>
-        <button onclick="toggleChat()">X</button>
-    </div>
-    <div id="chat-body">
-        <div class="button-bot">
-        <?php
-            include 'db.php';
-
-            try {
-                $sql = "SELECT question FROM chat_messages";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-
-                if ($stmt->rowCount() > 0) {
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $question = htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8');
-                        echo "<button onclick=\"sendResponse('$question')\">$question</button>";
-                    }
-                } else {
-                    echo "<p>No questions available.</p>";
-                }
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-            ?>
-
-        </div>
-        <div class="line"></div>
-        
-        <div class="admin mt-3">
-            <div class="admin-chat">
-                <img src="assets/img/logo.png" alt="Admin">
-                <p>Admin</p>
-            </div>
-            <p class="text" id="typing-text">Hello, I am Chat Bot. Please ask me a question by pressing the question buttons.</p>
-        </div>
-      
-    </div>
-
-</div>
 
 </body>
-<script src="features/users/function/script/chat-bot.js"></script>
 <script src="features/users/function/script/services-check.js"></script>
-<script src="features/users/function/script/chatbot-toggle.js"></script>
 <script src="features/users/function/script/scroll-choose_us.js"></script>
 <script src="features/users/function/script/scroll-service.js"></script>
 <script src="features/users/function/script/loading_animation.js"></script>

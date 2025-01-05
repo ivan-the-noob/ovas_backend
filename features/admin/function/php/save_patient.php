@@ -7,10 +7,9 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $conn->prepare("INSERT INTO patients_records 
-        (ownerName, ownerAddress, mobile, home, work, viber, ownerEmail, preferredContact, petName, petType, sex, breed, colorMarkings, microchipNo, dob, age, serviceCategory, service, authorization, enteringComplaint, historyPhysical, date, totalPayment) 
+        (ownerName, ownerAddress, mobile, home, work, viber, ownerEmail, petName, petType, sex, breed, colorMarkings, microchipNo, dob, age, serviceCategory, service, authorization, enteringComplaint, historyPhysical, date, totalPayment) 
         VALUES 
-        (:ownerName, :ownerAddress, :mobile, :home, :work, :viber, :ownerEmail, :preferredContact, :petName, :petType, :sex, :breed, :colorMarkings, :microchipNo, :dob, :age, :serviceCategory, :service, :authorization, :enteringComplaint, :historyPhysical, :date, :totalPayment)");
-
+        (:ownerName, :ownerAddress, :mobile, :home, :work, :viber, :ownerEmail, :petName, :petType, :sex, :breed, :colorMarkings, :microchipNo, :dob, :age, :serviceCategory, :service, :authorization, :enteringComplaint, :historyPhysical, :date, :totalPayment)");
 
     $stmt->bindParam(':ownerName', $_POST['ownerName']);
     $stmt->bindParam(':ownerAddress', $_POST['ownerAddress']);
@@ -19,7 +18,6 @@ try {
     $stmt->bindParam(':work', $_POST['work']);
     $stmt->bindParam(':viber', $_POST['viber']);
     $stmt->bindParam(':ownerEmail', $_POST['ownerEmail']);
-    $stmt->bindParam(':preferredContact', $_POST['preferredContact']);
     $stmt->bindParam(':petName', $_POST['petName']);
     $stmt->bindParam(':petType', $_POST['petType']);
     $stmt->bindParam(':sex', $_POST['sex']);
@@ -50,18 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
   require '../../../../db.php';
   session_start();
-    // Check if 'ownerName' is set and not empty
     if (isset($_POST['ownerName']) && !empty($_POST['ownerName'])) 
     {
-        $client_name = $_POST['ownerName'];  // Client's name from the form
-        $admin_name = $_SESSION['name'];  // Admin's name from session
+        $client_name = $_POST['ownerName']; 
+        $admin_name = $_SESSION['name'];  
 
-        // Notification message
+
         $message = "{$client_name}'s record added by {$admin_name}";
 
         try 
         {
-            // Insert notification into the database
             $sql = "INSERT INTO app_req_notif (name, message, client_name) VALUES (:name, :message, :client_name)";
             $stmt = $conn->prepare($sql);
             $stmt->execute([

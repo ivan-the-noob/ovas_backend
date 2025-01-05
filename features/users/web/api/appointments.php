@@ -43,7 +43,10 @@
             <a class="nav-link" href="../../../../index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+            <a class="nav-link" href="appointments.php">Appointment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="settings.php">Settings</a>
           </li>
         </ul>
 
@@ -53,7 +56,8 @@
               <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="profile" alt="Profile Picture" id="profileImg">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="#">Appointment</a>
+                  <a class="dropdown-item" href="settings.php">Settings</a>
                   <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
           </div>
@@ -63,48 +67,10 @@
   </nav>
   <!--Dashboard Section-->
 
-  <div class="container">
-    <div class="row">   
-       <div class="col-md-4">
-  <form action="../../function/php/profile_update.php" method="POST" enctype="multipart/form-data">
-    <div class="r mt-5">
-        <h1 class="text-center mb-4">Profile</h1>
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6 text-center mb-4">
-                <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; border: 2px solid #7A3015;" id="profileImg">
-                <h4 class="mt-3">Racel</h4>
-                <div class="mt-3">
-                    <input type="file" class="form-control" name="profile_picture" id="changeProfile">
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
-                <div class="mb-3">
-                    <label for="currentPassword" class="form-label">Current Password</label>
-                    <input type="password" class="form-control" name="current_password" id="currentPassword" placeholder="Enter current password">
-                </div>
-                <div class="mb-4">
-                    <label for="newPassword" class="form-label">New Password</label>
-                    <input type="password" class="form-control" name="new_password" id="newPassword" placeholder="Enter new password">
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
-                <div class="dash-button">
-                    <div class="col-12">
-                        <button type="submit" class="save">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  
 </form>
 </div>
-<div class="col-md-8">
+<div class="col-md-10 d-flex flex-column mx-auto">
 <section class="booked-history py-5" id="bookedHistorySection">
     <div class="container">
       <div class="row justify-content-center">
@@ -226,28 +192,34 @@
               
                               // Confirmation delete modal
                               echo '<div class="modal fade" id="deleteModal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel' . $appointmentId . '" aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
                                           <div class="modal-header d-flex justify-content-between">
-                                            <h5 class="modal-title" id="deleteModalLabel' . $appointmentId . '">Delete Appointment</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
+                                              <h5 class="modal-title" id="deleteModalLabel' . $appointmentId . '">Cancel Appointment</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                              </button>
                                           </div>
+                                          <form action="../../function/php/delete_appointment.php" method="POST">
                                           <div class="modal-body">
-                                            <p>Are you sure you want to cancel this appointment?</p>
+                                              <p>Are you sure you want to cancel this appointment? Please provide a reason for cancellation.</p>
+                                              <div class="form-group">
+                                                  <label for="reasonCancel' . $appointmentId . '">Reason for Cancellation</label>
+                                                  <textarea class="form-control" id="reasonCancel' . $appointmentId . '" name="reason_cancel" rows="4" required></textarea>
+                                              </div>
                                           </div>
                                           <div class="modal-footer">
-                                            <form action="../../function/php/delete_appointment.php" method="POST">
-                                            
-                                              <input type="hidden" name="id" value="' . $appointmentId . '">
-                                              <button type="submit" class="btn btn-danger">Yes, Cancel</button>
-                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Keep</button>
-                                            </form>
+                                              <!-- Form triggers PHP script to update the appointment -->
+                                                  <input type="hidden" name="id" value="' . $appointmentId . '">
+                                                  <button type="submit" class="btn btn-danger">Yes, Cancel Appointment</button>
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Keep Appointment</button>
+                                              </form>
                                           </div>
-                                        </div>
                                       </div>
-                                    </div>';
+                                  </div>
+                              </div>';
+
+
                           }
                       } else {
                           echo "Empty Appointments.";
@@ -300,6 +272,8 @@
                               $gcashScreenshot = $row['gcash_screenshot'];
                               $reference = $row['reference'];
                               $reason = $row['decline_reason'];
+                              $reasonCancel = $row['reason_cancel'];
+
                               $statusClass = '';
                               if ($status === 'confirm') {
                                   $statusClass = 'bg-success';
@@ -313,25 +287,27 @@
               
                               echo '<li class="list-group-item past-appointment">
                               <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                                <div>
-                                  <p class="mb-1 status btn btn-primary ' . htmlspecialchars($statusClass) . '">' . htmlspecialchars($status) . '</p>
-                                  <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
-                                  <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
-                                  <p>Owner: ' . htmlspecialchars($ownerName) . '</p>
-                                </div>
-                                <div class="mt-3 mt-md-0 text-md-right">
-                                  <p class="mb-1">Code: ' . htmlspecialchars($code) . '</p>
-                                  <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
-                                  <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>';
+                                  <div>
+                                      <p class="mb-1 status btn btn-primary ' . htmlspecialchars($statusClass) . '">' . htmlspecialchars($status) . '</p>
+                                      <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
+                                      <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
+                                      <p class="mb-1">Owner: ' . htmlspecialchars($ownerName) . '</p>';
                       
-                      if ($status === 'decline') {
-                        echo '<p class="mb-1 reason">Reason: ' . htmlspecialchars($reason) . '</p>';
-                      }
+                                      
+                                      if ($status === 'cancelled' && !empty($reasonCancel)) {
+                                          echo '<p class="mb-1 reason">Reason for Cancellation: ' . htmlspecialchars($reasonCancel) . '</p>';
+                                      }
                       
-                      echo '  <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>
-                                </div>
+                      echo '    </div>
+                                  <div class="mt-3 mt-md-0 text-md-right">
+                                      <p class="mb-1">Code: ' . htmlspecialchars($code) . '</p>
+                                      <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
+                                      <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
+                                      <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>
+                                  </div>
                               </div>
-                            </li>';
+                          </li>';
+                      
                       
               
                               echo '<div class="modal fade" id="modal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="modalLabel' . $appointmentId . '" aria-hidden="true">

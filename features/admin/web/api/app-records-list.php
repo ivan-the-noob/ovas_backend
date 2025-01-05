@@ -125,19 +125,13 @@
                     <i class="fa-solid fa-list"></i>
                     <span>Unavailable Date</span>
                 </a>
-                <a href="max-book.php">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span>Max Book</span>
-                </a>
+                
                 <a href="admin-user.php">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Admin User List</span>
                 </a>
               
-                <a href="chat-bot.php" >
-                <i class="fa-solid fa-headset"></i>
-                    <span>Chat Bot</span>
-                </a>
+                
                 <a href="settings.php">
                     <i class="fas fa-cog"></i>
                     <span>Settings</span>
@@ -214,7 +208,7 @@
                 <td><?php echo htmlspecialchars($patient['breed']); ?></td>
                 <td class="d-flex gap-1">
                 <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#seeMoreModal<?php echo $patient['id']; ?>">See More</button>
-                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $patient['id']; ?>">Edit</button>
+                <button class="btn btn-success btn-sm text-white" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $patient['id']; ?>">Edit</button>
                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $patient['id']; ?>">Delete</button>
                 </td>
             </tr>
