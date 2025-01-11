@@ -1,7 +1,7 @@
 
 <?php
     require '../../../../db.php'; 
-    include '../../function/php/app-req.php';
+    include '../../function/php/reports.php';
 
     session_start(); 
 
@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointment Request | Admin</title>
+    <title>Reports | Admin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../css/app-req.css">
@@ -37,11 +37,11 @@
                 <i class="fa-solid fa-gauge"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#appointment" class="navbar-highlight">
+            <a href="app-req.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="reports.php">
+            <a href="#" class="navbar-highlight">
             <i class="fa-solid fa-file-lines"></i>
                 <span>Reports</span>
             </a>
@@ -178,7 +178,7 @@
 
         <!--Notification and Profile Admin-->
         <div class="app-req">
-            <h3>Appointment Request</h3>
+            <h3>Reports</h3>
             <div class="walk-in px-lg-5 d-flex ">
                 <div class="col-md-4 mb-3 x d-flex">
                     <div class="search">

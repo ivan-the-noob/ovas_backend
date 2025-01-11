@@ -6,7 +6,13 @@
 
 require 'db.php';
 
-$userEmail = $_SESSION['email']; 
+if (isset($_SESSION['email'])) {
+  $userEmail = $_SESSION['email']; 
+} else {
+  echo '';  
+}
+
+
 $notifications = [];
 
 try {
@@ -66,6 +72,12 @@ try {
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#services">Our Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="features\users\web\api\appointments.php">Appointment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="features\users\web\api\settings.php">Settings</a>
           </li>
         </ul>
 

@@ -67,8 +67,29 @@
   </nav>
   <!--Dashboard Section-->
 
+  <?php if (isset($_SESSION['booked']) && $_SESSION['booked'] === true): ?>
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" >
+                <div class="modal-header d-flex justify-content-between" style="color: #000;">
+                    <h5 class="modal-title" id="successModalLabel">Appointment Successfully Booked</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"  style="color: #000;">
+                    <p>You have successfully booked an appointment for your wonderful pet! Please wait for the admin to confirm your booking and provide your appointment code. Once your appointment is confirmed, take note of or screenshot your code and present it at the clinic during your visit.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php endif; ?>
+
   
-</form>
 </div>
 <div class="col-md-10 d-flex flex-column mx-auto">
 <section class="booked-history py-5" id="bookedHistorySection">
@@ -371,11 +392,21 @@
 </div>
 </div>
 
-  <!--Dashboard Section End-->
+
 </body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        <?php if (isset($_SESSION['booked']) && $_SESSION['booked'] === true): ?>
+            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+            myModal.show();
+        <?php endif; ?>
+    });
+</script>
+
 <script src="../../function/script/chatbot-toggle.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="../../function/script/tab-bar.js"></script>
 
 </html>

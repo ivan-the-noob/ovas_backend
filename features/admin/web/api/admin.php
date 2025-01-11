@@ -58,6 +58,10 @@ $total_sales = $total_sales_data['total_sales'] ?? 0;
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
+            <a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
+            </a>
             <a href="app-records.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Patients Records</span>
@@ -211,7 +215,7 @@ $total_sales = $total_sales_data['total_sales'] ?? 0;
                                 <h5>₱<?php echo number_format($total_sales, 2); ?></h5>
                             </div>
                             <div class="logo">
-                                <i class="fa-solid fa-dollar-sign"></i>
+                                <i class="fa-solid fa-peso-sign"></i>
                             </div>
                         </div>
                         <div class="trend card-down"><i class="fa-solid fa-arrow-trend-down"> 4.3 % </i> Down from

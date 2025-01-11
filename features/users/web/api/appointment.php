@@ -7,6 +7,8 @@ $user_email = $_SESSION['email'] ?? '';
 $name = $_SESSION['name'] ?? '';
 $address = $_SESSION['address'] ?? '';
 $contactnum = $_SESSION['contact_num'] ?? '';
+$last_name = $_SESSION['last_name'] ?? '';
+
 
 
 $stmt = $conn->prepare("SELECT COUNT(*) AS unread_count FROM notifications WHERE email = :email AND is_read = 0");
@@ -40,7 +42,7 @@ try {
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../../css/appointment.css">
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 
@@ -145,6 +147,8 @@ try {
             </div>
         </div>
     </div>
+
+
   <section class="appointment">
     <div class="content py-5 date">
 
@@ -152,7 +156,7 @@ try {
         <div class="appoints">
           <button>Appointment Availability</button>
         </div>
-        <form method="POST" action="../../function/php/appointment.php" enctype="multipart/form-data">
+        <form method="POST" action="../../function/php/appointment.php" enctype="multipart/form-data" onsubmit="return validateForm()">
       
           <div class="card card-outline card-primary rounded-0 shadow" id="appointmentSection">
             <div class="card-body">
@@ -241,10 +245,10 @@ try {
                       <div class="position-relative">
                         <span class="input-label">Name: </span>
                         <input type="text" class="form-control" id="ownerName" name="ownerName"
-                          style="padding-left: 60px;" value="<?php echo htmlspecialchars($name);?>"readonly>
+                        style="padding-left: 60px;" 
+                        value="<?php echo htmlspecialchars($name . ' ' . $last_name); ?>" readonly>
                       </div>
                     </div>
-
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
                         <span class="input-label">Contact: </span>
@@ -252,8 +256,6 @@ try {
                           name="contactNum" style="padding-left: 80px;" value="<?php echo htmlspecialchars($contactnum);?>" readonly>
                       </div>
                     </div>
-                    
-
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
                         <span class="input-label">Email: </span>
@@ -273,11 +275,19 @@ try {
                   </div>
                   <h6 class="mt-4 d-flex mx-auto">Pet Information</h6>
                   <div class="owner-info">
+                  <div class="mb-3 position-relative">
+                      <div class="position-relative">
+                        <span class="input-label">Pet's Name:</span>
+                        <input type="text" class="form-control" id="pet_name" name="pet_name"
+                          style="padding-left: 95px;" required>
+                      </div>
+                    </div>
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
                         <span class="input-label">Pet Type:</span>
                         <select class="form-control" id="petType" name="petType"
-                          style="padding-left: 80px;">
+                          style="padding-left: 90px" required>
+                          <option value=""></option>
                           <?php if (!empty($categories)): ?>
                             <?php foreach ($categories as $category): ?>
                               <option
@@ -364,7 +374,7 @@ try {
                     </div>
 
                     <div class="mt-3">
-                      <label for="totalPayment" class="form-label">Total Payment</label>
+                      <label for="totalPayment" class="form-label">Service Price</label>
                       <p id="totalPayment">₱0.00</p>
                     </div>
 
@@ -374,29 +384,50 @@ try {
                     <div class="mt-3">
                       <label for="pay-via" class="form-label">Pay Via</label>
                       <div class="d-flex justify-content-start pay-btn">
-                        <button id="gcash-btn" class="btn" type="button"
-                          onclick="selectPayment('gcash', this)">Gcash</button>
-                       
+                      <button id="gcash-btn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#gcashModal" onclick="selectPayment('gcash', this)">
+                          Gcash
+                      </button>
+
+
+                  <div class="modal fade" id="gcashModal" tabindex="-1" role="dialog" aria-labelledby="gcashModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+                            
+                              <div class="modal-body" style="color: #000;">
+                                  <p>To successfully confirm your appointment and payment, please follow the steps below. Ensure that you complete all parts of the process to avoid delays in verification.</p>
+                                  <ol>
+                                      <li>Take a screenshot of the QR code displayed in the system. Ensure the entire QR code is visible and clear.</li>
+                                      <li>Open the GCash app and log in with your account.</li>
+                                      <li>Tap on "Pay QR" from the GCash home screen.</li>
+                                      <li>Select "Upload from Gallery" and choose the screenshot of the QR code.</li>
+                                      <li>Once the QR code is scanned, enter ₱250 as the payment amount.</li>
+                                      <li>Double-check the details, then tap "Pay" to complete the transaction.</li>
+                                      <li>Save or take a screenshot of the payment confirmation as proof of payment.</li>
+                                      <li>Go back to the Bark Yard website, upload the screenshot of your payment, and enter the reference number for verification.</li>
+                                      <li>Complete the process by booking your appointment.</li>
+                                  </ol>
+                              </div>
+                             
+                          </div>
                       </div>
+                  </div>
+
+                      
                     </div>
                     <input type="hidden" id="payment_method" name="payment_method" value="" required>
                    
 
                     <div id="gcash-details" class="mt-3" style="display: none;">
-                      <div class="gcash">
-                        <img src="../../../../assets/img/gcash/gcash.jpg">
-                      </div>
-                      <label for="gcash-screenshot" class="form-label">Upload
-                        screenshot</label>
-                      <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*"
-                        class="form-control" required>
-                      <div class="position-relative mt-2">
-                        <span class="input-label">Ref #:</span>
-                        <input type="number" name="reference" class="form-control"
-                          style="padding-left: 80px;">
-                      </div>
+                        <div class="gcash">
+                            <img src="../../../../assets/img/gcash/gcash.jpg">
+                        </div>
+                        <label for="gcash-screenshot" class="form-label">Upload screenshot</label>
+                        <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*" class="form-control" required>
+                        <div class="position-relative mt-2">
+                            <span class="input-label">Ref #:</span>
+                            <input type="number" name="reference" class="form-control" style="padding-left: 80px;">
+                        </div>
                     </div>
-                  </div>
                   <div class="mt-3">
                     <button type="submit" class="book-save">Book Appointment</button>
                   </div>
@@ -441,6 +472,27 @@ try {
             appointmentModal.show();
         });
     </script>
+  
+  <script>
+    function selectTime(button, time) {
+        document.getElementById('selectedTime').value = time;
+        
+        const buttons = document.querySelectorAll('.choose-time');
+        buttons.forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
+    }
+
+
+    function validateForm() {
+        const time = document.getElementById('selectedTime').value;
+
+        if (!time) {
+            alert('Please select time before submitting.');
+            return false; 
+        }
+        return true; 
+    }
+  </script>
 
 
 

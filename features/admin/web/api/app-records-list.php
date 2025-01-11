@@ -59,7 +59,15 @@
       } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
       }
+
+    $sql = "SELECT * FROM patients_records";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    
+    // Fetching all records as an associative array
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,6 +98,10 @@
             <a href="app-req.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
+            </a>
+            <a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
             </a>
             <a href="app-records.php">
                 <i class="fa-regular fa-calendar-check"></i>
@@ -177,17 +189,18 @@
     </div>
           
     <div class="container">
+    <div class="d-flex justify-content-end w-100">
+        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#addRecordModal">Add Record</button>
+    </div>
     <table class="table table-hover table-remove-borders">
     <thead class="thead-light">
             <tr>
+                <th>ID</th>
                 <th>Owner Name</th>
-                <th>Owner Address</th>
-                <th>Home</th>
-                <th>Work</th>
-                <th>Owner Email</th>
-                <th>Preferred Contact</th>
+                <th>Email</th>
+                <th>Contact Num</th>
                 <th>Pet Name</th>
-                <th>Pet Type</th>
+                <th>Pet type</th>
                 <th>Sex</th>
                 <th>Breed</th>
                 <th>Actions</th>
@@ -196,207 +209,321 @@
         <tbody>
             <?php foreach ($patients as $patient): ?>
             <tr>
-                <td><?php echo htmlspecialchars($patient['ownerName']); ?></td>
-                <td><?php echo htmlspecialchars($patient['ownerAddress']); ?></td>
-                <td><?php echo htmlspecialchars($patient['home']); ?></td>
-                <td><?php echo htmlspecialchars($patient['work']); ?></td>
+                <td><?php echo htmlspecialchars($patient['id']); ?></td>
+                <td><?php echo htmlspecialchars($patient['ownerName']) . ' ' . htmlspecialchars($patient['ownerMiddleName']) . ' ' . htmlspecialchars($patient['ownerLastName']); ?></td>
                 <td><?php echo htmlspecialchars($patient['ownerEmail']); ?></td>
-                <td><?php echo htmlspecialchars($patient['preferredContact']); ?></td>
+                <td><?php echo htmlspecialchars($patient['mobile']); ?></td>
                 <td><?php echo htmlspecialchars($patient['petName']); ?></td>
                 <td><?php echo htmlspecialchars($patient['petType']); ?></td>
                 <td><?php echo htmlspecialchars($patient['sex']); ?></td>
                 <td><?php echo htmlspecialchars($patient['breed']); ?></td>
                 <td class="d-flex gap-1">
-                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#seeMoreModal<?php echo $patient['id']; ?>">See More</button>
-                <button class="btn btn-success btn-sm text-white" data-bs-toggle="modal" data-bs-target="#editModal<?php echo $patient['id']; ?>">Edit</button>
-                <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $patient['id']; ?>">Delete</button>
+                <button class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#seeMoreModal<?php echo $patient['id']; ?>">Full details</button>
+                <button class="btn btn-success btn-sm text-white" data-bs-toggle="modal" data-bs-target="#updateRecordModal<?php echo $patient['id']; ?>">Edit</button>
+               
                 </td>
             </tr>
 
             <!-- Modal -->
             <div class="modal fade" id="seeMoreModal<?php echo $patient['id']; ?>" tabindex="-1" aria-labelledby="seeMoreModalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="seeMoreModalLabel<?php echo $patient['id']; ?>">Details for <?php echo htmlspecialchars($patient['ownerName']); ?></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Modal Content -->
-                            <div class="mb-3">
-                                <label for="colorMarkings-input-<?php echo $patient['id']; ?>" class="form-label">Colors:</label>
-                                <input type="text" class="form-control" id="colorMarkings-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['colorMarkings']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="microchipNo-input-<?php echo $patient['id']; ?>" class="form-label">Microchip No:</label>
-                                <input type="text" class="form-control" id="microchipNo-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['microchipNo']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="dob-input-<?php echo $patient['id']; ?>" class="form-label">Birth Date:</label>
-                                <input type="date" class="form-control" id="dob-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['dob']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="age-input-<?php echo $patient['id']; ?>" class="form-label">Age:</label>
-                                <input type="number" class="form-control" id="age-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['age']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="serviceCategory-input-<?php echo $patient['id']; ?>" class="form-label">Category:</label>
-                                <input type="text" class="form-control" id="serviceCategory-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['serviceCategory']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="service-input-<?php echo $patient['id']; ?>" class="form-label">Services:</label>
-                                <input type="text" class="form-control" id="service-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['service']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="totalPayment-input-<?php echo $patient['id']; ?>" class="form-label">Total Payment:</label>
-                                <input type="text" class="form-control" id="totalPayment-input-<?php echo $patient['id']; ?>" value="₱<?php echo htmlspecialchars($patient['totalPayment']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="date-input-<?php echo $patient['id']; ?>" class="form-label">Date:</label>
-                                <input type="text" class="form-control" id="date-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date']); ?>" readonly>
-                            </div>
-                            <div class="mb-3">
-                                <label for="authorization-input-<?php echo $patient['id']; ?>" class="form-label">Authorization for Treatment:</label>
-                                <input type="text" class="form-control" id="authorization-input-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['authorization']); ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="editModal<?php echo $patient['id']; ?>" tabindex="-1" aria-labelledby="editModalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <form action="../../function/php/update_patient.php" method="POST">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel<?php echo $patient['id']; ?>">Edit Details for <?php echo htmlspecialchars($patient['ownerName']); ?></h5>
+                                <h5 class="modal-title" id="seeMoreModalLabel<?php echo $patient['id']; ?>">Details for <?php echo htmlspecialchars($patient['ownerName']); ?></h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" name="id" value="<?php echo $patient['id']; ?>">
-                                <div class="row">
-                                    <div class="col-md-6">
+                               <div class="row">
+                                    <div class="col-md-4">
+                                        <h5>CLIENT INFORMATION</h5>
                                         <div class="mb-3">
-                                            <label class="form-label">Owner Name:</label>
-                                            <input type="text" class="form-control" name="ownerName" value="<?php echo htmlspecialchars($patient['ownerName']); ?>" required>
+                                            <label for="ownerFirstName-<?php echo $patient['id']; ?>" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="ownerFullName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerName'] . ' ' . $patient['ownerMiddleName'] . ' ' . $patient['ownerLastName']); ?>" readonly>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Owner Address:</label>
-                                            <input type="text" class="form-control" name="ownerAddress" value="<?php echo htmlspecialchars($patient['ownerAddress']); ?>" required>
+                                            <label for="address-<?php echo $patient['id']; ?>" class="form-label">Complete Address:</label>
+                                            <input type="text" class="form-control" id="address-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerAddress']); ?>" readonly>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Home Phone:</label>
-                                            <input type="text" class="form-control" name="home" value="<?php echo htmlspecialchars($patient['home']); ?>" required>
+                                            <label for="contactNumber-<?php echo $patient['id']; ?>" class="form-label">Contact Number:</label>
+                                            <input type="text" class="form-control" id="contactNumber-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['mobile']); ?>" readonly>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Work Phone:</label>
-                                            <input type="text" class="form-control" name="work" value="<?php echo htmlspecialchars($patient['work']); ?>" required>
+                                            <label for="email-<?php echo $patient['id']; ?>" class="form-label">Email Address:</label>
+                                            <input type="email" class="form-control" id="email-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerEmail']); ?>" readonly>
+                                        </div>
+                                        <hr>
+                                        <h5 class="mt-4">PET INFORMATION</h5>
+                                        <div class="mb-3">
+                                            <label for="petName-<?php echo $patient['id']; ?>" class="form-label">Pet's Name:</label>
+                                            <input type="text" class="form-control" id="petName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petName']); ?>" readonly>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Email:</label>
-                                            <input type="email" class="form-control" name="ownerEmail" value="<?php echo htmlspecialchars($patient['ownerEmail']); ?>" required>
+                                            <label for="species-<?php echo $patient['id']; ?>" class="form-label">Species:</label>
+                                            <input type="text" class="form-control" id="species-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petType']); ?>" readonly>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Preferred Contact:</label>
-                                            <input type="text" class="form-control" name="preferredContact" value="<?php echo htmlspecialchars($patient['preferredContact']); ?>" required>
+                                            <label for="sex-<?php echo $patient['id']; ?>" class="form-label">Sex:</label>
+                                            <input type="text" class="form-control" id="sex-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['sex']); ?>" readonly>
                                         </div>
+                                        <div class="mb-3">
+                                            <label for="breed-<?php echo $patient['id']; ?>" class="form-label">Breed:</label>
+                                            <input type="text" class="form-control" id="breed-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['breed']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="microchipNo-<?php echo $patient['id']; ?>" class="form-label">Microchip No:</label>
+                                            <input type="text" class="form-control" id="microchipNo-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['microchipNo']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="colorMarkings-<?php echo $patient['id']; ?>" class="form-label">Color and Markings:</label>
+                                            <input type="text" class="form-control" id="colorMarkings-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['colorMarkings']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="dob-<?php echo $patient['id']; ?>" class="form-label">Date of Birth:</label>
+                                            <input type="date" class="form-control" id="dob-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['dob']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="age-<?php echo $patient['id']; ?>" class="form-label">Age:</label>
+                                            <input type="number" class="form-control" id="age-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['age']); ?>" readonly>
+                                        </div> 
+                                        
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Pet Name:</label>
-                                            <input type="text" class="form-control" name="petName" value="<?php echo htmlspecialchars($patient['petName']); ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Pet Type:</label>
-                                            <input type="text" class="form-control" name="petType" value="<?php echo htmlspecialchars($patient['petType']); ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Sex:</label>
-                                            <input type="text" class="form-control" name="sex" value="<?php echo htmlspecialchars($patient['sex']); ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Breed:</label>
-                                            <input type="text" class="form-control" name="breed" value="<?php echo htmlspecialchars($patient['breed']); ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Colors:</label>
-                                            <input type="text" class="form-control" name="colorMarkings" value="<?php echo htmlspecialchars($patient['colorMarkings']); ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Microchip No:</label>
-                                            <input type="text" class="form-control" name="microchipNo" value="<?php echo htmlspecialchars($patient['microchipNo']); ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Birth Date:</label>
-                                            <input type="date" class="form-control" name="dob" value="<?php echo htmlspecialchars($patient['dob']); ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Age:</label>
-                                            <input type="number" class="form-control" name="age" value="<?php echo htmlspecialchars($patient['age']); ?>" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Category:</label>
-                                            <input type="text" class="form-control" name="serviceCategory" value="<?php echo htmlspecialchars($patient['serviceCategory']); ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Services:</label>
-                                            <input type="text" class="form-control" name="service" value="<?php echo htmlspecialchars($patient['service']); ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Total Payment:</label>
-                                            <input type="text" class="form-control" name="totalPayment" value="₱<?php echo htmlspecialchars($patient['totalPayment']); ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Date:</label>
-                                            <input type="date" class="form-control" name="date" value="<?php echo htmlspecialchars($patient['date']); ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Authorization for Treatment:</label>
-                                            <input type="text" class="form-control" name="authorization" value="<?php echo htmlspecialchars($patient['authorization']); ?>">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">Entering Complaint:</label>
-                                            <textarea class="form-control" name="enteringComplaint"><?php echo htmlspecialchars($patient['enteringComplaint']); ?></textarea>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">History of Physical:</label>
-                                            <textarea class="form-control" name="historyPhysical"><?php echo htmlspecialchars($patient['historyPhysical']); ?></textarea>
-                                        </div>
+                                    <div class="col-md-4">
+                                    <h5 class="text-center">MEDICAL HISTORY</h5>
+                                    <div class="mb-3">
+                                        <label for="prevVetClinic-<?php echo $patient['id']; ?>" class="form-label">Previous Veterinarian/Clinic:</label>
+                                        <input type="text" class="form-control" id="prevVetClinic-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['previous_veteran']); ?>" readonly>
                                     </div>
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="healthInsurance-<?php echo $patient['id']; ?>" class="form-label">Pet Health Insurance:</label>
+                                        <input type="text" class="form-control" id="healthInsurance-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['health_insurance']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="drugAllergies-<?php echo $patient['id']; ?>" class="form-label">Any known drug allergies:</label>
+                                        <input type="text" class="form-control" id="drugAllergies-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['drug_allergies']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="priorIllnessSurgeries-<?php echo $patient['id']; ?>" class="form-label">Prior Illness(es)/Surgery(ies):</label>
+                                        <input type="text" class="form-control" id="priorIllnessSurgeries-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['illness_surgeries']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="currentMedications-<?php echo $patient['id']; ?>" class="form-label">Current Medications:</label>
+                                        <input type="text" class="form-control" id="currentMedications-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['cur_medications']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="dietRestrictions-<?php echo $patient['id']; ?>" class="form-label">Diet Restrictions/Supplements:</label>
+                                        <input type="text" class="form-control" id="dietRestrictions-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['diet_restrictions']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="reasonInitialVisit-<?php echo $patient['id']; ?>" class="form-label">Reason for Initial Visit:</label>
+                                        <input type="text" class="form-control" id="reasonInitialVisit-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['initial_visits']); ?>" readonly>
+                                    </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                    <h5 class="text-center">OTHER INFORMATION</h5>
+                                    <div class="mb-3">
+                                        <label for="dateToday-<?php echo $patient['id']; ?>" class="form-label">Date Today:</label>
+                                        <input type="text" class="form-control" id="dateToday-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date_return']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="vetName-<?php echo $patient['id']; ?>" class="form-label">Veterinarian’s Name:</label>
+                                        <input type="text" class="form-control" id="vetName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['vet_name']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="authorization-<?php echo $patient['id']; ?>" class="form-label">Authorization for Medical and/or Surgical Treatment (Yes/No):</label>
+                                        <input type="text" class="form-control" id="authorization-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['authorization']); ?>" readonly>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="vetReport-<?php echo $patient['id']; ?>" class="form-label">Veterinarian’s Report:</label>
+                                        <textarea class="form-control" id="vetReport-<?php echo $patient['id']; ?>" rows="3" readonly><?php echo htmlspecialchars($patient['vet_report']); ?></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="historyPhysical<?php echo $patient['id']; ?>" class="form-label">History|Physical Findings|Diagnosis|Treatment|Service:</label>
+                                        <textarea class="form-control" id="historyPhysical-<?php echo $patient['id']; ?>" rows="3" readonly><?php echo htmlspecialchars($patient['historyPhysical']); ?></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="returnVisitDate-<?php echo $patient['id']; ?>" class="form-label">Scheduled for a Return Visit on:</label>
+                                        <input type="date" class="form-control" id="returnVisitDate-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date_return']); ?>" readonly>
+                                    </div>
+                                        
+                                    </div>
+
+                            
+                               </div>                            
                             </div>
+                               
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="modal fade" id="deleteModal<?php echo $patient['id']; ?>" tabindex="-1" aria-labelledby="deleteModalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
-                <div class="modal-dialog modal-sm modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel<?php echo $patient['id']; ?>">Delete Patient Record</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this patient record? This action cannot be undone.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form method="POST" action="../../function/php/delete_patient.php">
-                                <input type="hidden" name="id" value="<?php echo $patient['id']; ?>">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- Modal -->
+                <?php foreach ($records as $record): ?>
+                <div class="modal fade" id="updateRecordModal<?php echo $patient['id']; ?>" tabindex="-1" aria-labelledby="updateRecordModalLabel<?php echo $patient['id']; ?>" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <form action="../../function/php/update_record.php" method="POST">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="updateRecordModalLabel">Update Patient Record</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- CLIENT INFORMATION -->
+                                        <h5>Client Information</h5>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="ownerName" class="form-label">Owner Name</label>
+                                                <input type="text" class="form-control" name="ownerName" id="ownerName" value="<?= $record['ownerName'] ?>" required>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="ownerMiddleName" class="form-label">Owner Middle Name</label>
+                                                <input type="text" class="form-control" name="ownerMiddleName" id="ownerMiddleName" value="<?= $record['ownerMiddleName'] ?>" required>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="ownerLastName" class="form-label">Owner Last Name</label>
+                                                <input type="text" class="form-control" name="ownerLastName" id="ownerLastName" value="<?= $record['ownerLastName'] ?>" required>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="ownerAddress" class="form-label">Complete Address</label>
+                                                <input type="text" class="form-control" name="ownerAddress" id="ownerAddress" value="<?= $record['ownerAddress'] ?>" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="mobile" class="form-label">Contact Number</label>
+                                                <input type="number" class="form-control" name="mobile" id="mobile" value="<?= $record['mobile'] ?>" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="ownerEmail" class="form-label">Email Address</label>
+                                                <input type="email" class="form-control" name="ownerEmail" id="ownerEmail" value="<?= $record['ownerEmail'] ?>" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- PET INFORMATION -->
+                                        <h5>Pet Information</h5>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="petName" class="form-label">Pet's Name</label>
+                                                <input type="text" class="form-control" name="petName" id="petName" value="<?= $record['petName'] ?>" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="petType" class="form-label">Species</label>
+                                                <input type="text" class="form-control" name="petType" id="petType" value="<?= $record['petType'] ?>" required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="breed" class="form-label">Breed</label>
+                                                <input type="text" class="form-control" name="breed" id="breed" value="<?= $record['breed'] ?>">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="sex" class="form-label">Sex</label>
+                                                <select class="form-control" name="sex" id="sex" required>
+                                                    <option value="Male" <?= $record['sex'] == 'Male' ? 'selected' : '' ?>>Male</option>
+                                                    <option value="Female" <?= $record['sex'] == 'Female' ? 'selected' : '' ?>>Female</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="microchipNo" class="form-label">Microchip No</label>
+                                                <input type="text" class="form-control" name="microchipNo" id="microchipNo" value="<?= $record['microchipNo'] ?>">
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="colorMarkings" class="form-label">Color and Markings</label>
+                                                <input type="text" class="form-control" name="colorMarkings" id="colorMarkings" value="<?= $record['colorMarkings'] ?>">
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="dob" class="form-label">Date of Birth</label>
+                                                <input type="date" class="form-control" name="dob" id="dob" value="<?= $record['dob'] ?>">
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="age" class="form-label">Age</label>
+                                                <input type="number" class="form-control" name="age" id="age" value="<?= $record['age'] ?>">
+                                            </div>
+                                        </div>
+
+                                        <!-- MEDICAL HISTORY -->
+                                        <h5>Medical History</h5>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="previous_veteran" class="form-label">Previous Veterinarian/Clinic</label>
+                                                <input type="text" class="form-control" name="previous_veteran" id="previous_veteran" value="<?= $record['previous_veteran'] ?>">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="health_insurance" class="form-label">Pet Health Insurance</label>
+                                                <input type="text" class="form-control" name="health_insurance" id="health_insurance" value="<?= $record['health_insurance'] ?>">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="drug_allergies" class="form-label">Any Known Drug Allergies</label>
+                                                <input type="text" class="form-control" name="drug_allergies" id="drug_allergies" value="<?= $record['drug_allergies'] ?>">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="illness_surgeries" class="form-label">Prior Illness(es)/Surgery(ies)</label>
+                                                <textarea class="form-control" name="illness_surgeries" id="illness_surgeries" rows="2"><?= $record['illness_surgeries'] ?></textarea>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="cur_medications" class="form-label">Current Medications</label>
+                                                <input type="text" class="form-control" name="cur_medications" id="cur_medications" value="<?= $record['cur_medications'] ?>">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="diet_restrictions" class="form-label">Diet Restrictions/Supplements</label>
+                                                <textarea class="form-control" name="diet_restrictions" id="diet_restrictions" rows="2"><?= $record['diet_restrictions'] ?></textarea>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="initial_visits" class="form-label">Reason for Initial Visit</label>
+                                                <textarea class="form-control" name="initial_visits" id="initial_visits" rows="2"><?= $record['initial_visits'] ?></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- OTHER INFORMATION -->
+                                        <h5>Other Information</h5>
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="vet_name" class="form-label">Veterinarian's Name</label>
+                                                <input type="text" class="form-control" name="vet_name" id="vet_name" value="<?= $record['vet_name'] ?>">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="authorization" class="form-label">Authorization for Treatment (Yes/No)</label>
+                                                <select class="form-control" name="authorization" id="authorization" required>
+                                                    <option value="Yes" <?= $record['authorization'] == 'Yes' ? 'selected' : '' ?>>Yes</option>
+                                                    <option value="No" <?= $record['authorization'] == 'No' ? 'selected' : '' ?>>No</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="vet_report" class="form-label">Veterinarian’s Report</label>
+                                                <textarea class="form-control" name="vet_report" id="vet_report" rows="3"><?= $record['vet_report'] ?></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="historyPhysical" class="form-label">History|Physical Findings|Diagnosis|Treatment|Service:</label>
+                                                <textarea class="form-control" name="historyPhysical" id="historyPhysical" rows="3"><?= $record['historyPhysical'] ?></textarea>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="date_return" class="form-label">Scheduled for a Return Visit on</label>
+                                                <input type="date" class="form-control" name="date_return" id="date_return" value="<?= $record['date_return'] ?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success">Update Record</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+
+
+          
+
+            
             <?php endforeach; ?>
         </tbody>
     </table>

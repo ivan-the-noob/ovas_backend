@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contact_number = $_POST['contactNum'] ?? '';
     $email = $_POST['ownerEmail'] ?? '';
     $address = $_POST['ownerAddress'] ?? '';
-    $pet_type = $_POST['petType'] ?? '';
+    $pet_type = $_POST['pet_name'] ?? '';
+    $pet_name = $_POST['petName'] ?? '';
     $breed = $_POST['breed'] ?? '';
     $age = $_POST['age'] ?? 0;
     $selected_service = $_POST['selectedService'] ?? '';
@@ -53,14 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         $stmt = $conn->prepare("INSERT INTO appointments 
-            (owner_name, contact_number, email, address, pet_type, breed, age, service_category, service_type, appointment_time, appointment_date, total_payment, payment_method, gcash_screenshot, reference)
-            VALUES (:owner_name, :contact_number, :email, :address, :pet_type, :breed, :age, :service_category, :service_type, :appointment_time, :appointment_date, :total_payment, :payment_method, :gcash_screenshot, :reference)");
-
-        // Bind parameters
+            (owner_name, contact_number, email, address, pet_name, pet_type, breed, age, service_category, service_type, appointment_time, appointment_date, total_payment, payment_method, gcash_screenshot, reference)
+            VALUES (:owner_name, :contact_number, :email, :address, :pet_name, :pet_type, :breed, :age, :service_category, :service_type, :appointment_time, :appointment_date, :total_payment, :payment_method, :gcash_screenshot, :reference)");
+    
         $stmt->bindParam(':owner_name', $owner_name);
         $stmt->bindParam(':contact_number', $contact_number);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':address', $address);
+        $stmt->bindParam(':pet_name', $pet_name); 
         $stmt->bindParam(':pet_type', $pet_type);
         $stmt->bindParam(':breed', $breed);
         $stmt->bindParam(':age', $age, PDO::PARAM_INT);
@@ -72,25 +73,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':payment_method', $payment_method);
         $stmt->bindParam(':gcash_screenshot', $gcash_screenshot); 
         $stmt->bindParam(':reference', $reference); 
-
+    
         if ($stmt->execute()) {
             $notification_stmt = $conn->prepare("INSERT INTO notifications 
                 (email, type, message) VALUES (:email, :type, :message)");
-
+    
             $type = 'Success';
             $message = 'You successfully booked! Please wait for confirmation.';
-
+    
             $notification_stmt->bindParam(':email', $email);
             $notification_stmt->bindParam(':type', $type);
             $notification_stmt->bindParam(':message', $message);
-
+            
+            $_SESSION['booked'] = true;
+    
             if ($notification_stmt->execute()) {
                 $_SESSION['success_message'] = '<div class="notification-content alert-primary">
                     <strong>Successfully Booked!</strong>
                     <p class="notification-text">You successfully booked! Please Wait for Confirmation</p>
                 </div>';
 
-                $_SESSION['booked'] = true;
 
                 header('Location: ../../web/api/appointments.php');
                 exit;

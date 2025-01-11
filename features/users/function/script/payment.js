@@ -18,7 +18,12 @@ function selectPayment(paymentMethod, button) {
 
     const gcashDetails = document.getElementById('gcash-details');
     if (paymentMethod === 'gcash') {
-        gcashDetails.style.display = 'block';
+        gcashDetails.style.display = 'block'; 
+        // Show the GCash modal
+        var myModal = new bootstrap.Modal(document.getElementById('gcashModal'), {
+            keyboard: false
+        });
+        myModal.show();
     } else {
         gcashDetails.style.display = 'none'; 
     }

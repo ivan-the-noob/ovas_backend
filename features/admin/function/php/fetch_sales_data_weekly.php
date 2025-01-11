@@ -15,7 +15,7 @@ $stmtThisWeek = $conn->prepare("
 $stmtThisWeek->execute();
 $thisWeekResults = $stmtThisWeek->fetchAll(PDO::FETCH_ASSOC);
 foreach ($thisWeekResults as $row) {
-    $thisWeekData[$row['day'] - 1] = (int) $row['total'];
+    $thisWeekData[$row['day'] - 2] = (int) $row['total'];
 }
 
 // Get data for Last Week

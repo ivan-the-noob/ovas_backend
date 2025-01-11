@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['contact_num'] = $user['contact_num']; 
                 $_SESSION['address'] = $user['address']; 
                 $_SESSION['profile_picture'] = $user['profile_picture']; 
+                $_SESSION['last_name'] = $user['last_name'];
 
                 echo "<p class='alert alert-success'>Login successful! Redirecting...</p>";
 

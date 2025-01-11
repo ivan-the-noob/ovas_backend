@@ -2,7 +2,7 @@
 require '../../../../db.php'; 
 
 try {
-    $sql = "SELECT GROUP_CONCAT(appointment_date) AS dates FROM appointments";
+    $sql = "SELECT GROUP_CONCAT(appointment_date) AS dates FROM appointments WHERE status = 'confirm'";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 

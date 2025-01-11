@@ -29,10 +29,10 @@
                         ?>
                         <form method="POST" action="login.php">
                             <div class="mb-3">
-                                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                                <input type="email" class="form-control" name="email" id="emailInput" placeholder="Enter your email" required>
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" name="password" placeholder="Enter password" required>
+                                <input type="password" class="form-control" name="password" id="passwordInput" placeholder="Enter password" required>
                             </div>
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="showPassword">

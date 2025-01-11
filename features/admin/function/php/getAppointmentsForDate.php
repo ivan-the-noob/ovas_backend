@@ -4,7 +4,7 @@ require '../../../../db.php';
 if (isset($_POST['date'])) {
     $date = $_POST['date'];
     try {
-        $sql = "SELECT * FROM appointments WHERE appointment_date = :date";
+        $sql = "SELECT * FROM appointments WHERE appointment_date = :date AND status = 'confirm'";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':date', $date, PDO::PARAM_STR);
         $stmt->execute();

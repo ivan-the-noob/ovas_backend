@@ -11,7 +11,6 @@
     background-size:cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,6 +78,7 @@ input{
 }
 .login-right input[type="text"],
 .login-right input[type="email"],
+.login-right input[type="tel"],
 .login-right input[type="number"],
 .login-right input[type="password"] {
     border-radius: 20px;    
