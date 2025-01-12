@@ -38,10 +38,11 @@
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="app-records.php">
-                <i class="fa-regular fa-calendar-check"></i>
-                <span>Patients Records</span>
+            <a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
             </a>
+          
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
@@ -54,7 +55,7 @@
                 <i class="fas fa-exchange-alt"></i>
                 <span>Transaction</span>
             </a>
-            
+          
         </div>
     </div>
         <!--Navigation Links End-->
@@ -113,23 +114,7 @@
                     
                         <h5>Add Medication or Supplies</h5>
 
-                        <div class="container">
-                            <div class="row justify-content-end">
-                                <div class="col-7 text-center">
-                                    <div class="pos-buttons">
-                                        <button type="button"  class="pos-button btn btn-primary m-1" data-value="0">0</button>
-                                        <button type="button" class="pos-button btn btn-primary m-1" data-value="1">1</button>
-                                        <button type="button" class="pos-button btn btn-primary m-1" data-value="5">5</button>
-                                        <button type="button" class="pos-button btn btn-primary m-1" data-value="10">10</button>
-                                        <button type="button" class="pos-button btn btn-primary m-1" data-value="20">20</button>
-                                        <button type="button" class="pos-button btn btn-primary m-1" data-value="50">50</button>
-                                        <button type="button" class="pos-button btn btn-primary m-1" data-value="100">100</button>
-                                        <button type="button" class="pos-button btn btn-primary m-1" data-value="1000">1000</button>
-                                        <button type="button" class="undo-button btn btn-secondary m-1"><i class="fas fa-arrow-left"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div id="medication-group">
                             <div class="form-group row medication-item">
                                 <label class="col-4 col-form-label">Medications:</label>
@@ -175,11 +160,10 @@
                                 <input type="number" class="form-control" name="changee" placeholder="₱00.0" readonly required>
                             </div>
                         </div>
-
-
-                        <button type="submit" class="save">Add Bills</button>
+                        <button type="submit" class="save" style="padding: 10px 40px;">Print</button>
                     </div>
                 </div>
+               
             </div>
         </div>     
     </form>

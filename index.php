@@ -73,12 +73,18 @@ try {
           <li class="nav-item">
             <a class="nav-link" href="#services">Our Services</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="features\users\web\api\appointments.php">Appointment</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="features\users\web\api\settings.php">Settings</a>
-          </li>
+          <?php
+            if (isset($_SESSION['email'])): 
+            ?>
+              <li class="nav-item">
+                <a class="nav-link" href="features/users/web/api/appointments.php">Appointment</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="features/users/web/api/settings.php">Settings</a>
+              </li>
+            <?php
+            endif;
+            ?>
         </ul>
 
         <div class="d-flex ml-auto align-items-center">

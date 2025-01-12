@@ -53,10 +53,7 @@ $latestApprovedReviews = array_filter($reviews, function($review) {
             <i class="fa-solid fa-file-lines"></i>
                 <span>Reports</span>
             </a>
-            <a href="app-records.php">
-                <i class="fa-regular fa-calendar-check"></i>
-                <span>Patients Records</span>
-            </a>
+           
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>

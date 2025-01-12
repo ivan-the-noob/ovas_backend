@@ -22,26 +22,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['address'] = $user['address']; 
                 $_SESSION['profile_picture'] = $user['profile_picture']; 
                 $_SESSION['last_name'] = $user['last_name'];
+                echo "<script>
+                        document.getElementById('emailInput').style.opacity = '0';
+                        document.getElementById('passwordInput').style.opacity = '0';
+                        document.getElementById('showPassword').style.opacity = '0';
+                      </script>";
 
                 echo "<p class='alert alert-success'>Login successful! Redirecting...</p>";
+
 
                 if ($user['role'] === 'admin') {
                     echo "<script>
                             setTimeout(function() {
                                 window.location.href = '../../../admin/web/api/admin.php';
-                            }, 2000); 
+                            }, 500); 
                           </script>";
                 } elseif ($user['role'] === 'staff') { 
                     echo "<script>
                             setTimeout(function() {
                                 window.location.href = '../../../Staff/web/api/admin.php';
-                            }, 2000); 
+                            }, 500); 
                           </script>";
                 } else {
                     echo "<script>
                             setTimeout(function() {
                                 window.location.href = '../../../../index.php';
-                            }, 2000); 
+                            }, 500); 
                           </script>";
                 }
             } else {

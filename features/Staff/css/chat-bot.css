@@ -130,7 +130,7 @@ body {
     display: flex;
     align-items: center;
     margin-left: auto;
-    gap: 20px;
+    gap: 5px;
 }
 .profile-admin img {
     width: 40px;
@@ -163,22 +163,13 @@ body {
     padding-left: 16px;
     margin-top: 20px;
 }
+
+.admin-profile{
+    border:  3px solid #7A3015;
+}
 /*Navbar Section End*/
 
 /*Appointment Request Section*/
-
-.card{
-    height: 66vh;
-}
-
-.cards{
-    height: 40vh;
-}
-
-.card-btn{
-    display: flex;
-    margin-top: 40px;
-}
 
 .app-req{
     padding: 10px 20px;
@@ -188,12 +179,6 @@ body {
     padding: 30px 0 0 20px !important;
     color: #7A3015;
 }
-
-.app-date{
-    background-color: #7A3015;
-    color: #fff !important;
-}
-
 
 
 .table-remove-borders th,
@@ -215,6 +200,8 @@ body {
 tr:hover{
     background-color: #FFFFFF;
 }
+
+
 
 .table-wrapper{
     overflow-x: auto;
@@ -288,10 +275,12 @@ tr:hover{
     border-radius: 10px !important;
 }
 .modal-dialog{
-    max-width: 50%;
-    display: flex;
-    margin: auto;
+    max-width: 80%;
 }
+
+
+
+
 @media (max-width: 768px) {
     .modal-dialog {
         max-width: 80%;
@@ -308,6 +297,12 @@ tr:hover{
 .medical-services a{
     word-break: break-word;
 }
+
+.modal-content {
+    width: 50%;
+}
+
+
 
 .modal-body label{
     color: #7A3015;
@@ -366,6 +361,11 @@ tr:hover{
 
 }
 
+.modal-header button{
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+}
 
 
 
@@ -377,15 +377,8 @@ ul a:hover{
     color: #fff !important;
 }
  .dropdown-toggle{
-    border: none;
-}
-
-.view-details{
     background-color: #7A3015;
     border: none;
-    color: #fff;
-    padding: 6px 16px;
-    border-radius: 10px;
 }
 
 .walkin{
@@ -396,6 +389,13 @@ ul a:hover{
     border-radius: 5px;
 }
 
+.swal-icon img{
+    height: 10vh !important;
+}
+
+.swal-button-container button{
+    background-color: green;
+}
 /*Appointment Request End*/
 
 
@@ -429,10 +429,219 @@ ul a:hover{
 }
 
 
-
 .dropdown menu li{
     background-color: #fff !important;
 }
+
+/*Form Section*/
+
+.modal-header button{
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+}
+tbody input{
+    border-radius: 0 !important;
+    border: 1px solid #808080 !important;
+}
+
+.form-row{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.species{
+    border: .5px solid #dddada;
+    border-radius: 10px;
+    color: #000 !important;
+
+}
+
+.species label{
+    color: #808080 !important;
+    font-size: 13px;
+}
+
+
+.deworming{
+    width: 100% !important;
+}
+
+.modal-xl{
+    width: 100% !important;
+}
+
+
+.dwrm{
+    border: none !important;
+    width: 100%;
+}
+
+
+
+
+.dwrm td{
+    white-space: nowrap;
+}
+.title{
+    height: 5vh !important;
+}
+
+.deworming th, .vac th{
+    background-color: #808080;
+    color: #fff;
+}
+
+.radio-label{
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.input-col textarea {
+    height: 100%;
+    width: 80%;
+}
+
+
+.bcs{
+    width: 20%;
+}
+
+
+.bcs p{
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+}
+
+.stool , .vomiting , .ticks_fleas{
+    color: #000 !important;
+}
+
+.stool p, .vomiting p , .ticks_fleas p{
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+}
+
+.stool{
+    width: 25%;
+}
+
+
+
+.button-checkup{
+    width: 100%;
+}
+
+.checkup-btn{
+    background-color: #7A3015;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+    display: flex;
+    margin-left: auto;
+    margin-right: 5%;
+    
+}
+
+.checkup-btn:hover{
+    background-color:#af5433;
+    color :#fff;
+}
+
+.swal2-confirm{
+    background-color: green;
+    margin-left: auto;
+    margin-right: 5%;
+}
+
+.swal2-actions{
+    width: 100%;
+}
+
+.card-body button{
+    display: flex;
+    margin: auto;
+}
+
+
+.modal-body {
+    overflow-y: auto;
+}
+
+.physical-exam p{
+    color: #fff !important;
+    border: 1px solid #dddada;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #808080;
+    
+}
+
+.phy-bcs p{
+    border: 1px solid #dddada;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #000;
+}
+
+.form-group p{
+    white-space: nowrap !important;
+}
+
+.bordered-box {
+    border: 1px solid #dddada;
+    padding: 10px;
+}
+
+.border-box{
+    border: 1px solid #dddada;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+   
+}
+
+.border-box p{
+    color: #000 !important;
+    font-size: 15px;
+    margin-bottom: 0 !important;
+    white-space: wrap;
+
+}
+
+.border-box textarea{
+    height: 100%;
+    border-radius: 0 !important;
+}
+
+.laboratory, .phy-weight, .chief , .treatment{
+    width: 100%;
+    background-color: #808080;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.form-check-label {
+    padding-left: 5px;
+}
+
+.print button{
+    margin-left: auto;
+    background-color:  #af5433;
+    color: #fff;
+    width: 200px;
+}
+
+.print button:hover{
+    background-color: red;
+    color: #fff;
+}
+/*Form Section End*/
 
 /*Notif Section*/
 
@@ -462,4 +671,6 @@ ul a:hover{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
 

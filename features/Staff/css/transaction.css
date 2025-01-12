@@ -14,7 +14,6 @@ body {
 
 /*Navbar Section*/
 .navbar {
-    height: 100vh;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
@@ -224,6 +223,17 @@ input, textarea{
     border-radius: 5px;
     width: 100px;   
 }
+
+th,td{
+    white-space: nowrap;
+}
+
+th{
+    color: #fff !important;
+    background-color: #7A3015 !important;
+    padding: 10px !important;
+}
+
 
 
 

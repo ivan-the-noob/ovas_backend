@@ -103,10 +103,7 @@
             <i class="fa-solid fa-file-lines"></i>
                 <span>Reports</span>
             </a>
-            <a href="app-records.php">
-                <i class="fa-regular fa-calendar-check"></i>
-                <span>Patients Records</span>
-            </a>
+           
             <a href="app-records-list.php"  class="navbar-highlight">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
@@ -360,6 +357,155 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Add Record Modal -->
+<div class="modal fade" id="addRecordModal" tabindex="-1" aria-labelledby="addRecordModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form action="../../function/php/add_record.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRecordModalLabel">Add New Record</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Client Information -->
+                        <div class="col-md-6">
+                            <h5>Client Information</h5>
+                            <div class="mb-3">
+                                <label for="ownerName" class="form-label">First Name*</label>
+                                <input type="text" class="form-control" id="ownerName" name="ownerName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ownerMiddleName" class="form-label">Middle Name</label>
+                                <input type="text" class="form-control" id="ownerMiddleName" name="ownerMiddleName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="ownerLastName" class="form-label">Last Name*</label>
+                                <input type="text" class="form-control" id="ownerLastName" name="ownerLastName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ownerAddress" class="form-label">Address*</label>
+                                <input type="text" class="form-control" id="ownerAddress" name="ownerAddress" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="mobile" class="form-label">Mobile Number*</label>
+                                <input type="number" class="form-control" id="mobile" name="mobile" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="ownerEmail" class="form-label">Email*</label>
+                                <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" required>
+                            </div>
+                        </div>
+
+                        <!-- Pet Information -->
+                        <div class="col-md-6">
+                            <h5>Pet Information</h5>
+                            <div class="mb-3">
+                                <label for="petName" class="form-label">Pet's Name*</label>
+                                <input type="text" class="form-control" id="petName" name="petName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="petType" class="form-label">Species*</label>
+                                <input type="text" class="form-control" id="petType" name="petType" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="breed" class="form-label">Breed*</label>
+                                <input type="text" class="form-control" id="breed" name="breed" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="sex" class="form-label">Sex*</label>
+                                <select class="form-select" id="sex" name="sex" required>
+                                    <option value="" selected disabled>Choose...</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="microchipNo" class="form-label">Microchip No*</label>
+                                <input type="number" class="form-control" id="microchipNo" name="microchipNo"  required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="colorMarkings" class="form-label">Color and Markings*</label>
+                                <input type="text" class="form-control" id="colorMarkings" name="colorMarkings"  required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dob" class="form-label">Date of Birth*</label>
+                                <input type="date" class="form-control" id="dob" name="dob"  required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age*</label>
+                                <input type="number" class="form-control" id="age" name="age"  required>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Medical History -->
+                    <h5>Medical History</h5>
+                    <div class="mb-3">
+                        <label for="previous_veteran" class="form-label">Previous Veterinarian/Clinic</label>
+                        <input type="text" class="form-control" id="previous_veteran" name="previous_veteran" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="health_insurance" class="form-label">Pet Health Insurance</label>
+                        <input type="text" class="form-control" id="health_insurance" name="health_insurance">
+                    </div>
+                    <div class="mb-3">
+                        <label for="drug_allergies" class="form-label">Drug Allergies</label>
+                        <input type="text" class="form-control" id="drug_allergies" name="drug_allergies">
+                    </div>
+                    <div class="mb-3">
+                        <label for="illness_surgeries" class="form-label">Illnesses/Surgeries</label>
+                        <input type="text" class="form-control" id="illness_surgeries" name="illness_surgeries">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cur_medications" class="form-label">Current Medications</label>
+                        <input type="text" class="form-control" id="cur_medications" name="cur_medications">
+                    </div>
+                    <div class="mb-3">
+                        <label for="diet_restrictions" class="form-label">Diet Restrictions</label>
+                        <input type="text" class="form-control" id="diet_restrictions" name="diet_restrictions">
+                    </div>
+                    <div class="mb-3">
+                        <label for="initial_visits" class="form-label">Reason for Initial Visit</label>
+                        <input type="text" class="form-control" id="initial_visits" name="initial_visits">
+                    </div>
+                    <hr>
+
+                    <!-- Other Information -->
+                    <h5>Other Information</h5>
+                    <div class="mb-3">
+                        <label for="vet_name" class="form-label">Veterinarian’s Name*</label>
+                        <input type="text" class="form-control" id="vet_name" name="vet_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="authorization" class="form-label">Authorization for Treatment (Yes/No)*</label>
+                        <input type="text" class="form-control" id="authorization" name="authorization" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="vet_report" class="form-label">Veterinarian’s Report*</label>
+                        <textarea class="form-control" id="vet_report" name="vet_report" rows="3"  required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="historyPhysical" class="form-label">History|Physical Findings|Diagnosis*</label>
+                        <textarea class="form-control" id="historyPhysical" name="historyPhysical" rows="3"  required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_return" class="form-label">Scheduled Return Date*</label>
+                        <input type="date" class="form-control" id="date_return" name="date_return" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Record</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
                 <!-- Modal -->
                 <?php foreach ($records as $record): ?>

@@ -85,15 +85,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute();
             }
 
-            // Return success response with new code if applicable
-            echo json_encode(['success' => true, 'code' => $newCode ?? null]);
+            // Return success response
+            echo 'success';
         } catch (PDOException $e) {
             // Return error message
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            echo 'failure';
         }
     } else {
         // Invalid data
-        echo json_encode(['success' => false, 'message' => 'Invalid data']);
+        echo 'failure';
     }
     $conn = null; 
 }

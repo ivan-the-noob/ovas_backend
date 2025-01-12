@@ -42,10 +42,11 @@
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="app-records.php">
-                <i class="fa-regular fa-calendar-check"></i>
-                <span>Patients Records</span>
+            <a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
             </a>
+            
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
@@ -58,11 +59,11 @@
                 <i class="fas fa-exchange-alt"></i>
                 <span>Transaction</span>
             </a>
-            
+           
         </div>
     </div>
      <!--Navigation Links End-->
-    <div class="content flex-grow-1">
+    <div class="content" style="width: 82%">
         <div class="header">
             <button class="navbar-toggler d-block d-md-none" type="button" onclick="toggleMenu()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -118,78 +119,78 @@
             
 
             <div class="container my-4 px-lg-4">
-    <div class="row px-lg-4" id="cardContainer">
-        <?php foreach ($records as $record): 
-            $services = json_decode($record['services'], true);
-            $costs = json_decode($record['cost'], true); 
-            $medications = json_decode($record['medication'], true);
-            $supplies = json_decode($record['supplies'], true);
-            $total = !empty($record['total']) && is_numeric($record['total']) ? number_format($record['total'], 2) : '0.00';
-            $cash_tendered = !empty($record['cash_tendered']) && is_numeric($record['cash_tendered']) ? number_format($record['cash_tendered'], 2) : '0.00'; // Get cash_tendered
-            $changee = !empty($record['changee']) && is_numeric($record['changee']) ? number_format($record['changee'], 2) : '0.00'; // Get changee
-        ?>
-        <div class="col-md-4 mb-4 card-item">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Thank you, <span class="fw-bold"><?php echo htmlspecialchars($record['owner_name']); ?>.</span></h5>
-                    <div class="mb-3">
-                        <label for="service" class="form-label fw-bold">Services:</label>
-                        <?php if (is_array($services) && is_array($costs)): ?>
-                            <?php foreach ($services as $index => $service): ?>
-                                <div class="d-flex justify-content-between">
-                                    <span id="service"><?php echo htmlspecialchars($service); ?></span>
-                                    <span>₱ <?php echo isset($costs[$index]) ? number_format((float)$costs[$index], 2) : '0.00'; ?></span>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-                    <?php if (!empty($medications)): ?>
-                    <div class="mb-3">
-                        <label for="medication" class="form-label fw-bold">Add Medication or Supplies:</label>
-                        <?php foreach ($medications as $medication): ?>
-                        <div class="d-flex justify-content-between">
-                            <span id="medication"><?php echo htmlspecialchars($medication); ?></span>
-                            <span>₱ 25.00</span> 
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
-                    <?php if (!empty($supplies)): ?>
-                    <div class="mb-3">
-                        <label for="supplies" class="form-label fw-bold">Supplies:</label>
-                        <?php foreach ($supplies as $supply): ?>
-                        <div class="d-flex justify-content-between">
-                            <span id="supplies"><?php echo htmlspecialchars($supply); ?></span>
-                            <span>₱ 299.00</span>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php endif; ?>
-                    <div class="d-flex justify-content-between fw-bold">
-                        <span>TOTAL:</span>
-                        <span>₱ <?php echo $total; ?></span>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between fw-bold mt-3">
-                        <span>CASH TENDERED:</span>
-                        <span>₱ <?php echo $cash_tendered; ?></span>
-                    </div>
-                    
-                    <div class="d-flex justify-content-between fw-bold">
-                        <span>CHANGE:</span>
-                        <span>₱ <?php echo $changee; ?></span>
-                    </div>
-                    
-                    <div class="buttons d-flex justify-content-center gap-2">
-                        <button onclick="printCard(this)">Print</button>
-                        <button class="paid">Paid</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
-    </div>
+            <div class="table-responsive" style="max-width: 100%; overflow-x: auto;">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Owner Name</th>
+                        <th>Date</th>
+                        <th>Services</th>
+                        <th>Medication/Supplies</th>
+                        <th>Total</th>
+                        <th>Cash Tendered</th>
+                        <th>Change</th>
+                        <!-- <th>Actions</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($records as $record): 
+                        $services = json_decode($record['services'], true);
+                        $costs = json_decode($record['cost'], true); 
+                        $medications = json_decode($record['medication'], true);
+                        $supplies = json_decode($record['supplies'], true);
+                        $total = !empty($record['total']) && is_numeric($record['total']) ? number_format($record['total'], 2) : '0.00';
+                        $cash_tendered = !empty($record['cash_tendered']) && is_numeric($record['cash_tendered']) ? number_format($record['cash_tendered'], 2) : '0.00'; 
+                        $changee = !empty($record['changee']) && is_numeric($record['changee']) ? number_format($record['changee'], 2) : '0.00'; 
+                    ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($record['owner_name']); ?></td>
+                        <td><?php echo htmlspecialchars($record['timestamp']); ?></td>
+                        <td>
+                            <?php if (is_array($services) && is_array($costs)): ?>
+                                <ul class="list-unstyled">
+                                    <?php foreach ($services as $index => $service): ?>
+                                        <li>
+                                            <?php echo htmlspecialchars($service); ?> - ₱ <?php echo isset($costs[$index]) ? number_format((float)$costs[$index], 2) : '0.00'; ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if (!empty($medications) || !empty($supplies)): ?>
+                                <ul class="list-unstyled">
+                                    <?php if (!empty($medications)): ?>
+                                        <?php foreach ($medications as $medication): ?>
+                                            <li>
+                                                <?php echo htmlspecialchars($medication); ?> - ₱ 25.00
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    <?php if (!empty($supplies)): ?>
+                                        <?php foreach ($supplies as $supply): ?>
+                                            <li>
+                                                <?php echo htmlspecialchars($supply); ?> - ₱ 299.00
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </td>
+                        <td>₱ <?php echo $total; ?></td>
+                        <td>₱ <?php echo $cash_tendered; ?></td>
+                        <td>₱ <?php echo $changee; ?></td>
+                        <!-- <td>
+                            <button class="btn btn-primary btn-sm" onclick="printCard(this)">Print</button>
+                            <button class="btn btn-success btn-sm paid">Paid</button>
+                        </td> -->
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+    <div class="table-responsive">
 </div>
+
 
         
 
