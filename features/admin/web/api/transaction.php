@@ -151,11 +151,12 @@
                 </script>
             
 
-            <div class="container my-4 px-lg-4">
+            <div class="container w-100">
             <div class="table-responsive" style="max-width: 100%; overflow-x: auto;">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Owner Name</th>
                         <th>Date</th>
                         <th>Services</th>
@@ -163,11 +164,13 @@
                         <th>Total</th>
                         <th>Cash Tendered</th>
                         <th>Change</th>
+                        <th>Actions</th>
                         <!-- <th>Actions</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($records as $record): 
+                        $id = json_decode($record['id'], true);
                         $services = json_decode($record['services'], true);
                         $costs = json_decode($record['cost'], true); 
                         $medications = json_decode($record['medication'], true);
@@ -177,6 +180,7 @@
                         $changee = !empty($record['changee']) && is_numeric($record['changee']) ? number_format($record['changee'], 2) : '0.00'; 
                     ?>
                     <tr>
+                    <td><?php echo htmlspecialchars($record['id']); ?></td>
                         <td><?php echo htmlspecialchars($record['owner_name']); ?></td>
                         <td><?php echo htmlspecialchars($record['timestamp']); ?></td>
                         <td>
@@ -213,93 +217,101 @@
                         <td>₱ <?php echo $total; ?></td>
                         <td>₱ <?php echo $cash_tendered; ?></td>
                         <td>₱ <?php echo $changee; ?></td>
-                        <!-- <td>
+                        <td>
                             <button class="btn btn-primary btn-sm" onclick="printCard(this)">Print</button>
-                            <button class="btn btn-success btn-sm paid">Paid</button>
-                        </td> -->
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-    <div class="table-responsive">
-</div>
 
-
-        
-
-<script>
-    function printCard(button) {
-    var card = button.closest('.card');
-    
-    var buttons = card.querySelector('.buttons');
-    if (buttons) {
-        buttons.remove();  
+            <script>
+function printCard(button) {
+    const row = button.closest('tr');
+    if (!row) {
+        console.error('Row not found for the clicked button.');
+        return;
     }
 
+    const id = row.children[0]?.textContent.trim() || 'N/A';
+    const ownerName = row.children[1]?.textContent.trim() || 'N/A';
+    const date = row.children[2]?.textContent.trim() || 'N/A';
+    const services = row.children[3]?.innerHTML.trim() || '<li>No Services</li>';
+    const medicationSupplies = row.children[4]?.innerHTML.trim() || '<li>No Medication</li>';
+    const total = row.children[5]?.textContent.trim() || 'N/A';
+    const cashTendered = row.children[6]?.textContent.trim() || 'N/A';
+    const change = row.children[7]?.textContent.trim() || 'N/A';
 
-    var brandHeader = document.createElement('div');
-    var today = new Date();
-    
-    var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    var formattedDate = today.toLocaleDateString('en-US', options);
-    
-    brandHeader.innerHTML = `
-        <p style="text-align: end; padding: 3px;">${formattedDate}</p>
-        <h5 style="text-align: center;">Bark Yard Pet Salon and Wellness Clinic</h5>
-        <div style="border: 2px solid #7A3015; width: 80%; justify-content: center; margin: auto;"></div>
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Receipt</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    padding: 20px;
+                }
+                .receipt {
+                    width: 300px;
+                    margin: auto;
+                    border: 1px solid #000;
+                    padding: 15px;
+                    text-align: center;
+                }
+                .receipt h2 {
+                    margin: 0 0 10px;
+                }
+                .receipt p {
+                    margin: 5px 0;
+                }
+                .receipt .services, .receipt .medication-supplies {
+                    text-align: left;
+                    margin-top: 10px;
+                }
+                .receipt .total {
+                    font-weight: bold;
+                    margin-top: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="receipt">
+                <div style="display:flex; gap: 20px; justify-content-center; margin: auto; align-items-center">
+                <img src="../../../../assets/img/vet logo.jpg" style="width: 80px; height: 50px; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+                <p class="Text-center">Bark Yards</p>
+                </div>
+                <hr>
+                <h4>Thank you for trusting Bark Yard!</h4>
+                <p><strong>Owner Name:</strong> ${ownerName}</p>
+                <p class="fs-8"><strong>Date:</strong> ${date}</p>
+                
+                <div class="services">
+                    <strong>Services:</strong>
+                    <ul>${services}</ul>
+                </div>
+                <div class="medication-supplies">
+                    <strong>Medication/Supplies:</strong>
+                    <ul>${medicationSupplies}</ul>
+                </div>
+                <hr>
 
-    `;
-    
-    card.prepend(brandHeader);
+                <p class="total"><strong>Total:</strong>  ${total}</p>
+                <p><strong>Cash Tendered:</strong>  ${cashTendered}</p>
+                <p><strong>Change:</strong>  ${change}</p>
+            </div>
+        </body>
+        </html>
+    `);
 
-    html2canvas(card, { scale: 2 }).then(function(canvas) {
-        var imgData = canvas.toDataURL('image/png');
-        
-        var printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <html>
-            <head>
-                <title>Print Card</title>
-                <style>
-                    body {
-                        margin: 0;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100vh;
-                        width: 100vw;
-                        overflow: hidden;
-                    }
-                    img {
-                        width: 50%;
-                        height: auto;
-                    }
-                </style>
-            </head>
-            <body>
-                <img src="${imgData}" />
-            </body>
-            </html>
-        `);
-        printWindow.document.close();
-        printWindow.focus();
-
-        printWindow.onafterprint = function() {
-            printWindow.close();
-            location.reload(); 
-        };
-        
-        printWindow.onload = function() {
-            printWindow.print();
-        };
-
-    }).catch(function(error) {
-        console.error('Error capturing the card for printing:', error);
-    });
+    printWindow.document.close();
+    printWindow.print();
 }
 
-
 </script>
+
+   
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

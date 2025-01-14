@@ -412,11 +412,16 @@
   opacity: 0;
   transition: all 0.5s ease-out;
   border-radius: 10px;
+  height: 30vh;
   
 }
+
 .testimonial-card-custom img {
   border-radius: 50%;
   border: 2px solid #fff;
+  width: 70px;
+ 
+  
 }
 
 .testimonial-card-custom p{

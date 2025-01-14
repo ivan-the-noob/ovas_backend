@@ -37,7 +37,7 @@
                             <div id="signup-fields">
                                 <div class="d-flex gap-1">
                                     <div class="mb-3">
-                                        <input type="text" name="name" class="form-control" placeholder="First Name." required>
+                                        <input type="text" name="name" class="form-control" placeholder="First Name" required>
                                     </div>
                                     <div class="mb-3">
                                         <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
@@ -76,7 +76,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                                                <h5 class="modal-title text-black" id="termsModalLabel">Terms and Conditions</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -133,6 +133,7 @@
                                                     <li><strong>Changes to Terms</strong>
                                                         <p>We may update these terms from time to time. Changes will be communicated via email or through the platform.</p>
                                                     </li>
+                                                        <p>By clicking Sign Up, you agree to our Terms and Conditions and Privacy Policy, including the collection, use, and sharing of your information as described therein</p>
                                                 </ol>
                                             </div>
                                             <div class="modal-footer">
@@ -156,7 +157,7 @@
 
                                 <button type="submit" name="signup" class="btn btn-success w-100">Sign Up</button>
                                 <div class="text-center mt-3">
-                                    <a href="login.php">Have an account? <span class="btn-link login">Login</span></a>
+                                    <a href="login.php">Already have an account? <span class="btn-link login">Login</span></a>
                                 </div>
                             </div>        
 

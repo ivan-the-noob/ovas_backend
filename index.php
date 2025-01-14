@@ -70,134 +70,95 @@ try {
 <body>
 
 
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-      <a class="navbar-brand d-none d-md-block" href="#">
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand d-none d-md-block" href="#">
       <img src="assets/img/<?php echo $logo_path; ?>" alt="Logo" width="30" height="30"> 
-      </a>
+    </a>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          style="stroke: black; fill: none;">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
+    <!-- Toggle button for mobile menu -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="stroke: black; fill: none;">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
 
-      </button>
-
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about-us">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#services">Our Services</a>
+        </li>
+        <?php if (isset($_SESSION['email'])): ?>
           <li class="nav-item">
-            <a class="nav-link" href="#">Home</a>
+            <a class="nav-link" href="features/users/web/api/appointments.php">Appointment</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#about-us">About Us</a>
+            <a class="nav-link" href="features/users/web/api/settings.php">Settings</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#services">Our Services</a>
-          </li>
-          <?php
-            if (isset($_SESSION['email'])): 
-            ?>
-              <li class="nav-item">
-                <a class="nav-link" href="features/users/web/api/appointments.php">Appointment</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="features/users/web/api/settings.php">Settings</a>
-              </li>
-            <?php
-            endif;
-            ?>
-        </ul>
+        <?php endif; ?>
+      </ul>
 
-        <div class="d-flex ml-auto align-items-center">
-              <?php if (isset($_SESSION['email'])): ?>
-                <div class="dropdown first-dropdown">
-              <button type="button" id="dropdownMenuButton1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-bell"></i>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <h5 class="notification-title">Notification</h5>
-                  <?php if (!empty($notifications)): ?>
-                      <?php foreach ($notifications as $notification): ?>
-                          <?php if ($notification['type'] === 'confirm'): ?>
-                              <li>
-                                  <div class="notification-content alert alert-success">
-                                      <strong>Appointment Confirmed!</strong>
-                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                                      <p class="code">Code: <?= htmlspecialchars($notification['code']) ?></p>
-                                      <a href="features/users/web/api/appointments.php">View Details</a>
-                                  </div>
-                              </li>
-                          <?php elseif ($notification['type'] === 'pending'): ?>
-                              <li>
-                                  <div class="notification-content alert alert-primary">
-                                      <strong>Successfully Booked!</strong>
-                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                                  </div>
-                              </li>
-                          <?php elseif ($notification['type'] === 'profile'): ?>
-                              <li>
-                                  <div class="notification-content alert alert-success">
-                                      <strong>Profile Change!</strong>
-                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                                  </div>
-                              </li>
-                          <?php elseif ($notification['type'] === 'password'): ?>
-                              <li>
-                                  <div class="notification-content alert alert-success">
-                                      <strong>Password Change!</strong>
-                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                                  </div>
-                              </li>
-                          <?php elseif ($notification['type'] === 'cancel'): ?>
-                              <li>
-                                  <div class="notification-content alert alert-danger">
-                                      <strong>Appointment Cancelled!</strong>
-                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                                  </div>
-                              </li>
-                          <?php elseif ($notification['type'] === 'decline'): ?>
-                              <li>
-                                  <div class="notification-content alert alert-danger">
-                                      <strong>Rejected</strong>
-                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                                  </div>
-                              </li>
-                          <?php endif; ?>
-                      <?php endforeach; ?>
-                  <?php else: ?>
-                      <li>
-                          <div class="notification-content alert alert-secondary">
-                              <p class="notification-text">No notifications available.</p>
-                          </div>
-                      </li>
-                  <?php endif; ?>
-              </ul>
+      <!-- User profile and notifications -->
+      <div class="d-flex ml-auto align-items-center">
+        <?php if (isset($_SESSION['email'])): ?>
+          <div class="dropdown first-dropdown">
+            <button class="btn" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bell"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <h5 class="notification-title">Notification</h5>
+              <?php if (!empty($notifications)): ?>
+                <?php foreach ($notifications as $notification): ?>
+                  <li>
+                    <div class="notification-content alert alert-<?= $notification['type'] === 'confirm' ? 'success' : ($notification['type'] === 'cancel' || $notification['type'] === 'decline' ? 'danger' : 'primary') ?>">
+                      <strong><?= ucfirst($notification['type']) ?>!</strong>
+                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                      <?php if ($notification['type'] === 'confirm'): ?>
+                        <p class="code">Code: <?= htmlspecialchars($notification['code']) ?></p>
+                      <?php endif; ?>
+                      <a href="features/users/web/api/appointments.php">View Details</a>
+                    </div>
+                  </li>
+                <?php endforeach; ?>
+              <?php else: ?>
+                <li>
+                  <div class="notification-content alert alert-secondary">
+                    <p class="notification-text">No notifications available.</p>
+                  </div>
+                </li>
+              <?php endif; ?>
+            </ul>
           </div>
 
-
+          <!-- Profile dropdown -->
           <div class="dropdown second-dropdown">
-                <button class="dropdown-toggle btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                    <li><a class="dropdown-item" href="features/users/web/api/settings.php">Profile</a></li>
-                    <li><a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a></li>
-                </ul>
-            </div>
+            <button class="dropdown-toggle btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+              <li><a class="dropdown-item" href="features/users/web/api/settings.php">Profile</a></li>
+              <li><a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a></li>
+            </ul>
+          </div>
 
-    <?php else: ?>
-
-        <div class="d-flex ml-auto">
+        <?php else: ?>
+          <!-- Login button for non-logged in users -->
+          <div class="d-flex ml-auto">
             <a href="features/users/web/api/login.php" class="btn-theme" type="button">Login</a>
-        </div>
-    <?php endif; ?>
-</div>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
-  </nav>
-
+  </div>
+</nav>
   <section class="front py-5 relative-container">
     <div class="paws">
       <img src="assets/img/foot2.png" class="foot2" alt="Paw Print 2">

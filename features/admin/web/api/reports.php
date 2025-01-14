@@ -1,7 +1,17 @@
 
 <?php
     require '../../../../db.php'; 
-    include '../../function/php/reports.php';
+
+
+
+    $stmt = $conn->prepare("SELECT * FROM appointments");
+    $stmt->execute();
+    $appointments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmt = $conn->prepare("SELECT * FROM pos_records");
+    $stmt->execute();
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
     session_start(); 
 
@@ -181,56 +191,176 @@
         <!--Notification and Profile Admin-->
         <div class="app-req">
             <h3>Reports</h3>
-            <div class="walk-in px-lg-5 d-flex ">
-                <div class="col-md-4 mb-3 x d-flex">
-                    <div class="search">
+            <div class="walk-in">
+                <div class="col-md-12 mb-3 x d-flex justify-content-between">
+                    <div class="search d-flex gap-2 col-md-6">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
                             <input type="text" id="search-input" class="form-control" placeholder="Search..." />
                         </div>
+                        <button id="search-button">Search</button>
                     </div>
+                    <div class="d-flex col-md-5 gap-2">
+                    <select name="month" id="month-filter" class="w-100">
+                        <option value="">Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <select name="year" id="year-filter" class="w-100">
+                        <option value="">Year</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                    </select>
+                    <button class="w-50" id="filter-button">Filter</button>
+
+                    </div>
+           
                 </div>
-                <div class="col-md-2">
-                <div class="sort">
-                    <select id="sort-dropdown" class="form-select" aria-label="Sort By">
-                        <option value="">Sort By</option>
-                        <option value="name">Name</option>
-                        <option value="medical">Medical</option>
-                        <option value="nonMedical">Non-Medical</option>
+                <div class="d-flex col-md-12 gap-2 x justify-content-center" style="padding: 10px;">
+                    <select name="status-filter" id="status-filter" class="w-25 p-3">
+                        <option value="">Filter By Status</option>
                         <option value="pending">Pending</option>
                         <option value="confirm">Confirm</option>
-                        <option value="decline">Decline</option>
+                        <option value="decline">Declined</option>
                     </select>
                 </div>
-                </div>
+                    <select name="" id="select-option" class="w-100 p-3 mb-2" style="margin-left: 10px;">
+                        <option value="">Select Table</option>
+                        <option value="appointment">Appointment History</option>
+                        <option value="transaction">Transaction</option>
+                    </select>
+           
             </div>
+            
 
-            <!--Appointment Request Table-->
-            <div class="row" id="appointments-container">
-                <?php foreach ($appointments as $index => $appointment): ?>
-                    <div class="col-md-4 mb-4 appointment-card" data-name="<?= strtolower($appointment['owner_name']) ?>" data-service-category="<?= strtolower($appointment['service_category']) ?>" data-status="<?= strtolower($appointment['status']) ?>">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <div class="cards">
-                                    <h5 class="card-title">Appointment <?= $index + 1 ?></h5>
-                                    <p class="card-text"><strong>Owner Name:</strong> <?= $appointment['owner_name'] ?></p>
-                                    <p class="card-text"><strong>Service Category:</strong>  <?= $appointment['service_category'] === 'medical' ? 'medical' : ($appointment['service_category'] === 'nonMedical' ? 'nonMedical' : 'N/A') ?></p>
-                                    <p class="card-text"><strong>Service:</strong> <?= $appointment['service_type'] ?></p>
-                                    <p class="card-text"><strong>Code: </strong><?= $appointment['code'] ?? 'Pending' ?></p>
-                                    <p class="card-text"><strong>Status:</strong> 
-                                        <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'complete' ? 'success' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
-                                            <?= ucfirst($appointment['status']) ?>
-                                        </span>
-                                    </p>
-                                <?php if ($appointment['status'] == 'decline'): ?>
-                                    <p class="card-text"><strong>Reason:</strong> <?= $appointment['decline_reason'] ?></p>
-                                <?php endif; ?>
-                                </div>
-                                <div class="card-btn">
-                                 <div class=" gap-3 justify-content-center mx-auto">
-                                    <button type="button" class="d-flex view-details w-100 justify-content-center mb-2" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
-                                        View Details
-                                    </button>
+            <div class="container">
+            <table class="table table-hover table-remove-borders appointment" style="display: none;">
+            <thead class="thead-light">
+            <tr>
+                <th>#</th>
+                <th>Owner Name</th>
+                <th>Date</th>
+                <th>Service Category</th>
+                <th>Service</th>
+                <th>Code</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($appointments as $index => $appointment): ?>
+            <tr data-name="<?= strtolower($appointment['owner_name']) ?>" data-service-category="<?= strtolower($appointment['service_category']) ?>" data-status="<?= strtolower($appointment['status']) ?>">
+                <td><?= $index + 1 ?></td>
+                <td><?= htmlspecialchars($appointment['owner_name']) ?></td>
+                <td><?= htmlspecialchars(date('M j, Y', strtotime($appointment['created_at']))) ?></td>
+                <td><?= $appointment['service_category'] === 'medical' ? 'Medical' : ($appointment['service_category'] === 'nonMedical' ? 'Non-Medical' : 'N/A') ?></td>
+                <td><?= htmlspecialchars($appointment['service_type']) ?></td>
+                <td><?= $appointment['code'] ?? 'Pending' ?></td>
+                <td>
+                    <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'complete' ? 'success' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
+                        <?= ucfirst($appointment['status']) ?>
+                    </span>
+                </td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <!-- View Details Button -->
+                        <button type="button" class="btn btn-info btn-sm text-white fw-bold" data-bs-toggle="modal" data-bs-target="#appointmentModal<?= $appointment['id'] ?>">
+                            View Details
+                        </button>
+
+                    </div>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div class="container w-100">
+            <div class="table-responsive" style="max-width: 100%; overflow-x: auto;">
+            <table class="table table-hover table-remove-borders pos"  style="display: none;">
+            <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Owner Name</th>
+                        <th>Date</th>
+                        <th>Services</th>
+                        <th>Medication/Supplies</th>
+                        <th>Total</th>
+                        <th>Cash Tendered</th>
+                        <th>Change</th>
+                        <th>Actions</th>
+                        <!-- <th>Actions</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($records as $record): 
+                        $id = json_decode($record['id'], true);
+                        $services = json_decode($record['services'], true);
+                        $costs = json_decode($record['cost'], true); 
+                        $medications = json_decode($record['medication'], true);
+                        $supplies = json_decode($record['supplies'], true);
+                        $total = !empty($record['total']) && is_numeric($record['total']) ? number_format($record['total'], 2) : '0.00';
+                        $cash_tendered = !empty($record['cash_tendered']) && is_numeric($record['cash_tendered']) ? number_format($record['cash_tendered'], 2) : '0.00'; 
+                        $changee = !empty($record['changee']) && is_numeric($record['changee']) ? number_format($record['changee'], 2) : '0.00'; 
+                    ?>
+                    <tr>
+                    <td><?php echo htmlspecialchars($record['id']); ?></td>
+                        <td><?php echo htmlspecialchars($record['owner_name']); ?></td>
+                        <td><?= htmlspecialchars(date('M j, Y', strtotime($record['timestamp']))) ?></td>
+                        
+                        <td>
+                            <?php if (is_array($services) && is_array($costs)): ?>
+                                <ul class="list-unstyled">
+                                    <?php foreach ($services as $index => $service): ?>
+                                        <li>
+                                            <?php echo htmlspecialchars($service); ?> - ₱ <?php echo isset($costs[$index]) ? number_format((float)$costs[$index], 2) : '0.00'; ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if (!empty($medications) || !empty($supplies)): ?>
+                                <ul class="list-unstyled">
+                                    <?php if (!empty($medications)): ?>
+                                        <?php foreach ($medications as $medication): ?>
+                                            <li>
+                                                <?php echo htmlspecialchars($medication); ?> - ₱ 25.00
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    <?php if (!empty($supplies)): ?>
+                                        <?php foreach ($supplies as $supply): ?>
+                                            <li>
+                                                <?php echo htmlspecialchars($supply); ?> - ₱ 299.00
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </td>
+                        <td>₱ <?php echo $total; ?></td>
+                        <td>₱ <?php echo $cash_tendered; ?></td>
+                        <td>₱ <?php echo $changee; ?></td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="printCard(this)">Print</button>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            </div>
+            
                                     <div class="action-buttons">
                                         <?php
                                         $currentStatus = ucfirst($appointment['status']);
@@ -252,37 +382,13 @@
                                                 $buttonClass = 'btn-secondary';
                                         }
                                         ?>
-                                         </div>
-                                       
-                                        
-                                        <div class="d-flex">
-
-                                            <!-- Confirm Button -->
-                                            <button class="btn btn-primary me-2" 
-                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">
-                                                Confirm
-                                            </button>
-
-                                            <!-- Complete Button -->
-                                            <button class="btn btn-success me-2" 
-                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'complete')">
-                                                Complete
-                                            </button>
-
-                                            <!-- Decline Button -->
-                                            <button class="btn btn-danger" 
-                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'decline')">
-                                                Decline
-                                            </button>
-                                       
-                                        </div>
+                                         </div>                                      
                                         </div>
 
                                         </div>
                                     </div>
                             </div>
                         </div>
-
     <!-- Modal -->
 
     <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -324,11 +430,7 @@
                 </div>
                 
 
-                <div class="row">
-                    <!-- Appointment Date -->
-                  
-
-                    <!-- Owner Information -->
+                <div class="row"> 
                     <div class="col-md-4">
                         <h6 class="text-muted">Owner Information</h6>
                         <div class="mb-3">
@@ -409,7 +511,6 @@
                         </div>
                     </div>
                 </div>
-                <?php endforeach; ?>
             </div>
 
                 <div class="modal fade" id="declineModal" tabindex="-1" aria-labelledby="declineModalLabel" aria-hidden="true">
@@ -430,36 +531,32 @@
                                 </form>
                             </div>
                         </div>
+                        
+    
+                        
                     </div>
+                    
                 </div>
+                
 
-            <ul class="pagination justify-content-end mt-3 px-lg-5" id="paginationControls">
-                <li class="page-item">
-                    <a class="page-link" href="#" data-page="prev"><</a>
-                </li>
-                <li class="page-item" id="pageNumbers"></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" data-page="next">></a>
-                </li>
-            </ul>
+           
         </div>
     </div>
+
+                                       
 </body>
 
 <script type="text/javascript">
   function updateStatus(appointmentId, newStatus) {
-    // Store the current appointmentId and status globally for use in the modal confirmation
     currentAppointmentId = appointmentId;
     currentStatus = newStatus;
 
-    // Handle Decline separately, since it opens a different modal
     if (newStatus === 'decline') {
         $('#appointmentId').val(appointmentId);  
-        $('#declineModal').modal('show');  // Show decline modal directly
-        return;  // Exit here, as we do not need to show confirmation modal for decline
+        $('#declineModal').modal('show');  
+        return; 
     }
 
-    // Set the status text for the modal
     let statusText = "";
     if (newStatus === 'confirm') {
         statusText = "Confirm";
@@ -467,18 +564,15 @@
         statusText = "Complete";
     }
 
-    // Update the confirmation modal text
     document.getElementById('status-text').textContent = statusText;
-    $('#confirmationModal').modal('show');  // Show confirmation modal
+    $('#confirmationModal').modal('show');
 
-    // Wait for confirmation before executing the status change
     document.getElementById('confirmActionButton').onclick = function() {
         $('#confirmationModal').modal('hide');
         executeStatusChange(currentAppointmentId, currentStatus);
     };
 }
 
-// Function to execute the actual status change after confirmation
 function executeStatusChange(appointmentId, newStatus) {
     $.ajax({
         url: '../../function/php/update_status.php',  
@@ -506,7 +600,6 @@ function executeStatusChange(appointmentId, newStatus) {
                     badge.text('Pending');
                 }
 
-                // Reload the page to reflect changes, except for decline
                 if (newStatus !== 'decline') {
                     location.reload();
                 }
@@ -520,15 +613,13 @@ function executeStatusChange(appointmentId, newStatus) {
     });
 }
 
-// Decline Confirmation (after submitting the reason)
 document.getElementById('declineReasonForm').onsubmit = function(event) {
     event.preventDefault();
     let form = this;
 
-    // Make sure the form is valid
     if (form.checkValidity()) {
         executeStatusChange(currentAppointmentId, 'decline');
-        form.submit();  // Submit the form to process the decline reason
+        form.submit();  
     } else {
         alert('Please provide a reason for cancellation.');
     }
@@ -556,6 +647,91 @@ document.getElementById('declineReasonForm').onsubmit = function(event) {
 <script src="../../function/script/drop-down.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+ $(document).ready(function() {
+    $('#status-filter').change(function() {
+        var selectedStatus = $(this).val();
+        
+        if (selectedStatus === "") {
+            $('.appointment tbody tr').show();
+        } else {
+            $('.appointment tbody tr').each(function() {
+                var rowStatus = $(this).data('status');
+                if (rowStatus === selectedStatus) {
+                    $(this).show(); 
+                } else {
+                    $(this).hide(); 
+                }
+            });
+        }
+    });
+
+    $('#select-option').change(function() {
+        var selectedOption = $(this).val();
+        
+        $('.appointment').hide();
+        $('.pos').hide();
+        
+        if (selectedOption === 'appointment') {
+            $('.appointment').show();
+        } else if (selectedOption === 'transaction') {
+            $('.pos').show();
+        }
+    });
+
+    $('#filter-button').click(function() {
+        var selectedMonth = $('#month-filter').val();
+        var selectedYear = $('#year-filter').val();
+
+        $('.appointment tbody tr').each(function() {
+            var rowDate = $(this).find('td').eq(2).text();  
+
+            if (rowDate) {
+                var dateParts = rowDate.split(' '); 
+                var rowMonth = dateParts[0];
+                var rowDay = dateParts[1];
+                var rowYear = dateParts[2];
+
+                var monthMatch = !selectedMonth || rowMonth.toLowerCase() === getMonthName(selectedMonth).toLowerCase();
+                var yearMatch = !selectedYear || rowYear === selectedYear;
+
+                if (monthMatch && yearMatch) {
+                    $(this).show();  
+                } else {
+                    $(this).hide(); 
+                }
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+
+    $('#search-button').click(function() {
+        var searchTerm = $('#search-input').val().toLowerCase().trim(); 
+        
+        $('.appointment tbody tr').each(function() {
+            var ownerName = $(this).find('td').eq(1).text().toLowerCase();  
+            
+            if (ownerName.includes(searchTerm)) {
+                $(this).show(); 
+                $(this).addClass('highlight'); 
+            } else {
+                $(this).hide(); 
+                $(this).removeClass('highlight');  
+            }
+        });
+    });
+
+    function getMonthName(monthNumber) {
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        return months[monthNumber - 1];
+    }
+});
+
+
+</script>
 
 
 </html>

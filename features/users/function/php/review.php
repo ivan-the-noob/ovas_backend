@@ -19,15 +19,17 @@ if (count($reviews) > 0) {
                                 <div class="testimonial-card-custom p-3 review-box">
                                     <div class="d-flex align-items-center">
                                         <img src="assets/img/profile/<?php echo isset($chunk[0]['profile_picture']) ? htmlspecialchars($chunk[0]['profile_picture'], ENT_QUOTES, 'UTF-8') : 'customer.jfif'; ?>" alt="<?php echo htmlspecialchars($chunk[0]['name'], ENT_QUOTES, 'UTF-8'); ?>" width="50" height="50">
-                                        <div class="ml-3 d-flex gap-2 align-items-center justify-content-center">
-                                            <p class="testimonial-title mb-0 mt-0"><?php echo htmlspecialchars($chunk[0]['name'], ENT_QUOTES, 'UTF-8'); ?></p>
+                                        <div class="ml-3 d-flex flex-column gap-2 align-items-center justify-content-center">
+                                         
                                             <p class="testimonial-rating mb-0 mt-0">
                                                 <?php for ($i = 1; $i <= 5; $i++) {
                                                     echo $i <= $chunk[0]['rating'] ? '<i class="fa fa-star" style="color: gold;"></i>' : '<i class="fa fa-star-o"></i>';
                                                 } ?>
                                             </p>
+                                            <p class="testimonial-title mb-0 mt-0"><?php echo htmlspecialchars($chunk[0]['name'], ENT_QUOTES, 'UTF-8'); ?></p>
                                         </div>
                                     </div>
+                                    
                                     <p class="mt-3"><?php echo nl2br(htmlspecialchars($chunk[0]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
                                     <?php if (isset($chunk[0]['image']) && $chunk[0]['image']) { ?>
                                         <img src="assets/img/review/<?php echo htmlspecialchars($chunk[0]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid mt-3">
@@ -40,13 +42,14 @@ if (count($reviews) > 0) {
                                 <div class="testimonial-card-custom p-3 review-box">
                                     <div class="d-flex align-items-center">
                                         <img src="assets/img/profile/<?php echo isset($chunk[1]['profile_picture']) ? htmlspecialchars($chunk[1]['profile_picture'], ENT_QUOTES, 'UTF-8') : 'customer.jfif'; ?>" alt="<?php echo htmlspecialchars($chunk[1]['name'], ENT_QUOTES, 'UTF-8'); ?>" width="50" height="50">
-                                        <div class="ml-3 d-flex gap-2 align-items-center justify-content-center">
-                                            <p class="testimonial-title mb-0 mt-0"><?php echo htmlspecialchars($chunk[1]['name'], ENT_QUOTES, 'UTF-8'); ?></p>
+                                        <div class="ml-3 d-flex flex-column gap-2 align-items-center justify-content-center">
+                                           
                                             <p class="testimonial-rating mb-0 mt-0">
                                                 <?php for ($i = 1; $i <= 5; $i++) {
                                                     echo $i <= $chunk[1]['rating'] ? '<i class="fa fa-star" style="color: gold;"></i>' : '<i class="fa fa-star-o"></i>';
                                                 } ?>
                                             </p>
+                                            <p class="testimonial-title mb-0 mt-0"><?php echo htmlspecialchars($chunk[1]['name'], ENT_QUOTES, 'UTF-8'); ?></p>
                                         </div>
                                     </div>
                                     <p class="mt-3"><?php echo nl2br(htmlspecialchars($chunk[1]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
@@ -64,7 +67,7 @@ if (count($reviews) > 0) {
                                 <div class="testimonial-card-custom p-3 review-box">
                                     <div class="d-flex align-items-center">
                                         <img src="assets/img/profile/<?php echo isset($chunk[2]['profile_picture']) ? htmlspecialchars($chunk[2]['profile_picture'], ENT_QUOTES, 'UTF-8') : 'customer.jfif'; ?>" alt="<?php echo htmlspecialchars($chunk[2]['name'], ENT_QUOTES, 'UTF-8'); ?>" width="50" height="50">
-                                        <div class="ml-3 d-flex gap-2 align-items-center justify-content-center">
+                                        <div class="ml-3 d-flex flex-column gap-2 align-items-center justify-content-center">
                                             <p class="testimonial-title mb-0 mt-0"><?php echo htmlspecialchars($chunk[2]['name'], ENT_QUOTES, 'UTF-8'); ?></p>
                                             <p class="testimonial-rating mb-0 mt-0">
                                                 <?php for ($i = 1; $i <= 5; $i++) {
