@@ -1,14 +1,47 @@
 <?php
 session_start();
 require '../../../../db.php';
+if (isset($_SESSION['email'])) {
+  $userEmail = $_SESSION['email']; 
+} else {
+  echo '';  
+}
+
 $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
 
-$user_email = $_SESSION['email'] ?? '';
+$userEmail = $_SESSION['email'] ?? null;
+$bookingLimitReached = false;
+$bookingCount = 0;
 $name = $_SESSION['name'] ?? '';
 $address = $_SESSION['address'] ?? '';
 $contactnum = $_SESSION['contact_num'] ?? '';
 $last_name = $_SESSION['last_name'] ?? '';
+$role = $_SESSION['role'] ?? '';
 
+
+if ($userEmail) {
+  $yesterday = date('Y-m-d', strtotime('-1 day'));
+
+  $stmt = $conn->prepare("
+      SELECT COUNT(*) 
+      FROM appointments 
+      WHERE email = :email AND appointment_date = :yesterday
+  ");
+  
+  $stmt->bindParam(':email', $userEmail);
+  $stmt->bindParam(':yesterday', $yesterday);
+
+  $stmt->execute();
+
+  $bookingCount = $stmt->fetchColumn();
+
+  if ($bookingCount >= 3) {
+      $bookingLimitReached = true;
+      
+      header('Location: ../../../../index.php');
+      exit;
+  }
+}
 
 
 $stmt = $conn->prepare("SELECT COUNT(*) AS unread_count FROM notifications WHERE email = :email AND is_read = 0");
@@ -260,7 +293,7 @@ try {
                       <div class="position-relative">
                         <span class="input-label">Email: </span>
                         <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" 
-                        value="<?php echo htmlspecialchars($user_email); ?>" 
+                        value="<?php echo htmlspecialchars($userEmail); ?>" 
                         style="padding-left: 60px;"  readonly>
                       </div>
                     </div>
@@ -312,7 +345,7 @@ try {
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
                         <span class="input-label">Age:</span>
-                        <input type="number" class="form-control" id="age" name="age"
+                        <input type="text" class="form-control" id="age" name="age"
                           style="padding-left: 60px;" required>
                       </div>
                     </div>
@@ -392,6 +425,13 @@ try {
                   <div class="modal fade" id="gcashModal" tabindex="-1" role="dialog" aria-labelledby="gcashModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-centered">
                           <div class="modal-content" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+                          <div class="modal-header d-flex justify-content-between">
+                              <h5 class="modal-title" id="gcashModalLabel">GCash Payment Instructions</h5>
+                              <!-- Close button specifically for gcashModal -->
+                              <button type="button" class="close" aria-label="Close" onclick="closeGcashModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
                             
                               <div class="modal-body" style="color: #000;">
                                   <p>To successfully confirm your appointment and payment, please follow the steps below. Ensure that you complete all parts of the process to avoid delays in verification.</p>
@@ -411,6 +451,11 @@ try {
                           </div>
                       </div>
                   </div>
+                  <script>
+                    function closeGcashModal() {
+                        $('#gcashModal').modal('hide');
+                    }
+                  </script>
 
                       
                     </div>
@@ -424,13 +469,94 @@ try {
                         <label for="gcash-screenshot" class="form-label">Upload screenshot</label>
                         <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*" class="form-control" required>
                         <div class="position-relative mt-2">
-                            <span class="input-label">Ref #:</span>
-                            <input type="number" name="reference" class="form-control" style="padding-left: 80px;">
+                            <span class="input-label">Reference Number:</span>
+                            <input type="number" name="reference" class="form-control" style="padding-left: 150px;" maxlength="13" oninput="validateLength(this)">
+                            <script>
+                              function validateLength(input) {
+                                  if (input.value.length < 13) {
+                                      input.setCustomValidity("Please enter exactly 13 digits.");
+                                  } else if (input.value.length > 13) {
+                                      input.value = input.value.slice(0, 13);
+                                      input.setCustomValidity("");
+                                  } else {
+                                      input.setCustomValidity("");
+                                  }
+                              }
+                            </script>
                         </div>
                     </div>
-                  <div class="mt-3">
-                    <button type="submit" class="book-save">Book Appointment</button>
+                 
+
+                  <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mx-auto" style="background-color: #7A3015;" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)">
+                    Book Appointment
+                </button>
+
+<!-- Appointment Modal -->
+<div class="modal fade" id="appointmentModals" tabindex="-1" role="dialog" aria-labelledby="appointmentModalsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+            <div class="modal-header d-flex justify-content-between">
+                <h5 class="modal-title" id="appointmentModalsLabel">Appointment Confirmation</h5>
+                <!-- Close button specifically for appointment modal -->
+                <button type="button" class="close" aria-label="Close" onclick="closeAppointmentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="color: #000;">
+                <h5 class="text-center">Are your sure you want to
+                  Book this appointment?” 
+                </h5>
+            </div>
+            <div class="modal-footer">
+            <div class="mt-3 d-flex gap-1">
+                  <button type="button" class="book-save" aria-label="Close" onclick="closeAppointmentModal()">
+                          <span aria-hidden="true">Close</span>
+                    </button>
+                      <button type="submit" class="book-save">Book Appointment</button>
                   </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function closeAppointmentModal() {
+        $('#appointmentModals').modal('hide');
+    }
+
+    function selectAppointment(action, button) {
+        const buttons = document.querySelectorAll('.pay-btn button');
+        buttons.forEach(btn => {
+            btn.classList.remove('selected'); 
+            btn.style.backgroundColor = ''; 
+            btn.style.color = ''; 
+            btn.style.borderColor = '#7A3015'; 
+        });
+
+        button.classList.add('selected');
+        button.style.backgroundColor = '#7A3015';
+        button.style.color = 'white';
+        button.style.borderColor = '#7A3015'; 
+
+        // Set value for appointment action (for future processing)
+        document.getElementById('appointment_action').value = action;
+
+        console.log('action: ' + document.getElementById('appointment_action').value);
+
+        const appointmentDetails = document.getElementById('appointment-details');
+        if (action === 'book') {
+            appointmentDetails.style.display = 'block'; 
+            // Show the Appointment modal
+            var myModal = new bootstrap.Modal(document.getElementById('appointmentModals'), {
+                keyboard: false
+            });
+            myModal.show();
+        } else {
+            appointmentDetails.style.display = 'none'; 
+        }
+    }
+</script>
+                  
                 </div>
               </div>
             </div>

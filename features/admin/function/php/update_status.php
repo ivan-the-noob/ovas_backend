@@ -1,9 +1,16 @@
 <?php
-require '../../../../db.php'; 
+require '../../../../db.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../../../../PHPMailer/src/Exception.php';
+require '../../../../PHPMailer/src/PHPMailer.php';
+require '../../../../PHPMailer/src/SMTP.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $appointment_id = $_POST['id'] ?? '';
     $new_status = $_POST['status'] ?? '';
+    $vet_name = $_POST['vet_name'] ?? ''; // Retrieve vet name from POST data
 
     if (!empty($appointment_id) && !empty($new_status)) {
         try {
@@ -16,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $code = $appointment['code'] ?? '';
             $owner_name = $appointment['owner_name'] ?? '';
 
-            // Handle 'confirm' status: generate new code and update
+            // Handle 'confirm' status: generate new code, update vet name, and status
             if ($new_status === 'confirm') {
                 // Generate new code
                 $stmt = $conn->prepare("SELECT code FROM appointments WHERE code IS NOT NULL AND code LIKE 'OVAS-%' ORDER BY CAST(SUBSTRING(code, 6) AS UNSIGNED) DESC LIMIT 1");
@@ -31,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $newCode = 'OVAS-000001';
                 }
 
-                // Update appointment status and code
-                $stmt = $conn->prepare("UPDATE appointments SET status = :status, code = :code WHERE id = :id");
+                // Update appointment status, code, and vet name
+                $stmt = $conn->prepare("UPDATE appointments SET status = :status, code = :code, vet_name = :vet_name WHERE id = :id");
                 $stmt->bindParam(':status', $new_status);
                 $stmt->bindParam(':code', $newCode);
+                $stmt->bindParam(':vet_name', $vet_name); // Save vet name
                 $stmt->bindParam(':id', $appointment_id, PDO::PARAM_INT);
                 $stmt->execute();
 
@@ -46,20 +54,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt_confirm->execute();
 
                 // Add notification
-                $message = "Admin has confirmed the appointment of {$owner_name}.";
+                $message = "Admin has confirmed the appointment of {$owner_name} with Vet: {$vet_name}.";
                 $stmt = $conn->prepare("INSERT INTO notifications (email, type, message, code) VALUES (:email, :type, :message, :code)");
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':type', $new_status); 
                 $stmt->bindParam(':message', $message);
                 $stmt->bindParam(':code', $newCode);
                 $stmt->execute();
+
+                // Send confirmation email
+                sendAppointmentEmail($email, $newCode, $message);
+
             } 
 
-            // Handle 'complete' and 'decline' statuses
-            elseif ($new_status === 'complete' || $new_status === 'decline') {
+            // Handle 'complete' status only
+            elseif ($new_status === 'complete') {
                 // Update only status
-                $stmt = $conn->prepare("UPDATE appointments SET status = :status WHERE id = :id");
+                $stmt = $conn->prepare("UPDATE appointments SET status = :status, vet_name = :vet_name WHERE id = :id");
                 $stmt->bindParam(':status', $new_status);
+                $stmt->bindParam(':vet_name', $vet_name); // Save vet name
                 $stmt->bindParam(':id', $appointment_id, PDO::PARAM_INT);
                 $stmt->execute();
 
@@ -71,18 +84,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt_confirm->execute();
 
                 // Add notification
-                if ($new_status === 'decline') {
-                    $message = 'Your appointment has been rejected.';
-                } elseif ($new_status === 'complete') {
-                    $message = 'Your appointment has been completed.';
-                }
-
+                $message = "Your appointment has been completed with Vet: {$vet_name}.";
                 $stmt = $conn->prepare("INSERT INTO notifications (email, type, message, code) VALUES (:email, :type, :message, :code)");
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':type', $new_status); 
                 $stmt->bindParam(':message', $message);
                 $stmt->bindParam(':code', $code); // No new code, use the existing one
                 $stmt->execute();
+
+                // Send completion email
+                sendAppointmentEmail($email, $code, $message);
             }
 
             // Return success response
@@ -96,5 +107,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo 'failure';
     }
     $conn = null; 
+}
+
+// Function to send appointment-related email
+function sendAppointmentEmail($email, $code, $message) {
+    $mail = new PHPMailer(true);
+    try {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'ejivancablanida@gmail.com'; 
+        $mail->Password   = 'acjf ngko qlfb cuju'; 
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+
+        $mail->setFrom('Barkyards@gmail.com', 'Barks Yards');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Appointment Status Update';
+        $mail->Body    = "$message Your code is: $code";
+
+        $mail->send();
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }
 ?>

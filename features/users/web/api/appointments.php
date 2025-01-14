@@ -202,6 +202,7 @@
                                             <p>Total Payment: ₱' . htmlspecialchars($totalPayment) . '</p>
                                             <p>Payment Method: ' . htmlspecialchars($paymentMethod) . '</p>
                                             <p>GCash Screenshot: <a href="' . htmlspecialchars($gcashScreenshot) . '" target="_blank">View Screenshot</a></p>
+                                             <p>GCash Screenshot: <img src="../../../../assets/img/gcash/' . htmlspecialchars($gcashScreenshot) . '" alt="GCash Screenshot" style="max-width: 100%; height: auto;"></p>
                                             <p>Reference: ' . htmlspecialchars($reference) . '</p>
                                           </div>
                                           <div class="modal-footer">

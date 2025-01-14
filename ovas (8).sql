@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 11, 2025 at 11:25 AM
+-- Generation Time: Jan 14, 2025 at 01:23 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,138 +41,7 @@ CREATE TABLE `admin_confirm` (
 --
 
 INSERT INTO `admin_confirm` (`id`, `name`, `status`, `created_at`, `email`, `read`) VALUES
-(1, 'Ivan Ablanida', 'confirm', '2024-09-16 06:36:10', 'ejivancablanida@gmail.com', '1'),
-(2, 'Ivan Ablanida', 'decline', '2024-09-16 06:45:43', 'ejivan@gmail.com', '1'),
-(3, 'Ivan Ablanida', 'complete', '2024-09-16 06:49:04', 'ejivan@gmail.com', '1'),
-(4, 'Ivan Ablanida', 'confirm', '2024-09-23 05:49:45', 'ejthecoder@gmail.com', '1'),
-(5, 'Ivan Ablanida', 'confirm', '2024-10-17 18:12:25', 'ejthecoder@gmail.com', '1'),
-(6, 'Ivan Ablanida', 'complete', '2024-10-17 18:12:31', 'ejthecoder@gmail.com', '1'),
-(7, 'Ivan Ablanida', 'decline', '2024-10-17 18:12:32', 'ejthecoder@gmail.com', '1'),
-(8, 'Ivan Ablanida', 'confirm', '2024-10-17 18:13:05', 'ejthecoder@gmail.com', '1'),
-(9, 'Ivan Ablanida', 'complete', '2024-10-17 18:13:15', 'ejthecoder@gmail.com', '1'),
-(10, 'Ivan Ablanida', 'confirm', '2024-10-17 18:13:17', 'ejthecoder@gmail.com', '1'),
-(11, 'Ivan Ablanida', 'decline', '2024-10-17 18:13:18', 'ejthecoder@gmail.com', '1'),
-(12, 'Ivan Ablanida', 'confirm', '2024-10-17 18:14:10', 'ejthecoder@gmail.com', '1'),
-(13, 'Ivan Ablanida', 'complete', '2024-10-17 18:14:34', 'ejthecoder@gmail.com', '1'),
-(14, 'Ivan Ablanida', 'decline', '2024-10-17 18:14:56', 'ejthecoder@gmail.com', '1'),
-(15, 'Ivan Ablanida', 'complete', '2024-10-17 18:15:53', 'ejthecoder@gmail.com', '1'),
-(16, 'Ivan Ablanida', 'confirm', '2024-10-17 18:22:31', 'ejthecoder@gmail.com', '1'),
-(17, 'Ivan Ablanida', 'complete', '2024-10-17 18:22:44', 'ejthecoder@gmail.com', '1'),
-(18, 'Ivan Ablanida', 'confirm', '2024-10-17 18:22:45', 'ejthecoder@gmail.com', '1'),
-(19, 'Ivan Ablanida', 'complete', '2024-10-17 20:34:05', 'ejthecoder@gmail.com', '1'),
-(20, 'Ivan Ablanida', 'confirm', '2024-10-17 20:34:55', 'ejthecoder@gmail.com', '1'),
-(21, 'Ablanida', 'confirm', '2024-10-18 06:06:21', 'ejivan@gmail.com', '1'),
-(22, 'Ablanida', 'confirm', '2024-10-18 06:07:54', 'ejivan@gmail.com', '1'),
-(23, 'Ivan', 'confirm', '2024-11-29 03:09:09', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(24, 'Ivan', 'confirm', '2024-12-05 19:22:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(25, 'Ivan', 'complete', '2024-12-05 20:57:26', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(26, 'Ivan', 'complete', '2024-12-05 21:08:16', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(27, 'Ivan', 'confirm', '2024-12-05 21:08:21', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(28, 'Ivan', 'complete', '2024-12-05 21:08:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(29, 'Ivan', 'confirm', '2024-12-05 21:08:26', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(30, 'Ivan', 'confirm', '2024-12-05 21:10:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(31, 'Ivan', 'complete', '2024-12-05 21:10:25', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(32, 'Ivan', 'complete', '2024-12-05 21:10:27', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(33, 'Ivan', 'decline', '2024-12-05 21:10:29', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(34, 'Ivan', 'confirm', '2024-12-05 21:10:32', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(35, 'Ivan', 'confirm', '2024-12-05 21:10:33', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(36, 'Ivan', 'complete', '2024-12-05 21:10:35', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(37, 'Ivan', 'decline', '2024-12-05 21:10:37', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(38, 'Ivan', 'confirm', '2024-12-05 21:10:45', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(39, 'Ivan', 'decline', '2024-12-05 21:10:47', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(40, 'Ivan', 'complete', '2024-12-05 21:12:22', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(41, 'Ivan', 'complete', '2024-12-05 21:12:25', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(42, 'Ivan', 'complete', '2024-12-05 21:12:29', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(43, 'Ivan', 'decline', '2024-12-05 21:12:31', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(44, 'Ivan', 'confirm', '2024-12-05 21:12:33', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(45, 'Ivan', 'decline', '2024-12-05 21:12:41', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(46, 'Ivan', 'confirm', '2024-12-05 21:12:42', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(47, 'Ivan', 'confirm', '2024-12-05 21:15:04', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(48, 'Ivan', 'complete', '2024-12-05 21:15:07', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(49, 'Ivan', 'decline', '2024-12-05 21:15:09', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(50, 'Ivan', 'complete', '2024-12-05 21:16:28', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(51, 'Ivan', 'confirm', '2024-12-05 21:16:28', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(52, 'Ivan', 'confirm', '2024-12-05 21:17:17', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(53, 'Ivan', 'confirm', '2024-12-05 21:21:36', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(54, 'Ivan', 'complete', '2024-12-05 21:21:39', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(55, 'Ivan', 'decline', '2024-12-05 21:21:46', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(56, 'Ivan', 'complete', '2024-12-05 21:21:48', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(57, 'Ivan', 'confirm', '2024-12-05 21:23:10', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(58, 'Ivan', 'confirm', '2024-12-05 21:23:27', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(59, 'Ivan', 'complete', '2024-12-05 21:23:28', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(60, 'Ivan', 'decline', '2024-12-05 21:23:30', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(61, 'Ivan', 'confirm', '2024-12-05 21:23:34', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(62, 'Ivan', 'complete', '2024-12-05 21:27:50', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(63, 'Ivan', 'complete', '2024-12-05 21:27:53', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(64, 'Ivan', 'decline', '2024-12-05 21:27:55', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(65, 'Ivan', 'confirm', '2024-12-05 21:28:05', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(66, 'Ivan', 'complete', '2024-12-05 21:31:42', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(67, 'Ivan', 'decline', '2024-12-05 21:31:43', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(68, 'Ivan', 'confirm', '2024-12-05 21:31:46', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(69, 'Ivan', 'decline', '2024-12-05 21:46:05', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(70, 'Ivan', 'confirm', '2024-12-05 21:49:09', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(71, 'Ivan', 'decline', '2024-12-05 21:49:11', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(72, 'Ivan', 'decline', '2024-12-05 21:49:33', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(73, 'Ivan', 'complete', '2024-12-05 21:49:44', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(74, 'Ivan', 'confirm', '2024-12-05 21:51:03', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(75, 'Ivan', 'complete', '2024-12-05 21:51:06', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(76, 'Ivan', 'decline', '2024-12-05 21:51:08', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(77, 'Ivan', 'decline', '2024-12-05 21:51:11', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(78, 'Ivan', 'confirm', '2024-12-05 21:57:16', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(79, 'Ivan', 'decline', '2024-12-05 21:57:19', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(80, 'Ivan', 'confirm', '2024-12-05 22:00:34', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(81, 'Ivan', 'decline', '2024-12-05 22:00:43', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(82, 'Ablanida, Ej ivan C.', 'confirm', '2024-12-05 22:03:23', 'ejthecoder@gmail.com', '1'),
-(83, 'Ivan', 'confirm', '2024-12-05 22:05:20', 'ejivan.ablanida@cvsu.edu.ph', '1'),
-(84, 'Ablanida, Ej ivan C.', 'decline', '2024-12-05 22:06:32', 'ejthecoder@gmail.com', '0'),
-(85, 'Ivan', 'confirm', '2024-12-05 22:07:20', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(86, 'Ivan', 'decline', '2024-12-05 22:07:23', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(87, 'Ivan', 'confirm', '2024-12-05 22:07:45', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(88, 'Ivan', 'decline', '2024-12-05 22:07:48', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(89, 'Ivan', 'confirm', '2024-12-05 22:08:21', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(90, 'Ivan', 'decline', '2024-12-05 22:08:23', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(91, 'Ivan', 'decline', '2024-12-05 22:08:41', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(92, 'Ivan', 'complete', '2024-12-05 22:09:07', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(93, 'Ivan', 'decline', '2024-12-05 22:09:08', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(94, 'Ivan', 'complete', '2024-12-05 22:09:12', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(95, 'Ivan', 'decline', '2024-12-05 22:09:14', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(96, 'Ivan', 'complete', '2024-12-05 22:09:54', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(97, 'Ivan', 'decline', '2024-12-05 22:10:02', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(98, 'Ivan', 'complete', '2024-12-05 22:10:11', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(99, 'Ivan', 'decline', '2024-12-05 22:10:12', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(100, 'Ivan', 'complete', '2024-12-05 22:10:54', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(101, 'Ivan', 'decline', '2024-12-05 22:10:56', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(102, 'Ivan', 'complete', '2024-12-05 22:11:46', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(103, 'Ivan', 'decline', '2024-12-05 22:11:47', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(104, 'Ivan', 'complete', '2024-12-05 22:13:16', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(105, 'Ivan', 'decline', '2024-12-05 22:13:18', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(106, 'Ivan', 'complete', '2024-12-05 22:15:47', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(107, 'Ivan', 'confirm', '2024-12-05 22:15:48', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(108, 'Ivan', 'decline', '2024-12-05 22:15:50', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(109, 'Ivan', 'confirm', '2024-12-05 22:18:52', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(110, 'Ivan', 'complete', '2024-12-05 22:18:54', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(111, 'Ivan', 'decline', '2024-12-05 22:18:55', 'ejivan.ablanida@cvsu.edu.ph', '0'),
-(112, 'Ablanida, Ej ivan C.', 'confirm', '2024-12-06 01:00:16', 'ejthecoder@gmail.com', '0'),
-(113, 'Ablanida, Ej ivan C.', 'decline', '2024-12-06 01:00:24', 'ejthecoder@gmail.com', '0'),
-(114, 'Ablanida, Ej ivan C.', 'complete', '2024-12-06 01:05:32', 'ejthecoder@gmail.com', '0'),
-(115, 'Ej Ivan Ablanida', 'confirm', '2024-12-26 06:50:37', 'a@gmail.com', '0'),
-(116, 'Ej Ivan Ablanida', 'confirm', '2024-12-27 22:16:27', 'a@gmail.com', '0'),
-(117, 'Ej Ivan Ablanida', 'complete', '2024-12-27 22:16:27', 'a@gmail.com', '0'),
-(118, 'Ej Ivan Ablanida', 'complete', '2024-12-27 22:16:29', 'a@gmail.com', '0'),
-(119, 'Ej Ivan Ablanida', 'decline', '2024-12-27 22:16:31', 'a@gmail.com', '0'),
-(120, 'Ej Ivan Ablanida', 'decline', '2024-12-27 22:19:16', 'a@gmail.com', '0'),
-(121, 'Ej Ivan Ablanida', 'complete', '2024-12-27 22:19:17', 'a@gmail.com', '0'),
-(122, 'Ej Ivan Ablanida', 'confirm', '2024-12-27 22:19:17', 'a@gmail.com', '0'),
-(123, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:36:34', 'ejthecoder@gmail.com', '0'),
-(124, 'Ablanida, Ej ivan C.', 'complete', '2025-01-05 05:36:38', 'ejthecoder@gmail.com', '0'),
-(125, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:36:39', 'ejthecoder@gmail.com', '0'),
-(126, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:48:04', 'ejthecoder@gmail.com', '0'),
-(127, 'Ablanida, Ej ivan C.', 'complete', '2025-01-05 05:48:05', 'ejthecoder@gmail.com', '0'),
-(128, 'Ablanida, Ej ivan C.', 'decline', '2025-01-05 05:48:07', 'ejthecoder@gmail.com', '0'),
-(129, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:55:22', 'ejthecoder@gmail.com', '0'),
-(130, 'Ablanida, Ej ivan C.', 'complete', '2025-01-05 05:55:23', 'ejthecoder@gmail.com', '0'),
-(131, 'Ablanida, Ej ivan C.', 'decline', '2025-01-05 05:55:26', 'ejthecoder@gmail.com', '0'),
-(132, 'Ablanida, Ej ivan C.', 'confirm', '2025-01-05 05:55:29', 'ejthecoder@gmail.com', '0');
+(156, 'Admin ', 'decline', '2025-01-14 10:42:11', 'ejthecoder@gmail.com', '0');
 
 -- --------------------------------------------------------
 
@@ -202,16 +71,16 @@ CREATE TABLE `appointments` (
   `gcash_screenshot` varchar(255) DEFAULT NULL,
   `reference` int(100) DEFAULT NULL,
   `decline_reason` varchar(255) DEFAULT NULL,
-  `pet_name` varchar(255) NOT NULL
+  `pet_name` varchar(255) NOT NULL,
+  `vet_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `reason_cancel`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`, `decline_reason`, `pet_name`) VALUES
-(118, 'Ivan Ablanida', 'pending', 'complete', NULL, '09957939703', 'ejivancablanida@gmail.com', 'Blk 4 Lot 23', 'Neoma', '3213123321321', 21, 'nonMedical', 'Grooming', '10:00:00', '2025-01-10', 999.00, '2025-01-11 06:57:39', 'gcash', 'gcash.jpg', 312312, NULL, ''),
-(119, 'Ivan Ablanida', 'pending', 'confirm', NULL, '09957939703', 'ejivancablanida@gmail.com', 'Blk 4 Lot 23', 'neoma', '12dsadsa', 12, 'medical', 'Diagnostic and Therapeutic', '11:00:00', '2025-01-09', 1200.00, '2025-01-11 07:27:56', 'gcash', 'gcash.jpg', 312312321, NULL, '');
+INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `reason_cancel`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`, `decline_reason`, `pet_name`, `vet_name`) VALUES
+(128, 'Admin ', 'OVAS-000004', 'decline', 'Wrong', '', 'ejthecoder@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-14', 1200.00, '2025-01-14 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'sdadsa');
 
 -- --------------------------------------------------------
 
@@ -284,6 +153,32 @@ INSERT INTO `chat_messages` (`id`, `question`, `response`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `faqs`
+--
+
+CREATE TABLE `faqs` (
+  `id` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faqs`
+--
+
+INSERT INTO `faqs` (`id`, `image`, `created_at`) VALUES
+(2, 'faq_67860f7d305083.69504165.jpg', '2025-01-14 07:17:17'),
+(3, 'faq_67860f82f32a07.60933655.jpg', '2025-01-14 07:17:22'),
+(4, 'faq_67860f86df9771.04243774.jpg', '2025-01-14 07:17:26'),
+(5, 'faq_67860f8b6f9151.25127788.jpg', '2025-01-14 07:17:31'),
+(6, 'faq_67860f8f952159.43128882.jpg', '2025-01-14 07:17:35'),
+(7, 'faq_67860f936cc337.86141619.jpg', '2025-01-14 07:17:39'),
+(8, 'faq_67860f97381459.25070398.jpg', '2025-01-14 07:17:43'),
+(9, 'faq_678610c85625e1.58634761.jpg', '2025-01-14 07:22:48');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `max_booking`
 --
 
@@ -297,7 +192,7 @@ CREATE TABLE `max_booking` (
 --
 
 INSERT INTO `max_booking` (`id`, `max_booking`) VALUES
-(1, 5);
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -320,8 +215,8 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `email`, `code`, `type`, `message`, `created_at`, `is_read`) VALUES
-(241, 'ejivancablanida@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-11 06:57:39', 0),
-(242, 'ejivancablanida@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-11 07:27:56', 0);
+(275, 'ejthecoder@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: dasdsa', '2025-01-14 10:37:42', 0),
+(276, 'ejthecoder@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: Wrong', '2025-01-14 10:42:11', 0);
 
 -- --------------------------------------------------------
 
@@ -374,7 +269,9 @@ CREATE TABLE `patients_records` (
 
 INSERT INTO `patients_records` (`id`, `ownerName`, `ownerMiddleName`, `ownerLastName`, `ownerAddress`, `mobile`, `home`, `work`, `viber`, `ownerEmail`, `preferredContact`, `petName`, `petType`, `sex`, `breed`, `colorMarkings`, `microchipNo`, `dob`, `age`, `serviceCategory`, `service`, `totalPayment`, `authorization`, `enteringComplaint`, `historyPhysical`, `date`, `previous_veteran`, `health_insurance`, `drug_allergies`, `illness_surgeries`, `cur_medications`, `diet_restrictions`, `initial_visits`, `vet_name`, `vet_report`, `date_return`) VALUES
 (16, 'test', 'test', 'test', 'test', '09957939703', NULL, NULL, NULL, 'test@gmail.com', NULL, 'test', 'test', 'Male', 'test', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Yes', NULL, NULL, NULL, 'test', 'test', 'test', NULL, 'test', NULL, NULL, 'test', 'test', NULL),
-(17, 'test', 'test', 'test', 'test', '31231', NULL, NULL, NULL, 'test@gmail.com', NULL, 'test', 'test', 'Male', 'test', 'test', '312312', '2025-01-24', 12, NULL, NULL, NULL, 'Yes', NULL, 'test', NULL, 'test', 'test', 'test', 'test', 'test', 'test', 0, 'test', 'test', '2025-01-25');
+(17, 'test', 'test', 'test', 'test', '31231', NULL, NULL, NULL, 'test@gmail.com', NULL, 'test', 'test', 'Male', 'test', 'test', '312312', '2025-01-24', 12, NULL, NULL, NULL, 'Yes', NULL, 'test', NULL, 'test', 'test', 'test', 'test', 'test', 'test', 0, 'test', 'test', '2025-01-25'),
+(18, 'TEST', 'twst', 'test', 'test', '09957939703', NULL, NULL, NULL, 'test@gmail.com', NULL, 'Jss', 'Test', 'Female', 'test', 'black', '1033', '2025-01-12', 12, NULL, NULL, NULL, 'test', NULL, 'test', NULL, 'test', 'twst', 'test', 'test', 'test', 'yest', 0, 'test', 'test', '2025-01-12'),
+(19, 'Racel Mae', 'cecilio', 'loquellano', 'pk2', '09916169998', NULL, NULL, NULL, 'racelmae@gmail.com', NULL, 'roar', 'mdsd', 'Male', 'spanish', 'black ', '123223', '2024-11-20', 1, NULL, NULL, NULL, 'yes', NULL, 'cnnskjcnsk', NULL, 'nskndks', '', '', '', '', '', 0, 'Ms. Villanueva', 'dnksndk kdmwsl kdmks', '2025-01-10');
 
 -- --------------------------------------------------------
 
@@ -413,7 +310,10 @@ INSERT INTO `pos_records` (`id`, `owner_name`, `services`, `medication`, `suppli
 (64, 'ivan test oct 24', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"gamot\"]', '[\"cat food\",\"dog food\"]', 3150.00, '2024-10-25 02:57:44', '[\"2500.00\",\"300.00\"]', 4000.00, 850.00, '2025-01-05 04:41:59'),
 (65, 'Ivan test', '[\"Pharmacy\"]', '[\"gamot\",\"gamot2\"]', '[\"cat food\"]', 10550.00, '2024-10-25 02:59:44', '[\"300.00\"]', 4000.00, -6550.00, '2025-01-05 04:41:59'),
 (66, 'Ivan', '[\"\"]', '[\"\"]', '[\"\",\"\"]', 505050.00, '2024-10-25 03:00:04', '[\"\"]', 6000.00, -499050.00, '2025-01-05 04:41:59'),
-(67, 'Ivan test', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"gamot\"]', '[\"cat food\"]', 3900.00, '2024-10-25 03:03:47', '[\"2500.00\",\"300.00\"]', 3950.00, 50.00, '2025-01-05 04:41:59');
+(67, 'Ivan test', '[\"Surgical Servicesss\",\"Pharmacy\"]', '[\"gamot\"]', '[\"cat food\"]', 3900.00, '2024-10-25 03:03:47', '[\"2500.00\",\"300.00\"]', 3950.00, 50.00, '2025-01-05 04:41:59'),
+(68, 'Racel', '[\"Grooming\",\"\",\"\"]', '[\"Shampoo\"]', '[\"\"]', 999.00, '2025-01-12 06:51:12', '[\"999.00\",\"\",\"\"]', 1500.00, 501.00, '2025-01-12 06:51:12'),
+(69, 'Racel', '[\"Pharmacy\",\"\",\"\",\"\"]', '[\"lkjkdhsjbdsj\"]', '[\"\"]', 300.00, '2025-01-12 17:59:25', '[\"300.00\",\"\",\"\",\"\"]', 1000.00, 700.00, '2025-01-12 17:59:25'),
+(70, 'Anne Marcial', '[\"\",\"Surgical Servicesss\",\"Grooming\",\"Pet Supplies\",\"\",\"\",\"\",\"\"]', '[\"\"]', '[\"\"]', 3799.00, '2025-01-14 04:02:07', '[\"NaN\",\"2500.00\",\"999.00\",\"300.00\",\"\",\"\",\"\",\"\"]', 4000.00, 201.00, '2025-01-14 04:02:07');
 
 -- --------------------------------------------------------
 
@@ -427,18 +327,25 @@ CREATE TABLE `reviews` (
   `profile_picture` varchar(255) DEFAULT NULL,
   `comment` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `view` tinyint(1) DEFAULT 0
+  `view` tinyint(1) DEFAULT 0,
+  `rating` int(1) NOT NULL DEFAULT 0,
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `name`, `profile_picture`, `comment`, `created_at`, `view`) VALUES
-(2, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:43:19', 1),
-(5, 'Ej Ivan Ablanida', NULL, 'das', '2024-10-18 02:52:15', 1),
-(6, 'Ivan', 'customer.jfif', 'dsadsa', '2024-10-26 07:38:11', 1),
-(7, 'Anonymous', NULL, 'dsadsa', '2024-10-26 07:38:22', 1);
+INSERT INTO `reviews` (`id`, `name`, `profile_picture`, `comment`, `created_at`, `view`, `rating`, `image`) VALUES
+(2, 'test', 'gallery-11.jpg', 'dasdsa', '2024-09-17 06:43:19', 1, 3, NULL),
+(5, 'Ej Ivan Ablanida', 'customer.jfif', 'das', '2024-10-18 02:52:15', 1, 3, '1736836240_profile.png'),
+(6, 'Ivan', 'customer.jfif', 'dsadsa', '2024-10-26 07:38:11', 1, 3, '1736836240_profile.png'),
+(7, 'Anonymous', 'customer.jfif', 'dsadsa', '2024-10-26 07:38:22', 1, 3, '1736836240_profile.png'),
+(8, 'Racel Mae', 'customer.jfif', 'Super nice! ', '2025-01-12 03:52:37', 1, 3, '1736836240_profile.png'),
+(9, 'Admin', 'customer.jfif', 'hello po!', '2025-01-14 06:23:55', 0, 3, '1736836240_profile.png'),
+(10, 'Admin', 'customer.jfif', 'dasdsadsa', '2025-01-14 06:25:35', 0, 3, '1736836240_profile.png\\'),
+(11, 'Admin', 'customer.jfif', 'dsadsa', '2025-01-14 06:27:35', 0, 3, '1736836240_profile.png'),
+(13, 'Admin', 'customer.jfif', 'dasdsadsa', '2025-01-14 06:30:40', 0, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -516,7 +423,8 @@ CREATE TABLE `unavailable` (
 --
 
 INSERT INTO `unavailable` (`id`, `unavailable`, `reason`) VALUES
-(1, '2024-12-13', 'dasdsa123try');
+(1, '2024-12-13', 'dasdsa123try'),
+(3, '2025-01-15', 'fully booked!');
 
 -- --------------------------------------------------------
 
@@ -541,13 +449,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `password`, `role`, `profile_picture`, `address`, `contact_num`) VALUES
-(34, 'Ej Ivan Ablanida', '', 'a@gmail.com', '$2y$10$0eNUhX8Nx6.gSi.L85kIdemmaT6bt.3iOzbVlVfXUwlYG.OE2lWf2', 'user', 'R.png', '', ''),
-(36, 'Admin', '', 'ab@gmail.com', '$2y$10$B4sTaZVYv6u1XGvXFZE2buBUxHz5uKW9/Dr5y1MxLY1H6QnVoLRvO', 'admin', '', '', ''),
-(37, 'Ej Ivan Ablanida', '', 'abc@gmail.com', '$2y$10$aSc1mOWnnS/EIQ9eF7beIO4YTiiSYYbxhbNcX.W0jS6Pi7kxFKoHe', 'admin', '', '', ''),
-(42, 'Tests', '', 'test@gmail.com', '$2y$10$hwURNTqnyPiVYte4Gueh0.dWfAjIEfRtB20YQv60LifoS3ugN0VkC', 'admin', '', '', ''),
-(46, 'ejivan', '', '1@gmail.com', '$2y$10$.u6lPyISRoBxc0HkpZtlP.yPT24G4fdIBm8MLBkz8Pgd3CynQcpmi', 'staff', 'customer.jfif', '', ''),
-(49, 'Ivan Ablanida', '', 'ejthecoder@gmail.com', '$2y$10$Q1RjjvOAk/UESgk7y3.Viuvwpb0W4gSjhbMqcXXTJNQK/t8vUqB86', 'user', 'customer.jfif', '', ''),
-(50, 'Ivan', 'Ablanida', 'ejivancablanida@gmail.com', '$2y$10$o2ogVzWRI9IEgbBSsc8eyeUIf8dbbSgibJTHlUDpoVBFufRkDh91m', 'user', 'customer.jfif', 'Blk 4 Lot 23', '09957939703');
+(36, 'Admin', '', 'ejthecoder@gmail.com', '$2y$10$B4sTaZVYv6u1XGvXFZE2buBUxHz5uKW9/Dr5y1MxLY1H6QnVoLRvO', 'user', '', '', ''),
+(42, 'Tests', '', 'admin@gmail.com', '$2y$10$hwURNTqnyPiVYte4Gueh0.dWfAjIEfRtB20YQv60LifoS3ugN0VkC', 'admin', '', '', ''),
+(51, 'Racel Mae', 'Loquellano', 'racelmaeloquellano@gmail.com', '$2y$10$dME4MAYzCJJUDt/JTxcFa.rwF29R8grWL7PS2h0Dys04X.jms0.yO', 'user', 'customer.jfif', 'S11 B2 L13 Belvedere Pk2 Gentri', '09618757048'),
+(52, 'Frances', 'Medrano', 'love.cessyyyy@gmail.com', '$2y$10$dnZ5NCBT.N/2QD2Q2mFE3.2iweMh8.3TBE26pD0Ig56oomxb854GS', 'user', 'customer.jfif', 'tanza', '09057965873'),
+(53, 'Kim', 'Lungcay', 'kimlouremae.lungcay@gmail.com', '$2y$10$4gkDdCXRHuTXSMFxZxAjq.Su74XsRYodcwx7j6IOaaRFGBo3iyM3a', 'user', 'customer.jfif', 'Halayhay', '09167649000'),
+(54, 'farhan', 'sharief', 'farhanuoiklhjlkjasdlkj@yopmail.com', '$2y$10$t3KcIBYwu8IXePVxVlozwOnOmGad0ZXE0fB7vhCvh9UhaEQ8LmJE6', 'user', 'customer.jfif', 'Mati City', '09615365586'),
+(55, 'Anne', 'Marcial', 'annemarcialll@gmail.com', '$2y$10$x.jSUfC1/JP.WULf2NmJvOlZ0PV2AbbZHpvNIfZ5dc5vB3cn9.s4K', 'user', 'customer.jfif', 'Amaya 2', '09265482650');
 
 --
 -- Indexes for dumped tables
@@ -581,6 +489,12 @@ ALTER TABLE `categories`
 -- Indexes for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `faqs`
+--
+ALTER TABLE `faqs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -646,13 +560,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_confirm`
 --
 ALTER TABLE `admin_confirm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `app_req_notif`
@@ -673,6 +587,12 @@ ALTER TABLE `chat_messages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `faqs`
+--
+ALTER TABLE `faqs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `max_booking`
 --
 ALTER TABLE `max_booking`
@@ -682,25 +602,25 @@ ALTER TABLE `max_booking`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
 
 --
 -- AUTO_INCREMENT for table `patients_records`
 --
 ALTER TABLE `patients_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pos_records`
 --
 ALTER TABLE `pos_records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `service_list`
@@ -718,13 +638,13 @@ ALTER TABLE `system_settings`
 -- AUTO_INCREMENT for table `unavailable`
 --
 ALTER TABLE `unavailable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

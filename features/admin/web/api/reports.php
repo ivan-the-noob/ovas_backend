@@ -69,9 +69,14 @@
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.php">
+               <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
+                </a>
+
+                <a href="faqs.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>FAQS</span>
                 </a>
                 <a href="unavailable.php">
                     <i class="fa-solid fa-list"></i>

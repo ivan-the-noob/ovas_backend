@@ -1,27 +1,33 @@
 <?php
-require '../../../../db.php'; // Ensure correct path to db.php file
+require '../../../../db.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize and validate input
-    $unavailableDate = htmlspecialchars(trim($_POST['unavailable_date'])); // Date input
+    $startDate = htmlspecialchars(trim($_POST['start_date']));
+    $endDate = htmlspecialchars(trim($_POST['end_date'])); 
     $reason = htmlspecialchars(trim($_POST['reason']));
 
-    // Check if the fields are not empty
-    if (!empty($unavailableDate) && !empty($reason)) {
+    if (!empty($startDate) && !empty($endDate) && !empty($reason)) {
         try {
-            // Use the $conn variable from db.php
             if ($conn) {
-                // Prepare the SQL statement
-                $stmt = $conn->prepare("INSERT INTO unavailable (unavailable, reason) VALUES (:unavailable, :reason)");
-                $stmt->bindParam(':unavailable', $unavailableDate); // Use the date
-                $stmt->bindParam(':reason', $reason);
+                $start = new DateTime($startDate);
+                $end = new DateTime($endDate);
+                $interval = new DateInterval('P1D'); 
+                $dateRange = new DatePeriod($start, $interval, $end->add(new DateInterval('P1D'))); // Add 1 day to include the end date
 
-                // Execute the query
-                if ($stmt->execute()) {
-                    header("Location: ../../web/api/unavailable.php?message=Unavailable status added successfully");
-                } else {
-                    echo "Failed to add unavailable status.";
+                $stmt = $conn->prepare("INSERT INTO unavailable (unavailable, reason) VALUES (:unavailable, :reason)");
+
+                foreach ($dateRange as $date) {
+                    $unavailableDate = $date->format('Y-m-d'); 
+                    $stmt->bindParam(':unavailable', $unavailableDate);
+                    $stmt->bindParam(':reason', $reason);
+
+                    if (!$stmt->execute()) {
+                        echo "Failed to add unavailable status for " . $unavailableDate;
+                        exit;
+                    }
                 }
+
+                header("Location: ../../web/api/unavailable.php?message=Unavailable status added successfully");
             } else {
                 echo "Database connection failed.";
             }

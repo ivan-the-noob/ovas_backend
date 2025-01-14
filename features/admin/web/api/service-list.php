@@ -75,6 +75,10 @@
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
                 </a>
+                <a href="faqs.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>FAQS</span>
+                </a>
                 <a href="unavailable.php">
                     <i class="fa-solid fa-list"></i>
                     <span>Unavailable Date</span>

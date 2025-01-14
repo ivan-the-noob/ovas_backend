@@ -69,9 +69,14 @@
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.php">
+               <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
+                </a>
+
+                <a href="faqs.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>FAQS</span>
                 </a>
                 <a href="unavailable.php">
                     <i class="fa-solid fa-list"></i>
@@ -141,17 +146,17 @@
                                         <?php if ($notification['status'] == 'confirm'): ?>
                                             <div class="alert alert-primary mb-0">
                                                 <strong>Appointment Confirmed</strong>
-                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been confirmed!</p>                               
+                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been confirmed!<br><?php echo htmlspecialchars($notification['created_at']); ?></p>                              
                                             </div>
                                         <?php elseif ($notification['status'] == 'decline'): ?>
                                             <div class="alert alert-danger mb-0">
                                                 <strong>Declined</strong>
-                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been declined. <a href="#" class="alert-link">See here.</a></p> 
+                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been declined.<br><?php echo htmlspecialchars($notification['created_at']); ?></p> 
                                             </div>
                                         <?php elseif ($notification['status'] == 'complete'): ?>
                                             <div class="alert alert-success mb-0">
                                                 <strong>Completed!</strong>
-                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been completed.</p>
+                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been completed.<br><?php echo htmlspecialchars($notification['created_at']); ?></p>
                                             </div>
                                         <?php endif; ?>
                                     </li>
@@ -252,11 +257,36 @@
                                         
                                         <div class="d-flex">
 
-                                            <!-- Confirm Button -->
-                                            <button class="btn btn-primary me-2" 
-                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'confirm')">
+                                         
+
+                                            <button class="btn btn-primary me-2" onclick="showVetNameModal(<?= $appointment['id'] ?>)">
                                                 Confirm
                                             </button>
+
+                                            <!-- Vet Name Modal -->
+                                           <!-- Vet Name Modal -->
+                            <div class="modal fade" id="vetNameModal" tabindex="-1" aria-labelledby="vetNameModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="vetNameModalLabel">Enter Vet Name</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="vetNameForm">
+                                    <div class="mb-3">
+                                        <label for="vetName" class="form-label">Vet Name</label>
+                                        <input type="text" class="form-control" id="vetName" name="vetName" required>
+                                    </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" id="submitVetName">Submit</button>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
 
                                             <!-- Complete Button -->
                                             <button class="btn btn-success me-2" 
@@ -442,19 +472,27 @@
 </body>
 
 <script type="text/javascript">
-  function updateStatus(appointmentId, newStatus) {
-    // Store the current appointmentId and status globally for use in the modal confirmation
+ let currentAppointmentId, currentStatus; // Global variables to store appointment ID and status
+
+// Show Vet Name Modal when Confirm button is clicked
+function showVetNameModal(appointmentId) {
+    currentAppointmentId = appointmentId; // Store appointment ID
+    $('#vetNameModal').modal('show'); // Open the Vet Name Modal
+}
+
+// Function to update the status
+function updateStatus(appointmentId, newStatus, vetName = null) {
     currentAppointmentId = appointmentId;
     currentStatus = newStatus;
 
-    // Handle Decline separately, since it opens a different modal
+    // Handle Decline separately
     if (newStatus === 'decline') {
-        $('#appointmentId').val(appointmentId);  
-        $('#declineModal').modal('show');  // Show decline modal directly
-        return;  // Exit here, as we do not need to show confirmation modal for decline
+        $('#appointmentId').val(appointmentId);
+        $('#declineModal').modal('show'); // Show decline modal
+        return;
     }
 
-    // Set the status text for the modal
+    // Set the status text for the confirmation modal
     let statusText = "";
     if (newStatus === 'confirm') {
         statusText = "Confirm";
@@ -462,30 +500,31 @@
         statusText = "Complete";
     }
 
-    // Update the confirmation modal text
+    // Update confirmation modal text
     document.getElementById('status-text').textContent = statusText;
-    $('#confirmationModal').modal('show');  // Show confirmation modal
+    $('#confirmationModal').modal('show'); // Show confirmation modal
 
-    // Wait for confirmation before executing the status change
-    document.getElementById('confirmActionButton').onclick = function() {
+    // Wait for confirmation before executing status change
+    document.getElementById('confirmActionButton').onclick = function () {
         $('#confirmationModal').modal('hide');
-        executeStatusChange(currentAppointmentId, currentStatus);
+        executeStatusChange(currentAppointmentId, currentStatus, vetName);
     };
 }
 
-// Function to execute the actual status change after confirmation
-function executeStatusChange(appointmentId, newStatus) {
+// Function to execute the actual status change
+function executeStatusChange(appointmentId, newStatus, vetName = null) {
     $.ajax({
-        url: '../../function/php/update_status.php',  
+        url: '../../function/php/update_status.php',
         type: 'POST',
         data: {
-            id: appointmentId, 
-            status: newStatus  
+            id: appointmentId,
+            status: newStatus,
+            vet_name: vetName // Include vet name if provided
         },
-        success: function(response) {
+        success: function (response) {
             if (response === 'success') {
                 const badge = $('#status-badge-' + appointmentId);
-                badge.removeClass('bg-primary bg-success bg-info bg-danger'); 
+                badge.removeClass('bg-primary bg-success bg-info bg-danger');
 
                 if (newStatus === 'confirm') {
                     badge.addClass('bg-success');
@@ -501,7 +540,7 @@ function executeStatusChange(appointmentId, newStatus) {
                     badge.text('Pending');
                 }
 
-                // Reload the page to reflect changes, except for decline
+                // Reload the page to reflect changes
                 if (newStatus !== 'decline') {
                     location.reload();
                 }
@@ -509,37 +548,50 @@ function executeStatusChange(appointmentId, newStatus) {
                 alert('Failed to update status');
             }
         },
-        error: function() {
+        error: function () {
             alert('Error occurred while updating status.');
         }
     });
 }
 
+// Vet Name Modal Submit
+document.getElementById('submitVetName').addEventListener('click', function () {
+    const vetName = document.getElementById('vetName').value.trim();
+
+    if (vetName === "") {
+        alert('Please enter a vet name.');
+        return;
+    }
+
+    // Call updateStatus with vet name and current appointment ID
+    updateStatus(currentAppointmentId, 'confirm', vetName);
+});
+
 // Decline Confirmation (after submitting the reason)
-document.getElementById('declineReasonForm').onsubmit = function(event) {
+document.getElementById('declineReasonForm').onsubmit = function (event) {
     event.preventDefault();
     let form = this;
 
     // Make sure the form is valid
     if (form.checkValidity()) {
         executeStatusChange(currentAppointmentId, 'decline');
-        form.submit();  // Submit the form to process the decline reason
+        form.submit(); // Submit the form to process the decline reason
     } else {
         alert('Please provide a reason for cancellation.');
     }
 };
 
+// Mark notifications as read when the dropdown is opened
+document.getElementById('notificationDropdown').addEventListener('show.bs.dropdown', function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "../../function/php/mark_as_read.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send();
 
-    document.getElementById('notificationDropdown').addEventListener('show.bs.dropdown', function () {
+    document.getElementById('notification-count').textContent = '0';
+    document.getElementById('notification-count').classList.add('d-none');
+});
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../function/php/mark_as_read.php", true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.send();
-
-        document.getElementById('notification-count').textContent = '0';
-        document.getElementById('notification-count').classList.add('d-none');
-    });
 </script>
 
        

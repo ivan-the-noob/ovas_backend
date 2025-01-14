@@ -79,9 +79,14 @@
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.php">
+               <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
+                </a>
+
+                <a href="faqs.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>FAQS</span>
                 </a>
                 <a href="#" class="navbar-highlight">
                     <i class="fa-solid fa-list"></i>
@@ -141,34 +146,39 @@
                 </div>
             </div>
 
-                <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header justify-content-between">
-                                <h5 class="modal-title" id="addCategoryModalLabel">Add New Unavailable</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="../../function/php/save_unavailable.php" method="POST">
-                                    <div class="form-group">
-                                        <label for="unavailableDate">Unavailable Date</label>
-                                        <input type="date" class="form-control mt-2" id="unavailableDate" name="unavailable_date" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="reason">Reason</label>
-                                        <textarea class="form-control mt-2" id="reason" name="reason" rows="3" required></textarea>
-                                    </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                            </form>
+            <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header justify-content-between">
+                            <h5 class="modal-title" id="addCategoryModalLabel">Add New Unavailability</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div class="modal-body">
+                            <form action="../../function/php/save_unavailable.php" method="POST">
+                                <div class="form-group">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="date" class="form-control mt-2" id="startDate" name="start_date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="endDate">End Date</label>
+                                    <input type="date" class="form-control mt-2" id="endDate" name="end_date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reason">Reason</label>
+                                    <textarea class="form-control mt-2" id="reason" name="reason" rows="3" required></textarea>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </form>
                     </div>
                 </div>
+            </div>
+
             <div class="px-lg-5" style="overflow-x: auto;">
             <table class="table table-hover table-remove-borders">
     <thead class="thead-light">

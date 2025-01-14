@@ -8,7 +8,7 @@ try {
 
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo $result['dates']; // Return dates as CSV string
+    echo $result['dates']; 
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }

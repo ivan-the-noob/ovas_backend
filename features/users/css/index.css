@@ -901,6 +901,39 @@ display: none;
   color: #155724;
 }
 
+/*Star Section*/
+
+.star-rating {
+  display: flex;
+  direction: row-reverse;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star-rating input:checked ~ label {
+  color: #ffc107; /* Gold color when selected */
+}
+
+.star-rating input:checked ~ label:hover,
+.star-rating label:hover {
+  color: #ffb84d; /* Hover effect */
+}
+
+.star-rating input:checked + label:hover {
+  color: #ffcc00; /* Hover effect */
+}
+
+
+/*Star Section End*/
+
 
 
 

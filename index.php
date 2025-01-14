@@ -13,6 +13,29 @@ if (isset($_SESSION['email'])) {
 }
 
 
+
+$userEmail = $_SESSION['email'] ?? null;
+$bookingLimitReached = false;
+$bookingCount = 0;
+
+if ($userEmail) {
+    $yesterday = date('Y-m-d', strtotime('-1 day'));
+    $stmt = $conn->prepare("
+        SELECT COUNT(*) 
+        FROM appointments 
+        WHERE email = :email AND appointment_date = :yesterday
+    ");
+    $stmt->bindParam(':email', $userEmail);
+    $stmt->bindParam(':yesterday', $yesterday);
+    $stmt->execute();
+
+    $bookingCount = $stmt->fetchColumn();
+    if ($bookingCount >= 3) {
+        $bookingLimitReached = true;
+    }
+}
+
+
 $notifications = [];
 
 try {
@@ -88,67 +111,82 @@ try {
         </ul>
 
         <div class="d-flex ml-auto align-items-center">
-    <?php if (isset($_SESSION['email'])): ?>
-      <div class="dropdown first-dropdown">
-          <button type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-bell"></i>
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <h5 class="notification-title">Notification</h5>
-              <?php if (!empty($notifications)): ?>
-                  <?php foreach ($notifications as $notification): ?>
-                      <?php if ($notification['type'] === 'Success'): ?>
-                          <div class="notification-content alert alert-success">
-                              <strong>Appointment Confirmed!</strong>
-                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                              <p class="code">Code: <?= htmlspecialchars($notification['code']) ?></p>
-                              <a href="features/users/web/api/appointments.php">View Details</a>
+              <?php if (isset($_SESSION['email'])): ?>
+                <div class="dropdown first-dropdown">
+              <button type="button" id="dropdownMenuButton1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-bell"></i>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <h5 class="notification-title">Notification</h5>
+                  <?php if (!empty($notifications)): ?>
+                      <?php foreach ($notifications as $notification): ?>
+                          <?php if ($notification['type'] === 'confirm'): ?>
+                              <li>
+                                  <div class="notification-content alert alert-success">
+                                      <strong>Appointment Confirmed!</strong>
+                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                                      <p class="code">Code: <?= htmlspecialchars($notification['code']) ?></p>
+                                      <a href="features/users/web/api/appointments.php">View Details</a>
+                                  </div>
+                              </li>
+                          <?php elseif ($notification['type'] === 'pending'): ?>
+                              <li>
+                                  <div class="notification-content alert alert-primary">
+                                      <strong>Successfully Booked!</strong>
+                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                                  </div>
+                              </li>
+                          <?php elseif ($notification['type'] === 'profile'): ?>
+                              <li>
+                                  <div class="notification-content alert alert-success">
+                                      <strong>Profile Change!</strong>
+                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                                  </div>
+                              </li>
+                          <?php elseif ($notification['type'] === 'password'): ?>
+                              <li>
+                                  <div class="notification-content alert alert-success">
+                                      <strong>Password Change!</strong>
+                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                                  </div>
+                              </li>
+                          <?php elseif ($notification['type'] === 'cancel'): ?>
+                              <li>
+                                  <div class="notification-content alert alert-danger">
+                                      <strong>Appointment Cancelled!</strong>
+                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                                  </div>
+                              </li>
+                          <?php elseif ($notification['type'] === 'decline'): ?>
+                              <li>
+                                  <div class="notification-content alert alert-danger">
+                                      <strong>Rejected</strong>
+                                      <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
+                                  </div>
+                              </li>
+                          <?php endif; ?>
+                      <?php endforeach; ?>
+                  <?php else: ?>
+                      <li>
+                          <div class="notification-content alert alert-secondary">
+                              <p class="notification-text">No notifications available.</p>
                           </div>
-                      <?php elseif ($notification['type'] === 'confirm'): ?>
-                          <div class="notification-content alert-primary">
-                              <strong>Successfully Booked!</strong>
-                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                          </div>
-                        <?php elseif ($notification['type'] === 'profile'): ?>
-                          <div class="notification-content alert-success">
-                              <strong>Profile Change!</strong>
-                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                          </div>
-                        <?php elseif ($notification['type'] === 'password'): ?>
-                          <div class="notification-content alert-success">
-                              <strong>Password Change!</strong>
-                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                          </div>
-                        <?php elseif ($notification['type'] === 'cancel'): ?>
-                          <div class="notification-content alert-danger">
-                              <strong>Appointment Cancelled!</strong>
-                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                          </div>
-                      <?php elseif ($notification['type'] === 'decline'): ?>
-                          <div class="notification-content alert-danger">
-                              <strong>Rejected</strong>
-                              <p class="notification-text"><?= htmlspecialchars($notification['message']) ?></p>
-                          </div>
-                      <?php endif; ?>
-                  <?php endforeach; ?>
-              <?php else: ?>
-                  <div class="notification-content alert alert-secondary">
-                      <p class="notification-text">No notifications available.</p>
-                  </div>
-              <?php endif; ?>
+                      </li>
+                  <?php endif; ?>
+              </ul>
           </div>
-      </div>
 
 
-        <div class="dropdown second-dropdown">
-            <button class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <a class="dropdown-item" href="features/users/web/api/dashboard.php">Profile</a>
-                <a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a>
+          <div class="dropdown second-dropdown">
+                <button class="dropdown-toggle btn" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <li><a class="dropdown-item" href="features/users/web/api/settings.php">Profile</a></li>
+                    <li><a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a></li>
+                </ul>
             </div>
-        </div>
+
     <?php else: ?>
 
         <div class="d-flex ml-auto">
@@ -174,11 +212,34 @@ try {
           <h4>Book Your Pet's Next Appointment with Ease!</h4>
           <p>Welcome to Bark Yard Pet Wellness Center, your one-stop destination for pet
             grooming and care.</p>
-            <?php if (isset($_SESSION['email'])): ?>
-                <a href="features/users/web/api/appointment.php">
-                    <button class="btn btn-primary">Book an appointment</button>
-                </a>
+            <?php if ($userEmail): ?>
+                <?php if ($bookingLimitReached): ?>
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#limitModal">Book an Appointment</button>
+                <?php else: ?>
+                    <a href="features/users/web/api/appointment.php">
+                        <button class="btn btn-primary">Book an Appointment</button>
+                    </a>
+                <?php endif; ?>
+              
             <?php endif; ?>
+
+            <!-- Modal -->
+            <div class="modal fade" id="limitModal" tabindex="-1" aria-labelledby="limitModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="limitModalLabel">Booking Limit Reached</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            You booked 3 times today! Please come back again tomorrow.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
       </div>
@@ -264,21 +325,47 @@ try {
 
 
 <?php if (isset($_SESSION['email'])): ?>
-<section class="review">
+  <section class="review">
     <div class="container review-section">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <h2 class="text-center">Leave Us A Review</h2>
-                <form class="review-form" action="features/users/function/php/process_review.php" method="POST">
+                <form class="review-form" action="features/users/function/php/process_review.php" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3 d-flex justify-content-center">
+                        <div class="star-rating mt-2">
+                            <input type="radio" id="star5" name="rating" value="5" required />
+                            <label for="star5" class="fa fa-star"></label>
+
+                            <input type="radio" id="star4" name="rating" value="4" />
+                            <label for="star4" class="fa fa-star"></label>
+
+                            <input type="radio" id="star3" name="rating" value="3" />
+                            <label for="star3" class="fa fa-star"></label>
+
+                            <input type="radio" id="star2" name="rating" value="2" />
+                            <label for="star2" class="fa fa-star"></label>
+
+                            <input type="radio" id="star1" name="rating" value="1" />
+                            <label for="star1" class="fa fa-star"></label>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Leave Your Comment" required></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="image" class="form-label text-black mt-2 mb-2" style="padding-left: 80px;">Upload Image (Optional)</label>
+                        <input type="file" class="form-control d-flex" name="image" id="image" accept="image/*">
+                    </div>
+
+
                     <button type="submit" class="mt-3 submit">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </section>
+
 <?php endif; ?>
 
   <div class="wave-container1" id="about-us">
@@ -331,6 +418,6 @@ try {
 <script src="features/users/function/script/loading_animation.js"></script>
 <script src="features/users/function/script/services-carousel.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </html>

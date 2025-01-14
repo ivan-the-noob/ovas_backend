@@ -76,8 +76,8 @@
             <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <a class="dropdown-item" href="features/users/web/api/dashboard.php">Profile</a>
-                <a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a>
+                <a class="dropdown-item" href="settings.php">Profile</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
             </div>
         </div>
     <?php else: ?>
@@ -148,51 +148,30 @@
   </div>
 
      <!--Why Choose Us Section-->
-  <section class="why-choose-us py-5">
-    <div class="container">
-      <h3>Heres A Reason Why Choose Us</h3>
-      <div class="row">
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 text-center">
-            <div class="card-body">
-              <div class="icon mb-3">
-                <i class="fas fa-heart fa-2x" style="color: #7A3015;"></i>
-              </div>
-              <h5 class="card-title h-5">Expert Care & Compassion</h5>
-              <p class="card-text">Our experienced team is passionate about animals and dedicated to providing top-notch
-                care. We treat every pet like our own, ensuring they receive the love and attention they deserve.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 text-center">
-            <div class="card-body">
-              <div class="icon mb-3">
-                <i class="fas fa-paw fa-2x" style="color: #7A3015;"></i>
-              </div>
-              <h5 class="card-title">Comprehensive Services</h5>
-              <p class="card-text">We offer a wide range of services, from grooming to veterinary care, all under one
-                roof. Whether your pet needs a spa day, a routine check-up, or specialized treatment, we've got you
-                covered.</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 text-center">
-            <div class="card-body">
-              <div class="icon mb-3">
-                <i class="fas fa-home fa-2x" style="color: #7A3015;"></i>
-              </div>
-              <h5 class="card-title">Friendly & Safe Environment</h5>
-              <p class="card-text">Our facility is designed to be a welcoming and safe space for pets and their owners.
-                We prioritize cleanliness and create a stress-free atmosphere, making your pet's visit comfortable and
-                enjoyable.</p>
-            </div>
-          </div>
-        </div>
-      </div>
+     <section class="why-choose-us py-5">
+  <div class="container">
+    <h3>Here's a Reason Why Choose Us</h3>
+    <div class="row">
+      <?php
+      // Fetch all images from the database
+      $sql = "SELECT image FROM faqs";  // Query to get all images from the 'faqs' table
+      $stmt = $conn->query($sql);
+      
+      // Loop through the results and display images in separate columns
+      while ($faq = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        if (isset($faq['image'])) {
+          $imagePath = $faq['image'];
+          echo "<div class='col-md-4 mb-3'>
+                  <img src='../../../../assets/img/faqs/$imagePath' alt='Why Choose Us' class='img-fluid'  style= 'border-radius :20px;'>
+                </div>";
+        }
+      }
+      ?>
     </div>
-  </section>
+  </div>
+</section>
+
+
     <!--Why Choose Us Section End-->
   <div class="wave-container">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave2">
@@ -248,52 +227,7 @@
   </footer>
     <!--Footer End-->
 
-      <!--Chat Bot-->
-  <button id="chat-bot-button" onclick="toggleChat()">
-    <i class="fa-solid fa-headset"></i>
-  </button>
-
-  <div id="chat-interface" class="hidden">
-    <div id="chat-header">
-        <p>Amazing Day! How may I help you?</p>
-        <button onclick="toggleChat()">X</button>
-    </div>
-    <div id="chat-body">
-        <div class="button-bot">
-        <?php
-            include '../../../../db.php';
-
-            try {
-                $sql = "SELECT question FROM chat_messages";
-                $stmt = $conn->prepare($sql);
-                $stmt->execute();
-
-                if ($stmt->rowCount() > 0) {
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $question = htmlspecialchars($row['question'], ENT_QUOTES, 'UTF-8');
-                        echo "<button onclick=\"sendResponse('$question')\">$question</button>";
-                    }
-                } else {
-                    echo "<p>No questions available.</p>";
-                }
-            } catch (PDOException $e) {
-                echo "Error: " . $e->getMessage();
-            }
-            ?>
-
-        </div>
-        <div class="line"></div>
-        <div class="admin mt-3">
-            <div class="admin-chat">
-                <img src="../../../../assets/img/logo.png" alt="Admin">
-                <p>Admin</p>
-            </div>
-            <p class="text" id="typing-text">Hello, I am Chat Bot. Please ask me a question by pressing the question buttons.</p>
-        </div>
       
-    </div>
-
-</div>
     <!--Chat Bot End-->
 
 

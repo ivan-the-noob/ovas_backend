@@ -126,9 +126,14 @@
                     <i class="fa-solid fa-list"></i>
                     <span>Category List</span>
                 </a>
-                <a href="service-list.php">
+               <a href="service-list.php">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Service List</span>
+                </a>
+
+                <a href="faqs.php">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>FAQS</span>
                 </a>
                 <a href="unavailable.php">
                     <i class="fa-solid fa-list"></i>
@@ -230,27 +235,37 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                               <div class="row">
-                                    <div class="col-md-4">
-                                        <h5>CLIENT INFORMATION</h5>
-                                        <div class="mb-3">
-                                            <label for="ownerFirstName-<?php echo $patient['id']; ?>" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="ownerFullName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerName'] . ' ' . $patient['ownerMiddleName'] . ' ' . $patient['ownerLastName']); ?>" readonly>
+                               <div class="row d-flex justify-content-center">
+                                                     
+                                    <div class="col-md-10">
+                                        
+                                    <h5 class="mt-4 text-center d-flex mx-auto justify-content-center">CLIENT INFORMATION</h5>
+                                        <div class="owner-info">
+                                            <div class="mb-3">
+                                                <label for="ownerFirstName-<?php echo $patient['id']; ?>" class="form-label">Name</label>
+                                                <input type="text" class="form-control" id="ownerFullName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerName'] . ' ' . $patient['ownerMiddleName']); ?>" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="ownerFirstName-<?php echo $patient['id']; ?>" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" id="ownerFullName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerLastName']); ?>" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="address-<?php echo $patient['id']; ?>" class="form-label">Complete Address:</label>
+                                                <input type="text" class="form-control" id="address-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerAddress']); ?>" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="contactNumber-<?php echo $patient['id']; ?>" class="form-label">Contact Number:</label>
+                                                <input type="text" class="form-control" id="contactNumber-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['mobile']); ?>" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="email-<?php echo $patient['id']; ?>" class="form-label">Email Address:</label>
+                                                <input type="email" class="form-control" id="email-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerEmail']); ?>" readonly>
+                                            </div> 
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="address-<?php echo $patient['id']; ?>" class="form-label">Complete Address:</label>
-                                            <input type="text" class="form-control" id="address-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerAddress']); ?>" readonly>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="contactNumber-<?php echo $patient['id']; ?>" class="form-label">Contact Number:</label>
-                                            <input type="text" class="form-control" id="contactNumber-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['mobile']); ?>" readonly>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="email-<?php echo $patient['id']; ?>" class="form-label">Email Address:</label>
-                                            <input type="email" class="form-control" id="email-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['ownerEmail']); ?>" readonly>
-                                        </div>
-                                        <hr>
-                                        <h5 class="mt-4">PET INFORMATION</h5>
+
+
+                                        <h5 class="mt-4 text-center d-flex mx-auto justify-content-center">PET INFORMATION</h5>
+                                        <div class="owner-info">
                                         <div class="mb-3">
                                             <label for="petName-<?php echo $patient['id']; ?>" class="form-label">Pet's Name:</label>
                                             <input type="text" class="form-control" id="petName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['petName']); ?>" readonly>
@@ -283,65 +298,69 @@
                                             <label for="age-<?php echo $patient['id']; ?>" class="form-label">Age:</label>
                                             <input type="number" class="form-control" id="age-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['age']); ?>" readonly>
                                         </div> 
-                                        
+                                        </div>                                      
                                     </div>
-                                    <div class="col-md-4">
-                                    <h5 class="text-center">MEDICAL HISTORY</h5>
-                                    <div class="mb-3">
-                                        <label for="prevVetClinic-<?php echo $patient['id']; ?>" class="form-label">Previous Veterinarian/Clinic:</label>
-                                        <input type="text" class="form-control" id="prevVetClinic-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['previous_veteran']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="healthInsurance-<?php echo $patient['id']; ?>" class="form-label">Pet Health Insurance:</label>
-                                        <input type="text" class="form-control" id="healthInsurance-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['health_insurance']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="drugAllergies-<?php echo $patient['id']; ?>" class="form-label">Any known drug allergies:</label>
-                                        <input type="text" class="form-control" id="drugAllergies-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['drug_allergies']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="priorIllnessSurgeries-<?php echo $patient['id']; ?>" class="form-label">Prior Illness(es)/Surgery(ies):</label>
-                                        <input type="text" class="form-control" id="priorIllnessSurgeries-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['illness_surgeries']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="currentMedications-<?php echo $patient['id']; ?>" class="form-label">Current Medications:</label>
-                                        <input type="text" class="form-control" id="currentMedications-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['cur_medications']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="dietRestrictions-<?php echo $patient['id']; ?>" class="form-label">Diet Restrictions/Supplements:</label>
-                                        <input type="text" class="form-control" id="dietRestrictions-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['diet_restrictions']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="reasonInitialVisit-<?php echo $patient['id']; ?>" class="form-label">Reason for Initial Visit:</label>
-                                        <input type="text" class="form-control" id="reasonInitialVisit-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['initial_visits']); ?>" readonly>
+                                    <div class="col-md-10">                                   
+                                        <h5 class="text-center mt-4 d-flex mx-auto justify-content-center">MEDICAL HISTORY</h5>
+                                        <div class="owner-info">
+                                        <div class="mb-3">
+                                            <label for="prevVetClinic-<?php echo $patient['id']; ?>" class="form-label">Previous Veterinarian/Clinic:</label>
+                                            <input type="text" class="form-control" id="prevVetClinic-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['previous_veteran']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="healthInsurance-<?php echo $patient['id']; ?>" class="form-label">Pet Health Insurance:</label>
+                                            <input type="text" class="form-control" id="healthInsurance-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['health_insurance']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="drugAllergies-<?php echo $patient['id']; ?>" class="form-label">Any known drug allergies:</label>
+                                            <input type="text" class="form-control" id="drugAllergies-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['drug_allergies']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="priorIllnessSurgeries-<?php echo $patient['id']; ?>" class="form-label">Prior Illness(es)/Surgery(ies):</label>
+                                            <input type="text" class="form-control" id="priorIllnessSurgeries-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['illness_surgeries']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="currentMedications-<?php echo $patient['id']; ?>" class="form-label">Current Medications:</label>
+                                            <input type="text" class="form-control" id="currentMedications-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['cur_medications']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="dietRestrictions-<?php echo $patient['id']; ?>" class="form-label">Diet Restrictions/Supplements:</label>
+                                            <input type="text" class="form-control" id="dietRestrictions-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['diet_restrictions']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="reasonInitialVisit-<?php echo $patient['id']; ?>" class="form-label">Reason for Initial Visit:</label>
+                                            <input type="text" class="form-control" id="reasonInitialVisit-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['initial_visits']); ?>" readonly>
+                                        </div>
                                     </div>
 
                                     </div>
-                                    <div class="col-md-4">
-                                    <h5 class="text-center">OTHER INFORMATION</h5>
-                                    <div class="mb-3">
-                                        <label for="dateToday-<?php echo $patient['id']; ?>" class="form-label">Date Today:</label>
-                                        <input type="text" class="form-control" id="dateToday-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date_return']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="vetName-<?php echo $patient['id']; ?>" class="form-label">Veterinarian’s Name:</label>
-                                        <input type="text" class="form-control" id="vetName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['vet_name']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="authorization-<?php echo $patient['id']; ?>" class="form-label">Authorization for Medical and/or Surgical Treatment (Yes/No):</label>
-                                        <input type="text" class="form-control" id="authorization-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['authorization']); ?>" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="vetReport-<?php echo $patient['id']; ?>" class="form-label">Veterinarian’s Report:</label>
-                                        <textarea class="form-control" id="vetReport-<?php echo $patient['id']; ?>" rows="3" readonly><?php echo htmlspecialchars($patient['vet_report']); ?></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="historyPhysical<?php echo $patient['id']; ?>" class="form-label">History|Physical Findings|Diagnosis|Treatment|Service:</label>
-                                        <textarea class="form-control" id="historyPhysical-<?php echo $patient['id']; ?>" rows="3" readonly><?php echo htmlspecialchars($patient['historyPhysical']); ?></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="returnVisitDate-<?php echo $patient['id']; ?>" class="form-label">Scheduled for a Return Visit on:</label>
-                                        <input type="date" class="form-control" id="returnVisitDate-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date_return']); ?>" readonly>
+                                    <div class="col-md-10">
+                                    <h5 class="text-center mt-4 d-flex mx-auto">OTHER INFORMATION</h5>
+                                    <div class="owner-info">
+                                        <div class="mb-3">
+                                            <label for="dateToday-<?php echo $patient['id']; ?>" class="form-label">Date Today:</label>
+                                            <input type="text" class="form-control" id="dateToday-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date_return']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="vetName-<?php echo $patient['id']; ?>" class="form-label">Veterinarian’s Name:</label>
+                                            <input type="text" class="form-control" id="vetName-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['vet_name']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="authorization-<?php echo $patient['id']; ?>" class="form-label">Authorization for Medical and/or Surgical Treatment (Yes/No):</label>
+                                            <input type="text" class="form-control" id="authorization-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['authorization']); ?>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="vetReport-<?php echo $patient['id']; ?>" class="form-label">Veterinarian’s Report:</label>
+                                            <textarea class="form-control" id="vetReport-<?php echo $patient['id']; ?>" rows="3" readonly><?php echo htmlspecialchars($patient['vet_report']); ?></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="historyPhysical<?php echo $patient['id']; ?>" class="form-label">History|Physical Findings|Diagnosis|Treatment|Service:</label>
+                                            <textarea class="form-control" id="historyPhysical-<?php echo $patient['id']; ?>" rows="3" readonly><?php echo htmlspecialchars($patient['historyPhysical']); ?></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="returnVisitDate-<?php echo $patient['id']; ?>" class="form-label">Scheduled for a Return Visit on:</label>
+                                            <input type="date" class="form-control" id="returnVisitDate-<?php echo $patient['id']; ?>" value="<?php echo htmlspecialchars($patient['date_return']); ?>" readonly>
+                                        </div>
                                     </div>
                                         
                                     </div>
