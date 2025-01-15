@@ -17,6 +17,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../../css/dashboard.css">
 
 </head>
@@ -183,6 +184,37 @@
                                             </div>
                                             </div>
                                         </li>';
+
+                                        echo '
+                                        <div class="modal fade" id="reschedModal" tabindex="-1" aria-labelledby="reschedModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="reschedModalLabel">Select Reschedule Date</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="rescheduleForm" method="POST" action="../../function/php/updateAppointment.php">
+                      <div class="d-flex gap-2" style="font-size: 20px; padding-left: 50px;">
+                          <p>Selected Date:</p>
+                          <div class="selected-date"><p></p></div>
+                      </div>
+                      <div id="appointmentCalendar"></div>
+                      <!-- Hidden input field with name attribute -->
+                      <input type="hidden" id="appointment_date" name="appointment_date" value="">
+                      <!-- Hidden field for status -->
+                      <input type="hidden" name="status" value="pending">
+                  <input type="hidden" id="email" name="email" value="' . (isset($_SESSION['email']) ? $_SESSION['email'] : '') . '" />
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Confirm Reschedule</button>
+              </div>
+              </form>
+          </div>
+      </div>
+  </div>
+ '; 
 
                                         
                     
@@ -406,6 +438,189 @@
 
 
 </body>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var calendarEl = document.getElementById('appointmentCalendar');
+  var selectedDateDiv = document.querySelector('.selected-date p');
+
+  $('#reschedModal').on('shown.bs.modal', function () {
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: '',
+        center: 'title',
+        right: 'prev,next',
+      },
+      dayCellDidMount: async function (info) {
+        var dayCell = info.el;
+        var date = new Date(info.date);
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+        var maxDate = new Date(today);
+        maxDate.setDate(today.getDate() + 14); 
+
+        var formattedDate = date.toISOString().split('T')[0]; 
+
+        var xhrUnavailable = new XMLHttpRequest();
+        xhrUnavailable.open('POST', '../../function/php/getUnavailableDates.php', true);
+        xhrUnavailable.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhrUnavailable.onload = function () {
+          if (xhrUnavailable.status === 200) {
+            var unavailableDates = xhrUnavailable.responseText.split(',');
+
+            if (
+              unavailableDates.includes(formattedDate) ||
+              date < today ||
+              date > maxDate
+            ) {
+              disableDayCell(dayCell); 
+            } else {
+
+              checkBookingCapacity(dayCell, formattedDate);
+            }
+          }
+        };
+        xhrUnavailable.send('action=fetchUnavailable');
+
+        dayCell.addEventListener('click', function () {
+  var appointmentDateField = document.getElementById('appointment_date');
+  var selectedDateDiv = document.querySelector('.selected-date p');
+
+  if (appointmentDateField) {
+    var clickedDate = new Date(formattedDate);
+    var localDate = new Date(clickedDate.getTime() - clickedDate.getTimezoneOffset() * 60000);
+    var localFormattedDate = localDate.toISOString().split('T')[0]; 
+
+    appointmentDateField.value = localFormattedDate;
+
+ 
+  }
+
+        if (selectedDateDiv) {
+          var clickedDate = new Date(formattedDate);
+
+          var localDate = new Date(clickedDate.getTime() - clickedDate.getTimezoneOffset() * 60000);
+
+          selectedDateDiv.textContent = localDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+        }
+      });
+
+
+      },
+    });
+
+    calendar.render();
+  });
+});
+
+function disableDayCell(dayCell) {
+  dayCell.style.backgroundColor = '#808080';
+  dayCell.style.cursor = 'not-allowed';
+  dayCell.style.pointerEvents = 'none';
+}
+
+function checkBookingCapacity(dayCell, formattedDate) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '../../function/php/check-bookings.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      if (response.error) {
+        console.error('Error:', response.error);
+        return;
+      }
+
+      var bookingCount = response.bookingCount;
+      var maxBooking = response.maxBooking;
+
+      if (bookingCount >= maxBooking) {
+        dayCell.style.backgroundColor = '#F65859'; 
+        dayCell.style.pointerEvents = 'none';
+        dayCell.style.cursor = 'not-allowed';
+      } else {
+        enableDayCell(dayCell, formattedDate); 
+      }
+    }
+  };
+  xhr.send('date=' + formattedDate);
+}
+
+function enableDayCell(dayCell, formattedDate) {
+  dayCell.style.backgroundColor = '#9EF3A0';
+  dayCell.addEventListener('mouseover', function () {
+    dayCell.style.backgroundColor = '#73BD1E'; 
+  });
+  dayCell.addEventListener('mouseout', function () {
+    dayCell.style.backgroundColor = '#9EF3A0'; 
+  });
+
+  dayCell.addEventListener('click', function () {
+  var appointmentDateField = document.getElementById('appointment_date');
+  var selectedDateDiv = document.querySelector('.selected-date p');
+
+  if (appointmentDateField) {
+    var clickedDate = new Date(formattedDate);
+    appointmentDateField.value = clickedDate.toISOString().split('T')[0]; 
+
+    console.log("Selected date: " + appointmentDateField.value);
+  }
+
+  if (selectedDateDiv) {
+    var clickedDate = new Date(formattedDate);
+    clickedDate.setDate(clickedDate.getDate() + 1); 
+
+    selectedDateDiv.textContent = clickedDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
+});
+
+}
+
+
+
+
+// Disable time button helper
+function disableTimeButton(button) {
+  button.disabled = true;
+  button.style.backgroundColor = '#808080';
+  button.style.cursor = 'not-allowed';
+  button.style.color = 'white';
+}
+
+// Enable time button helper
+function enableTimeButton(button) {
+  button.disabled = false;
+  button.style.backgroundColor = '';
+  button.style.cursor = '';
+}
+
+// Convert time to 24-hour format
+function convertTo24HourFormat(time) {
+  var timeParts = time.split(' ');
+  var hour = parseInt(timeParts[0], 10);
+  var period = timeParts[1].toUpperCase();
+
+  if (period === 'PM' && hour !== 12) {
+    hour += 12;
+  }
+  if (period === 'AM' && hour === 12) {
+    hour = 0;
+  }
+
+  return (hour < 10 ? '0' + hour : hour) + ':00:00';
+}
+
+
+
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
@@ -420,5 +635,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="../../function/script/tab-bar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 
 </html>
