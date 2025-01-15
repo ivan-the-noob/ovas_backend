@@ -106,15 +106,18 @@ try {
             <a class="nav-link" href="../../../../index.php">Home</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="../../../../index.php#about-us">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../../../index.php#services">Our Services</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="appointments.php">Appointment</a>
           </li>
         </ul>
 
         <div class="d-flex ml-auto align-items-center">
           <?php if (isset($_SESSION['email'])): ?>
-           
-
-
             <div class="dropdown second-dropdown">
               <button class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -122,7 +125,8 @@ try {
                   class="profile">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <a class="dropdown-item" href="settings.php">Profile</a>
+                <a class="dropdown-item" href="profile.php">Profile</a>
+                <a class="dropdown-item" href="settings.php">Settings</a>
                 <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
             </div>
@@ -272,7 +276,7 @@ try {
             <div class="container">
               <div class="row" style="padding: 20px;">
                 <div class="col-md-6">
-                  <h6 class="d-flex mx-auto">Owner Information</h6>
+                  <h6 class="d-flex mx-auto mb-2 mb-2">Owner Information</h6>
                   <div class="owner-info">
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
@@ -306,7 +310,7 @@ try {
                       </div>
                     </div>
                   </div>
-                  <h6 class="mt-4 d-flex mx-auto">Pet Information</h6>
+                  <h6 class="mt-4 d-flex mx-auto mb-2">Pet Information</h6>
                   <div class="owner-info">
                   <div class="mb-3 position-relative">
                       <div class="position-relative">
@@ -357,7 +361,7 @@ try {
 
                 <!-- Services -->
                 <div class="col-md-6">
-                  <h6 class="d-flex mx-auto">Services</h6>
+                  <h6 class="d-flex mx-auto mb-2">Services</h6>
                   <div class="owner-info">
                     <div class="mb-3">
                       <label for="serviceCategory" class="form-label">Service Category</label>
@@ -487,7 +491,7 @@ try {
                     </div>
                  
 
-                  <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mx-auto" style="background-color: #7A3015;" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)">
+                  <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mx-auto" style="background-color:#74C2CD" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)">
                     Book Appointment
                 </button>
 
@@ -530,13 +534,13 @@ try {
             btn.classList.remove('selected'); 
             btn.style.backgroundColor = ''; 
             btn.style.color = ''; 
-            btn.style.borderColor = '#7A3015'; 
+            btn.style.borderColor = '#EBBF86'; 
         });
 
         button.classList.add('selected');
-        button.style.backgroundColor = '#7A3015';
+        button.style.backgroundColor = '#EBBF86';
         button.style.color = 'white';
-        button.style.borderColor = '#7A3015'; 
+        button.style.borderColor = '#EBBF86'; 
 
         // Set value for appointment action (for future processing)
         document.getElementById('appointment_action').value = action;

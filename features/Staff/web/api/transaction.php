@@ -214,7 +214,7 @@
     brandHeader.innerHTML = `
         <p style="text-align: end; padding: 3px;">${formattedDate}</p>
         <h5 style="text-align: center;">Bark Yard Pet Salon and Wellness Clinic</h5>
-        <div style="border: 2px solid #7A3015; width: 80%; justify-content: center; margin: auto;"></div>
+        <div style="border: 2px solid #EBBF86; width: 80%; justify-content: center; margin: auto;"></div>
 
     `;
     

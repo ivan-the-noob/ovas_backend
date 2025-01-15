@@ -23,7 +23,7 @@
 
 
 .dropdown button{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
 }
 .bold{
     font-weight: bold;
@@ -51,7 +51,7 @@
 }
 
 .navbar a{
-    color: #7A3015;
+    color: #EBBF86;
 }
 .navbar{
     background-color: #FBF9FA;
@@ -60,7 +60,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    border: 1px solid #7A3015;
+    border: 1px solid #EBBF86;
 }
 
 .dropdown button{
@@ -69,7 +69,7 @@
     align-items: center;
   }
 .btn-theme{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff !important;
     border: none;
     border-radius: 3px;
@@ -108,14 +108,14 @@
     background-color: #FBF9FA;
 }
 .booked-history p{
-    color: #7A3015;
+    color: #EBBF86;
 }
 .booked-history h5{
-    color:#7A3015;
+    color:#EBBF86;
 }
 
 .booked-history button{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     border: none;
 }
 .booked-history button:hover{
@@ -137,7 +137,7 @@
 
 
 .modal-header{
-    color: #7A3015;
+    color: #EBBF86;
     height: 10vh;
 }
 
@@ -147,7 +147,7 @@
 
 
 .modal-body{
-    color:#7A3015;
+    color:#EBBF86;
 }
 
 .modal-body h5{
@@ -156,7 +156,7 @@
 }
 
 .modal-body h6{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff !important;
     width: 80%;
     padding: 8px 24px 8px 24px;
@@ -168,7 +168,6 @@
 .modal-body .owner-info{
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
     padding: 20px;
 }
 .modal-body p{
@@ -178,7 +177,7 @@
 .modal-header button{
     background-color: transparent;
     border: none;
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 30px;
 }
 
@@ -200,7 +199,7 @@
 .tab-bar{
     text-align: end !important;
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -215,7 +214,7 @@
 }
 .tab-bar button{
     background-color: transparent !important;
-    color: #7A3015;
+    color: #EBBF86;
     font-weight: 600 !important;
     cursor: pointer;
 
@@ -224,7 +223,7 @@
 /*Sub-content pagination*/
 .pagination .page-item .page-link {
     border-radius: 50%;
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: white;
     width: 40px;
     height: 40px;
@@ -281,7 +280,7 @@ table{
 
 
 .p_date p{
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 25px;
     font-weight: 600;
 }
@@ -292,7 +291,7 @@ table{
 }
 
 .legend .span{
-    color: #7A3015 !important;
+    color: #EBBF86 !important;
     font-size: 24px;
  
 }
@@ -326,7 +325,7 @@ th a{
 .appointment h3{
     text-align: end !important;
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -335,19 +334,18 @@ th a{
     cursor: pointer;
 }
 .appointment .choose-time{
-    background-color: #fff;
-    color: #7A3015;
+    background-color: #74C2CD;
+    color: #fff;
     padding: 5px;
-    border: 1px solid #7A3015;
     width: 100px;
 }
 .choose-time.active {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
 }
 .appointment button{
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -372,7 +370,7 @@ th a{
 }
 
 .card-header{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 20px;
     font-size: 20px;
@@ -399,7 +397,7 @@ th a{
     cursor: pointer;
 }
 .fc-daygrid-day:hover {
-    background-color: #7A3015;
+    background-color: #EBBF86;
 }
 .fc-daygrid-day-top a {
     color: white;
@@ -418,7 +416,7 @@ th a{
     display: none;
 }
 .fc-toolbar-chunk {
-    color: #7A3015;
+    color: #EBBF86;
 }
 .fc-scrollgrid-sync-inner a {
     color: #fff;
@@ -427,21 +425,21 @@ th a{
 
 
 .pay-btn button{
-    border: 1px solid #7A3015;
+    border: 1px solid #EBBF86;
     border-radius: 5px;
     padding: 5px 10px;
 
 }
 
 .pay-btn button:hover{
-    border: 1px solid #7A3015;
-    background-color: #7A3015;
+    border: 1px solid #EBBF86;
+    background-color: #EBBF86;
     color: #fff;
 }
 
 #gcash-details input{
     padding: 5px 10px;
-    border: 1px solid #7A3015;
+    border: 1px solid #EBBF86;
     border-radius: 5px;
 }
 
@@ -462,7 +460,7 @@ th a{
   }
   
 .input-labels {
-    color :#7A3015;
+    color :#EBBF86;
   }
   .fc-button-group{
     margin-top: 10px !important;
@@ -499,7 +497,7 @@ th a{
     height: auto !important; /* Remove fixed height */
 }
 .fc-col-header-cell-cushion{
-    color: #7A3015 !important;
+    color: #EBBF86 !important;
 }
 
 .fc .fc-scroller-harness-liquid{
@@ -518,17 +516,19 @@ th a{
 }
 
 .modal-body label{
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 20px;
     font-weight: 500;
 }
 .modal-body h6{
-    color:#7A3015;
+    color:#EBBF86;
     font-size: 22px;
+    width: 100%;
+    border-radius: 0;
 }
 
 .modal-body p{
-    color: #7A3015;
+    color: #EBBF86;
 }
 
 #dayModal .container{
@@ -543,7 +543,7 @@ th a{
     margin: 0;
 }
 .book-save{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     border: none !important;
     color: #fff !important;
     padding:  10px 20px !important;
@@ -558,26 +558,26 @@ th a{
 
 #modalContent{
     margin-left: 20px;
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     text-align: center;
     border-radius: 10px;
     padding: 5px;
 }
 .line{
-    border-bottom: 3px solid #7A3015;
+    border-bottom: 3px solid #EBBF86;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .dropdown button{
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: var(--bs-border-width) solid var(--bs-border-color);
     width: 100%;
 }
 .dropdown a{
-    color: #7A3015;
+    color: #EBBF86;
     
 }
 .dropdowns button{
@@ -604,21 +604,21 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .form-control{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     border-radius: 5px;
 }
 
 .form-control:focus{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     border: 2px solid #fff;
     outline: none !important;
 }
 
 .form-check-input:checked {
-    background-color: #7A3015 !important;
-    border-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
+    border-color: #EBBF86 !important;
 }
 
 .status{
@@ -643,7 +643,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Footer Section */
 .footer {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 20px 0;
     position: relative;
@@ -744,7 +744,7 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   
   #chat-header {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 10px;
     padding-bottom: 0;
@@ -803,14 +803,14 @@ input[type="number"]::-webkit-inner-spin-button {
   .admin p{
     display: grid;
     margin: auto;
-    color: #7A3015;
+    color: #EBBF86;
     margin-left: 5px;
     width: 90%;
   
   }
   
   .admin .text{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 10px;
     display: flex;
@@ -827,14 +827,14 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 2px solid #7A3015;
+    border: 2px solid #EBBF86;
   }
   
   .button-bot{
   padding: 0 10px;
   }
   .button-bot button{
-  background-color: #7A3015;
+  background-color: #EBBF86;
   border: transparent;
   color: #fff;
   padding: 10px;
@@ -851,10 +851,10 @@ input[type="number"]::-webkit-inner-spin-button {
   /*Chat Bot End*/
 
 .sched input{
-    border: 2px solid #7A3015;
+    border: 2px solid #EBBF86;
 }
 .sched input:active{
-    border: 2px solid #7A3015;
+    border: 2px solid #EBBF86;
 }
 
 /*Notif Section*/
@@ -891,7 +891,7 @@ input[type="number"]::-webkit-inner-spin-button {
   }
   
   .first-dropdown i{
-    color:#7A3015;
+    color:#EBBF86;
     font-size: 20px;
   }
   @media (max-width: 768px) {
@@ -903,7 +903,7 @@ input[type="number"]::-webkit-inner-spin-button {
   .notification-title {
     font-size: 20px;
     margin-bottom: 10px;
-    color: #7A3015;
+    color: #EBBF86;
     padding: 10px;
   }
   

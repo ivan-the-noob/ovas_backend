@@ -43,10 +43,10 @@ body {
     align-items: center !important;
     gap: 10px !important;
     font-size: 14px !important;
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
 }
 .navbar a:hover {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #FFFFFF;
     border-radius: 10px;
 }
@@ -133,7 +133,7 @@ body {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
-    border: 2px solid #7A3015;
+    border: 2px solid #EBBF86;
 }
 
 .profile-admin button {
@@ -144,7 +144,7 @@ body {
     margin: auto;
 }
 .profile-admin i {
-    color: #7A3015;
+    color: #EBBF86;
 }
 .profile-admin span {
     font-size: 16px;
@@ -180,7 +180,7 @@ table{
 }
 
 .table-remove-borders th{
-    background-color: #7A3015 !important ;
+    background-color: #EBBF86 !important ;
     color: #fff;
     text-align: center;
 }
@@ -199,7 +199,7 @@ table{
     }
 }
 .p_date p{
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 25px;
     font-weight: 600;
 }
@@ -231,7 +231,7 @@ th a{
 .appointment h3{
     text-align: end !important;
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -241,18 +241,18 @@ th a{
 }
 .appointment .choose-time{
     background-color: #fff;
-    color: #7A3015;
+    color: #EBBF86;
     padding: 5px;
-    border: 1px solid #7A3015;
+    border: 1px solid #EBBF86;
     width: 100px;
 }
 .choose-time.active {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
 }
 .appointment button{
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -277,7 +277,7 @@ th a{
 }
 
 .card-header{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 20px;
     font-size: 20px;
@@ -305,7 +305,7 @@ th a{
     cursor: pointer;
 }
 .fc-daygrid-day:hover {
-    background-color: #7A3015;
+    background-color: #EBBF86;
 }
 .fc-daygrid-day-top a {
     color: white;
@@ -324,30 +324,30 @@ th a{
     display: none;
 }
 .fc-toolbar-chunk {
-    color: #7A3015;
+    color: #EBBF86;
 }
 .fc-scrollgrid-sync-inner a {
-    color: #7A3015;
+    color: #EBBF86;
     text-decoration: none;
 }
 
 
 .pay-btn button{
-    border: 1px solid #7A3015;
+    border: 1px solid #EBBF86;
     border-radius: 5px;
     padding: 5px 10px;
 
 }
 
 .pay-btn button:hover{
-    border: 1px solid #7A3015;
-    background-color: #7A3015;
+    border: 1px solid #EBBF86;
+    background-color: #EBBF86;
     color: #fff;
 }
 
 #gcash-details input{
     padding: 5px 10px;
-    border: 1px solid #7A3015;
+    border: 1px solid #EBBF86;
     border-radius: 5px;
 }
 
@@ -378,7 +378,7 @@ th a{
 }
 .dashboard h3{
     padding:  20px 30px;
-    color: #7A3015;
+    color: #EBBF86;
 }
 
 .card-box {
@@ -446,7 +446,7 @@ th a{
 
 .cards i{
     font-size: 30px;
-    color: #7A3015;
+    color: #EBBF86;
     padding:  8px 0px;
 }
 

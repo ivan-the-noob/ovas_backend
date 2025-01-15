@@ -4,13 +4,13 @@ function selectPayment(paymentMethod, button) {
         btn.classList.remove('selected'); 
         btn.style.backgroundColor = ''; 
         btn.style.color = ''; 
-        btn.style.borderColor = '#7A3015'; 
+        btn.style.borderColor = '#EBBF86'; 
     });
 
     button.classList.add('selected');
-    button.style.backgroundColor = '#7A3015';
+    button.style.backgroundColor = '#EBBF86';
     button.style.color = 'white';
-    button.style.borderColor = '#7A3015'; 
+    button.style.borderColor = '#EBBF86'; 
 
     document.getElementById('payment_method').value = paymentMethod;
 

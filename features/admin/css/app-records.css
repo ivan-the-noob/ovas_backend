@@ -46,10 +46,10 @@ body {
     align-items: center !important;
     gap: 10px !important;
     font-size: 14px !important;
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
 }
 .navbar a:hover {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #FFFFFF;
     border-radius: 10px;
 }
@@ -137,7 +137,7 @@ body {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
-    border: 2px solid #7A3015;
+    border: 2px solid #EBBF86;
 }
 
 .profile-admin button {
@@ -148,7 +148,7 @@ body {
     margin: auto;
 }
 .profile-admin i {
-    color: #7A3015;
+    color: #EBBF86;
 }
 .profile-admin span {
     font-size: 16px;
@@ -190,11 +190,11 @@ body {
 }
 .app-req h3{
     padding: 30px 0 0 20px !important;
-    color: #7A3015;
+    color: #EBBF86;
 }
 
 .patientss h6{
-    color: #7A3015 !important;
+    color: #EBBF86 !important;
     font-weight: bold;
     width: 100%;
     border-radius: 10px;
@@ -234,12 +234,12 @@ body {
     opacity: 80%;
   }
   input, textarea{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     color: #fff !important;
   }
 
   select{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     color: #fff !important;
   }
 
@@ -251,7 +251,7 @@ body {
     
 }
 .table-remove-borders th{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
 }
 
@@ -314,7 +314,7 @@ tr:hover{
     padding: 5px;
 }
 .btn-new{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     border: none !important;
     color: #fff !important;
     padding:  10px 20px !important;
@@ -328,7 +328,7 @@ tr:hover{
 }
 
 .book-save{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     border: none !important;
     color: #fff !important;
     padding:  10px 20px !important;
@@ -357,7 +357,7 @@ tr:hover{
     display: flex;
     justify-content:center;
     gap: 5px;
-    color: #7A3015;
+    color: #EBBF86;
 }
 
 .medical-services a{
@@ -365,16 +365,16 @@ tr:hover{
 }
 
 .container label{
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 16px;
     font-weight: 500;
 }
 .container h6{
-    color:#7A3015;
+    color:#EBBF86;
 }
 
 .container p{
-    color: #7A3015;
+    color: #EBBF86;
 }
 
 
@@ -421,7 +421,7 @@ tr:hover{
 
 .med .dropdown-menu{
     padding: 0;
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     color: #fff !important;
 }
 .med .dropdown-menu li{
@@ -437,7 +437,7 @@ tr:hover{
 
 .m:hover{
     background-color: #fff !important;
-    color: #7A3015 !important;
+    color: #EBBF86 !important;
     padding: 0 !important;
 
 }
@@ -447,18 +447,18 @@ tr:hover{
 
 
 ul a:hover{
-    background-color: #7A3015 !important;
-    color: #7A3015 !important;
+    background-color: #EBBF86 !important;
+    color: #EBBF86 !important;
     border-radius: 5px;
     color: #fff !important;
 }
  .dropdown-toggle{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     border: none;
 }
 
 .walkin{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     padding: 10px;
     color: #fff;
     border: none;

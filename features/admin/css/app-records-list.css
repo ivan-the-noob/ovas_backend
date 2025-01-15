@@ -44,10 +44,10 @@ body {
     align-items: center !important;
     gap: 10px !important;
     font-size: 14px !important;
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
 }
 .navbar a:hover {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #FFFFFF;
     border-radius: 10px;
 }
@@ -135,7 +135,7 @@ body {
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
-    border: 2px solid #7A3015;
+    border: 2px solid #EBBF86;
 }
 
 .profile-admin button {
@@ -146,7 +146,7 @@ body {
     margin: auto;
 }
 .profile-admin i {
-    color: #7A3015;
+    color: #EBBF86;
 }
 .profile-admin span {
     font-size: 16px;
@@ -169,7 +169,7 @@ th,td{
 
 th{
     color: #fff !important;
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     padding: 10px !important;
 }
 
@@ -180,7 +180,7 @@ th{
 }
 .app-req h3{
     padding: 30px 0 0 20px !important;
-    color: #7A3015 !important;
+    color: #EBBF86 !important;
 }
 
 h3{
@@ -199,7 +199,7 @@ h3{
 }
 
 .modal-body h5{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff !important;
     width: 80%;
     padding: 8px 24px 8px 24px;
@@ -216,7 +216,7 @@ h3{
 
 .card h5{
     height: 10vh;
-    color: #7A3015;
+    color: #EBBF86;
 }
 .card button{
     display: flex;
@@ -255,14 +255,14 @@ h3{
 }
 
 .modal-dialog p{
-    color:#7A3015;
+    color:#EBBF86;
     font-size: 16px;
     padding: 5px;
     border-radius:  5px; 
 }
 
 .save{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     border-radius: 5px;
     border: none;
@@ -272,7 +272,7 @@ h3{
 }
 
 .modal-dialog h6{
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 20px;
     font-weight: bold;
 }
@@ -285,7 +285,7 @@ h3{
 
 
 .btn-new{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     border: none !important;
     color: #fff !important;
     padding:  10px 20px !important;
@@ -294,7 +294,7 @@ h3{
 }
 
 .toggle-edit-btn{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     border: none !important;
     color: #fff !important;
     padding:  10px 20px !important;
@@ -358,7 +358,7 @@ tr:hover{
 
 .pagination .page-item .page-link {
     border-radius: 50%;
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: white;
     width: 40px;
     height: 40px;
@@ -407,12 +407,12 @@ tr:hover{
   }
  
   .container input, textarea{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     color: #fff !important;
   }
 
   select{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     color: #fff !important;
   }
 /*Notif Section*/

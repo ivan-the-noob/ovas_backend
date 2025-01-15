@@ -34,6 +34,9 @@
                             <div class="mb-3">
                                 <input type="password" class="form-control" name="password" id="passwordInput" placeholder="Enter password" required>
                             </div>
+                            <div class="d-flex justify-content-end">
+                                <a href="forgot.php">Forgot Password?</a>
+                            </div>
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="showPassword">
                                 <label class="form-check-label" for="showPassword">Show Password</label>
@@ -52,5 +55,18 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
+<script>
+  const passwordInput = document.getElementById('passwordInput');
+  const showPasswordCheckbox = document.getElementById('showPassword');
+
+  showPasswordCheckbox.addEventListener('change', function () {
+    if (showPasswordCheckbox.checked) {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password'; 
+    }
+  });
+</script>
 
 </html>

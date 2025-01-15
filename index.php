@@ -100,9 +100,6 @@ try {
           <li class="nav-item">
             <a class="nav-link" href="features/users/web/api/appointments.php">Appointment</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="features/users/web/api/settings.php">Settings</a>
-          </li>
         <?php endif; ?>
       </ul>
 
@@ -145,6 +142,7 @@ try {
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
               <li><a class="dropdown-item" href="features/users/web/api/settings.php">Profile</a></li>
+              <li><a class="dropdown-item" href="features/users/web/api/profile.php">Settings</a></li>
               <li><a class="dropdown-item" href="features/users/web/api/logout.php">Logout</a></li>
             </ul>
           </div>
@@ -178,7 +176,7 @@ try {
                     <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#limitModal">Book an Appointment</button>
                 <?php else: ?>
                     <a href="features/users/web/api/appointment.php">
-                        <button class="btn btn-primary">Book an Appointment</button>
+                        <button class="btn text-white" style="background-color: #74C2CD" >Book an Appointment</button>
                     </a>
                 <?php endif; ?>
               
@@ -209,7 +207,7 @@ try {
 
   <div class="wave-container1" id="about-us">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave1">
-      <path fill="#7A3015" fill-opacity="1"
+      <path fill="#EBBF86" fill-opacity="1"
         d="M0,128L60,138.7C120,149,240,171,360,170.7C480,171,600,149,720,133.3C840,117,960,107,1080,112C1200,117,1320,139,1380,149.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
       </path>
     </svg>
@@ -230,7 +228,7 @@ try {
   </section>
   <div class="wave-container">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave2">
-      <path fill="#7A3015" fill-opacity="1"
+      <path fill="#EBBF86" fill-opacity="1"
         d="M0,80L40,72C80,64,160,48,240,56C320,64,400,96,480,98.65C560,101.5,640,74.5,720,69.35C800,64,880,80,960,77.35C1040,74.5,1120,53.5,1200,48C1280,42.5,1360,53.5,1400,58.65L1440,64L1440,160L1400,160C1360,160,1280,160,1200,160C1120,160,1040,160,960,160C880,160,800,160,720,160C640,160,560,160,480,160C400,160,320,160,240,160C160,160,80,160,40,160L0,160Z">
       </path>
     </svg>
@@ -315,12 +313,12 @@ try {
                         <textarea class="form-control" name="comment" id="comment" rows="4" placeholder="Leave Your Comment" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="image" class="form-label text-black mt-2 mb-2" style="padding-left: 80px;">Upload Image (Optional)</label>
+                        <label for="image" class="form-label text-black mb-2" style="padding-left: 80px;">Upload Image (Optional)</label>
                         <input type="file" class="form-control d-flex" name="image" id="image" accept="image/*">
                     </div>
 
 
-                    <button type="submit" class="mt-3 submit">Submit</button>
+                    <button type="submit" class="mt-3 submit" style="#74C2CD;">Submit</button>
                 </form>
             </div>
         </div>
@@ -331,7 +329,7 @@ try {
 
   <div class="wave-container1" id="about-us">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave1">
-      <path fill="#7A3015" fill-opacity="1"
+      <path fill="#EBBF86" fill-opacity="1"
         d="M0,80L40,72C80,64,160,48,240,56C320,64,400,96,480,98.65C560,101.5,640,74.5,720,69.35C800,64,880,80,960,77.35C1040,74.5,1120,53.5,1200,48C1280,42.5,1360,53.5,1400,58.65L1440,64L1440,160L1400,160C1360,160,1280,160,1200,160C1120,160,1040,160,960,160C880,160,800,160,720,160C640,160,560,160,480,160C400,160,320,160,240,160C160,160,80,160,40,160L0,160Z">
       </path>
     </svg>

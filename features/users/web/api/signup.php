@@ -54,16 +54,22 @@
                                     <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
                                 </div>
                                 <div class="mb-3">
-                                <input type="password" name="password" class="form-control" 
-                                    placeholder="Enter password" 
-                                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}" 
-                                    title="Password must be at least 8 characters long, include uppercase and lowercase letters, numbers, and special characters."
-                                    required>
+                                    <input type="password" name="password" class="form-control" 
+                                        placeholder="Enter password" 
+                                        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{8,}" 
+                                        title="Password must be at least 8 characters long, include uppercase and lowercase letters, numbers, and special characters."
+                                        required>
                                 </div>
                                 <div class="mb-3">
                                     <input type="password" id="confirm-password" name="confirm_password" class="form-control" 
                                         placeholder="Confirm password" required>
                                 </div>
+                                <div class="form-check mb-3">
+                                    <input type="checkbox" class="form-check-input" id="showPassword">
+                                    <label class="form-check-label" for="showPassword">Show Password</label>
+                                </div>
+
+                                
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="acceptTerms" name="accept_terms" required>
                                     <label class="form-check-label" for="acceptTerms">
@@ -277,11 +283,23 @@
         if (strlen($contact_num) != 11 || !ctype_digit($contact_num)) {
             echo "<p class='alert alert-danger'>Contact number must be exactly 11 digits.</p>";
             exit;
+        }  
+    </script>
+
+<script>
+    const passwordInput = document.querySelector('[name="password"]');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const showPasswordCheckbox = document.getElementById('showPassword');
+
+    showPasswordCheckbox.addEventListener('change', function () {
+        if (showPasswordCheckbox.checked) {
+        passwordInput.type = 'text'; 
+        confirmPasswordInput.type = 'text'; 
+        } else {
+        passwordInput.type = 'password';
+        confirmPasswordInput.type = 'password'; 
         }
-
-        
-
-       
+    });
     </script>
     
     <script src="../../function/script/sign-up.js"></script>

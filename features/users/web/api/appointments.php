@@ -44,10 +44,13 @@
             <a class="nav-link" href="../../../../index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="appointments.php">Appointment</a>
+            <a class="nav-link" href="../../../../index.php#about-us">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="settings.php">Settings</a>
+            <a class="nav-link" href="../../../../index.php#services">Our Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="appointments.php">Appointment</a>
           </li>
         </ul>
 
@@ -57,9 +60,9 @@
               <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="profile" alt="Profile Picture" id="profileImg">
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Appointment</a>
-                  <a class="dropdown-item" href="settings.php">Settings</a>
-                  <a class="dropdown-item" href="logout.php">Logout</a>
+              <a class="dropdown-item" href="profile.php">Profile</a>
+                <a class="dropdown-item" href="settings.php">Settings</a>
+                <a class="dropdown-item" href="logout.php">Logout</a>
               </div>
           </div>
         </div>
@@ -244,7 +247,6 @@
                                             <h5>Payment Details</h5>
                                             <p>Total Payment: ₱' . htmlspecialchars($totalPayment) . '</p>
                                             <p>Payment Method: ' . htmlspecialchars($paymentMethod) . '</p>
-                                            <p>GCash Screenshot: <a href="' . htmlspecialchars($gcashScreenshot) . '" target="_blank">View Screenshot</a></p>
                                              <p>GCash Screenshot: <img src="../../../../assets/img/gcash/' . htmlspecialchars($gcashScreenshot) . '" alt="GCash Screenshot" style="max-width: 100%; height: auto;"></p>
                                             <p>Reference: ' . htmlspecialchars($reference) . '</p>
                                           </div>

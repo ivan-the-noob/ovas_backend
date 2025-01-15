@@ -95,26 +95,39 @@ if (isset($_SESSION['alert'])) {
           <p>0993129321</p>
         </div>
     </div>
-    <div class="col-md-12 album mt-4">
-      <h3 class="text-white mb-4">ALBUM</h3>
-      <div class="row">
-      <div class="col-md-3">
-      <img src="../../../../assets/img/profile/pet.jpg" alt="">
-      <i class="fas fa-edit text-white d-flex justify-content-center mt-2 "></i>
-      </div>
-      <div class="col-md-3">
-      <img src="../../../../assets/img/profile/pet.jpg" alt="">
-      <i class="fas fa-edit text-white d-flex justify-content-center mt-2 "></i>
-      </div>
-      <div class="col-md-3">
-      <img src="../../../../assets/img/profile/pet.jpg" alt="">
-      <i class="fas fa-edit text-white d-flex justify-content-center mt-2 "></i>
-      </div>
-      <div class="col-md-3">
-      <img src="../../../../assets/img/profile/pet.jpg" alt="">
-      <i class="fas fa-edit text-white d-flex justify-content-center mt-2 "></i>
-      </div>
-    </div>
+    <div class="col-md-12 update mt-4">
+    <div class="form-container">
+            <span class="form-title">CHANGE PASSWORD</span>
+            <form>
+                <label for="currentPassword" class="form-label">CURRENT PASSWORD:</label>
+                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+
+                <label for="newPassword" class="form-label">NEW PASSWORD:</label>
+                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+
+                <label for="confirmPassword" class="form-label">CONFIRM PASSWORD:</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+
+                <button type="submit" class="btn-save text-white">SAVE</button>
+            </form>
+        </div>
+
+        <!-- Change Details Form -->
+        <div class="form-container">
+            <span class="form-title">CHANGE DETAILS</span>
+            <form>
+                <label for="changeName" class="form-label">CHANGE NAME:</label>
+                <input type="text" class="form-control" id="changeName" placeholder="Enter new name">
+
+                <label for="changeAddress" class="form-label">CHANGE ADDRESS:</label>
+                <input type="text" class="form-control" id="changeAddress" placeholder="Enter new address">
+
+                <label for="changeNumber" class="form-label">CHANGE NUMBER:</label>
+                <input type="text" class="form-control" id="changeNumber" placeholder="Enter new number">
+
+                <button type="submit" class="btn-save text-white">SAVE</button>
+            </form>
+        </div>
     </div>
   </div>
 

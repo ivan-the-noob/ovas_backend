@@ -47,14 +47,14 @@
 }
 
 .navbar a{
-    color: #7A3015;
+    color: #EBBF86;
 }
 .navbar{
     background-color: #FBF9FA;
 }
 
 .btn-theme{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     border: none;
     border-radius: 3px;
@@ -68,14 +68,14 @@
     background-color: #FBF9FA;
 }
 .booked-history p{
-    color: #7A3015;
+    color: #EBBF86;
 }
 .booked-history h5{
-    color:#7A3015;
+    color:#EBBF86;
 }
 
 .booked-history button{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     border: none;
 }
 .booked-history button:hover{
@@ -93,7 +93,7 @@
     }
 }
 .modal-header{
-    color: #7A3015;
+    color: #EBBF86;
 }
 
 .modal-header h5{
@@ -102,7 +102,7 @@
 
 
 .modal-body{
-    color:#7A3015;
+    color:#EBBF86;
 }
 
 .modal-body h5{
@@ -116,7 +116,7 @@
 .modal-header button{
     background-color: transparent;
     border: none;
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 30px;
 }
 
@@ -136,7 +136,7 @@
 .tab-bar{
     text-align: end !important;
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -151,7 +151,7 @@
 }
 .tab-bar button{
     background-color: transparent !important;
-    color: #7A3015;
+    color: #EBBF86;
     font-weight: 600 !important;
     cursor: pointer;
 
@@ -160,7 +160,7 @@
 /*Sub-content pagination*/
 .pagination .page-item .page-link {
     border-radius: 50%;
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: white;
     width: 40px;
     height: 40px;
@@ -202,7 +202,7 @@
 .appointment h3{
     text-align: end !important;
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -212,7 +212,7 @@
 }
 .appointment button{
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: none;
     padding: 20px;
     margin: 5px;
@@ -236,7 +236,7 @@
     }
 }
 .card-header{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 20px;
     font-size: 20px;
@@ -262,7 +262,7 @@
     cursor: pointer;
 }
 .fc-daygrid-day:hover {
-    background-color: #7A3015;
+    background-color: #EBBF86;
 }
 .fc-daygrid-day-top a {
     color: white;
@@ -281,10 +281,10 @@
     display: none;
 }
 .fc-toolbar-chunk {
-    color: #7A3015;
+    color: #EBBF86;
 }
 .fc-scrollgrid-sync-inner a {
-    color: #7A3015;
+    color: #EBBF86;
     text-decoration: none;
 }
 
@@ -294,17 +294,17 @@
 /*Calender Modal Info Section*/
 
 .modal-body label{
-    color: #7A3015;
+    color: #EBBF86;
     font-size: 20px;
     font-weight: 500;
 }
 .modal-body h6{
-    color:#7A3015;
+    color:#EBBF86;
     font-size: 22px;
 }
 
 .modal-body p{
-    color: #7A3015;
+    color: #EBBF86;
 }
 
 #dayModal .container{
@@ -319,7 +319,7 @@
     margin: 0;
 }
 .book-save{
-    background-color: #7A3015 !important;
+    background-color: #EBBF86 !important;
     border: none !important;
     color: #fff !important;
     padding:  10px 20px !important;
@@ -334,26 +334,26 @@
 
 #modalContent{
     margin-left: 20px;
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     text-align: center;
     border-radius: 10px;
     padding: 5px;
 }
 .line{
-    border-bottom: 3px solid #7A3015;
+    border-bottom: 3px solid #EBBF86;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .dropdown button{
     background-color: transparent;
-    color: #7A3015;
+    color: #EBBF86;
     border: var(--bs-border-width) solid var(--bs-border-color);
     width: 100%;
 }
 .dropdown a{
-    color: #7A3015;
+    color: #EBBF86;
     
 }
 .dropdown-toggle {
@@ -372,7 +372,7 @@
 
 /* Footer Section */
 .footer {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 20px 0;
     position: relative;
@@ -471,7 +471,7 @@
 }
 
 #chat-header {
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 10px;
     padding-bottom: 0;
@@ -520,12 +520,12 @@
     align-items: center;
     display: grid;
     margin: auto;
-    color: #7A3015;
+    color: #EBBF86;
 
 }
 
 .admin .text{
-    background-color: #7A3015;
+    background-color: #EBBF86;
     color: #fff;
     padding: 10px;
     display: flex;
@@ -546,7 +546,7 @@
 }
 
 .button-bot button{
-  background-color: #7A3015;
+  background-color: #EBBF86;
   border: transparent;
   color: #fff;
   padding: 10px;

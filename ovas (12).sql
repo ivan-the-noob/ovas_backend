@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 15, 2025 at 03:33 AM
+-- Generation Time: Jan 15, 2025 at 10:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -43,7 +43,22 @@ CREATE TABLE `admin_confirm` (
 INSERT INTO `admin_confirm` (`id`, `name`, `status`, `created_at`, `email`, `read`) VALUES
 (156, 'Admin ', 'decline', '2025-01-14 10:42:11', 'ejthecoder@gmail.com', '0'),
 (157, 'Ivan', 'confirm', '2025-01-15 02:09:52', 'ejthecoder@gmail.com', '0'),
-(158, 'Ivan', 'resched', '2025-01-15 02:14:30', 'ejthecoder@gmail.com', '0');
+(158, 'Ivan', 'resched', '2025-01-15 02:14:30', 'ejthecoder@gmail.com', '0'),
+(159, '', 'confirm', '2025-01-15 18:13:19', '', '0'),
+(160, 'Ivan', 'decline', '2025-01-15 18:13:39', 'racel@gmail.com', '0'),
+(161, 'Admin ', 'resched', '2025-01-15 18:14:56', 'racel@gmail.com', '0'),
+(162, 'Admin ', 'resched', '2025-01-15 18:15:01', 'racel@gmail.com', '0'),
+(163, 'Admin ', 'resched', '2025-01-15 18:15:14', 'racel@gmail.com', '0'),
+(164, 'Admin ', 'decline', '2025-01-15 18:15:29', 'racel@gmail.com', '0'),
+(165, 'pending', 'pending', '2025-01-15 18:16:50', 'racel@gmail.com', '0'),
+(166, 'pending', 'pending', '2025-01-15 18:17:33', 'racel@gmail.com', '0'),
+(167, 'pending', 'pending', '2025-01-15 18:18:52', 'racel@gmail.com', '0'),
+(168, 'pending', 'pending', '2025-01-15 18:18:58', 'racel@gmail.com', '0'),
+(169, 'pending', 'pending', '2025-01-15 18:19:02', 'racel@gmail.com', '0'),
+(170, 'pending', 'pending', '2025-01-15 18:19:18', 'racel@gmail.com', '0'),
+(171, 'pending', 'pending', '2025-01-15 18:22:28', 'racel@gmail.com', '0'),
+(172, 'pending', 'pending', '2025-01-15 18:38:07', 'racel@gmail.com', '0'),
+(173, 'pending', 'pending', '2025-01-15 18:44:38', 'racel@gmail.com', '0');
 
 -- --------------------------------------------------------
 
@@ -82,8 +97,7 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `reason_cancel`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`, `decline_reason`, `pet_name`, `vet_name`) VALUES
-(128, 'Ivan', 'OVAS-000005', 'resched', 'Wrong', '', 'racel@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-14', 1200.00, '2025-01-14 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'dasdsa'),
-(129, 'Admin ', 'OVAS-000004', 'decline', 'Wrong', '', 'racel@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-14', 1200.00, '2025-02-13 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'sdadsa');
+(129, 'Admin ', 'OVAS-000004', 'pending', 'Wrong', '', 'racel@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-25', 1200.00, '2025-02-13 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'sdadsa');
 
 -- --------------------------------------------------------
 
@@ -221,7 +235,24 @@ INSERT INTO `notifications` (`id`, `email`, `code`, `type`, `message`, `created_
 (275, 'ejthecoder@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: dasdsa', '2025-01-14 10:37:42', 0),
 (276, 'ejthecoder@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: Wrong', '2025-01-14 10:42:11', 0),
 (277, 'ejthecoder@gmail.com', 'OVAS-000005', 'confirm', 'Admin has confirmed the appointment of Ivan with Vet: dasdsa.', '2025-01-15 02:09:52', 0),
-(278, 'ejthecoder@gmail.com', 'OVAS-000005', 'resched', 'Your appointment has been resched. Please choose another date.', '2025-01-15 02:14:30', 0);
+(278, 'ejthecoder@gmail.com', 'OVAS-000005', 'resched', 'Your appointment has been resched. Please choose another date.', '2025-01-15 02:14:30', 0),
+(279, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:05:57', 0),
+(280, '', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:13:19', 0),
+(281, 'racel@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: dsadsa', '2025-01-15 18:13:39', 0),
+(282, 'racel@gmail.com', NULL, 'resched', 'Your appointment has been resched. Please choose another date.', '2025-01-15 18:14:56', 0),
+(283, 'racel@gmail.com', NULL, 'resched', 'Your appointment has been resched. Please choose another date.', '2025-01-15 18:15:01', 0),
+(284, 'racel@gmail.com', NULL, 'resched', 'Your appointment has been resched. Please choose another date.', '2025-01-15 18:15:14', 0),
+(285, 'racel@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: dsadsa', '2025-01-15 18:15:29', 0),
+(286, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:16:50', 0),
+(287, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:17:33', 0),
+(288, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:18:52', 0),
+(289, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:18:58', 0),
+(290, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:19:02', 0),
+(291, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:19:18', 0),
+(292, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:22:28', 0),
+(293, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:38:07', 0),
+(294, 'racel@gmail.com', NULL, 'Success', 'You successfully booked! Please wait for confirmation.', '2025-01-15 18:44:38', 0),
+(295, 'racel@gmail.com', NULL, 'profile', 'Your profile picture has been updated.', '2025-01-15 20:41:24', 0);
 
 -- --------------------------------------------------------
 
@@ -431,21 +462,23 @@ CREATE TABLE `users` (
   `role` varchar(20) NOT NULL DEFAULT 'user',
   `profile_picture` varchar(255) NOT NULL DEFAULT 'customer.jfif',
   `address` varchar(255) NOT NULL,
-  `contact_num` varchar(11) NOT NULL
+  `contact_num` varchar(11) NOT NULL,
+  `recovery_code` varchar(6) DEFAULT NULL,
+  `code_expires` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `password`, `role`, `profile_picture`, `address`, `contact_num`) VALUES
-(36, 'Admin', '', 'racel@gmail.com', '$2y$10$B4sTaZVYv6u1XGvXFZE2buBUxHz5uKW9/Dr5y1MxLY1H6QnVoLRvO', 'user', '', '', ''),
-(42, 'Tests', '', 'admin@gmail.com', '$2y$10$hwURNTqnyPiVYte4Gueh0.dWfAjIEfRtB20YQv60LifoS3ugN0VkC', 'admin', '', '', ''),
-(51, 'Racel Mae', 'Loquellano', 'racelmaeloquellano@gmail.com', '$2y$10$dME4MAYzCJJUDt/JTxcFa.rwF29R8grWL7PS2h0Dys04X.jms0.yO', 'user', 'customer.jfif', 'S11 B2 L13 Belvedere Pk2 Gentri', '09618757048'),
-(52, 'Frances', 'Medrano', 'love.cessyyyy@gmail.com', '$2y$10$dnZ5NCBT.N/2QD2Q2mFE3.2iweMh8.3TBE26pD0Ig56oomxb854GS', 'user', 'customer.jfif', 'tanza', '09057965873'),
-(53, 'Kim', 'Lungcay', 'kimlouremae.lungcay@gmail.com', '$2y$10$4gkDdCXRHuTXSMFxZxAjq.Su74XsRYodcwx7j6IOaaRFGBo3iyM3a', 'user', 'customer.jfif', 'Halayhay', '09167649000'),
-(54, 'farhan', 'sharief', 'farhanuoiklhjlkjasdlkj@yopmail.com', '$2y$10$t3KcIBYwu8IXePVxVlozwOnOmGad0ZXE0fB7vhCvh9UhaEQ8LmJE6', 'user', 'customer.jfif', 'Mati City', '09615365586'),
-(55, 'Anne', 'Marcial', 'annemarcialll@gmail.com', '$2y$10$x.jSUfC1/JP.WULf2NmJvOlZ0PV2AbbZHpvNIfZ5dc5vB3cn9.s4K', 'user', 'customer.jfif', 'Amaya 2', '09265482650');
+INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `password`, `role`, `profile_picture`, `address`, `contact_num`, `recovery_code`, `code_expires`) VALUES
+(36, 'Admin', '', 'racel@gmail.com', '$2y$10$DdsSTTsmROeOUhM4.shR9uRMZrqEqjj2bAI2RX30noP4dCZYUmUc6', 'user', 'profile.png', '', '', '4523', '2025-01-15 21:29:29'),
+(42, 'Tests', '', 'admin@gmail.com', '$2y$10$hwURNTqnyPiVYte4Gueh0.dWfAjIEfRtB20YQv60LifoS3ugN0VkC', 'admin', '', '', '', NULL, NULL),
+(51, 'Racel Mae', 'Loquellano', 'racelmaeloquellano@gmail.com', '$2y$10$dME4MAYzCJJUDt/JTxcFa.rwF29R8grWL7PS2h0Dys04X.jms0.yO', 'user', 'customer.jfif', 'S11 B2 L13 Belvedere Pk2 Gentri', '09618757048', NULL, NULL),
+(52, 'Frances', 'Medrano', 'love.cessyyyy@gmail.com', '$2y$10$dnZ5NCBT.N/2QD2Q2mFE3.2iweMh8.3TBE26pD0Ig56oomxb854GS', 'user', 'customer.jfif', 'tanza', '09057965873', NULL, NULL),
+(53, 'Kim', 'Lungcay', 'kimlouremae.lungcay@gmail.com', '$2y$10$4gkDdCXRHuTXSMFxZxAjq.Su74XsRYodcwx7j6IOaaRFGBo3iyM3a', 'user', 'customer.jfif', 'Halayhay', '09167649000', NULL, NULL),
+(54, 'farhan', 'sharief', 'farhanuoiklhjlkjasdlkj@yopmail.com', '$2y$10$t3KcIBYwu8IXePVxVlozwOnOmGad0ZXE0fB7vhCvh9UhaEQ8LmJE6', 'user', 'customer.jfif', 'Mati City', '09615365586', NULL, NULL),
+(55, 'Anne', 'Marcial', 'annemarcialll@gmail.com', '$2y$10$x.jSUfC1/JP.WULf2NmJvOlZ0PV2AbbZHpvNIfZ5dc5vB3cn9.s4K', 'user', 'customer.jfif', 'Amaya 2', '09265482650', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -550,13 +583,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_confirm`
 --
 ALTER TABLE `admin_confirm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `app_req_notif`
@@ -592,7 +625,7 @@ ALTER TABLE `max_booking`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=296;
 
 --
 -- AUTO_INCREMENT for table `patients_records`

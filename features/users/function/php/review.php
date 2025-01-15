@@ -30,9 +30,9 @@ if (count($reviews) > 0) {
                                         </div>
                                     </div>
                                     
-                                    <p class="mt-3"><?php echo nl2br(htmlspecialchars($chunk[0]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
+                                    <p class=""><?php echo nl2br(htmlspecialchars($chunk[0]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
                                     <?php if (isset($chunk[0]['image']) && $chunk[0]['image']) { ?>
-                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[0]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid mt-3">
+                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[0]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid">
                                     <?php } ?>
                                 </div>
                             </div>
@@ -52,9 +52,9 @@ if (count($reviews) > 0) {
                                             <p class="testimonial-title mb-0 mt-0"><?php echo htmlspecialchars($chunk[1]['name'], ENT_QUOTES, 'UTF-8'); ?></p>
                                         </div>
                                     </div>
-                                    <p class="mt-3"><?php echo nl2br(htmlspecialchars($chunk[1]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
+                                    <p class=""><?php echo nl2br(htmlspecialchars($chunk[1]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
                                     <?php if (isset($chunk[1]['image']) && $chunk[1]['image']) { ?>
-                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[1]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid mt-3">
+                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[1]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid">
                                     <?php } ?>
                                 </div>
                             </div>
@@ -76,9 +76,9 @@ if (count($reviews) > 0) {
                                             </p>
                                         </div>
                                     </div>
-                                    <p class="mt-3"><?php echo nl2br(htmlspecialchars($chunk[2]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
+                                    <p class=""><?php echo nl2br(htmlspecialchars($chunk[2]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
                                     <?php if (isset($chunk[2]['image']) && $chunk[2]['image']) { ?>
-                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[2]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid mt-3">
+                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[2]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid ">
                                     <?php } ?>
                                 </div>
                             </div>
@@ -97,9 +97,9 @@ if (count($reviews) > 0) {
                                             </p>
                                         </div>
                                     </div>
-                                    <p class="mt-3"><?php echo nl2br(htmlspecialchars($chunk[3]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
+                                    <p class=""><?php echo nl2br(htmlspecialchars($chunk[3]['comment'], ENT_QUOTES, 'UTF-8')); ?></p>
                                     <?php if (isset($chunk[3]['image']) && $chunk[3]['image']) { ?>
-                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[3]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid mt-3">
+                                        <img src="assets/img/review/<?php echo htmlspecialchars($chunk[3]['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Review Image" class="img-fluid ">
                                     <?php } ?>
                                 </div>
                             </div>

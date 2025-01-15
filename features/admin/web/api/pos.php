@@ -117,12 +117,17 @@
            <!--Notification and Profile Admin End-->
            <div class="app-req">
     <h3>Point of Sales</h3>
-    <button class="btn btn-primary">View Transactions</button>
     <form action="../../function/php/save_pos.php" method="POST">
         <div class="container field">
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-6">
                     <div class="receipt">
+                        <div class="d-flex gap-2 align-items-center justify-content-end">
+                            <p class="mb-0">Existing Appointment?</p>
+                            <input type="text" class="form-control w-50" placeholder="Search code...">
+                            <button>Enter</button>
+                        </div>
+                        <hr>
                         <h3>Pet Owner Name: <input type="text" class="form-control" name="owner_name" placeholder="Name" required></h3>
                         
                         <!-- Services Section -->
@@ -200,11 +205,11 @@
                         <button type="submit" class="save">Add Bills</button>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-0">
                 <div class="container">
                             <div class="row">
                                 <div class="col-6 text-center">
-                                    <div class="pos-buttons">
+                                    <div class="pos-buttons d-none">
                                         <div class="buttons">
                                             <button type="button"  class="pos-button btn btn-primary m-1" data-value="0">0</button>
                                             <button type="button" class="pos-button btn btn-primary m-1" data-value="1">1</button>
@@ -269,6 +274,7 @@ document.querySelector('input[name="cash_tendered"]').addEventListener('input', 
 });
 
 </script>
+
 
               
 </body>

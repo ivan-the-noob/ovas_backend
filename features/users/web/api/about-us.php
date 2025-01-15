@@ -41,7 +41,13 @@
             <a class="nav-link" href="../../../../index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About Us</a>
+            <a class="nav-link" href="../../../../index.php#about-us">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../../../../index.php#services">Our Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="appointments.php">Appointment</a>
           </li>
         </ul>
 
@@ -76,7 +82,8 @@
             <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <a class="dropdown-item" href="settings.php">Profile</a>
+                <a class="dropdown-item" href="profile.php">Profile</a>
+                <a class="dropdown-item" href="settings.php">Settings</a>
                 <a class="dropdown-item" href="logout.php">Logout</a>
             </div>
         </div>
@@ -141,7 +148,7 @@
     <!--About Us Section End-->
   <div class="wave-container1" id="about-us">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave1">
-      <path fill="#7A3015" fill-opacity="1"
+      <path fill="#EBBF86" fill-opacity="1"
         d="M0,80L40,72C80,64,160,48,240,56C320,64,400,96,480,98.65C560,101.5,640,74.5,720,69.35C800,64,880,80,960,77.35C1040,74.5,1120,53.5,1200,48C1280,42.5,1360,53.5,1400,58.65L1440,64L1440,160L1400,160C1360,160,1280,160,1200,160C1120,160,1040,160,960,160C880,160,800,160,720,160C640,160,560,160,480,160C400,160,320,160,240,160C160,160,80,160,40,160L0,160Z">
       </path>
     </svg>
@@ -175,7 +182,7 @@
     <!--Why Choose Us Section End-->
   <div class="wave-container">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave2">
-      <path fill="#7A3015" fill-opacity="1"
+      <path fill="#EBBF86" fill-opacity="1"
         d="M0,80L40,72C80,64,160,48,240,56C320,64,400,96,480,98.65C560,101.5,640,74.5,720,69.35C800,64,880,80,960,77.35C1040,74.5,1120,53.5,1200,48C1280,42.5,1360,53.5,1400,58.65L1440,64L1440,160L1400,160C1360,160,1280,160,1200,160C1120,160,1040,160,960,160C880,160,800,160,720,160C640,160,560,160,480,160C400,160,320,160,240,160C160,160,80,160,40,160L0,160Z">
       </path>
     </svg>
@@ -186,7 +193,7 @@
   </section>
   <div class="wave-container1" id="about-us">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave1">
-      <path fill="#7A3015" fill-opacity="1"
+      <path fill="#EBBF86" fill-opacity="1"
         d="M0,80L40,72C80,64,160,48,240,56C320,64,400,96,480,98.65C560,101.5,640,74.5,720,69.35C800,64,880,80,960,77.35C1040,74.5,1120,53.5,1200,48C1280,42.5,1360,53.5,1400,58.65L1440,64L1440,160L1400,160C1360,160,1280,160,1200,160C1120,160,1040,160,960,160C880,160,800,160,720,160C640,160,560,160,480,160C400,160,320,160,240,160C160,160,80,160,40,160L0,160Z">
       </path>
     </svg>
