@@ -115,7 +115,7 @@
                     if (isset($_SESSION['email'])) {
                       $sessionEmail = $_SESSION['email'];
               
-                      $sql = "SELECT * FROM appointments WHERE email = :email AND status IN ('pending', 'confirm', 'complete')";
+                      $sql = "SELECT * FROM appointments WHERE email = :email AND status IN ('pending', 'confirm', 'complete','resched')";
                       $stmt = $conn->prepare($sql);
                       
                       $stmt->bindParam(':email', $sessionEmail, PDO::PARAM_STR);
@@ -145,8 +145,8 @@
                               $statusClass = '';
                               if ($status === 'confirm') {
                                   $statusClass = 'bg-success';
-                              } elseif ($status === 'complete') {
-                                  $statusClass = 'bg-success'; 
+                              } elseif ($status === 'resched') {
+                                  $statusClass = 'bg-warning'; 
                               } elseif ($status === 'pending') {
                                   $statusClass = 'bg-primary text-white'; 
                               }
@@ -160,20 +160,31 @@
                                   <p>Owner: ' . htmlspecialchars($ownerName) . '</p>
                                 </div>
                                 <div class="mt-3 mt-md-0 text-md-right">
-                                  <p class="mb-1">Code: ' . htmlspecialchars($code) . '</p>
                                   <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
                                   <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
                                   <div class="d-flex gap-1">
                                   <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>';
-                    
+                                    
                                   if ($status === 'pending') {
                                       echo '<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $appointmentId . '">Cancel</button>';
                                   }
+                                  if ($status === 'resched') {
+                                    echo '<button 
+                                        class="btn btn-warning text-white" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#reschedModal" 
+                                        data-booking-id="' . $appointmentId . '" 
+                                        data-booking-date="' . htmlspecialchars($appointmentDate) . '">
+                                        Re-schedule
+                                    </button>';
+                                }
                                   
                                   echo '    </div>
                                             </div>
                                             </div>
                                         </li>';
+
+                                        
                     
               
                               echo '<div class="modal fade" id="modal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="modalLabel' . $appointmentId . '" aria-hidden="true">
@@ -212,7 +223,6 @@
                                       </div>
                                     </div>';
               
-                              // Confirmation delete modal
                               echo '<div class="modal fade" id="deleteModal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel' . $appointmentId . '" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                       <div class="modal-content">
@@ -326,6 +336,7 @@
                                       <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
                                       <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
                                       <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>
+                                   
                                   </div>
                               </div>
                           </li>';

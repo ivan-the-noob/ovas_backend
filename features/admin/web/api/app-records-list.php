@@ -99,10 +99,7 @@
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="reports.php">
-            <i class="fa-solid fa-file-lines"></i>
-                <span>Reports</span>
-            </a>
+            
            
             <a href="app-records-list.php"  class="navbar-highlight">
                 <i class="fa-regular fa-calendar-check"></i>
@@ -111,6 +108,10 @@
             <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
+            </a>
+<a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
             </a>
             <a href="transaction.php">
                 <i class="fas fa-exchange-alt"></i>
@@ -387,10 +388,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row d-flex justify-content-center">
                         <!-- Client Information -->
-                        <div class="col-md-6">
-                            <h5>Client Information</h5>
+                        <div class="col-md-10">
+                            <h5 class="text-center d-flex justify-content-center mx-auto">Client Information</h5>
+                            <div class="owner-info">
                             <div class="mb-3">
                                 <label for="ownerName" class="form-label">First Name*</label>
                                 <input type="text" class="form-control" id="ownerName" name="ownerName" required>
@@ -416,10 +418,12 @@
                                 <input type="email" class="form-control" id="ownerEmail" name="ownerEmail" required>
                             </div>
                         </div>
+                    </div>
 
                         <!-- Pet Information -->
-                        <div class="col-md-6">
-                            <h5>Pet Information</h5>
+                        <div class="col-md-10">
+                            <h5 class="text-center mt-4 d-flex justify-content-center mx-auto">Pet Information</h5>
+                            <div class="owner-info">
                             <div class="mb-3">
                                 <label for="petName" class="form-label">Pet's Name*</label>
                                 <input type="text" class="form-control" id="petName" name="petName" required>
@@ -458,10 +462,13 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
+
+                    
 
                     <!-- Medical History -->
-                    <h5>Medical History</h5>
+                     <div class="col-md-10">
+                    <h5 class="text-center mt-4 d-flex justify-content-center mx-auto">Medical History</h5>
+                    <div class="owner-info">
                     <div class="mb-3">
                         <label for="previous_veteran" class="form-label">Previous Veterinarian/Clinic</label>
                         <input type="text" class="form-control" id="previous_veteran" name="previous_veteran" >
@@ -490,10 +497,13 @@
                         <label for="initial_visits" class="form-label">Reason for Initial Visit</label>
                         <input type="text" class="form-control" id="initial_visits" name="initial_visits">
                     </div>
-                    <hr>
+                </div>
+            
+                    
 
                     <!-- Other Information -->
-                    <h5>Other Information</h5>
+                    <h5 class="text-center mt-4 d-flex justify-content-center mx-auto">Other Information</h5>
+                    <div class="owner-info">
                     <div class="mb-3">
                         <label for="vet_name" class="form-label">Veterinarian’s Name*</label>
                         <input type="text" class="form-control" id="vet_name" name="vet_name" required>
@@ -515,8 +525,9 @@
                         <input type="date" class="form-control" id="date_return" name="date_return" required>
                     </div>
                 </div>
-
-                <div class="modal-footer">
+            </div>
+        
+                <div class="modal-footer mt-4">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Record</button>
                 </div>

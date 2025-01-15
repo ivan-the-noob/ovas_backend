@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2025 at 07:08 PM
+-- Generation Time: Jan 15, 2025 at 03:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -41,7 +41,9 @@ CREATE TABLE `admin_confirm` (
 --
 
 INSERT INTO `admin_confirm` (`id`, `name`, `status`, `created_at`, `email`, `read`) VALUES
-(156, 'Admin ', 'decline', '2025-01-14 10:42:11', 'ejthecoder@gmail.com', '0');
+(156, 'Admin ', 'decline', '2025-01-14 10:42:11', 'ejthecoder@gmail.com', '0'),
+(157, 'Ivan', 'confirm', '2025-01-15 02:09:52', 'ejthecoder@gmail.com', '0'),
+(158, 'Ivan', 'resched', '2025-01-15 02:14:30', 'ejthecoder@gmail.com', '0');
 
 -- --------------------------------------------------------
 
@@ -53,7 +55,7 @@ CREATE TABLE `appointments` (
   `id` int(11) NOT NULL,
   `owner_name` varchar(255) NOT NULL,
   `code` varchar(255) NOT NULL DEFAULT 'pending',
-  `status` enum('pending','confirm','complete','decline','cancelled') NOT NULL,
+  `status` enum('pending','confirm','complete','decline','cancelled','resched') NOT NULL,
   `reason_cancel` text DEFAULT NULL,
   `contact_number` varchar(20) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -80,8 +82,8 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `owner_name`, `code`, `status`, `reason_cancel`, `contact_number`, `email`, `address`, `pet_type`, `breed`, `age`, `service_category`, `service_type`, `appointment_time`, `appointment_date`, `total_payment`, `created_at`, `payment_method`, `gcash_screenshot`, `reference`, `decline_reason`, `pet_name`, `vet_name`) VALUES
-(128, 'Ivan', 'OVAS-000004', 'confirm', 'Wrong', '', 'ejthecoder@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-14', 1200.00, '2025-01-14 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'sdadsa'),
-(129, 'Admin ', 'OVAS-000004', 'decline', 'Wrong', '', 'ejthecoder@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-14', 1200.00, '2025-02-13 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'sdadsa');
+(128, 'Ivan', 'OVAS-000005', 'resched', 'Wrong', '', 'racel@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-14', 1200.00, '2025-01-14 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'dasdsa'),
+(129, 'Admin ', 'OVAS-000004', 'decline', 'Wrong', '', 'racel@gmail.com', '', '321321', 'dsadasdas', 12, 'medical', 'Diagnostic and Therapeutic', '12:00:00', '2025-01-14', 1200.00, '2025-02-13 08:13:39', 'gcash', '3.jpg', 2147483647, 'dsadsa', '', 'sdadsa');
 
 -- --------------------------------------------------------
 
@@ -217,7 +219,9 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications` (`id`, `email`, `code`, `type`, `message`, `created_at`, `is_read`) VALUES
 (275, 'ejthecoder@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: dasdsa', '2025-01-14 10:37:42', 0),
-(276, 'ejthecoder@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: Wrong', '2025-01-14 10:42:11', 0);
+(276, 'ejthecoder@gmail.com', NULL, 'decline', 'Your appointment has been declined.<br> Reason: Wrong', '2025-01-14 10:42:11', 0),
+(277, 'ejthecoder@gmail.com', 'OVAS-000005', 'confirm', 'Admin has confirmed the appointment of Ivan with Vet: dasdsa.', '2025-01-15 02:09:52', 0),
+(278, 'ejthecoder@gmail.com', 'OVAS-000005', 'resched', 'Your appointment has been resched. Please choose another date.', '2025-01-15 02:14:30', 0);
 
 -- --------------------------------------------------------
 
@@ -435,7 +439,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `last_name`, `email`, `password`, `role`, `profile_picture`, `address`, `contact_num`) VALUES
-(36, 'Admin', '', 'ejthecoder@gmail.com', '$2y$10$B4sTaZVYv6u1XGvXFZE2buBUxHz5uKW9/Dr5y1MxLY1H6QnVoLRvO', 'user', '', '', ''),
+(36, 'Admin', '', 'racel@gmail.com', '$2y$10$B4sTaZVYv6u1XGvXFZE2buBUxHz5uKW9/Dr5y1MxLY1H6QnVoLRvO', 'user', '', '', ''),
 (42, 'Tests', '', 'admin@gmail.com', '$2y$10$hwURNTqnyPiVYte4Gueh0.dWfAjIEfRtB20YQv60LifoS3ugN0VkC', 'admin', '', '', ''),
 (51, 'Racel Mae', 'Loquellano', 'racelmaeloquellano@gmail.com', '$2y$10$dME4MAYzCJJUDt/JTxcFa.rwF29R8grWL7PS2h0Dys04X.jms0.yO', 'user', 'customer.jfif', 'S11 B2 L13 Belvedere Pk2 Gentri', '09618757048'),
 (52, 'Frances', 'Medrano', 'love.cessyyyy@gmail.com', '$2y$10$dnZ5NCBT.N/2QD2Q2mFE3.2iweMh8.3TBE26pD0Ig56oomxb854GS', 'user', 'customer.jfif', 'tanza', '09057965873'),
@@ -546,7 +550,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin_confirm`
 --
 ALTER TABLE `admin_confirm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
 
 --
 -- AUTO_INCREMENT for table `appointments`
@@ -588,7 +592,7 @@ ALTER TABLE `max_booking`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=277;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=279;
 
 --
 -- AUTO_INCREMENT for table `patients_records`

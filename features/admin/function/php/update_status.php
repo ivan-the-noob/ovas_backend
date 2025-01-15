@@ -68,11 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } 
 
             // Handle 'complete' status only
-            elseif ($new_status === 'complete') {
+            elseif ($new_status === 'resched') {
                 // Update only status
-                $stmt = $conn->prepare("UPDATE appointments SET status = :status, vet_name = :vet_name WHERE id = :id");
+                $stmt = $conn->prepare("UPDATE appointments SET status = :status WHERE id = :id");
                 $stmt->bindParam(':status', $new_status);
-                $stmt->bindParam(':vet_name', $vet_name); // Save vet name
                 $stmt->bindParam(':id', $appointment_id, PDO::PARAM_INT);
                 $stmt->execute();
 
@@ -84,16 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt_confirm->execute();
 
                 // Add notification
-                $message = "Your appointment has been completed with Vet: {$vet_name}.";
-                $stmt = $conn->prepare("INSERT INTO notifications (email, type, message, code) VALUES (:email, :type, :message, :code)");
+                $message = "Your appointment has been resched. Please choose another date.";
+                $stmt = $conn->prepare("INSERT INTO notifications (email, type, message) VALUES (:email, :type, :message)");
                 $stmt->bindParam(':email', $email);
                 $stmt->bindParam(':type', $new_status); 
                 $stmt->bindParam(':message', $message);
-                $stmt->bindParam(':code', $code); // No new code, use the existing one
                 $stmt->execute();
 
-                // Send completion email
-                sendAppointmentEmail($email, $code, $message);
+                sendAppointmentEmail($email, $message);
             }
 
             // Return success response

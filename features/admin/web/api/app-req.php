@@ -41,10 +41,7 @@
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="reports.php">
-            <i class="fa-solid fa-file-lines"></i>
-                <span>Reports</span>
-            </a>
+            
            
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
@@ -53,6 +50,10 @@
             <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
+            </a>
+<a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
             </a>
             <a href="transaction.php">
                 <i class="fas fa-exchange-alt"></i>
@@ -153,10 +154,10 @@
                                                 <strong>Declined</strong>
                                                 <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been declined.<br><?php echo htmlspecialchars($notification['created_at']); ?></p> 
                                             </div>
-                                        <?php elseif ($notification['status'] == 'complete'): ?>
-                                            <div class="alert alert-success mb-0">
-                                                <strong>Completed!</strong>
-                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment has been completed.<br><?php echo htmlspecialchars($notification['created_at']); ?></p>
+                                        <?php elseif ($notification['status'] == 'resched'): ?>
+                                            <div class="alert alert-resched mb-0">
+                                                <strong>Resched</strong>
+                                                <p><?php echo htmlspecialchars($notification['name']); ?>'s appointment resched.<br><?php echo htmlspecialchars($notification['created_at']); ?></p>
                                             </div>
                                         <?php endif; ?>
                                     </li>
@@ -218,7 +219,7 @@
                                     <p class="card-text"><strong>Service:</strong> <?= $appointment['service_type'] ?></p>
                                     <p class="card-text"><strong>Code: </strong><?= $appointment['code'] ?? 'Pending' ?></p>
                                     <p class="card-text"><strong>Status:</strong> 
-                                        <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'complete' ? 'success' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
+                                        <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'Resched' ? 'warning' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
                                             <?= ucfirst($appointment['status']) ?>
                                         </span>
                                     </p>
@@ -242,8 +243,8 @@
                                             case 'confirm':
                                                 $buttonClass = 'btn-primary';
                                                 break;
-                                            case 'complete':
-                                                $buttonClass = 'btn-success';
+                                            case 'resched':
+                                                $buttonClass = 'btn-warning';
                                                 break;
                                             case 'decline':
                                                 $buttonClass = 'btn-danger';
@@ -265,33 +266,33 @@
 
                                             <!-- Vet Name Modal -->
                                            <!-- Vet Name Modal -->
-                            <div class="modal fade" id="vetNameModal" tabindex="-1" aria-labelledby="vetNameModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="vetNameModalLabel">Enter Vet Name</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="vetNameForm">
-                                    <div class="mb-3">
-                                        <label for="vetName" class="form-label">Vet Name</label>
-                                        <input type="text" class="form-control" id="vetName" name="vetName" required>
-                                    </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-primary" id="submitVetName">Submit</button>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
+                                            <div class="modal fade" id="vetNameModal" tabindex="-1" aria-labelledby="vetNameModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="vetNameModalLabel">Enter Vet Name</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form id="vetNameForm">
+                                                    <div class="mb-3">
+                                                        <label for="vetName" class="form-label">Vet Name</label>
+                                                        <input type="text" class="form-control" id="vetName" name="vetName" required>
+                                                    </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-primary" id="submitVetName">Submit</button>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
 
-                                            <!-- Complete Button -->
-                                            <button class="btn btn-success me-2" 
-                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'complete')">
-                                                Complete
+                                            <!-- Resched Button -->
+                                            <button class="btn btn-warning text-white me-2" 
+                                                onclick="updateStatus(<?= $appointment['id'] ?>, 'resched')">
+                                                resched
                                             </button>
 
                                             <!-- Decline Button -->
@@ -496,8 +497,8 @@ function updateStatus(appointmentId, newStatus, vetName = null) {
     let statusText = "";
     if (newStatus === 'confirm') {
         statusText = "Confirm";
-    } else if (newStatus === 'complete') {
-        statusText = "Complete";
+    } else if (newStatus === 'resched') {
+        statusText = "Resched";
     }
 
     // Update confirmation modal text
@@ -529,9 +530,9 @@ function executeStatusChange(appointmentId, newStatus, vetName = null) {
                 if (newStatus === 'confirm') {
                     badge.addClass('bg-success');
                     badge.text('Confirmed');
-                } else if (newStatus === 'complete') {
-                    badge.addClass('bg-info');
-                    badge.text('Completed');
+                } else if (newStatus === 'resched') {
+                    badge.addClass('bg-warning');
+                    badge.text('Resched');
                 } else if (newStatus === 'decline') {
                     badge.addClass('bg-danger');
                     badge.text('Declined');

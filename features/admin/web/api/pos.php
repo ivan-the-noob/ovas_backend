@@ -38,18 +38,19 @@
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="reports.php">
-            <i class="fa-solid fa-file-lines"></i>
-                <span>Reports</span>
-            </a>
+            
           
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Record Lists</span>
             </a>
-            <a href="pos.php"  class="navbar-highlight">
+            <a href="pos.php"class="navbar-highlight">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
+            </a>
+            <a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
             </a>
             <a href="transaction.php">
                 <i class="fas fa-exchange-alt"></i>
@@ -116,6 +117,7 @@
            <!--Notification and Profile Admin End-->
            <div class="app-req">
     <h3>Point of Sales</h3>
+    <button class="btn btn-primary">View Transactions</button>
     <form action="../../function/php/save_pos.php" method="POST">
         <div class="container field">
             <div class="row justify-content-center">

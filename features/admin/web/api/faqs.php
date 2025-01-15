@@ -42,10 +42,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
                 <i class="fa-regular fa-calendar-check"></i>
                 <span>Appointment Request</span>
             </a>
-            <a href="reports.php">
-            <i class="fa-solid fa-file-lines"></i>
-                <span>Reports</span>
-            </a>
+            
             
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
@@ -54,6 +51,10 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
             <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
+            </a>
+<a href="reports.php">
+            <i class="fa-solid fa-file-lines"></i>
+                <span>Reports</span>
             </a>
             <a href="transaction.php">
                 <i class="fas fa-exchange-alt"></i>
