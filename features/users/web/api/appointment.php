@@ -72,7 +72,8 @@ try {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" href="../../../../assets/img/logo.png" type="image/x-icon">
+  <title> Pawfect</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
@@ -276,7 +277,7 @@ try {
             <div class="container">
               <div class="row" style="padding: 20px;">
                 <div class="col-md-6">
-                  <h6 class="d-flex mx-auto mb-2 mb-2">Owner Information</h6>
+                  <h6 class="d-flex mx-auto mb-2 mb-2 text-center d-flex justify-content-center text-black">Owner Information</h6>
                   <div class="owner-info">
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
@@ -310,7 +311,7 @@ try {
                       </div>
                     </div>
                   </div>
-                  <h6 class="mt-4 d-flex mx-auto mb-2">Pet Information</h6>
+                  <h6 class="mt-4 d-flex mx-auto mb-2 text-center d-flex justify-content-center text-black">Pet Information</h6>
                   <div class="owner-info">
                   <div class="mb-3 position-relative">
                       <div class="position-relative">
@@ -361,12 +362,13 @@ try {
 
                 <!-- Services -->
                 <div class="col-md-6">
-                  <h6 class="d-flex mx-auto mb-2">Services</h6>
+                  <h6 class="d-flex mx-auto mb-2 text-center d-flex justify-content-center text-black ">Services</h6>
                   <div class="owner-info">
+                    <div class="d-flex justify-content-center">
                     <div class="mb-3">
-                      <label for="serviceCategory" class="form-label">Service Category</label>
+                      <label for="serviceCategory" class="form-label text-black">Service Category</label>
                       <div class="dropdowns">
-                        <button class="dropdown-toggle" type="button"
+                        <button class="dropdown-toggle text-black" type="button"
                           id="serviceCategoryDropdown" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="false">
                           Select Category
@@ -381,9 +383,9 @@ try {
                     </div>
 
                     <div class="mb-3">
-                      <label for="service" class="form-label">Service</label>
+                      <label for="service" class="form-label text-black">Service</label>
                       <div class="dropdowns">
-                        <button class="dropdown-toggle" type="button" id="serviceDropdown"
+                        <button class="dropdown-toggle text-black" type="button" id="serviceDropdown"
                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Select Service
                         </button>
@@ -409,19 +411,23 @@ try {
                       <input type="hidden" name="selectedService" id="selectedService">
                       <input type="hidden" name="servicePrice" id="servicePrice">
                     </div>
+                  </div>
 
-                    <div class="mt-3">
-                      <label for="totalPayment" class="form-label">Service Price</label>
+                    <div class="mt-3" style="padding-left: 80px;">
+                      <label for="totalPayment" class="form-label text-black">Service Price</label>
                       <p id="totalPayment">₱0.00</p>
                     </div>
 
-                    <!-- Time Selection -->
                    
-
-                    <div class="mt-3">
-                      <label for="pay-via" class="form-label">Pay Via</label>
+                  
+                </div>
+                <h6 class="d-flex mx-auto mb-2 mb-2 text-center d-flex justify-content-center text-black" style="margin-top: 30px;">Down Payment</h6>
+                    <div class="owner-info">
+                    <div class="mt-3" style="padding-left: 80px;">
+                      <div class="d-flex">
+                      <label for="pay-via" class="form-label text-black">Pay Via</label>
                       <div class="d-flex justify-content-start pay-btn">
-                      <button id="gcash-btn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#gcashModal" onclick="selectPayment('gcash', this)">
+                      <button id="gcash-btn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#gcashModal" onclick="selectPayment('gcash', this)" style="height: 40px;">
                           Gcash
                       </button>
 
@@ -455,6 +461,7 @@ try {
                           </div>
                       </div>
                   </div>
+                  
                   <script>
                     function closeGcashModal() {
                         $('#gcashModal').modal('hide');
@@ -468,7 +475,7 @@ try {
 
                     <div id="gcash-details" class="mt-3" style="display: none;">
                         <div class="gcash">
-                            <img src="../../../../assets/img/gcash/gcash.jpg">
+                            <img src="../../../../assets/img/gcash/gcash.jpg" style="1px solid #000; border-radius: 10px;">
                         </div>
                         <label for="gcash-screenshot" class="form-label">Upload screenshot</label>
                         <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*" class="form-control" required>
@@ -489,82 +496,81 @@ try {
                             </script>
                         </div>
                     </div>
-                 
-
-                  <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mx-auto" style="background-color:#74C2CD" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)">
-                    Book Appointment
-                </button>
-
-<!-- Appointment Modal -->
-<div class="modal fade" id="appointmentModals" tabindex="-1" role="dialog" aria-labelledby="appointmentModalsLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
-            <div class="modal-header d-flex justify-content-between">
-                <h5 class="modal-title" id="appointmentModalsLabel">Appointment Confirmation</h5>
-                <!-- Close button specifically for appointment modal -->
-                <button type="button" class="close" aria-label="Close" onclick="closeAppointmentModal()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="color: #000;">
-                <h5 class="text-center">Are your sure you want to
-                  Book this appointment?” 
-                </h5>
-            </div>
-            <div class="modal-footer">
-            <div class="mt-3 d-flex gap-1">
-                  <button type="button" class="book-save" aria-label="Close" onclick="closeAppointmentModal()">
-                          <span aria-hidden="true">Cancel</span>
-                    </button>
-                      <button type="submit" class="book-save">Confirm</button>
                   </div>
-            </div>
-        </div>
-    </div>
-</div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mt-4" style="background-color:#74C2CD" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)" >
+                        Book Appointment
+                      </button>
+                    </div>
 
-<script>
-    function closeAppointmentModal() {
-        $('#appointmentModals').modal('hide');
-    }
-
-    function selectAppointment(action, button) {
-        const buttons = document.querySelectorAll('.pay-btn button');
-        buttons.forEach(btn => {
-            btn.classList.remove('selected'); 
-            btn.style.backgroundColor = ''; 
-            btn.style.color = ''; 
-            btn.style.borderColor = '#EBBF86'; 
-        });
-
-        button.classList.add('selected');
-        button.style.backgroundColor = '#EBBF86';
-        button.style.color = 'white';
-        button.style.borderColor = '#EBBF86'; 
-
-        // Set value for appointment action (for future processing)
-        document.getElementById('appointment_action').value = action;
-
-        console.log('action: ' + document.getElementById('appointment_action').value);
-
-        const appointmentDetails = document.getElementById('appointment-details');
-        if (action === 'book') {
-            appointmentDetails.style.display = 'block'; 
-            // Show the Appointment modal
-            var myModal = new bootstrap.Modal(document.getElementById('appointmentModals'), {
-                keyboard: false
-            });
-            myModal.show();
-        } else {
-            appointmentDetails.style.display = 'none'; 
-        }
-    }
-</script>
-                  
+            <div class="modal fade" id="appointmentModals" tabindex="-1" role="dialog" aria-labelledby="appointmentModalsLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
+                        <div class="modal-header d-flex justify-content-between">
+                            <h5 class="modal-title" id="appointmentModalsLabel">Appointment Confirmation</h5>
+                            <button type="button" class="close" aria-label="Close" onclick="closeAppointmentModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="color: #000;">
+                            <h5 class="text-center">Are your sure you want to
+                              Book this appointment?” 
+                            </h5>
+                        </div>
+                        <div class="modal-footer">
+                        <div class="mt-3 d-flex gap-1">
+                              <button type="button" class="book-save" aria-label="Close" onclick="closeAppointmentModal()">
+                                      <span aria-hidden="true">Cancel</span>
+                                </button>
+                                  <button type="submit" class="book-save">Confirm</button>
+                              </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+
+            <script>
+                function closeAppointmentModal() {
+                    $('#appointmentModals').modal('hide');
+                }
+
+                function selectAppointment(action, button) {
+                    const buttons = document.querySelectorAll('.pay-btn button');
+                    buttons.forEach(btn => {
+                        btn.classList.remove('selected'); 
+                        btn.style.backgroundColor = ''; 
+                        btn.style.color = ''; 
+                        btn.style.borderColor = '#EBBF86'; 
+                    });
+
+                    button.classList.add('selected');
+                    button.style.backgroundColor = '#EBBF86';
+                    button.style.color = 'white';
+                    button.style.borderColor = '#EBBF86'; 
+                    document.getElementById('appointment_action').value = action;
+
+                    console.log('action: ' + document.getElementById('appointment_action').value);
+
+                    const appointmentDetails = document.getElementById('appointment-details');
+                    if (action === 'book') {
+                        appointmentDetails.style.display = 'block'; 
+                        var myModal = new bootstrap.Modal(document.getElementById('appointmentModals'), {
+                            keyboard: false
+                        });
+                        myModal.show();
+                    } else {
+                        appointmentDetails.style.display = 'none'; 
+                    }
+                }
+            </script>
               </div>
+              
+            
             </div>
           </div>
+          
 
 
         </div>

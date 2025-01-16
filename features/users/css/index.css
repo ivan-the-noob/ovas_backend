@@ -435,9 +435,12 @@
 .testimonial-card-custom img {
   border-radius: 50%;
   border: 2px solid #fff;
-  width: 70px;
- 
-  
+}
+
+.comment-img{
+  width: 80px;
+  max-height: 16vh;
+  border-radius: 0 !important;
 }
 
 .testimonial-card-custom p{

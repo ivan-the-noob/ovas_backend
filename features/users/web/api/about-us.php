@@ -14,7 +14,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <link rel="icon" href="../../../../assets/img/logo.png" type="image/x-icon">
-  <title>About Us | Pawfect</title>
+  <title> Pawfect</title>
   <link rel="stylesheet" href="../../css/about-us.css">
 
 </head>
