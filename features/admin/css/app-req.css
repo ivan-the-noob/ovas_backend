@@ -168,7 +168,12 @@ body {
 /*Appointment Request Section*/
 
 .card{
-    height: 66vh;
+    height: 70vh;
+}
+
+.cards .card-text, .card-title{
+    background-color: #EBBF86;
+    padding: 5px;
 }
 
 .cards{
@@ -377,7 +382,7 @@ ul a:hover{
 }
 
 .view-details{
-    background-color: #EBBF86;
+    background-color: #74C2CD;
     border: none;
     color: #fff;
     padding: 6px 16px;

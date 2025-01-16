@@ -193,7 +193,7 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
                 <div class="col-8 col-md-6 col-lg-3 cc d-flex flex-column align-items-center justify-content-center mx-auto" style="height: 100%;">
-                    <div class="card">
+                    <div class="card d-flex justify-content-center">
                         <div class="cards">
                             <div class="card-text">
                                 <p>Total Users</p>
@@ -206,7 +206,7 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <div class="trend card-up"><i class="fa-solid fa-arrow-trend-up"> 8.5 % </i> Up from yesterday
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card d-flex justify-content-center">
                         <div class="cards">
                             <div class="card-text">
                                 <p>Total Booked</p>
@@ -220,7 +220,7 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         
                     </div>
-                    <div class="card">
+                    <div class="card d-flex justify-content-center">
                         <div class="cards">
                             <div class="card-text">
                                 <p>Total Sales</p>
@@ -278,8 +278,8 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </table>
                                 <a href="reports.php" class="text-decoration-line text-black d-flex justify-content-center">See more</a>
                         </div>
-                        <div class="col-md-5">
-                            <div id="chartContainer" style="width: 200px; height: 200px; margin: 0 auto; background-color: #fff; margin-top: 20px;">
+                        <div class="col-md-5 mt-4">
+                            <div id="chartContainer" style="width: 400px; height: 250px; margin: 0 auto; background-color: #fff; margin-top: 20px; display: flex; justify-content: center; margin: auto; padding-bottom: 20px; border: 1px solid #cabebe; border-radius : 10px;">
                                 <canvas id="ratingPieChart" width="150" height="150"></canvas>
                             </div>
                         </div>

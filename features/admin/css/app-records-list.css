@@ -372,8 +372,8 @@ tr:hover{
     color: #fff !important;
 }
 .pagination .page-item.active .page-link {
-    background-color: #5a220d;
-    border-color: #5a220d;
+    background-color: #EBBF86;
+    border-color: #EBBF86;
 }
 
 .pagination .page-item .page-link:hover {

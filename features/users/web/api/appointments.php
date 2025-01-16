@@ -13,7 +13,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" href="../../../../assets/img/logo.png" type="image/x-icon">
+  <title>Pawfect</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -109,7 +110,7 @@
               <button class="none"> |</button>
               <button id="pastBtn">Past Appointment</button>
             </div>
-            <div class="card-body">
+            <div class="card-body p-0">
               <ul class="list-group" id="historyList">
               <?php 
                   try {
@@ -221,39 +222,92 @@
 
                                       
                               echo '<div class="modal fade" id="modal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="modalLabel' . $appointmentId . '" aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered" role="document">
-                                        <div class="modal-content">
-                                          <div class="modal-header d-flex justify-content-between">
-                                            <h5 class="modal-title" id="modalLabel' . $appointmentId . '">Appointment Details</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
-                                          </div>
-                                          <div class="modal-body">
-                                            <h5>Appointment Details</h5>
-                                            <p>Name: ' . htmlspecialchars($ownerName) . '</p>
-                                            <p>Contact: ' . htmlspecialchars($contact) . '</p>
-                                            <p>Email: ' . htmlspecialchars($email) . '</p>
-                                            <p>Address: ' . htmlspecialchars($address) . '</p>
-                                            <h5>Pet Information</h5>
-                                            <p>Pet Type: ' . htmlspecialchars($petType) . '</p>
-                                            <p>Breed: ' . htmlspecialchars($breed) . '</p>
-                                            <p>Age: ' . htmlspecialchars($age) . ' months</p>
-                                            <h5>Services</h5>
-                                            <p>Service Category: ' . htmlspecialchars($serviceCategory) . '</p>
-                                            <p>Service: ' . htmlspecialchars($serviceType) . '</p>
-                                            <h5>Payment Details</h5>
-                                            <p>Total Payment: ₱' . htmlspecialchars($totalPayment) . '</p>
-                                            <p>Payment Method: ' . htmlspecialchars($paymentMethod) . '</p>
-                                             <p>GCash Screenshot: <img src="../../../../assets/img/gcash/' . htmlspecialchars($gcashScreenshot) . '" alt="GCash Screenshot" style="max-width: 100%; height: auto;"></p>
-                                            <p>Reference: ' . htmlspecialchars($reference) . '</p>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                          </div>
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header d-flex justify-content-between">
+                                          <h5 class="modal-title" id="modalLabel' . $appointmentId . '">Appointment Details</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                           </button>
+                                        </div>
+                                        <div class="modal-body info">
+                                          <form>
+                                            <div class="owner-info">
+                                              <div class="form-group">
+                                                <label for="ownerName' . $appointmentId . '">Name</label>
+                                                <input type="text" class="form-control" id="ownerName' . $appointmentId . '" value="' . htmlspecialchars($ownerName) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="contact' . $appointmentId . '">Contact</label>
+                                                <input type="text" class="form-control" id="contact' . $appointmentId . '" value="' . htmlspecialchars($contact) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="email' . $appointmentId . '">Email</label>
+                                                <input type="email" class="form-control" id="email' . $appointmentId . '" value="' . htmlspecialchars($email) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="address' . $appointmentId . '">Address</label>
+                                                <input type="text" class="form-control" id="address' . $appointmentId . '" value="' . htmlspecialchars($address) . '" readonly>
+                                              </div>
+                                            </div>
+                                            
+                                            <h5 class="mt-4 d-flex justify-content-center mx-auto">Pet Information</h5>
+                                            <div class="owner-info">
+                                              <div class="form-group">
+                                                <label for="petType' . $appointmentId . '">Pet Type</label>
+                                                <input type="text" class="form-control" id="petType' . $appointmentId . '" value="' . htmlspecialchars($petType) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="breed' . $appointmentId . '">Breed</label>
+                                                <input type="text" class="form-control" id="breed' . $appointmentId . '" value="' . htmlspecialchars($breed) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="age' . $appointmentId . '">Age</label>
+                                                <input type="text" class="form-control" id="age' . $appointmentId . '" value="' . htmlspecialchars($age) . ' months" readonly>
+                                              </div>
+                                            </div>
+
+                                            <h5 class="mt-4 d-flex justify-content-center mx-auto">Services</h5>
+                                            <div class="owner-info">
+                                              <div class="form-group">
+                                                <label for="serviceCategory' . $appointmentId . '">Service Category</label>
+                                                <input type="text" class="form-control" id="serviceCategory' . $appointmentId . '" value="' . htmlspecialchars($serviceCategory) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="serviceType' . $appointmentId . '">Service</label>
+                                                <input type="text" class="form-control" id="serviceType' . $appointmentId . '" value="' . htmlspecialchars($serviceType) . '" readonly>
+                                              </div>
+                                            </div>
+
+                                            <h5 class="mt-4 d-flex justify-content-center mx-auto">Payment Details</h5>
+                                            <div class="owner-info">
+                                              <div class="form-group">
+                                                <label for="totalPayment' . $appointmentId . '">Total Payment</label>
+                                                <input type="text" class="form-control" id="totalPayment' . $appointmentId . '" value="₱' . htmlspecialchars($totalPayment) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="paymentMethod' . $appointmentId . '">Payment Method</label>
+                                                <input type="text" class="form-control" id="paymentMethod' . $appointmentId . '" value="' . htmlspecialchars($paymentMethod) . '" readonly>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="gcashScreenshot' . $appointmentId . '">GCash Screenshot</label>
+                                                <input type="text" class="form-control" id="gcashScreenshot' . $appointmentId . '" value="' . htmlspecialchars($gcashScreenshot) . '" readonly>
+                                                <img src="../../../../assets/img/gcash/' . htmlspecialchars($gcashScreenshot) . '" alt="GCash Screenshot" style="max-width: 100%; height: auto;">
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="reference' . $appointmentId . '">Reference</label>
+                                                <input type="text" class="form-control" id="reference' . $appointmentId . '" value="' . htmlspecialchars($reference) . '" readonly>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
                                       </div>
-                                    </div>';
+                                    </div>
+                                  </div>
+                                  ';
               
                               echo '<div class="modal fade" id="deleteModal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel' . $appointmentId . '" aria-hidden="true">
                                   <div class="modal-dialog modal-dialog-centered" role="document">

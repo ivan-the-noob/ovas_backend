@@ -209,8 +209,9 @@
                     <div class="col-md-4 mb-4 appointment-card" data-name="<?= strtolower($appointment['owner_name']) ?>" data-service-category="<?= strtolower($appointment['service_category']) ?>" data-status="<?= strtolower($appointment['status']) ?>">
                         <div class="card shadow-sm">
                             <div class="card-body">
+                            <h5 class="card-title text-center fw-bold text-black">Appointment # <?= $index + 1 ?></h5>
                                 <div class="cards">
-                                    <h5 class="card-title">Appointment <?= $index + 1 ?></h5>
+                                    
                                     <p class="card-text"><strong>Owner Name:</strong> <?= $appointment['owner_name'] ?></p>
                                     <p class="card-text"><strong>Service Category:</strong>  <?= $appointment['service_category'] === 'medical' ? 'medical' : ($appointment['service_category'] === 'nonMedical' ? 'nonMedical' : 'N/A') ?></p>
                                     <p class="card-text"><strong>Service:</strong> <?= $appointment['service_type'] ?></p>

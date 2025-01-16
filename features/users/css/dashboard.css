@@ -686,7 +686,7 @@ th a{
   height: 150px;
   width: 500px;
   border-radius: 20px;
-  border: 1px solid #74C2CD;
+  border: 3px solid #74C2CD;
 }
 
 /*Settings End*/
@@ -754,3 +754,29 @@ th a{
 }
 
 /*Profile End*/
+
+.modal-body .owner-info{
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.info input{
+  color: #fff;
+  font-size: 16px;
+}
+
+.info h5{
+  background-color: #74C2CD;
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.form-group input {
+  text-transform: capitalize;
+  padding: 10px !important;
+}

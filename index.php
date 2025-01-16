@@ -170,7 +170,7 @@ try {
         </div>
         <div class="col-md-6 order-2 order-md-1 text-md-left mb-4 mb-md-0 front-text">
           <h4>Book Your Pet's Next Appointment with Ease!</h4>
-          <p>Welcome to Bark Yard Pet Wellness Center, your one-stop destination for pet
+          <p class="text-white">Welcome to Bark Yard Pet Wellness Center, your one-stop destination for pet
             grooming and care.</p>
             <?php if ($userEmail): ?>
                 <?php if ($bookingLimitReached): ?>
@@ -206,13 +206,7 @@ try {
     </div>
   </section>
 
-  <div class="wave-container1" id="about-us">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave1">
-      <path fill="#EBBF86" fill-opacity="1"
-        d="M0,128L60,138.7C120,149,240,171,360,170.7C480,171,600,149,720,133.3C840,117,960,107,1080,112C1200,117,1320,139,1380,149.3L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
-      </path>
-    </svg>
-  </div>
+  
   <section class="about-us py-5">
     <div class="container">
       <div class="row">
