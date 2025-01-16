@@ -53,17 +53,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 var maxBooking = response.maxBooking;
 
                 if (bookingCount >= maxBooking) {
-                  dayCell.style.backgroundColor = '#F65859';
+                  dayCell.style.backgroundColor = '#F26318';
                   dayCell.style.pointerEvents = 'none';
                   dayCell.style.cursor = 'not-allowed';
                 } else {
-                  dayCell.style.backgroundColor = '#9EF3A0';
+                  dayCell.style.backgroundColor = '#0097B2';
 
                   dayCell.addEventListener('mouseover', function () {
-                    dayCell.style.backgroundColor = '#73BD1E';
+                    dayCell.style.backgroundColor = '#76d3e4';
                   });
                   dayCell.addEventListener('mouseout', function () {
-                    dayCell.style.backgroundColor = '#9EF3A0';
+                    dayCell.style.backgroundColor = '#0097B2';
                   });
                   dayCell.classList.add('fc-daygrid-day-button');
                   dayCell.addEventListener('click', function () {

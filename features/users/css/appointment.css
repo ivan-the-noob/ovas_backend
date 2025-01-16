@@ -28,9 +28,6 @@
 .bold{
     font-weight: bold;
 }
-.container{
-    padding: 0 10vw;
-}
 
 
 /* navbar */
@@ -456,7 +453,8 @@ th a{
     font-weight: 500;
     opacity: 80%;
   }
-  
+
+
 .input-labels {
     color :#EBBF86;
   }
@@ -469,13 +467,13 @@ th a{
 .available-color{
     width: 20px;
     height: 20px;
-    background-color: #9EF3A0;
+    background-color: #0097B2;
     flex-shrink: 0;
 }
 .fully-color{
     width: 20px;
     height: 20px;
-    background-color: red;
+    background-color: #F26318;
     flex-shrink: 0;
 }
 

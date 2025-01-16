@@ -1,7 +1,29 @@
 <?php 
   session_start();
   include '../../../../index_connection.php';
-  $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
+ 
+  $email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
+  if ($email) {
+    try {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+  
+        if ($user) {
+            $name = htmlspecialchars($user['name']);
+            $last_name = htmlspecialchars($user['last_name']);
+            $address = htmlspecialchars($user['address']);
+            $contact_num = htmlspecialchars($user['contact_num']);
+            $profilePicture = htmlspecialchars($user['profile_picture']);
+        } else {
+            echo "No user found with the given email.";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+  } else {
+    echo "Session email is not set.";
+  }
 ?>
 
 <!DOCTYPE html>
@@ -187,10 +209,7 @@
       </path>
     </svg>
   </div>
-  <section class="discount">
-    <h3 class="text-center">Get 5% OFF On All Services Today!</h3>
-    <a href="#"><button>Book Now!</button></a>
-  </section>
+
   <div class="wave-container1" id="about-us">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave1">
       <path fill="#EBBF86" fill-opacity="1"

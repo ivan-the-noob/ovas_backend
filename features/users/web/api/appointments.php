@@ -1,10 +1,46 @@
-<?php 
-  session_start();
-  if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+<?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
     header('Location: login.php'); 
     exit();
 }
-  $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
+
+require_once '../../../../db.php'; 
+
+$name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Name not set';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
+$lastname = isset($_SESSION['last_name']) ? $_SESSION['last_name'] : null;
+
+$alert = '';
+
+if ($email) {
+    try {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $name = htmlspecialchars($user['name']);
+            $last_name = htmlspecialchars($user['last_name']);
+            $address = htmlspecialchars($user['address']);
+            $contact_num = htmlspecialchars($user['contact_num']);
+            $profilePicture = htmlspecialchars($user['profile_picture']);
+        } else {
+            echo "No user found with the given email.";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+} else {
+    echo "Session email is not set.";
+}
+
+if (isset($_SESSION['alert'])) {
+    $alertType = htmlspecialchars($_SESSION['alert']['type']);
+    $alertMessage = htmlspecialchars($_SESSION['alert']['message']);
+    $alert = "<div class='alert alert-{$alertType}' role='alert'>{$alertMessage}</div>";
+    unset($_SESSION['alert']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -338,7 +374,7 @@
                               </div>';
                           }
                       } else {
-                          echo "Empty Appointments.";
+                          
                       }
                   } else {
                       echo "No email found in session.";

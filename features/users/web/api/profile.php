@@ -8,10 +8,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 // Include database connection
 require_once '../../../../db.php';
 
-$profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
-$name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Name not set';
-$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
-$lastname = isset($_SESSION['last_name']) ? $_SESSION['last_name'] : null;
+
+
 
 $alert = '';
 
@@ -26,6 +24,7 @@ if ($email) {
             $last_name = htmlspecialchars($user['last_name']);
             $address = htmlspecialchars($user['address']);
             $contact_num = htmlspecialchars($user['contact_num']);
+            $profilePicture = htmlspecialchars($user['profile_picture']);
         } else {
             echo "No user found with the given email.";
         }
@@ -116,6 +115,7 @@ if (isset($_SESSION['alert'])) {
         <div class="profile">
         <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" alt="Profile Picture" id="profileImg">
         </div>
+       
       </div>
       <div class="col-md-5 mt-4">
           <h3><?php echo htmlspecialchars($name . ' ' . $lastname); ?></h3>

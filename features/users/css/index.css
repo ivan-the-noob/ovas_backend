@@ -422,7 +422,7 @@
 .testimonial-card-custom {
   margin-bottom: 20px;
   background-color: #EBBF86 !important;
-  color: #fff;
+  color: #74C2CD !important;
   border: 2px solid #EBBF86;
   transform: translateX(0);
   opacity: 0;
@@ -439,13 +439,12 @@
 
 .comment-img{
   width: 80px;
-  max-height: 16vh;
-  border-radius: 0 !important;
 }
 
 .testimonial-card-custom p{
-  color: #fff;
+  color: #74C2CD !important;
   font-size: 14px;
+  font-weight: bold;
 }
 
 
@@ -943,20 +942,66 @@ display: none;
 }
 
 .star-rating input:checked ~ label {
-  color: #ffc107; /* Gold color when selected */
+  color: #ffc107;
 }
 
 .star-rating input:checked ~ label:hover,
 .star-rating label:hover {
-  color: #ffb84d; /* Hover effect */
+  color: #ffb84d;
+  
 }
 
 .star-rating input:checked + label:hover {
-  color: #ffcc00; /* Hover effect */
+  color: #ffcc00; 
 }
 
 
 /*Star Section End*/
+
+.custom-carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 60px; 
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  color: white;
+}
+
+.carousel-inner .carousel-item {
+  padding: 0 20px; 
+}
+
+.carousel-inner .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.carousel-inner .col-lg-5 {
+  flex: 0 0 calc(50% - 15px);
+  max-width: calc(50% - 15px);
+}
+
+@media (max-width: 768px) {
+  .carousel-inner .col-lg-5 {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+  .carousel-inner .row {
+      justify-content: center;
+  }
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 3%; 
+}
 
 
 

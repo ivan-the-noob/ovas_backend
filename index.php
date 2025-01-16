@@ -1,8 +1,7 @@
 <?php
   session_start();
   include 'index_connection.php';
-  $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
-
+  
 
 require 'db.php';
 
@@ -14,9 +13,34 @@ if (isset($_SESSION['email'])) {
 
 
 
+
 $userEmail = $_SESSION['email'] ?? null;
+
+$email = $_SESSION['email'] ?? null;
 $bookingLimitReached = false;
 $bookingCount = 0;
+
+if ($email) {
+  try {
+      $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+      $stmt->execute(['email' => $email]);
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if ($user) {
+          $name = htmlspecialchars($user['name']);
+          $last_name = htmlspecialchars($user['last_name']);
+          $address = htmlspecialchars($user['address']);
+          $contact_num = htmlspecialchars($user['contact_num']);
+          $profilePicture = htmlspecialchars($user['profile_picture']);
+      } else {
+          echo "No user found with the given email.";
+      }
+  } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+  }
+} else {
+  echo "Session email is not set.";
+}
 
 if ($userEmail) {
     $yesterday = date('Y-m-d', strtotime('-1 day'));
@@ -207,7 +231,7 @@ try {
   </section>
 
   
-  <section class="about-us py-5">
+  <section class="about-us py-5" id="about-us">
     <div class="container">
       <div class="row">
         <div class="col-md-4">
@@ -266,7 +290,7 @@ try {
 
 
   <section class="choose-us py-5" id="choose-us">
-    <h3 class="mb-4" id="review">Pet Owners Reviews</h3>
+    <h3 class="mb-4" id="review">Pet Parent Feedback</h3>
     <div class="container">
         <div class="row">
            <?php  
@@ -322,7 +346,7 @@ try {
 
 <?php endif; ?>
 
-  <div class="wave-container1" id="about-us">
+  <div class="wave-container1">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 160" class="wave1">
       <path fill="#EBBF86" fill-opacity="1"
         d="M0,80L40,72C80,64,160,48,240,56C320,64,400,96,480,98.65C560,101.5,640,74.5,720,69.35C800,64,880,80,960,77.35C1040,74.5,1120,53.5,1200,48C1280,42.5,1360,53.5,1400,58.65L1440,64L1440,160L1400,160C1360,160,1280,160,1200,160C1120,160,1040,160,960,160C880,160,800,160,720,160C640,160,560,160,480,160C400,160,320,160,240,160C160,160,80,160,40,160L0,160Z">
@@ -332,21 +356,12 @@ try {
   <footer class="footer" id="reviews">
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
-          <h5>Pawfect</h5>
-          <ul class="list-unstyled">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#services">Our Services</a></li>
-            <li><a href="#review">Review</a></li>
-          </ul>
-        </div>
+       
         <div class="col-md-4">
           <h5>Follow Us</h5>
           <ul class="list-unstyled">
-            <li><a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
-            <li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-            <li><a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+            <li><a href="https://www.facebook.com/barkyardpetph?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+           
           </ul>
         </div>
         <div class="col-md-4">

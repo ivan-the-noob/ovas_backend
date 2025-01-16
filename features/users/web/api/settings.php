@@ -5,10 +5,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
     exit();
 }
 
-// Include database connection
-require_once '../../../../db.php'; // Ensure db.php defines $conn
+require_once '../../../../db.php'; 
 
-$profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
 $name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Name not set';
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
 $lastname = isset($_SESSION['last_name']) ? $_SESSION['last_name'] : null;
@@ -26,6 +24,7 @@ if ($email) {
             $last_name = htmlspecialchars($user['last_name']);
             $address = htmlspecialchars($user['address']);
             $contact_num = htmlspecialchars($user['contact_num']);
+            $profilePicture = htmlspecialchars($user['profile_picture']);
         } else {
             echo "No user found with the given email.";
         }
@@ -111,9 +110,13 @@ if (isset($_SESSION['alert'])) {
   <div class="settings m-0 p-3 w-100 mt-4 ">
     <div class="row d-flex justify-content-center">
       <div class="col-md-3">
-        <div class="profile">
+      <div class="profile">
         <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" alt="Profile Picture" id="profileImg">
         </div>
+        <div class="d-flex justify-content-center" style="padding-left: 15%; position: relative; bottom: 30px; font-size: 20px;">
+            <label for="imageUpload" class="fas fa-edit" style="cursor: pointer;  font-weight: 800;"></label>
+        </div>
+        <input type="file" id="imageUpload" name="image" style="display: none;" accept="image/*">
       </div>
       <div class="col-md-5 mt-4">
           <h3><?php echo htmlspecialchars($name . ' ' . $lastname); ?></h3>
@@ -168,17 +171,42 @@ if (isset($_SESSION['alert'])) {
         </div>
     </div>
 </form>
+   
 
-
-    
-  </div>
-</div>
- 
-</form>
 </div>
 
 </div>
 </div>
+
+<script>
+  document.getElementById('imageUpload').addEventListener('change', function(event) {
+    let file = event.target.files[0];
+    if (file) {
+        let formData = new FormData();
+        formData.append('image', file);
+
+        fetch('../../function/php/updateProfilePic.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('profileImg').src = "../../../../assets/img/profile/" + data.newImageName;
+                location.reload(); 
+            } else {
+                alert('Failed to update profile picture');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+});
+
+
+
+</script>
 
   <!--Dashboard Section End-->
 </body>

@@ -6,10 +6,29 @@ if (isset($_SESSION['email'])) {
 } else {
   echo '';  
 }
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
 
-$profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
+if ($email) {
+  try {
+      $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+      $stmt->execute(['email' => $email]);
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$userEmail = $_SESSION['email'] ?? null;
+      if ($user) {
+          $name = htmlspecialchars($user['name']);
+          $last_name = htmlspecialchars($user['last_name']);
+          $address = htmlspecialchars($user['address']);
+          $contact_num = htmlspecialchars($user['contact_num']);
+          $profilePicture = htmlspecialchars($user['profile_picture']);
+      } else {
+          echo "No user found with the given email.";
+      }
+  } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+  }
+} else {
+  echo "Session email is not set.";
+}
 $bookingLimitReached = false;
 $bookingCount = 0;
 $name = $_SESSION['name'] ?? '';
@@ -74,8 +93,7 @@ try {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="../../../../assets/img/logo.png" type="image/x-icon">
   <title> Pawfect</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../../css/appointment.css">
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
@@ -91,14 +109,12 @@ try {
         <img src="../../../../assets/img/logo.png" alt="Logo" width="30" height="30">
       </a>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          style="stroke: black; fill: none;">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
-          </path>
+            style="stroke: black; fill: none;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
         </svg>
-
       </button>
 
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -120,11 +136,10 @@ try {
         <div class="d-flex ml-auto align-items-center">
           <?php if (isset($_SESSION['email'])): ?>
             <div class="dropdown second-dropdown">
-              <button class="dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile"
-                  class="profile">
-              </button>
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <img src="../../../../assets/img/profile/<?php echo $profilePicture; ?>" alt="Profile" class="profile">
+            </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                 <a class="dropdown-item" href="profile.php">Profile</a>
                 <a class="dropdown-item" href="settings.php">Settings</a>
@@ -143,48 +158,49 @@ try {
   </nav>
 
   <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header d-flex justify-content-between guidelines">
-                    <h5 class="modal-title" id="appointmentModalLabel">Appointment Guidelines</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between guidelines">
+                <h5 class="modal-title" id="appointmentModalLabel">Appointment Guidelines</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body guidelines">
+                <p>Dear Valued Clients,</p>
+                <p>Please be informed of the following guidelines when booking an appointment for your pet:</p>
+                <ol>
+                    <li class="mt-4">
+                        <strong>Booking Period:</strong>
+                        <ul>
+                            <li>You can only book an appointment for today or within the next 14 days (2 weeks) from the current date.</li>
+                        </ul>
+                    </li>
+                    <li class="mt-4">
+                        <strong>Downpayment Requirement:</strong>
+                        <ul>
+                            <li>A ₱250.00 downpayment is required to confirm your booking. This amount will be deducted from your total bill during your visit to the clinic.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p>We appreciate your understanding and cooperation to help us serve you and your pets better. Thank you!</p>
+                <div class="end-letter mt-4">
+                  <div class="div">
+                    <p class="mb-0 mt-0 d-flex">Sincerely,</p>
+                  </div>
+                  <div class="div">
+                    <p class="mt-0 d-flex mt-0 mb-0">Bark Yard Pet Wellness Center</p>
+                  </div>
                 </div>
-                <div class="modal-body guidelines">
-                    <p>Dear Valued Clients,</p>
-                    <p>Please be informed of the following guidelines when booking an appointment for your pet:</p>
-                    <ol>
-                        <li class="mt-4">
-                            <strong>Booking Period:</strong>
-                            <ul>
-                                <li>You can only book an appointment for today or within the next 14 days (2 weeks) from the current date.</li>
-                            </ul>
-                        </li>
-                        <li class="mt-4">
-                            <strong>Downpayment Requirement:</strong>
-                            <ul>
-                                <li>A ₱250.00 downpayment is required to confirm your booking. This amount will be deducted from your total bill during your visit to the clinic.</li>
-                            </ul>
-                        </li>
-                    </ol>
-                    <p>We appreciate your understanding and cooperation to help us serve you and your pets better. Thank you!</p>
-                    <div class="end-letter mt-4">
-                      <div class="div">
-                        <p class="mb-0 mt-0 d-flex">Sincerely,</p>
-                      </div>
-                      <div class="div">
-                        <p class="mt-0 d-flex mt-0 mb-0">Bark Yard Pet Wellness Center</p>
-                      </div>
-                    </div>
-                    <button type="button" class="close btn btn-primary d-flex mx-auto mt-4" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">Confirm</span>
-                    </button>
-                </div>
-              
+                <button type="button" class="close btn btn-primary d-flex mx-auto mt-4" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">Confirm</span>
+                </button>
             </div>
         </div>
     </div>
+</div>
+
+
 
 
   <section class="appointment">
@@ -239,14 +255,12 @@ try {
       <div class="modal-dialog modal-dialog-centered modal-xl custom-modal" id="info" role="document">
         <div class="modal-content guidelines">
         <div class="modal-header d-flex justify-content-between align-items-center">
-    <h5 class="modal-title" id="modalLabel">Book Your Desired Schedule</h5>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+    <h5 class="modal-title" id="modalLabel" style="padding-left: 50px;">Book Your Desired Schedule</h5>
+   
+
 </div>
 <div class="w-50 desired-time">
-    <label for="Time" class="form-label">Choose Desired Time</label>
-    <div class="choose-time-div">
+    <div class="choose-time-div" style="padding-left: 50px;">
         <button type="button" class="choose-time" onclick="selectTime(this, '09:00')">9 AM</button>
         <button type="button" class="choose-time" onclick="selectTime(this, '10:00')">10 AM</button>
         <button type="button" class="choose-time" onclick="selectTime(this, '11:00')">11 AM</button>
@@ -263,7 +277,7 @@ try {
 
           <div class="modal-body">
             <div class="sched row">
-              <div class="col-md-6">
+              <div class="col-md-6"  style="padding-left: 50px;">
               <label for="Appointment Schedule" class="form-label">Appointment Schedule</label>
                 <div id="modalContent" class="col-6"></div>
                 <input type="hidden" id="appointmentDateModal" name="appointment_date">
@@ -315,14 +329,14 @@ try {
                   <div class="owner-info">
                   <div class="mb-3 position-relative">
                       <div class="position-relative">
-                        <span class="input-label">Pet's Name:</span>
+                        <span class="input-label" id="capitalizeInput">Pet's Name: </span>
                         <input type="text" class="form-control" id="pet_name" name="pet_name"
                           style="padding-left: 95px;" required>
                       </div>
                     </div>
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
-                        <span class="input-label">Pet Type:</span>
+                        <span class="input-label" id="capitalizeInput">Pet Type:</span>
                         <select class="form-control" id="petType" name="petType"
                           style="padding-left: 90px" required>
                           <option value=""></option>
@@ -342,14 +356,14 @@ try {
 
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
-                        <span class="input-label">Breed:</span>
+                        <span class="input-label" id="capitalizeInput">Breed:</span>
                         <input type="text" class="form-control" id="breed" name="breed"
                           style="padding-left: 60px;" required>
                       </div>
                     </div>
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
-                        <span class="input-label">Age:</span>
+                        <span class="input-label" id="capitalizeInput">Age:</span>
                         <input type="text" class="form-control" id="age" name="age"
                           style="padding-left: 60px;" required>
                       </div>
@@ -364,15 +378,14 @@ try {
                 <div class="col-md-6">
                   <h6 class="d-flex mx-auto mb-2 text-center d-flex justify-content-center text-black ">Services</h6>
                   <div class="owner-info">
-                    <div class="d-flex justify-content-center">
+                    <div class=" justify-content-center gap-1">
                     <div class="mb-3">
                       <label for="serviceCategory" class="form-label text-black">Service Category</label>
                       <div class="dropdowns">
-                        <button class="dropdown-toggle text-black" type="button"
-                          id="serviceCategoryDropdown" data-toggle="dropdown"
-                          aria-haspopup="true" aria-expanded="false">
-                          Select Category
-                        </button>
+                      <button class="btn  w-100 dropdown-toggle text-black" type="button"
+                              id="serviceCategoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Category
+                      </button>
                         <div class="dropdown-menu" aria-labelledby="serviceCategoryDropdown">
                           <a class="dropdown-item" href="#" data-value="medical">Medical</a>
                           <a class="dropdown-item" href="#"
@@ -385,10 +398,10 @@ try {
                     <div class="mb-3">
                       <label for="service" class="form-label text-black">Service</label>
                       <div class="dropdowns">
-                        <button class="dropdown-toggle text-black" type="button" id="serviceDropdown"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select Service
-                        </button>
+                      <button class="btn  w-100 dropdown-toggle text-black" type="button"
+                              id="serviceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Service
+                      </button>
                         <div class="dropdown-menu" aria-labelledby="serviceDropdown">
                           <!-- Medical Services -->
                           <div class="medical-services">
@@ -413,7 +426,7 @@ try {
                     </div>
                   </div>
 
-                    <div class="mt-3" style="padding-left: 80px;">
+                    <div class="mt-3">
                       <label for="totalPayment" class="form-label text-black">Service Price</label>
                       <p id="totalPayment">₱0.00</p>
                     </div>
@@ -424,7 +437,7 @@ try {
                 <h6 class="d-flex mx-auto mb-2 mb-2 text-center d-flex justify-content-center text-black" style="margin-top: 30px;">Down Payment</h6>
                     <div class="owner-info">
                     <div class="mt-3" style="padding-left: 80px;">
-                      <div class="d-flex">
+                      <div class="d-flex  justify-content-center">
                       <label for="pay-via" class="form-label text-black">Pay Via</label>
                       <div class="d-flex justify-content-start pay-btn">
                       <button id="gcash-btn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#gcashModal" onclick="selectPayment('gcash', this)" style="height: 40px;">
@@ -437,7 +450,6 @@ try {
                           <div class="modal-content" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
                           <div class="modal-header d-flex justify-content-between">
                               <h5 class="modal-title" id="gcashModalLabel">GCash Payment Instructions</h5>
-                              <!-- Close button specifically for gcashModal -->
                               <button type="button" class="close" aria-label="Close" onclick="closeGcashModal()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -466,6 +478,7 @@ try {
                     function closeGcashModal() {
                         $('#gcashModal').modal('hide');
                     }
+                    
                   </script>
 
                       
@@ -481,28 +494,29 @@ try {
                         <input type="file" id="gcash-screenshot" name="gcash-ss" accept="image/*" class="form-control" required>
                         <div class="position-relative mt-2">
                             <span class="input-label">Reference Number:</span>
-                            <input type="number" name="reference" class="form-control" style="padding-left: 150px;" maxlength="13" oninput="validateLength(this)">
-                            <script>
-                              function validateLength(input) {
-                                  if (input.value.length < 13) {
-                                      input.setCustomValidity("Please enter exactly 13 digits.");
-                                  } else if (input.value.length > 13) {
-                                      input.value = input.value.slice(0, 13);
-                                      input.setCustomValidity("");
-                                  } else {
-                                      input.setCustomValidity("");
-                                  }
+                            <input type="text" name="reference" class="form-control" 
+                                style="padding-left: 150px;" maxlength="13" 
+                                oninput="validateLength(this)" onkeypress="return isNumberKey(event)">
+
+                          <script>
+                            function isNumberKey(event) {
+                              const charCode = event.which || event.keyCode;
+                              return charCode >= 48 && charCode <= 57; 
+                            }
+                            function validateLength(input) {
+                              if (input.value.length > 13) {
+                                input.value = input.value.slice(0, 13); 
                               }
-                            </script>
+                              input.setCustomValidity(
+                                input.value.length === 13 ? "" : "Please enter exactly 13 digits."
+                              );
+                            }
+                          </script>
                         </div>
                     </div>
                   </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                      <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mt-4" style="background-color:#74C2CD" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)" >
-                        Book Appointment
-                      </button>
-                    </div>
+                    
 
             <div class="modal fade" id="appointmentModals" tabindex="-1" role="dialog" aria-labelledby="appointmentModalsLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -567,8 +581,14 @@ try {
             </script>
               </div>
               
+              
             
             </div>
+            <div class="d-flex justify-content-center">
+                      <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mt-4" style="background-color:#74C2CD" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)" >
+                        Book Appointment
+                      </button>
+                    </div>
           </div>
           
 
@@ -604,9 +624,18 @@ try {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var appointmentModal = new bootstrap.Modal(document.getElementById('appointmentModal'));
+            var appointmentModal = new bootstrap.Modal(document.getElementById('appointmentModal'), {
+                backdrop: 'static', 
+                keyboard: false   
+            });
+
             appointmentModal.show();
+
+            document.getElementById('openModalButton').addEventListener('click', function() {
+                appointmentModal.show();
+            });
         });
+
     </script>
   
   <script>
@@ -630,6 +659,17 @@ try {
     }
   </script>
 
+  <script>
+     document.addEventListener("DOMContentLoaded", () => {
+      const input = document.getElementById("capitalizeInput");
+      input.addEventListener("input", () => {
+        input.value = input.value
+          .toLowerCase()
+          .replace(/\b\w/g, char => char.toUpperCase());
+      });
+    });
+  </script>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
@@ -643,7 +683,7 @@ try {
 <script src="../../function/script/service-dropdown.js"></script>
 <script src="../../function/script/chatbot-toggle.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 
 </html>
