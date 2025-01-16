@@ -684,8 +684,9 @@ th a{
 
 .album img{
   height: 150px;
-  width: 95%;
+  width: 500px;
   border-radius: 20px;
+  border: 1px solid #74C2CD;
 }
 
 /*Settings End*/

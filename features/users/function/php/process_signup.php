@@ -71,8 +71,7 @@
     
                 if ($emailSent === true) {
                     echo "<p class='alert alert-success'>Verification code has been sent to your email.</p>";
-                    header('Location: ../../web/api/login.php');
-                    exit();
+                   
                 } else {
                     echo "<p class='alert alert-danger'>$emailSent</p>";
                 }
@@ -108,14 +107,10 @@
             session_destroy();
     
             echo "<p class='alert alert-success'>Signup successful! Redirecting to login...</p>";
-            echo "<script>
-                document.getElementById('emailInput').style.display = 'none';
-                document.getElementById('passwordInput').style.display = 'none';
+
+            header('Location: ../../web/api/login.php');
+            exit();
             
-                setTimeout(function() {
-                    window.location.href = 'login.php';
-                }; //
-              </script>";
         } else {
             echo "<p class='alert alert-danger'>Invalid verification code.</p>";
             

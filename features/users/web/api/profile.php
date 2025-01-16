@@ -126,7 +126,7 @@ if (isset($_SESSION['alert'])) {
         </div>
     </div>
     <div class="col-md-12 album mt-4">
-  <h3 class="text-white mb-4">ALBUM</h3>
+  <h3 class="mb-4" style="color:#24636b;">ALBUM</h3>
   <div class="row">
     <?php 
      require '../../../../db.php';
@@ -139,7 +139,7 @@ if (isset($_SESSION['alert'])) {
      foreach ($images as $image) :
     ?>
        <div class="col-md-3">
-        <img src="<?php echo $image['image_path']; ?>" alt="" class="img-fluid w-75 d-flex justify-content-center mx-auto">
+        <img src="<?php echo $image['image_path']; ?>" alt="" class="img-fluid d-flex justify-content-center mx-auto">
         <form method="POST" action="../../function/php/upload_album.php" enctype="multipart/form-data" class="d-flex justify-content-center mt-2">
             <input type="hidden" name="image_id" value="<?php echo $image['id']; ?>"> <!-- Use 'id' instead of 'image_id' -->
             <label for="image<?php echo $image['id']; ?>" class="fas fa-edit text-white fw-bold"></label>
