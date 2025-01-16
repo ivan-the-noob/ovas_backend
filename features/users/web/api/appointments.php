@@ -172,7 +172,7 @@
                                   if ($status === 'pending') {
                                       echo '<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $appointmentId . '">Cancel</button>';
                                   }
-                                  if ($status === 'resched') {
+                                  if ($status === 'pending' || $status === 'scheduled') {
                                     echo '<button 
                                         class="btn btn-warning text-white" 
                                         data-bs-toggle="modal" 
@@ -190,38 +190,36 @@
 
                                         echo '
                                         <div class="modal fade" id="reschedModal" tabindex="-1" aria-labelledby="reschedModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="reschedModalLabel">Select Reschedule Date</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                  <form id="rescheduleForm" method="POST" action="../../function/php/updateAppointment.php">
-                      <div class="d-flex gap-2" style="font-size: 20px; padding-left: 50px;">
-                          <p>Selected Date:</p>
-                          <div class="selected-date"><p></p></div>
-                      </div>
-                      <div id="appointmentCalendar"></div>
-                      <!-- Hidden input field with name attribute -->
-                      <input type="hidden" id="appointment_date" name="appointment_date" value="">
-                      <!-- Hidden field for status -->
-                      <input type="hidden" name="status" value="pending">
-                  <input type="hidden" id="email" name="email" value="' . (isset($_SESSION['email']) ? $_SESSION['email'] : '') . '" />
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                  <button type="submit" class="btn btn-primary">Confirm Reschedule</button>
-              </div>
-              </form>
-          </div>
-      </div>
-  </div>
- '; 
+                                              <div class="modal-dialog modal-xl">
+                                                  <div class="modal-content">
+                                                      <div class="modal-header">
+                                                          <h5 class="modal-title" id="reschedModalLabel">Select Reschedule Date</h5>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                          <form id="rescheduleForm" method="POST" action="../../function/php/updateAppointment.php">
+                                                              <div class="d-flex gap-2" style="font-size: 20px; padding-left: 50px;">
+                                                                  <p>Selected Date:</p>
+                                                                  <div class="selected-date"><p></p></div>
+                                                              </div>
+                                                              <div id="appointmentCalendar"></div>
+                                                              <!-- Hidden input field with name attribute -->
+                                                              <input type="hidden" id="appointment_date" name="appointment_date" value="">
+                                                              <!-- Hidden field for status -->
+                                                              <input type="hidden" name="status" value="pending">
+                                                          <input type="hidden" id="email" name="email" value="' . (isset($_SESSION['email']) ? $_SESSION['email'] : '') . '" />
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                          <button type="submit" class="btn btn-primary">Confirm Reschedule</button>
+                                                      </div>
+                                                      </form>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        '; 
 
-                                        
-                    
-              
+                                      
                               echo '<div class="modal fade" id="modal' . $appointmentId . '" tabindex="-1" role="dialog" aria-labelledby="modalLabel' . $appointmentId . '" aria-hidden="true">
                                       <div class="modal-dialog modal-dialog-centered" role="document">
                                         <div class="modal-content">
@@ -284,8 +282,6 @@
                                       </div>
                                   </div>
                               </div>';
-
-
                           }
                       } else {
                           echo "Empty Appointments.";
@@ -297,12 +293,10 @@
               } catch (PDOException $e) {
                   echo "Error: " . $e->getMessage();
               }
-              
-              $conn = null;
-                ?>
 
-                
-<?php 
+              $conn = null;
+                ?>          
+                <?php 
                   try {
                     require '../../../../db.php';
           
@@ -311,6 +305,7 @@
                       $sessionEmail = $_SESSION['email'];
               
                       $sql = "SELECT * FROM appointments WHERE email = :email AND status IN ('decline','complete','cancelled')";
+                    
                       $stmt = $conn->prepare($sql);
                       
                       $stmt->bindParam(':email', $sessionEmail, PDO::PARAM_STR);
@@ -358,7 +353,7 @@
                                       <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
                                       <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
                                       <p class="mb-1">Owner: ' . htmlspecialchars($ownerName) . '</p>';
-                      
+                                    
                                       
                                       if ($status === 'cancelled' && !empty($reasonCancel)) {
                                           echo '<p class="mb-1 reason">Reason for Cancellation: ' . htmlspecialchars($reasonCancel) . '</p>';
@@ -629,6 +624,7 @@ function convertTo24HourFormat(time) {
         <?php if (isset($_SESSION['booked']) && $_SESSION['booked'] === true): ?>
             var myModal = new bootstrap.Modal(document.getElementById('successModal'));
             myModal.show();
+            <?php unset($_SESSION['booked']); ?>  <!-- Unset session variable after modal is shown -->
         <?php endif; ?>
     });
 </script>

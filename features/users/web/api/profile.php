@@ -1,13 +1,40 @@
-<?php 
-  session_start();
-  if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
+<?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
     header('Location: login.php'); 
     exit();
 }
-  $profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
-  $name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Name not set';
 
-  $alert = '';
+// Include database connection
+require_once '../../../../db.php';
+
+$profilePicture = isset($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'assets/img/customer.jfif';
+$name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Name not set';
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
+$lastname = isset($_SESSION['last_name']) ? $_SESSION['last_name'] : null;
+
+$alert = '';
+
+if ($email) {
+    try {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $name = htmlspecialchars($user['name']);
+            $last_name = htmlspecialchars($user['last_name']);
+            $address = htmlspecialchars($user['address']);
+            $contact_num = htmlspecialchars($user['contact_num']);
+        } else {
+            echo "No user found with the given email.";
+        }
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+} else {
+    echo "Session email is not set.";
+}
 
 if (isset($_SESSION['alert'])) {
     $alertType = htmlspecialchars($_SESSION['alert']['type']);
@@ -17,13 +44,16 @@ if (isset($_SESSION['alert'])) {
 }
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" href="assets/img/logo.png" type="image/x-icon">
+  <title>Pawfect</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
@@ -80,101 +110,46 @@ if (isset($_SESSION['alert'])) {
   </nav>
   <!--Dashboard Section-->
 
-  <div class="container mt-4 settings">
+  <div class="settings m-0 p-3 w-100 mt-4 ">
     <div class="row d-flex justify-content-center">
       <div class="col-md-3">
         <div class="profile">
-          <img src="../../../../assets/img/profile/pet.jpg" alt="">
+        <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" alt="Profile Picture" id="profileImg">
         </div>
       </div>
       <div class="col-md-5 mt-4">
-          <h3>Racel Mae Loquello</h3>
+          <h3><?php echo htmlspecialchars($name . ' ' . $lastname); ?></h3>
           <hr>
-          <p>Belvedere</p>
-          <p>Racel@gmail.com</p>
-          <p>0993129321</p>
+          <p><?php echo htmlspecialchars($address); ?></p>
+          <p><?php echo htmlspecialchars($email); ?></p>
+          <p><?php echo htmlspecialchars($contact_num); ?></p>
         </div>
     </div>
-    <div class="col-md-12 update mt-4">
-    <div class="form-container">
-            <span class="form-title">CHANGE PASSWORD</span>
-            <form>
-                <label for="currentPassword" class="form-label">CURRENT PASSWORD:</label>
-                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
-
-                <label for="newPassword" class="form-label">NEW PASSWORD:</label>
-                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
-
-                <label for="confirmPassword" class="form-label">CONFIRM PASSWORD:</label>
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
-
-                <button type="submit" class="btn-save text-white">SAVE</button>
-            </form>
-        </div>
-
-        <!-- Change Details Form -->
-        <div class="form-container">
-            <span class="form-title">CHANGE DETAILS</span>
-            <form>
-                <label for="changeName" class="form-label">CHANGE NAME:</label>
-                <input type="text" class="form-control" id="changeName" placeholder="Enter new name">
-
-                <label for="changeAddress" class="form-label">CHANGE ADDRESS:</label>
-                <input type="text" class="form-control" id="changeAddress" placeholder="Enter new address">
-
-                <label for="changeNumber" class="form-label">CHANGE NUMBER:</label>
-                <input type="text" class="form-control" id="changeNumber" placeholder="Enter new number">
-
-                <button type="submit" class="btn-save text-white">SAVE</button>
-            </form>
-        </div>
+    <div class="col-md-12 album mt-4">
+  <h3 class="text-white mb-4">ALBUM</h3>
+  <div class="row">
+    <?php 
+     require '../../../../db.php';
+     $stmt = $conn->prepare("SELECT * FROM album WHERE email = :email");
+     $stmt->execute(['email' => $_SESSION['email']]);
+     $images = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     
+     $images = array_pad($images, 4, ['image_path' => 'assets/img/profile/pet.jpg', 'id' => null]);
+     
+     foreach ($images as $image) :
+    ?>
+       <div class="col-md-3">
+        <img src="<?php echo $image['image_path']; ?>" alt="" class="img-fluid w-75 d-flex justify-content-center mx-auto">
+        <form method="POST" action="../../function/php/upload_album.php" enctype="multipart/form-data" class="d-flex justify-content-center mt-2">
+            <input type="hidden" name="image_id" value="<?php echo $image['id']; ?>"> <!-- Use 'id' instead of 'image_id' -->
+            <label for="image<?php echo $image['id']; ?>" class="fas fa-edit text-white fw-bold"></label>
+            <input type="file" id="image<?php echo $image['id']; ?>" name="image" style="display: none;" onchange="this.form.submit();">
+        </form>
     </div>
+    <?php endforeach; ?>
   </div>
-
-  <div class="container d-none">
-    <div class="row d-flex flex-direction justify-content-center">   
-       <div class="col-md-10">
-     <form action="../../function/php/profile_update.php" method="POST" enctype="multipart/form-data">
-    <div class="r mt-5">
-        <h1 class="text-center mb-4">Profile</h1>
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6 text-center mb-4">
-                <img src="../../../../assets/img/profile/<?php echo htmlspecialchars($profilePicture, ENT_QUOTES, 'UTF-8'); ?>" alt="Profile" class="rounded-circle" alt="Profile Picture" style="width: 150px; height: 150px; border: 2px solid #EBBF86;" id="profileImg">
-                <h4 class="mt-3"><?php echo htmlspecialchars($name); ?></h4>
-                <div class="mt-3">
-                     <input type="file" class="form-control" name="profile_picture" id="changeProfile">
-    
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
-                <div class="mb-3">
-                    <label for="currentPassword" class="form-label">Current Password</label>
-                    <input type="password" class="form-control" name="current_password" id="currentPassword" placeholder="Enter current password">
-                </div>
-                <div class="mb-4">
-                    <label for="newPassword" class="form-label">New Password</label>
-                    <input type="password" class="form-control" name="new_password" id="newPassword" placeholder="Enter new password">
-                </div>
-                <div class="mb-4">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" name="confirm_password" id="confirmPassword" placeholder="Confirm new password">
-                    <div id="passwordError" class="text-danger mt-2" style="display: none;">Passwords do not match.</div>
-                </div>
-                <?php echo $alert; ?>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-6">
-                <div class="dash-button">
-                    <div class="col-12">
-                        <button type="submit" class="save">Save</button>
-                    </div>
-                </div>
-            </div>
+</div>
+          
         </div>
     </div>
 </form>

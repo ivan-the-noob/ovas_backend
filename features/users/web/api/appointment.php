@@ -514,9 +514,9 @@ try {
             <div class="modal-footer">
             <div class="mt-3 d-flex gap-1">
                   <button type="button" class="book-save" aria-label="Close" onclick="closeAppointmentModal()">
-                          <span aria-hidden="true">Close</span>
+                          <span aria-hidden="true">Cancel</span>
                     </button>
-                      <button type="submit" class="book-save">Book Appointment</button>
+                      <button type="submit" class="book-save">Confirm</button>
                   </div>
             </div>
         </div>

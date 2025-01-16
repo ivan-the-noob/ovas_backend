@@ -46,19 +46,15 @@
             
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
-                <span>Record Lists</span>
+                <span>Record List</span>
             </a>
-            <a href="pos.php">
+            <a href="pos.php"  class="navbar-highlight">
                 <i class="fas fa-cash-register"></i>
                 <span>Point of Sales</span>
             </a>
-<a href="reports.php">
+            <a href="reports.php">
             <i class="fa-solid fa-file-lines"></i>
                 <span>Reports</span>
-            </a>
-            <a href="transaction.php" class="navbar-highlight">
-                <i class="fas fa-exchange-alt"></i>
-                <span>Transaction</span>
             </a>
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
@@ -121,9 +117,9 @@
         </div>
          <!--Notification and Profile Admin End-->
         <div class="app-req">
-            <h3>Transactions</h3>
+            <h3>Transaction</h3>
             <div class="walk-in px-lg-5">
-                <div class="mb-3 x d-flex justify-content-end">
+                <div class="mb-3 x d-flex ">
                     <div class="search ">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>

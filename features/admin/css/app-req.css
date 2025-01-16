@@ -274,11 +274,7 @@ tr:hover{
     border-radius: 10px !important;
     display: flex !important;
 }
-.x{
-    display: grid;
-    justify-content: space-between !important;
-    gap: 10px;
-}
+
 
 .book-save{
     background-color: #EBBF86 !important;

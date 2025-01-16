@@ -56,7 +56,7 @@
           
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
-                <span>Record Lists</span>
+                <span>Record List</span>
             </a>
             <a href="pos.php">
                 <i class="fas fa-cash-register"></i>
@@ -66,10 +66,7 @@
             <i class="fa-solid fa-file-lines"></i>
                 <span>Reports</span>
             </a>
-            <a href="transaction.php">
-                <i class="fas fa-exchange-alt"></i>
-                <span>Transaction</span>
-            </a>
+           
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
                 <a href="review.php">

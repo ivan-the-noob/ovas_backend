@@ -71,6 +71,8 @@
     
                 if ($emailSent === true) {
                     echo "<p class='alert alert-success'>Verification code has been sent to your email.</p>";
+                    header('Location: ../../web/api/login.php');
+                    exit();
                 } else {
                     echo "<p class='alert alert-danger'>$emailSent</p>";
                 }

@@ -42,7 +42,7 @@
           
             <a href="app-records-list.php">
                 <i class="fa-regular fa-calendar-check"></i>
-                <span>Record Lists</span>
+                <span>Record List</span>
             </a>
             <a href="pos.php"class="navbar-highlight">
                 <i class="fas fa-cash-register"></i>
@@ -52,10 +52,7 @@
             <i class="fa-solid fa-file-lines"></i>
                 <span>Reports</span>
             </a>
-            <a href="transaction.php">
-                <i class="fas fa-exchange-alt"></i>
-                <span>Transaction</span>
-            </a>
+           
             <div class="maintenance">
                 <p class="maintenance-text">Maintenance</p>
                 <a href="review.php">
@@ -118,6 +115,9 @@
            <div class="app-req">
     <h3>Point of Sales</h3>
     <form action="../../function/php/save_pos.php" method="POST">
+        <div class="d-flex" style="padding-left: 30px;">
+        <a href="transaction.php" class="btn btn-warning fw-bold text-white">Transaction</a>
+        </div>
         <div class="container field">
             <div class="row justify-content-center">
                 <div class="col-md-6 col-lg-6">

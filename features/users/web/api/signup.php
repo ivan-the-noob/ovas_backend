@@ -44,10 +44,10 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="text" name="address" class="form-control" placeholder="Enter your full address" required>
+                                    <input type="text" name="address" class="form-control" placeholder="Address" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="tel" name="contact_num" class="form-control" placeholder="Enter your contact #" 
+                                    <input type="tel" name="contact_num" class="form-control" placeholder="Enter your contact number" 
                                         required pattern="^\d{11}$" title="Contact number must be exactly 11 digits." maxlength="11">
                                 </div>
                                 <div class="mb-3">
@@ -78,12 +78,12 @@
                                 </div>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title text-black" id="termsModalLabel">Terms and Conditions</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                               
                                             </div>
                                             <div class="modal-body">
                                                 <h5>Welcome to Bark Yard Pet Wellness Center</h5>
@@ -143,7 +143,6 @@
                                                 </ol>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Accept</button>
                                             </div>
                                         </div>
