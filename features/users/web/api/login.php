@@ -40,7 +40,7 @@
                                 <label class="form-check-label" for="showPassword">Show Password</label>
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-center">
                                 <a href="forgot.php" class="mt-2">Forgot Password?</a>
                             </div>
                             <div class="text-center mt-3">

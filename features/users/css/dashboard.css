@@ -647,6 +647,15 @@ th a{
 
 .save button{
   background-color: #74C2CD !important;
+  border-radius: 10px;
+}
+.update .title{
+  background-color: #24636b !important;
+  color : #fff !important;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  border-radius: 10px;
 }
 .update label{
   width: 100%;
@@ -656,6 +665,8 @@ th a{
   font-size: 12px;
   font-weight: 500 !important;
   background: #74C2CD;
+  border-top-left-radius: 10px;  
+  border-bottom-left-radius: 10px; 
 }
 
 .update .form-control{
@@ -663,9 +674,12 @@ th a{
   height: auto !important;
   margin-bottom: 0 !important;
   border-radius: 0 !important;
+  border-top-right-radius: 10px !important;   
+  border-bottom-right-radius: 10px !important; 
 }
 .update input{
   background-color: #fff !important;
+
 }
 
 .album img{

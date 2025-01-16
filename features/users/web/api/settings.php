@@ -128,7 +128,7 @@ if (isset($_SESSION['alert'])) {
  
     <div class="col-md-5">
     <form action="../../function/php/profile_update.php" method="POST" enctype="multipart/form-data">
-      <label for="" class="w-50 bg-white">CHANGE PASSWORD</label>
+      <label for="" class="w-50 bg-white title">CHANGE PASSWORD</label>
       <div class="d-flex mb-1">
       <label for="">CURRENT PASSWORD</label>
       <input type="password" class="form-control" name="current_password" id="currentPassword" placeholder="Enter current password">
@@ -150,7 +150,7 @@ if (isset($_SESSION['alert'])) {
     <div class="col-md-5">
       
 <form method="POST" action="../../function/php/update_details.php">
-        <label for="" class="w-50 bg-white">CHANGE DETAILS</label>
+        <label for="" class="w-50 bg-white title">CHANGE DETAILS</label>
         <div class="d-flex mb-1">
             <label for="change_name">CHANGE NAME</label>
             <input type="text" class="form-control w-100" name="change_name" id="change_name" value="<?php echo htmlspecialchars($user['name']); ?>">
