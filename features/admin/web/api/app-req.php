@@ -179,7 +179,11 @@
         <!--Notification and Profile Admin-->
         <div class="app-req">
             <h3>Appointment Request</h3>
-            <div class="walk-in px-lg-5 d-flex ">
+            
+
+            <!--Appointment Request Table-->
+            <div class="row" id="appointments-container">
+            <div class="walk-in d-flex justify-content-between ">
                 <div class="col-md-4 mb-3 x d-flex">
                     <div class="search">
                         <div class="search-bars">
@@ -190,7 +194,7 @@
                 </div>
                 <div class="col-md-2">
                 <div class="sort">
-                    <select id="sort-dropdown" class="form-select" aria-label="Sort By">
+                    <select id="sort-dropdown" class="form-select" aria-label="Sort By" style="border-radius: 20px;">
                         <option value="">Sort By</option>
                         <option value="name">Name</option>
                         <option value="medical">Medical</option>
@@ -202,14 +206,11 @@
                 </div>
                 </div>
             </div>
-
-            <!--Appointment Request Table-->
-            <div class="row" id="appointments-container">
                 <?php foreach ($appointments as $index => $appointment): ?>
                     <div class="col-md-4 mb-4 appointment-card" data-name="<?= strtolower($appointment['owner_name']) ?>" data-service-category="<?= strtolower($appointment['service_category']) ?>" data-status="<?= strtolower($appointment['status']) ?>">
                         <div class="card shadow-sm">
                             <div class="card-body">
-                            <h5 class="card-title text-center fw-bold text-black">Appointment # <?= $index + 1 ?></h5>
+                            <h5 class="card-title app-num text-center fw-bold text-black">Appointment  <?= $index + 1 ?></h5>
                                 <div class="cards">
                                     
                                     <p class="card-text"><strong>Owner Name:</strong> <?= $appointment['owner_name'] ?></p>
@@ -218,7 +219,7 @@
                                     <p class="card-text"><strong>Code: </strong><?= $appointment['code'] ?? 'Pending' ?></p>
                                     <p class="card-text"><strong>Status:</strong> 
                                         <span class="badge bg-<?= $appointment['status'] == 'confirm' ? 'primary' : ($appointment['status'] == 'Resched' ? 'warning' : ($appointment['status'] == 'decline' ? 'danger' : 'warning')) ?>">
-                                            <?= ucfirst($appointment['status']) ?>
+                                            <?= strtoupper($appointment['status']) ?>
                                         </span>
                                     </p>
                                 <?php if ($appointment['status'] == 'decline'): ?>
@@ -268,13 +269,13 @@
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="vetNameModalLabel">Enter Vet Name</h5>
+                                                
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form id="vetNameForm">
                                                     <div class="mb-3">
-                                                        <label for="vetName" class="form-label">Vet Name</label>
+                                                        <label for="vetName" class="form-label">Veterenarian</label>
                                                         <input type="text" class="form-control" id="vetName" name="vetName" required>
                                                     </div>
                                                     </form>
@@ -330,13 +331,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel<?= $appointment['id'] ?>">Appointment Details</h5>
+                
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                 <div class="app-sched d-flex justify-content-between">
-                    <div class="col-md-4 gap-2">
-                    <h5 class="modal-title">Appointment Schedule</h5>
+                    <div class="col-md-5 gap-2">
+                    <h5 class="modal-title" style="padding-left: 20px;">Appointment Schedule</h5>
                         <p class="appointment-date p-2 rounded-pill app-date text-center">
                             <?php 
                                 echo date('M j, Y', strtotime($appointment['appointment_date'])); 
@@ -353,61 +354,67 @@
                   
 
                     <!-- Owner Information -->
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h6 class="text-muted">Owner Information</h6>
                         <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input type="text" class="form-control" value="<?= $appointment['owner_name'] ?>" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['owner_name']))) ?>" readonly>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Contact #</label>
-                            <input type="text" class="form-control" value="<?= $appointment['contact_number'] ?>" readonly>
+                            <label class="form-label">Contact Number</label>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['contact_number']))) ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" value="<?= $appointment['email'] ?>" readonly>
+                            <input type="email" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['email']))) ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Address</label>
-                            <input type="text" class="form-control" value="<?= $appointment['address'] ?>" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['address']))) ?>" readonly>
                         </div>
                     </div>
 
                     <!-- Pet Information -->
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h6 class="text-muted">Pet Information</h6>
                         <div class="mb-3">
                             <label class="form-label">Pet Type</label>
-                            <input type="text" class="form-control" value="<?= $appointment['pet_type'] ?>" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['pet_type']))) ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Breed</label>
-                            <input type="text" class="form-control" value="<?= $appointment['breed'] ?>" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['breed']))) ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Age</label>
-                            <input type="text" class="form-control" value="<?= $appointment['age'] ?> Months" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['age']))) ?> Months" readonly>
                         </div>
                     </div>
 
                     <!-- Services Information -->
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h6 class="text-muted">Services</h6>
                         <div class="mb-3">
                             <label class="form-label">Service Category</label>
-                            <input type="text" class="form-control" value="<?= $appointment['service_category'] ?>" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['service_category']))) ?>" readonly>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Service</label>
-                            <input type="text" class="form-control" value="<?= $appointment['service_type'] ?>" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['service_type']))) ?>" readonly>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Total Payment</label>
+                            <label class="form-label">Service Price</label>
                             <input type="text" class="form-control" value="<?= number_format($appointment['total_payment'], 2) ?> PHP" readonly>
                         </div>
+                        
+
+                    </div>
+                    <div class="col-md-3">
+                        <h6 class="text-muted">Payment</h6>
+                        
                         <div class="mb-3">
                             <label class="form-label">Pay Via</label>
-                            <input type="text" class="form-control" value="<?= htmlspecialchars($appointment['payment_method']) ?>" readonly>
+                            <input type="text" class="form-control" value="<?= ucfirst(strtolower(htmlspecialchars($appointment['payment_method']))) ?>" readonly>
                         </div>
 
                         <?php if ($appointment['payment_method'] === 'gcash'): ?>
@@ -440,12 +447,12 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="declineModalLabel">Reason for Cancellation</h5>
+                                <h5 class="modal-title" id="declineModalLabel">DECLINE APPOINTMENT</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form action="../../function/php/submit_decline_reason.php" method="POST" id="declineReasonForm">
-                                    <input type="hidden" name="id" id="appointmentId" /> <!-- Hidden field to pass the appointment ID -->
+                                    <input type="hidden" name="id" id="appointmentId" /> 
                                     <div class="mb-3">
                                         <label for="declineReason" class="form-label">Reason</label>
                                         <textarea class="form-control" id="declineReason" name="declineReason" rows="3" required></textarea>

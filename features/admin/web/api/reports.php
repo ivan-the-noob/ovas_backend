@@ -194,12 +194,12 @@
                     <div class="search d-flex gap-2 col-md-6">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
-                            <input type="text" id="search-input" class="form-control" placeholder="Search..." />
+                            <input type="text" id="search-input" style="border-radius: 0;" class="form-control" placeholder="Search..." />
                         </div>
-                        <button id="search-button">Search</button>
+                        <button id="search-button text-white" style="background-color: #74C2CD; border: none;">Search</button>
                     </div>
                     <div class="d-flex col-md-5 gap-2">
-                    <select name="month" id="month-filter" class="w-100">
+                    <select name="month" id="month-filter" class="w-100"  style="background-color: #74C2CD;>
                         <option value="">Month</option>
                         <option value="1">January</option>
                         <option value="2">February</option>
@@ -214,30 +214,33 @@
                         <option value="11">November</option>
                         <option value="12">December</option>
                     </select>
-                    <select name="year" id="year-filter" class="w-100">
+                    <select name="year" id="year-filter" class="w-100"  style="background-color: #74C2CD;">
                         <option value="">Year</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
                         <option value="2025">2025</option>
                     </select>
-                    <button class="w-50" id="filter-button">Filter</button>
+                    <button class="w-50" id="filter-button" style="background-color: #D1CFBE;">Filter</button>
 
                     </div>
            
                 </div>
-                <div class="d-flex col-md-12 gap-2 x justify-content-center" style="padding: 10px;">
-                    <select name="status-filter" id="status-filter" class="w-25 p-3">
-                        <option value="">Filter By Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="confirm">Confirm</option>
-                        <option value="decline">Declined</option>
-                    </select>
-                </div>
-                    <select name="" id="select-option" class="w-100 p-3 mb-2" style="margin-left: 10px;">
-                        <option value="">Select Table</option>
-                        <option value="appointment">Appointment History</option>
-                        <option value="transaction">Transaction</option>
-                    </select>
+                <div class="d-flex col-md-12">                          
+                    <div class="d-flex col-md-6">
+                        <select name="" id="select-option" class="w-100 p-3 mb-2" style="margin-left: 10px; background-color: #EBBF86;">
+                            <option value="">Select Table</option>
+                            <option value="appointment">Appointment History</option>
+                            <option value="transaction">Transaction</option>
+                        </select>
+                    </div>
+                        <select name="status-filter" id="status-filter" class="w-100 p-3 mb-2" style="margin-left: 10px; background-color: #EBBF86;">
+                            <option value="">Filter By Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirm">Confirm</option>
+                            <option value="decline">Declined</option>
+                        </select>
+                    </div>
+                </div> 
            
             </div>
             

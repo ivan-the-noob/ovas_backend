@@ -117,8 +117,8 @@
         <!--System Information Section-->
         <form method="POST" action="../../function/php/update_settings.php" enctype="multipart/form-data">
     <div class="app-req">
-        <h3>System Information</h3> 
         <div class="contents container mt-5">
+        <h3>System Information</h3> 
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label for="system-logo" class="form-label">System Logo</label>

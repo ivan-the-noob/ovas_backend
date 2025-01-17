@@ -168,13 +168,10 @@ body {
     overflow-x: auto;
 }
 .app-req h3{
-    padding: 30px 0 0 20px !important;
     color: #EBBF86 !important;
 }
 
-h3{
-    padding: 20px 30px; 
-}
+
 
 
 .table-remove-borders th,
@@ -313,12 +310,12 @@ tr:hover{
     color: #fff !important;
 }
 .pagination .page-item.active .page-link {
-    background-color: #5a220d;
-    border-color: #5a220d;
+    background-color: #EBBF86;
+    border-color: #EBBF86;
 }
 
 .pagination .page-item .page-link:hover {
-    background-color: #5a220d;
+    background-color: #EBBF86;
     color: white;
 }
 
@@ -369,3 +366,6 @@ tr:hover{
     color: green !important;
     font-weight: 800;
 }
+.btn-theme{
+    background-color: #74C2CD !important;
+  }

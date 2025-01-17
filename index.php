@@ -11,9 +11,6 @@ if (isset($_SESSION['email'])) {
   echo '';  
 }
 
-
-
-
 $userEmail = $_SESSION['email'] ?? null;
 
 $email = $_SESSION['email'] ?? null;
@@ -39,7 +36,7 @@ if ($email) {
       echo "Error: " . $e->getMessage();
   }
 } else {
-  echo "Session email is not set.";
+  echo null;
 }
 
 if ($userEmail) {

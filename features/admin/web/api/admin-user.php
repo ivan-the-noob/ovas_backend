@@ -164,8 +164,8 @@ try {
         </div>
          <!--Noticiation and Profile Admin End-->
         <div class="app-req">
-            <h3>Admin User List</h3>
             <div class="walk-in px-lg-5">
+            <h3>Admin User List</h3>
                 <div class="mb-3 x d-flex">
                     <div class="">
                         <div class="search-bars">
@@ -191,7 +191,7 @@ try {
                         });
                     </script>
 
-                    <button type="button" class=" btn-new" data-toggle="modal" data-target="#addCategoryModal">
+                    <button type="button" class="btn btn-theme text-white" data-toggle="modal" data-target="#addCategoryModal">
                         Add new
                     </button>
                 </div>
@@ -275,10 +275,10 @@ try {
                 <td><?php echo ucfirst(htmlspecialchars($user['role'])); ?></td>
                 <td>
                     <!-- Button to open the modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal-<?php echo $user['id']; ?>">
+                    <button type="button" class="btn btn-theme text-white" data-bs-toggle="modal" data-bs-target="#editUserModal-<?php echo $user['id']; ?>">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteUserModal-<?php echo $user['id']; ?>">
+                    <button type="button" class="btn btn-theme text-white" data-bs-toggle="modal" data-bs-target="#deleteUserModal-<?php echo $user['id']; ?>">
                         <i class="fas fa-trash-alt"></i>
                     </button>
 

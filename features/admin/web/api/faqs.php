@@ -118,8 +118,9 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
         </div>
         <!--Notification and Profile Admin End-->
         <div class="app-req">
-    <h3>FAQS</h3>
+   
     <div class="walk-in px-lg-5">
+    <h3>FAQS</h3>
         <div class="mb-3 x d-flex">
             <button type="button" class="btn-new" data-toggle="modal" data-target="#addCategoryModal">
                 Add new FAQ
@@ -185,7 +186,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'admin') {
                         }
 
                         echo '<td>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $row['id'] . '">Delete</button>
+                                <button type="button" class="btn btn-theme text-white" data-toggle="modal" data-target="#deleteModal' . $row['id'] . '">Delete</button>
                               </td>';
                         echo '</tr>';
 

@@ -292,6 +292,10 @@ th{
     text-overflow: ellipsis;
 }
 
+.btn-theme{
+    background-color: #74C2CD !important;
+  }
+
 
 
 

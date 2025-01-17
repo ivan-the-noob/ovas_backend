@@ -248,3 +248,7 @@ a{
     align-items: center;
 }
 
+
+.btn-theme{
+    background-color: #74C2CD !important;
+  }

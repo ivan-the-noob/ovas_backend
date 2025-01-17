@@ -184,9 +184,9 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         </div>
         <!--Pos Card with graphs-->
-        <div class="dashboard">
-            <h3>Dashboard</h3>
+        <div class="dashboard">  
             <div class="row card-box">
+            <h3>Dashboard</h3>
             <div class="col-md-8 justify-content-center mx-auto">
                 <div class="calendar-container">
                     <div id="appointmentCalendar"></div>

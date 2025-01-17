@@ -168,7 +168,6 @@ body {
     overflow-x: auto;
 }
 .app-req h3{
-    padding: 30px 0 0 20px !important;
     color: #EBBF86;
 }
 
@@ -352,4 +351,7 @@ tr:hover{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.btn-theme{
+    background-color: #74C2CD !important;
+  }
 

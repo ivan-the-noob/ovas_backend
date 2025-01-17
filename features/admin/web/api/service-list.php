@@ -119,9 +119,9 @@
             </div>
         </div>
         <!--Notification and Profile Admin End-->
-        <div class="app-req">
-            <h3>Service List</h3>
+        <div class="app-req"> 
             <div class="walk-in px-lg-5">
+            <h3>Service List</h3>
                 <div class="mb-3 x d-flex">
                     <div class="search">
                         <div class="search-bars">
@@ -145,7 +145,7 @@
                             });
                         });
                     </script>
-                    <button type="button" class=" btn-new" data-toggle="modal" data-target="#addCategoryModal">
+                    <button type="button" class="btn btn-theme text-white" data-toggle="modal" data-target="#addCategoryModal">
                         Add new
                     </button>
                 </div>
@@ -278,8 +278,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-theme text-whitey" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-theme text-white">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -301,7 +301,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <a href="../../function/php/delete_service.php?id=<?php echo $service['id']; ?>" class="btn btn-danger">Delete</a>
+                    <a href="../../function/php/delete_service.php?id=<?php echo $service['id']; ?>" class="btn btn-theme text-white">Delete</a>
                 </div>
             </div>
         </div>

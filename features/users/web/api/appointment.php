@@ -337,7 +337,7 @@ try {
                     <div class="mb-3 position-relative">
                       <div class="position-relative">
                         <span class="input-label" id="capitalizeInput">Pet Type:</span>
-                        <select class="form-control" id="petType" name="petType"
+                        <select class="form-control" id="petType" name="pet_type"
                           style="padding-left: 90px" required>
                           <option value=""></option>
                           <?php if (!empty($categories)): ?>
@@ -436,8 +436,8 @@ try {
                 </div>
                 <h6 class="d-flex mx-auto mb-2 mb-2 text-center d-flex justify-content-center text-black" style="margin-top: 30px;">Down Payment</h6>
                     <div class="owner-info">
-                    <div class="mt-3" style="padding-left: 80px;">
-                      <div class="d-flex  justify-content-center">
+                    <div class="mt-3">
+                      <div class=" d-flex flex-column align-items-center justify-content-center">
                       <label for="pay-via" class="form-label text-black">Pay Via</label>
                       <div class="d-flex justify-content-start pay-btn">
                       <button id="gcash-btn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#gcashModal" onclick="selectPayment('gcash', this)" style="height: 40px;">
@@ -515,7 +515,17 @@ try {
                         </div>
                     </div>
                   </div>
+                  </div>
+                       
+            </div>
+            
+          </div>
                     </div>
+                    <div class="d-flex text-black justify-content-center">
+                      <button id="book-btn" class="btn btn-primary text-black fw-bold d-flex justify-content-center mt-4" style="background-color:#74C2CD" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)" >
+                        Book Appointment
+                      </button>
+              </div>
                     
 
             <div class="modal fade" id="appointmentModals" tabindex="-1" role="dialog" aria-labelledby="appointmentModalsLabel" aria-hidden="true">
@@ -543,6 +553,7 @@ try {
                     </div>
                 </div>
             </div>
+           
 
 
             <script>
@@ -551,45 +562,46 @@ try {
                 }
 
                 function selectAppointment(action, button) {
-                    const buttons = document.querySelectorAll('.pay-btn button');
-                    buttons.forEach(btn => {
-                        btn.classList.remove('selected'); 
-                        btn.style.backgroundColor = ''; 
-                        btn.style.color = ''; 
-                        btn.style.borderColor = '#EBBF86'; 
-                    });
+                const buttons = document.querySelectorAll('.pay-btn button');
+                buttons.forEach(btn => {
+                    btn.classList.remove('selected'); 
+                    btn.style.backgroundColor = ''; 
+                    btn.style.color = ''; 
+                    btn.style.borderColor = '#EBBF86'; 
+                });
 
-                    button.classList.add('selected');
-                    button.style.backgroundColor = '#EBBF86';
-                    button.style.color = 'white';
-                    button.style.borderColor = '#EBBF86'; 
-                    document.getElementById('appointment_action').value = action;
+                button.classList.add('selected');
+                button.style.backgroundColor = '#EBBF86';
+                button.style.color = 'white';
+                button.style.borderColor = '#EBBF86'; 
 
-                    console.log('action: ' + document.getElementById('appointment_action').value);
+                const appointmentActionInput = document.getElementById('appointment_action');
+                if (appointmentActionInput) {
+                    appointmentActionInput.value = action;
+                } else {
+                    console.error("Element with ID 'appointment_action' not found.");
+                }
 
-                    const appointmentDetails = document.getElementById('appointment-details');
+                console.log('action: ' + action);
+
+                const appointmentDetails = document.getElementById('appointmentModals');
+                if (appointmentDetails) {
                     if (action === 'book') {
                         appointmentDetails.style.display = 'block'; 
-                        var myModal = new bootstrap.Modal(document.getElementById('appointmentModals'), {
+                        const myModal = new bootstrap.Modal(document.getElementById('appointmentModals'), {
                             keyboard: false
                         });
                         myModal.show();
                     } else {
                         appointmentDetails.style.display = 'none'; 
                     }
+                } else {
+                    console.error("Element with ID 'appointment-details' not found.");
                 }
+            }
+
             </script>
-              </div>
               
-              
-            
-            </div>
-            <div class="d-flex justify-content-center">
-                      <button id="book-btn" class="btn btn-primary text-white d-flex justify-content-center mt-4" style="background-color:#74C2CD" type="button" data-toggle="modal" data-target="#appointmentModals" onclick="selectAppointment('book', this)" >
-                        Book Appointment
-                      </button>
-                    </div>
-          </div>
           
 
 

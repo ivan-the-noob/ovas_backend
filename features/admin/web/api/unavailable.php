@@ -129,8 +129,8 @@
         </div>
         <!--Notification and Profile Admin End-->
         <div class="app-req">
-            <h3>Unvailable</h3>
             <div class="walk-in px-lg-5">
+            <h3>Unvailable</h3>
                 <div class="mb-3 x d-flex">
                     <div class="search">
                         <div class="search-bars">
@@ -138,7 +138,7 @@
                             <input type="text" id="searchInput" class="form-control" placeholder="Search...">
                         </div>
                     </div>
-                    <button type="button" class="btn-new" data-toggle="modal" data-target="#addCategoryModal">
+                    <button type="button" class="btn btn-theme text-white" data-toggle="modal" data-target="#addCategoryModal">
                         Add Unavailable
                     </button>
                 </div>
@@ -196,12 +196,12 @@
                     <td><?php echo htmlspecialchars($item['reason']); ?></td>
                     <td>
                         <!-- Edit Button triggers the modal -->
-                        <button type="button" data-toggle="modal" data-target="#editModal<?php echo $item['id']; ?>" title="Edit">
+                        <button type="button" class="btn btn-theme text-white" data-toggle="modal" data-target="#editModal<?php echo $item['id']; ?>" title="Edit">
                             <i class="fas fa-edit"></i>
                         </button>
 
                         <!-- Delete Button triggers the delete modal -->
-                        <button type="button" data-toggle="modal" data-target="#deleteModal<?php echo $item['id']; ?>" title="Delete" style="color: red;">
+                        <button type="button" class="btn btn-theme text-white" data-toggle="modal" data-target="#deleteModal<?php echo $item['id']; ?>" title="Delete" style="color: red;">
                             <i class="fas fa-trash-alt"></i>
                         </button>
 

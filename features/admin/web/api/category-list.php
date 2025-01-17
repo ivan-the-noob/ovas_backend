@@ -136,9 +136,11 @@ $unread_count = $notification_count_stmt->fetchColumn();
         </div>
         <!--Notification and Profile Admin End-->
         <div class="app-req">
-            <h3>Category List</h3>
+           
             <div class="walk-in px-lg-5">
+            <h3>Category List</h3>
                 <div class="mb-3 x d-flex">
+                    
                     <div class="search">
                         <div class="search-bars">
                             <i class="fa fa-magnifying-glass"></i>
@@ -164,7 +166,7 @@ $unread_count = $notification_count_stmt->fetchColumn();
                             });
                         });
                     </script>
-                    <button type="button" class="btn-new" data-toggle="modal" data-target="#addCategoryModal">
+                    <button type="button" class="btn btn-theme text-white" data-toggle="modal" data-target="#addCategoryModal">
                         Add new
                     </button>
                 </div>
@@ -218,13 +220,13 @@ $unread_count = $notification_count_stmt->fetchColumn();
                                     <td><?php echo htmlspecialchars($category['category_name']); ?></td>
                                     <td>
                                         <!-- Update Button triggers the modal -->
-                                        <button type="button" data-toggle="modal"
+                                        <button type="button" class="btn btn-theme text-white" data-toggle="modal"
                                             data-target="#editModal<?php echo $category['id']; ?>" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </button>
 
                                         <!-- Delete Button triggers the delete modal -->
-                                        <button type="button" data-toggle="modal"
+                                        <button type="button" data-toggle="modal" class="btn btn-theme text-white"
                                             data-target="#deleteModal<?php echo $category['id']; ?>" title="Delete"
                                             style="color: red;">
                                             <i class="fas fa-trash-alt"></i>

@@ -116,7 +116,7 @@
     <h3>Point of Sales</h3>
     <form action="../../function/php/save_pos.php" method="POST">
         <div class="d-flex" style="padding-left: 30px;">
-        <a href="transaction.php" class=" btn fw-bold text-white" style="background-color: #EBBF86;">Transaction</a>
+        <a href="transaction.php" class=" btn fw-bold text-white" style="background-color:#74C2CD;">Transaction</a>
         </div>
         <div class="container field">
             <div class="row justify-content-center">
@@ -125,7 +125,7 @@
                         <div class="d-flex gap-2 align-items-center justify-content-end">
                             <p class="mb-0 w-50">Existing Appointment?</p>
                             <input type="text" class="form-control w-50" placeholder="Search code...">
-                            <button class="btn text-white" style="background-color: #EBBF86;">Enter</button>
+                            <button class="btn text-white" style="background-color: #74C2CD;">Enter</button>
                         </div>
                         <hr>
                         <h3>Pet Owner Name: <input type="text" class="form-control " name="owner_name" placeholder="Name" required></h3>

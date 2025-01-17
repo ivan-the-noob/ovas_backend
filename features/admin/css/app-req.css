@@ -416,8 +416,8 @@ ul a:hover{
     color: #fff !important;
 }
 .pagination .page-item.active .page-link {
-    background-color: #5a220d;
-    border-color: #5a220d;
+    background-color: #EBBF86;;
+    border-color: #EBBF86;;
 }
 
 .pagination .page-item .page-link:hover {
@@ -464,3 +464,11 @@ ul a:hover{
     text-overflow: ellipsis;
 }
 
+.app-num{
+    background-color:  #74C2CD !important;
+    color:#EBBF86 !important;
+}
+
+.btn-theme{
+    background-color: #74C2CD !important;
+  }

@@ -249,6 +249,7 @@
 .calendar-container,
 #appointmentCalendar {
     border: none !important; 
+    
 }
 
 table{
@@ -276,7 +277,7 @@ table{
 
 
 .p_date p{
-    color: #EBBF86;
+    color: #F26318;
     font-size: 25px;
     font-weight: 600;
 }
@@ -386,6 +387,7 @@ th a{
 .fc-toolbar-title{
     padding-top: 15px;
     font-size: 20px !important;
+    color: #F26318;
 }
 .fc-daygrid-day {
     position: relative;
@@ -493,7 +495,7 @@ th a{
     height: auto !important; /* Remove fixed height */
 }
 .fc-col-header-cell-cushion{
-    color: #EBBF86 !important;
+    color: #F26318 !important;
 }
 
 .fc .fc-scroller-harness-liquid{

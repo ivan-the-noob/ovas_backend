@@ -172,6 +172,7 @@ if (isset($_SESSION['alert'])) {
                               $contact = $row['contact_number'];
                               $email = $row['email'];
                               $address = $row['address'];
+                              $petName = $row['pet_name'];
                               $petType = $row['pet_type'];
                               $breed = $row['breed'];
                               $age = $row['age'];
@@ -195,16 +196,19 @@ if (isset($_SESSION['alert'])) {
                               echo '<li class="list-group-item current-appointment">
                               <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                 <div>
-                                 <p class="mb-1 status btn btn-primary ' . htmlspecialchars($statusClass) . '">' . ($status === 'confirm' ? 'Confirmed' : htmlspecialchars($status)) . '</p>
-                                  <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
-                                  <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
-                                  <p>Owner: ' . htmlspecialchars($ownerName) . '</p>
+                                  <p class="mb-1 status btn btn-primary ' . htmlspecialchars($statusClass) . '">' . 
+                                    ($status === 'confirm' ? 'CONFIRMED' : ($status === 'pending' ? 'PENDING' : htmlspecialchars($status))) . 
+                                    '</p>
+                                  <p class="mb-1">Owner: ' . ucfirst(strtolower(htmlspecialchars($ownerName))) . '</p>
+                                  <p class="mb-1">Service: ' . ucfirst(strtolower(htmlspecialchars($serviceType))) . '</p>
+                                  <p class="mb-1">Pet: ' . ucfirst(strtolower(htmlspecialchars($petType))) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
+                                 
                                 </div>
                                 <div class="mt-3 mt-md-0 text-md-right">
                                   <p class="mb-1">Date: ' . htmlspecialchars($appointmentDate) . '</p>
                                   <p class="mb-1">Time: ' . htmlspecialchars($appointmentTime) . '</p>
                                   <div class="d-flex gap-1">
-                                  <button class="btn btn-primary" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>';
+                                  <button class="btn btn-theme" data-toggle="modal" data-target="#modal' . $appointmentId . '">View Info</button>';
                                     
                                   if ($status === 'pending') {
                                       echo '<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal' . $appointmentId . '">Cancel</button>';
@@ -230,13 +234,13 @@ if (isset($_SESSION['alert'])) {
                                               <div class="modal-dialog modal-xl">
                                                   <div class="modal-content">
                                                       <div class="modal-header">
-                                                          <h5 class="modal-title" id="reschedModalLabel">Select Reschedule Date</h5>
+                                                          <h5 class="modal-title fw-bold" id="reschedModalLabel">RESCHEDULE</h5>
                                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                       </div>
                                                       <div class="modal-body">
                                                           <form id="rescheduleForm" method="POST" action="../../function/php/updateAppointment.php">
                                                               <div class="d-flex gap-2" style="font-size: 20px; padding-left: 50px;">
-                                                                  <p>Selected Date:</p>
+                                                                  <p class="blue-theme">Selected Date:</p>
                                                                   <div class="selected-date"><p></p></div>
                                                               </div>
                                                               <div id="appointmentCalendar"></div>
@@ -261,7 +265,7 @@ if (isset($_SESSION['alert'])) {
                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                       <div class="modal-content">
                                         <div class="modal-header d-flex justify-content-between">
-                                          <h5 class="modal-title" id="modalLabel' . $appointmentId . '">Appointment Details</h5>
+                                          <h5 class="modal-title" id="modalLabel' . $appointmentId . '">APPOINTMENT DETAILS</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                            </button>
@@ -271,68 +275,79 @@ if (isset($_SESSION['alert'])) {
                                             <div class="owner-info">
                                               <div class="form-group">
                                                 <label for="ownerName' . $appointmentId . '">Name</label>
-                                                <input type="text" class="form-control" id="ownerName' . $appointmentId . '" value="' . htmlspecialchars($ownerName) . '" readonly>
+                                                <input type="text" class="form-control" data-capitalize="true" id="ownerName' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($ownerName))) . '" readonly>
                                               </div>
                                               <div class="form-group">
-                                                <label for="contact' . $appointmentId . '">Contact</label>
-                                                <input type="text" class="form-control" id="contact' . $appointmentId . '" value="' . htmlspecialchars($contact) . '" readonly>
+                                                <label for="contact' . $appointmentId . '">Contact Number</label>
+                                                <input type="text" class="form-control" data-capitalize="true" id="contact' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($contact)))  . '" readonly>
                                               </div>
                                               <div class="form-group">
                                                 <label for="email' . $appointmentId . '">Email</label>
-                                                <input type="email" class="form-control" id="email' . $appointmentId . '" value="' . htmlspecialchars($email) . '" readonly>
+                                                <input type="email" class="form-control" data-capitalize="true" id="email' . $appointmentId . '" value="'. ucfirst(strtolower(htmlspecialchars($email))) . '" readonly>
                                               </div>
                                               <div class="form-group">
                                                 <label for="address' . $appointmentId . '">Address</label>
-                                                <input type="text" class="form-control" id="address' . $appointmentId . '" value="' . htmlspecialchars($address) . '" readonly>
+                                                <input type="text" class="form-control" id="address' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($address))) . '" readonly>
                                               </div>
                                             </div>
                                             
                                             <h5 class="mt-4 d-flex justify-content-center mx-auto">Pet Information</h5>
                                             <div class="owner-info">
+                                            <div class="form-group">
+                                                <label for="petName' . $appointmentId . '">Pet Name</label>
+                                                <input type="text" class="form-control" id="petName' . $appointmentId . '" value="'. ucfirst(strtolower(htmlspecialchars($petName))) . '" readonly>
+                                              </div>
                                               <div class="form-group">
                                                 <label for="petType' . $appointmentId . '">Pet Type</label>
-                                                <input type="text" class="form-control" id="petType' . $appointmentId . '" value="' . htmlspecialchars($petType) . '" readonly>
+                                                <input type="text" class="form-control" id="petType' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($petType))) . '" readonly>
                                               </div>
                                               <div class="form-group">
                                                 <label for="breed' . $appointmentId . '">Breed</label>
-                                                <input type="text" class="form-control" id="breed' . $appointmentId . '" value="' . htmlspecialchars($breed) . '" readonly>
+                                                <input type="text" class="form-control" id="breed' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($breed))) . '" readonly>
                                               </div>
                                               <div class="form-group">
                                                 <label for="age' . $appointmentId . '">Age</label>
-                                                <input type="text" class="form-control" id="age' . $appointmentId . '" value="' . htmlspecialchars($age) . ' months" readonly>
+                                                <input type="text" class="form-control" id="age' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($age))) . ' months" readonly>
                                               </div>
+                                              
                                             </div>
 
                                             <h5 class="mt-4 d-flex justify-content-center mx-auto">Services</h5>
                                             <div class="owner-info">
                                               <div class="form-group">
                                                 <label for="serviceCategory' . $appointmentId . '">Service Category</label>
-                                                <input type="text" class="form-control" id="serviceCategory' . $appointmentId . '" value="' . htmlspecialchars($serviceCategory) . '" readonly>
+                                                <input type="text" class="form-control" id="serviceCategory' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($serviceCategory))) . '" readonly>
                                               </div>
                                               <div class="form-group">
                                                 <label for="serviceType' . $appointmentId . '">Service</label>
-                                                <input type="text" class="form-control" id="serviceType' . $appointmentId . '" value="' . htmlspecialchars($serviceType) . '" readonly>
+                                                <input type="text" class="form-control" id="serviceType' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($serviceType))) . '" readonly>
                                               </div>
+                                               <div class="form-group">
+                                                <label for="totalPayment' . $appointmentId . '">Service Price</label>
+                                                <input type="text" class="form-control" id="totalPayment' . $appointmentId . '" value="₱' . ucfirst(strtolower(htmlspecialchars($totalPayment))) . '" readonly>
+                                              </div>
+                                               
                                             </div>
 
                                             <h5 class="mt-4 d-flex justify-content-center mx-auto">Payment Details</h5>
                                             <div class="owner-info">
-                                              <div class="form-group">
-                                                <label for="totalPayment' . $appointmentId . '">Total Payment</label>
-                                                <input type="text" class="form-control" id="totalPayment' . $appointmentId . '" value="₱' . htmlspecialchars($totalPayment) . '" readonly>
-                                              </div>
+                                             
                                               <div class="form-group">
                                                 <label for="paymentMethod' . $appointmentId . '">Payment Method</label>
-                                                <input type="text" class="form-control" id="paymentMethod' . $appointmentId . '" value="' . htmlspecialchars($paymentMethod) . '" readonly>
+                                                <input type="text" class="form-control" id="paymentMethod' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($paymentMethod))) . '" readonly>
                                               </div>
                                               <div class="form-group">
                                                 <label for="gcashScreenshot' . $appointmentId . '">GCash Screenshot</label>
-                                                <input type="text" class="form-control" id="gcashScreenshot' . $appointmentId . '" value="' . htmlspecialchars($gcashScreenshot) . '" readonly>
+                                                <input type="text" class="form-control" id="gcashScreenshot' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($gcashScreenshot))) . '" readonly>
                                                 <img src="../../../../assets/img/gcash/' . htmlspecialchars($gcashScreenshot) . '" alt="GCash Screenshot" style="max-width: 100%; height: auto;">
                                               </div>
                                               <div class="form-group">
-                                                <label for="reference' . $appointmentId . '">Reference</label>
-                                                <input type="text" class="form-control" id="reference' . $appointmentId . '" value="' . htmlspecialchars($reference) . '" readonly>
+                                                <label for="reference' . $appointmentId . '">Reference Number</label>
+                                                <input type="text" class="form-control" id="reference' . $appointmentId . '" value="' . ucfirst(strtolower(htmlspecialchars($reference))) . '" readonly>
+                                              </div>
+                                              <div class="form-group"> 
+                                                <label for="totalPayment' . $appointmentId . '">Down Payment</label>
+                                               <input type="text" class="form-control" id="totalPayment" value="₱250.00" readonly>
                                               </div>
                                             </div>
                                           </form>
@@ -349,24 +364,24 @@ if (isset($_SESSION['alert'])) {
                                   <div class="modal-dialog modal-dialog-centered" role="document">
                                       <div class="modal-content">
                                           <div class="modal-header d-flex justify-content-between">
-                                              <h5 class="modal-title" id="deleteModalLabel' . $appointmentId . '">Cancel Appointment</h5>
+                                              <h5 class="modal-title" id="deleteModalLabel' . $appointmentId . '">CANCELLATION</h5>
                                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                               </button>
                                           </div>
                                           <form action="../../function/php/delete_appointment.php" method="POST">
-                                          <div class="modal-body">
-                                              <p>Are you sure you want to cancel this appointment? Please provide a reason for cancellation.</p>
+                                          <div class="modal-body text-black">
+                                              <p class="text-black">Are you sure you want to cancel this appointment? Please provide a reason for cancellation.</p>
                                               <div class="form-group">
-                                                  <label for="reasonCancel' . $appointmentId . '">Reason for Cancellation</label>
+                                                  <label for="reasonCancel' . $appointmentId . '" class="blue-theme">Reason for Cancellation</label>
                                                   <textarea class="form-control" id="reasonCancel' . $appointmentId . '" name="reason_cancel" rows="4" required></textarea>
                                               </div>
                                           </div>
                                           <div class="modal-footer">
                                               <!-- Form triggers PHP script to update the appointment -->
                                                   <input type="hidden" name="id" value="' . $appointmentId . '">
-                                                  <button type="submit" class="btn btn-danger">Yes, Cancel Appointment</button>
-                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Keep Appointment</button>
+                                                  <button type="submit" class="btn btn-danger">CONFIRM</button>
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
                                               </form>
                                           </div>
                                       </div>
@@ -374,6 +389,7 @@ if (isset($_SESSION['alert'])) {
                               </div>';
                           }
                       } else {
+                        echo "No ongoing appointments.";
                           
                       }
                   } else {
@@ -412,6 +428,7 @@ if (isset($_SESSION['alert'])) {
                               $email = $row['email'];
                               $address = $row['address'];
                               $petType = $row['pet_type'];
+                              $petName = $row['pet_name'];
                               $breed = $row['breed'];
                               $age = $row['age'];
                               $serviceCategory = $row['service_category'];
@@ -439,10 +456,11 @@ if (isset($_SESSION['alert'])) {
                               echo '<li class="list-group-item past-appointment">
                               <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                   <div>
+                                      <p class="mb-1">Owner: ' . htmlspecialchars($ownerName) . '</p>
                                       <p class="mb-1 status btn btn-primary ' . htmlspecialchars($statusClass) . '">' . htmlspecialchars($status) . '</p>
                                       <p class="mb-1">Service: ' . htmlspecialchars($serviceType) . '</p>
                                       <p class="mb-1">Pet: ' . htmlspecialchars($petType) . ', ' . htmlspecialchars($age) . ' Yr(s) Old</p>
-                                      <p class="mb-1">Owner: ' . htmlspecialchars($ownerName) . '</p>';
+                                      ';
                                     
                                       
                                       if ($status === 'cancelled' && !empty($reasonCancel)) {
@@ -498,7 +516,7 @@ if (isset($_SESSION['alert'])) {
                                     </div>';         
                                   }
                                 } else {
-                                    echo "Empty Appointments.";
+                                     
                                 }
                             } else {
                                 echo "No email found in session.";
@@ -525,6 +543,8 @@ if (isset($_SESSION['alert'])) {
 
 
 </body>
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('appointmentCalendar');
@@ -626,7 +646,7 @@ function checkBookingCapacity(dayCell, formattedDate) {
       var maxBooking = response.maxBooking;
 
       if (bookingCount >= maxBooking) {
-        dayCell.style.backgroundColor = '#F65859'; 
+        dayCell.style.backgroundColor = '#F26318'; 
         dayCell.style.pointerEvents = 'none';
         dayCell.style.cursor = 'not-allowed';
       } else {
@@ -638,12 +658,12 @@ function checkBookingCapacity(dayCell, formattedDate) {
 }
 
 function enableDayCell(dayCell, formattedDate) {
-  dayCell.style.backgroundColor = '#9EF3A0';
+  dayCell.style.backgroundColor = '#0097B2';
   dayCell.addEventListener('mouseover', function () {
-    dayCell.style.backgroundColor = '#73BD1E'; 
+    dayCell.style.backgroundColor = '#76d3e4'; 
   });
   dayCell.addEventListener('mouseout', function () {
-    dayCell.style.backgroundColor = '#9EF3A0'; 
+    dayCell.style.backgroundColor = '#0097B2'; 
   });
 
   dayCell.addEventListener('click', function () {
@@ -670,8 +690,6 @@ function enableDayCell(dayCell, formattedDate) {
 });
 
 }
-
-
 
 
 // Disable time button helper

@@ -777,6 +777,14 @@ th a{
 }
 
 .form-group input {
-  text-transform: capitalize;
   padding: 10px !important;
+}
+
+.btn-theme{
+  background-color: #EBBF86 !important;
+  border-radius: 5px;
+}
+
+.modal-title, .blue-theme{
+  color: #74c2cd !important;
 }

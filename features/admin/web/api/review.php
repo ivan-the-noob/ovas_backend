@@ -130,7 +130,7 @@ $latestApprovedReviews = array_filter($reviews, function($review) {
         </div>
          <!--Notification and Profile Admin End-->
         <div class="app-req">
-            <h3>User Reviews</h3>
+         
             <div class="walk-in px-lg-5">
                 <div class="mb-3 x d-flex">
             
@@ -151,6 +151,7 @@ $latestApprovedReviews = array_filter($reviews, function($review) {
 
 
 </style>
+<h3>User Reviews</h3>
 <table class="table table-hover table-remove-borders">
     <thead class="thead-light">
         <tr>
@@ -179,7 +180,7 @@ $latestApprovedReviews = array_filter($reviews, function($review) {
                     <!-- Check icon to update view status -->
                     <form action="../../function/php/update_review.php" method="POST" style="display:inline;">
                         <input type="hidden" name="review_id" value="<?php echo $review['id']; ?>">
-                        <button type="submit" class="btn btn-success btn-sm" title="Approve">
+                        <button type="submit" class="btn btn-theme text-white" title="Approve">
                             <i class="fas fa-check"></i>
                         </button>
                     </form>
@@ -187,7 +188,7 @@ $latestApprovedReviews = array_filter($reviews, function($review) {
                     <!-- Delete button -->
                     <form id="deleteReviewForm" action="../../function/php/delete_review.php" method="POST" style="display:inline;">
                         <input type="hidden" name="review_id" id="review_id">
-                        <button type="button" class="btn btn-danger btn-sm" title="Delete" onclick="confirmDelete(<?php echo $review['id']; ?>)">
+                        <button type="button" class="btn btn-theme text-white" title="Delete" onclick="confirmDelete(<?php echo $review['id']; ?>)">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>
@@ -202,8 +203,8 @@ $latestApprovedReviews = array_filter($reviews, function($review) {
                                         <p>Are you sure you want to delete this review?</p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" id="confirmDeleteButton" class="btn btn-danger">Delete</button>
+                                        <button type="button" class=" btn btn-theme text-white" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" id="confirmDeleteButton" class="btn btn btn-theme text-white">Delete</button>
                                     </div>
                                 </div>
                             </div>

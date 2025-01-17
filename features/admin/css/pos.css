@@ -179,7 +179,7 @@ body {
     margin: 5px;
 }
 .receipt .add{
-    background-color: #EBBF86;
+    background-color: #74C2CD;
     border: none;
     text-align: center;
     margin: 10px 2px;
@@ -235,7 +235,7 @@ body {
 
 .save{
     border: none;
-    background-color: #EBBF86;
+    background-color: #74C2CD;
     color: #fff;
     padding: 5px;
     border-radius: 5px;
@@ -276,6 +276,10 @@ h5{
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.btn-theme{
+    background-color: #74C2CD !important;
+  }
 
 
 

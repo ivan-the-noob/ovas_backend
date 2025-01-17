@@ -466,3 +466,7 @@ ul a:hover{
 }
 
 /*Appointment Request End*/
+
+.btn-theme{
+    background-color: #74C2CD !important;
+  }

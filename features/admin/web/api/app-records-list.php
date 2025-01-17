@@ -190,7 +190,7 @@
           
     <div class="container">
     <div class="d-flex justify-content-end w-100">
-        <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#addRecordModal">Add Record</button>
+        <button type="button" class="btn btn-theme text-white mb-2" data-bs-toggle="modal" data-bs-target="#addRecordModal">Add Record</button>
     </div>
     <table class="table table-hover table-remove-borders">
     <thead class="thead-light">

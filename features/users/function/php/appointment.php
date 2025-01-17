@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contact_number = $_POST['contactNum'] ?? '';
     $email = $_POST['ownerEmail'] ?? '';
     $address = $_POST['ownerAddress'] ?? '';
-    $pet_type = $_POST['pet_name'] ?? '';
-    $pet_name = $_POST['petName'] ?? '';
+    $pet_type = $_POST['pet_type'] ?? '';
+    $pet_name = $_POST['pet_name'] ?? '';
     $breed = $_POST['breed'] ?? '';
     $age = $_POST['age'] ?? 0;
     $selected_service = $_POST['selectedService'] ?? '';
