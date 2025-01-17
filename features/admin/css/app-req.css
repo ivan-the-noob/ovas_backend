@@ -169,10 +169,11 @@ body {
 
 .card{
     height: 70vh;
+    background-color: #EBBF86;
 }
 
 .cards .card-text, .card-title{
-    background-color: #EBBF86;
+    background-color: #fff;
     padding: 5px;
 }
 

@@ -7,9 +7,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 
 // Include database connection
 require_once '../../../../db.php';
-
-
-
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
 
 $alert = '';
 
@@ -118,7 +116,7 @@ if (isset($_SESSION['alert'])) {
        
       </div>
       <div class="col-md-5 mt-4">
-          <h3><?php echo htmlspecialchars($name . ' ' . $lastname); ?></h3>
+          <h3><?php echo htmlspecialchars($name . ' ' . $last_name); ?></h3>
           <hr>
           <p><?php echo htmlspecialchars($address); ?></p>
           <p><?php echo htmlspecialchars($email); ?></p>

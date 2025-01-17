@@ -5,11 +5,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
     exit();
 }
 
-require_once '../../../../db.php'; 
-
-$name = isset($_SESSION['name']) ? $_SESSION['name'] : 'Name not set';
 $email = isset($_SESSION['email']) ? $_SESSION['email'] : 'Email not set';
-$lastname = isset($_SESSION['last_name']) ? $_SESSION['last_name'] : null;
+require_once '../../../../db.php';
 
 $alert = '';
 
@@ -119,7 +116,7 @@ if (isset($_SESSION['alert'])) {
         <input type="file" id="imageUpload" name="image" style="display: none;" accept="image/*">
       </div>
       <div class="col-md-5 mt-4">
-          <h3><?php echo htmlspecialchars($name . ' ' . $lastname); ?></h3>
+          <h3><?php echo htmlspecialchars($name . ' ' .$last_name); ?></h3>
           <hr>
           <p><?php echo htmlspecialchars($address); ?></p>
           <p><?php echo htmlspecialchars($email); ?></p>

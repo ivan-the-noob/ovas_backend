@@ -162,10 +162,19 @@
 }
 
 .modal-body .owner-info{
+    background-color: #EBBF86;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+
+.modal-body .owner-infos{
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     padding: 20px;
 }
+
+
+
 .modal-body p{
     font-size: 16px;
 }
@@ -449,7 +458,7 @@ th a{
     left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #fff; 
+    color: #000; 
     pointer-events: none;
     font-size: 0.9em;
     font-weight: 500;
@@ -602,14 +611,14 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .form-control{
-    background-color: #EBBF86;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     border-radius: 5px;
 }
 
 .form-control:focus{
-    background-color: #EBBF86;
-    color: #fff;
+    background-color: #fff;
+    color:#000;
     border: 2px solid #fff;
     outline: none !important;
 }

@@ -25,13 +25,17 @@
                         <?php
                             session_start();
                             require '../../../../db.php';
-                            include '../../function/php/process_login.php'
+                            include '../../function/php/process_login.php';
+
+                            $submittedEmail = isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '';
                             
                         ?>
                         <form method="POST" action="login.php">
-                            <div class="mb-3">
-                                <input type="email" class="form-control" name="email" id="emailInput" placeholder="Enter your email" required>
-                            </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" name="email" id="emailInput" 
+                                placeholder="Enter your email" required 
+                                value="<?= $submittedEmail; ?>">
+                        </div>
                             <div class="mb-3">
                                 <input type="password" class="form-control" name="password" id="passwordInput" placeholder="Enter password" required>
                             </div>

@@ -377,13 +377,13 @@ try {
                 <!-- Services -->
                 <div class="col-md-6">
                   <h6 class="d-flex mx-auto mb-2 text-center d-flex justify-content-center text-black ">Services</h6>
-                  <div class="owner-info">
+                  <div class="owner-infos">
                     <div class=" justify-content-center gap-1">
                     <div class="mb-3">
                       <label for="serviceCategory" class="form-label text-black">Service Category</label>
                       <div class="dropdowns">
                       <button class="btn  w-100 dropdown-toggle text-black" type="button"
-                              id="serviceCategoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                              style ="background-color: #EBBF86;" id="serviceCategoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Select Category
                       </button>
                         <div class="dropdown-menu" aria-labelledby="serviceCategoryDropdown">
@@ -399,7 +399,7 @@ try {
                       <label for="service" class="form-label text-black">Service</label>
                       <div class="dropdowns">
                       <button class="btn  w-100 dropdown-toggle text-black" type="button"
-                              id="serviceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                      style ="background-color: #EBBF86;" id="serviceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Select Service
                       </button>
                         <div class="dropdown-menu" aria-labelledby="serviceDropdown">
@@ -435,7 +435,7 @@ try {
                   
                 </div>
                 <h6 class="d-flex mx-auto mb-2 mb-2 text-center d-flex justify-content-center text-black" style="margin-top: 30px;">Down Payment</h6>
-                    <div class="owner-info">
+                    <div class="owner-infos">
                     <div class="mt-3">
                       <div class=" d-flex flex-column align-items-center justify-content-center">
                       <label for="pay-via" class="form-label text-black">Pay Via</label>
